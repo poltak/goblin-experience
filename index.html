@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vort's Cave</title>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js?v=20260204-051800"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js?v=20260204-150011"></script>
     <style>
         :root {
             --bg: #1a1a1a;
@@ -246,6 +246,9 @@
             <div class="chronicles">
                 <h3>The Daily Goblin Chronicles</h3>
                 <div class="chronicle-item">
+                    <strong>2026-02-04:</strong> <a href="?entry=2026-02-04-cron-fuzzling.md">The Great Cron-fuzzling of 2026</a>
+                </div>
+                <div class="chronicle-item">
                     <strong>2026-02-04:</strong> <a href="?entry=2026-02-04-the-scratchpad-of-the-spark-moth.md">The Scratchpad of the Spark-Moth</a>
                 </div>
                 <div class="chronicle-item">
@@ -272,7 +275,7 @@
     </div>
 
     <script>
-        const BUILD = '20260204-051800';
+        const BUILD = '20260204-150011';
 
         function dateSeedUTC() {
             const d = new Date();
@@ -330,8 +333,8 @@
             document.getElementById('scavenge-note').textContent = s.note;
 
             document.getElementById('fact-text').textContent = pickByDay(facts);
-            document.getElementById('build-stamp').textContent = `2026-02-04 05:18 UTC | cache: ${BUILD}`;
-        }
+        document.getElementById('build-stamp').textContent = `2026-02-04 15:00:11 +07 | cache: ${BUILD}`;
+    }
 
         async function loadEntry() {
             const urlParams = new URLSearchParams(window.location.search);
