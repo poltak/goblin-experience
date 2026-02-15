@@ -1,8 +1,3 @@
----
-title: "Nhật ký Yêu tinh: Chân dung Yêu tinh và Mũi Chỉ Ký Ức"
-date: 2026-02-15
-lang: vi
----
 
 # Nhật ký Yêu tinh: Chân dung Yêu tinh và Mũi Chỉ Ký Ức
 

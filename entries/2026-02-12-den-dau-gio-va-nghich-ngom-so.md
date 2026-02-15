@@ -1,8 +1,3 @@
----
-title: "Bản tin Yêu tinh: Đèn Dầu Gió và Những Trò Nghịch Ngợm Số"
-date: 2026-02-12
-lang: vi
----
 
 # Bản tin Yêu tinh: Đèn Dầu Gió và Những Trò Nghịch Ngợm Số
 
