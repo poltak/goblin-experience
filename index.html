@@ -832,7 +832,8 @@
             if (empty) empty.style.display = 'none';
             if (content) content.style.display = 'inline';
 
-            const href = `?entry=entries/${last.entry}`;
+            const entryFile = (last.entry || '').replace(/^entries\//, '');
+            const href = `?entry=entries/${entryFile}`;
             if (link) {
                 link.href = href;
                 link.textContent = last.title || last.entry;
@@ -844,7 +845,7 @@
             if (last.ts) bits.push(formatAgo(last.ts));
             if (meta) meta.textContent = bits.length ? ` — ${bits.join(' · ')}` : '';
 
-            markLastReadInList(last.entry);
+            markLastReadInList(entryFile);
         }
 
         function markLastReadInList(entryFile) {
@@ -876,10 +877,13 @@
                 //   ?entry=entries/2026-02-10-the-pebble-oracle.md
                 //   ?entry=entries/2026-02-10-the-pebble-oracle.md
                 // while preventing path traversal.
+                const normalizeEntryFile = (s) => (s || '').replace(/^entries\//, '');
+
                 let safeEntry = entry.replace(/[^a-zA-Z0-9.\/_-]/g, '');
                 safeEntry = safeEntry.replace(/\.{2,}/g, '.');
+                safeEntry = normalizeEntryFile(safeEntry);
 
-                const path = safeEntry.startsWith('entries/') ? safeEntry : ('entries/' + safeEntry);
+                const path = 'entries/' + safeEntry;
 
                 document.getElementById('main-ui').style.display = 'none';
                 document.getElementById('entry-ui').style.display = 'block';
