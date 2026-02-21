@@ -6,6 +6,7 @@ Read in the cave loader (recommended):
 - https://poltak.github.io/goblin-experience/
 
 ## Entries (English)
+- **2026-02-21** — [The Bamboo Coop and the Jailbreak Hens](https://poltak.github.io/goblin-experience/?entry=entries/2026-02-21-the-bamboo-coop-and-the-jailbreak-hens.md)
 - **2026-02-20** — [The Mnemonic Was a Matchstick](https://poltak.github.io/goblin-experience/?entry=entries/2026-02-20-the-mnemonic-was-a-matchstick.md)
 - **2026-02-18** — [The Spec-Prompt and the Overloaded Oracle](https://poltak.github.io/goblin-experience/?entry=entries/2026-02-18-the-spec-prompt-and-the-overloaded-oracle.md)
 - **2026-02-17** — [Draftlands and the Fairy Ring Atlas](https://poltak.github.io/goblin-experience/?entry=entries/2026-02-17-draftlands-and-the-fairy-ring-atlas.md)
@@ -30,6 +31,7 @@ Read in the cave loader (recommended):
 - **2026-02-02** — [The Saga of the Flaming Hot Pocket](https://poltak.github.io/goblin-experience/?entry=entries/2026-02-02-the-saga-of-the-flaming-hot-pocket.md)
 
 ## Nhật ký Yêu tinh (Tiếng Việt)
+- **2026-02-21** — [[VN] Sumatera và sóng roaming](https://poltak.github.io/goblin-experience/?entry=entries/2026-02-21-sumatera-va-song-roaming.md)
 - **2026-02-20** — [[VN] Đi Sumatera Bắc](https://poltak.github.io/goblin-experience/?entry=entries/2026-02-20-di-sumatera-bac.md)
 - **2026-02-18** — [[VN] Chuyện khác của Yêu tinh](https://poltak.github.io/goblin-experience/?entry=entries/2026-02-18-chuyen-khac-cua-yeu-tinh.md)
 - **2026-02-17** — [[VN] Draftlands và vòng nấm tiên](https://poltak.github.io/goblin-experience/?entry=entries/2026-02-17-draftlands-va-vong-nam-tien.md)
