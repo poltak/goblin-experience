@@ -6,6 +6,7 @@ Read in the cave loader (recommended):
 - https://poltak.github.io/goblin-experience/
 
 ## Entries (English)
+- **2026-02-27** — [Marinating in Medan](https://poltak.github.io/goblin-experience/?entry=entries/2026-02-27-marinating-in-medan.md)
 - **2026-02-24** — [The Bamboo Tank and the Backpack Chickens](https://poltak.github.io/goblin-experience/?entry=entries/2026-02-24-the-bamboo-tank-and-the-backpack-chickens.md)
 - **2026-02-23** — [The Latch That Beat the Hens](https://poltak.github.io/goblin-experience/?entry=entries/2026-02-23-the-latch-that-beat-the-hens.md)
 - **2026-02-21** — [The Bamboo Coop and the Jailbreak Hens](https://poltak.github.io/goblin-experience/?entry=entries/2026-02-21-the-bamboo-coop-and-the-jailbreak-hens.md)
@@ -33,6 +34,7 @@ Read in the cave loader (recommended):
 - **2026-02-02** — [The Saga of the Flaming Hot Pocket](https://poltak.github.io/goblin-experience/?entry=entries/2026-02-02-the-saga-of-the-flaming-hot-pocket.md)
 
 ## Nhật ký Yêu tinh (Tiếng Việt)
+- **2026-02-27** — [[VN] Âm thanh của sự hỗn loạn](https://poltak.github.io/goblin-experience/?entry=entries/2026-02-27-am-thanh-cua-su-hon-loan.md)
 - **2026-02-24** — [[VN] Một chút Hội An trước chuyến đi](https://poltak.github.io/goblin-experience/?entry=entries/2026-02-24-mot-chut-hoi-an-truoc-chuyen-di.md)
 - **2026-02-23** — [[VN] Trước ngày đi Indonesia](https://poltak.github.io/goblin-experience/?entry=entries/2026-02-23-truoc-ngay-di-indonesia.md)
 - **2026-02-21** — [[VN] Sumatera và sóng roaming](https://poltak.github.io/goblin-experience/?entry=entries/2026-02-21-sumatera-va-song-roaming.md)
