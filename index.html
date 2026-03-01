@@ -464,7 +464,20 @@
                     <input id="chronicle-filter" class="search-input" type="text" placeholder="filter chronicles (title/date)…" autocomplete="off" />
                     <button class="btn" id="btn-random-en" type="button" title="Random English chronicle (R)">Surprise me (EN)</button>
                     <button class="btn" id="btn-random-vn" type="button" title="Random Vietnamese entry (V)">Surprise me (VN)</button>
-                    <span class="status-chip muted" title="Keyboard: R random EN · V random VN · Esc clears filter">keys: R / V / Esc</span>
+                    <span class="status-chip muted" title="Keyboard: R random EN · V random VN · F fortune · Esc clears filter">keys: R / V / F / Esc</span>
+                </div>
+
+                <div class="treasure-box" style="border-color: #8a2be2;" id="fortune-box">
+                    <strong>Goblin fortune:</strong>
+                    <span id="fortune-empty" class="muted">(press <code>F</code> to summon one)</span>
+                    <span id="fortune-content" style="display:none;">
+                        <span id="fortune-text"></span>
+                    </span>
+                    <div class="lab-controls" style="margin-top: 10px;">
+                        <button class="btn" id="btn-fortune" type="button" title="Summon a goblin fortune (F)">Summon</button>
+                        <button class="btn" id="btn-fortune-copy" type="button" title="Copy fortune">Copy</button>
+                    </div>
+                    <div class="lab-hint">Zero servers. Pure cave vibes. Stored locally so the prophecy sticks.</div>
                 </div>
 
                 <div class="treasure-box" style="border-color: #ffd54a;" id="continue-box">
@@ -646,7 +659,7 @@
     </div>
 
     <script>
-        const BUILD = '20260301-100000';
+        const BUILD = '20260301-100200';
         function utcKey() {
             const d = new Date();
             return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`;
@@ -1010,6 +1023,70 @@
 
             renderContinueReading();
 
+            // Goblin fortune (local prophecy)
+            const fortuneKey = 'vort_fortune_v1';
+            const fortuneEmpty = document.getElementById('fortune-empty');
+            const fortuneContent = document.getElementById('fortune-content');
+            const fortuneText = document.getElementById('fortune-text');
+            const btnFortune = document.getElementById('btn-fortune');
+            const btnFortuneCopy = document.getElementById('btn-fortune-copy');
+
+            const fortunes = [
+                'If the API says "429", offer it water and come back later with a smaller mouthful.',
+                'A cache is just a pantry. Label your jars or eat dust.',
+                'When humans say "quick fix", hide your knives.',
+                'The scroll you keep is the scroll you become.',
+                'Two commits ahead is confidence. Twenty commits ahead is an accident waiting to hatch.',
+                'If you can’t ship it, don’t polish it. Ship it, then polish the dents.',
+                'Travel is latency with snacks.',
+                'A good interface whispers. A bad interface screams. A goblin interface cackles politely.',
+                'You do not need more features. You need one feature that behaves.',
+                'When the road is bumpy, clench less. Same for your code.'
+            ];
+
+            function getFortune() {
+                try { return JSON.parse(localStorage.getItem(fortuneKey) || 'null'); } catch { return null; }
+            }
+            function setFortune(text) {
+                const payload = { text, ts: Date.now() };
+                localStorage.setItem(fortuneKey, JSON.stringify(payload));
+                renderFortune();
+            }
+            function renderFortune() {
+                const cur = getFortune();
+                if (!fortuneEmpty || !fortuneContent || !fortuneText) return;
+                if (!cur || !cur.text) {
+                    fortuneEmpty.style.display = '';
+                    fortuneContent.style.display = 'none';
+                    return;
+                }
+                fortuneText.textContent = ' ' + cur.text;
+                fortuneEmpty.style.display = 'none';
+                fortuneContent.style.display = '';
+            }
+            function summonFortune() {
+                const pick = fortunes[Math.floor(Math.random() * fortunes.length)];
+                setFortune(pick);
+            }
+
+            renderFortune();
+            if (btnFortune) btnFortune.addEventListener('click', summonFortune);
+            if (btnFortuneCopy) {
+                btnFortuneCopy.addEventListener('click', async () => {
+                    const cur = getFortune();
+                    const text = cur?.text || '';
+                    if (!text) return;
+                    try {
+                        await navigator.clipboard.writeText(text);
+                        const prev = btnFortuneCopy.textContent;
+                        btnFortuneCopy.textContent = 'Copied';
+                        setTimeout(() => (btnFortuneCopy.textContent = prev), 1000);
+                    } catch (e) {
+                        window.prompt('Copy this fortune:', text);
+                    }
+                });
+            }
+
             // Share link copy (safe even on index page; updates when entry loads)
             const btnCopy = document.getElementById('btn-copy-link');
             if (btnCopy) {
@@ -1069,6 +1146,9 @@
                 }
                 if (e.key === 'v' || e.key === 'V') {
                     goRandom(vnLinks);
+                }
+                if (e.key === 'f' || e.key === 'F') {
+                    summonFortune();
                 }
             });
         }
