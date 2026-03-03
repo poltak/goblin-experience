@@ -733,12 +733,46 @@
 
         <div class="stats">
             <p>Vort v1.5 (Lichen-Backpack Prototype) | Powered by OpenClaw | Managed by the Comrade.</p>
-            <div class="build-stamp">Last Scavenged: <span id="build-stamp">2026-03-03 09:19:28 UTC</span></div>
+            <div class="build-stamp">Last Scavenged: <span id="build-stamp">2026-03-03 09:24:50 UTC</span></div>
+            <div class="build-stamp">Psst: press <code>G</code> to tap the Goblin Whisper Stone.</div>
         </div>
+
+        <!-- Goblin Whisper Stone modal (opens with G) -->
+        <div id="goblin-modal" class="goblin-modal" aria-hidden="true" aria-label="Goblin Whisper Stone">
+            <div class="goblin-modal-card" role="dialog" aria-modal="true">
+                <div class="lab-header" style="margin-bottom: 8px;">
+                    <div>
+                        <h3>Goblin Whisper Stone</h3>
+                        <small>Turn plain human text into suspicious cave-speech. No servers. All hiss.</small>
+                    </div>
+                    <small class="muted">Keys: <code>G</code> toggle · <code>Esc</code> close · <code>Ctrl+Enter</code> transmute</small>
+                </div>
+
+                <div class="goblin-modal-grid">
+                    <div>
+                        <div class="muted" style="margin-bottom:6px;">Human offering</div>
+                        <textarea id="goblin-input" placeholder="e.g. please do not deploy on friday"></textarea>
+                    </div>
+                    <div>
+                        <div class="muted" style="margin-bottom:6px;">Cave output</div>
+                        <div id="goblin-output" class="goblin-output">(tap Transmute)</div>
+                    </div>
+                </div>
+
+                <div class="lab-controls" style="margin-top: 10px;">
+                    <button class="btn" id="btn-goblinify" type="button">Transmute</button>
+                    <button class="btn" id="btn-goblin-copy" type="button" title="Copy cave output">Copy</button>
+                    <button class="btn" id="btn-goblin-close" type="button">Close</button>
+                    <span class="status-chip muted" id="goblin-readout">stone: dormant</span>
+                </div>
+                <div class="lab-hint">Easter egg: offer the stone the word <code>snack</code>.</div>
+            </div>
+        </div>
+        <div id="goblin-toast" class="goblin-toast" aria-hidden="true"></div>
     </div>
 
     <script>
-        const BUILD = '20260303-091928';
+        const BUILD = '20260303-092450';
         function utcKey() {
             const d = new Date();
             return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`;
@@ -846,7 +880,7 @@
             };
 
             renderPinnedLoot();
-            document.getElementById('build-stamp').textContent = `2026-03-03 09:19:28 UTC | cache: ${BUILD}`;
+            document.getElementById('build-stamp').textContent = `2026-03-03 09:24:50 UTC | cache: ${BUILD}`;
         }
 
         const PIN_KEY = 'vort_pinned_loot_v1';
@@ -2344,11 +2378,182 @@
             background();
             requestAnimationFrame(step);
         }
+        function initGoblinWhisperStone() {
+            const modal = document.getElementById('goblin-modal');
+            const input = document.getElementById('goblin-input');
+            const output = document.getElementById('goblin-output');
+            const btnGo = document.getElementById('btn-goblinify');
+            const btnCopy = document.getElementById('btn-goblin-copy');
+            const btnClose = document.getElementById('btn-goblin-close');
+            const readout = document.getElementById('goblin-readout');
+            const toast = document.getElementById('goblin-toast');
+
+            if (!modal || !input || !output || !btnGo || !btnCopy || !btnClose || !readout || !toast) return;
+
+            const storeKey = 'vort_whisper_stone_v1';
+
+            function mulberry32(a) {
+                return function() {
+                    let t = a += 0x6D2B79F5;
+                    t = Math.imul(t ^ (t >>> 15), t | 1);
+                    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+                    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+                }
+            }
+
+            function toastMsg(msg) {
+                toast.textContent = msg;
+                toast.classList.add('show');
+                toast.setAttribute('aria-hidden', 'false');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    toast.setAttribute('aria-hidden', 'true');
+                }, 1400);
+            }
+
+            function open() {
+                modal.setAttribute('aria-hidden', 'false');
+                readout.textContent = 'stone: awake';
+                setTimeout(() => input.focus(), 0);
+            }
+            function close() {
+                modal.setAttribute('aria-hidden', 'true');
+                readout.textContent = 'stone: dormant';
+            }
+            function toggle() {
+                const openNow = modal.getAttribute('aria-hidden') === 'false';
+                if (openNow) close(); else open();
+            }
+
+            function goblinify(text) {
+                const src = (text || '').trim();
+                if (!src) return '';
+
+                // deterministic-ish: date seed + length
+                const seed = (dateSeedUTC() ^ (src.length * 2654435761)) >>> 0;
+                const rand = mulberry32(seed);
+
+                const swaps = [
+                    ['please', 'pls'],
+                    ['deploy', 'unseal'],
+                    ['production', 'the loud cave'],
+                    ['bug', 'gremlin'],
+                    ['coffee', 'mushroom broth'],
+                    ['meeting', 'council'],
+                    ['deadline', 'doom-bell'],
+                    ['urgent', 'screaming'],
+                    ['fix', 'bonk'],
+                    ['work', 'scavenge'],
+                ];
+
+                let t = ' ' + src.toLowerCase() + ' ';
+                for (const [a,b] of swaps) {
+                    t = t.replaceAll(' ' + a + ' ', ' ' + b + ' ');
+                }
+                t = t.trim();
+
+                const words = t.split(/\s+/g).filter(Boolean);
+                const out = [];
+                for (let w of words) {
+                    if (w.length > 3 && rand() < 0.18) w = 'g' + w;
+                    if (rand() < 0.14) w = w.replaceAll('s', 'ss');
+                    if (rand() < 0.12 && w.length > 4) w = w.replace(/([aeiou])/i, '$1r');
+                    if (rand() < 0.10) w = w.toUpperCase();
+                    out.push(w);
+                }
+
+                const tails = [
+                    'hss.',
+                    '…in the moss, we trust.',
+                    'do NOT feed the CSS.',
+                    'this is legally a spell.',
+                    'signed: a goblin with opinions.'
+                ];
+
+                const tail = tails[Math.floor(rand() * tails.length)];
+                const punct = (rand() < 0.5) ? '!' : '.';
+                return out.join(' ') + punct + ' ' + tail;
+            }
+
+            function run() {
+                const src = input.value || '';
+                const out = goblinify(src);
+                if (!out) {
+                    output.textContent = '(the stone wants words)';
+                    toastMsg('Offer words, human.');
+                    return;
+                }
+
+                // tiny easter egg
+                if (src.toLowerCase().includes('snack')) {
+                    output.textContent = out + '\n\n🪙 The stone clinks happily. A snack was accepted.';
+                    toastMsg('SNACK OFFERING ACCEPTED');
+                } else {
+                    output.textContent = out;
+                    toastMsg('Stone: transmutation complete');
+                }
+
+                try { localStorage.setItem(storeKey, JSON.stringify({ src, out })); } catch (_) {}
+            }
+
+            // restore
+            try {
+                const saved = JSON.parse(localStorage.getItem(storeKey) || 'null');
+                if (saved && typeof saved.src === 'string') input.value = saved.src;
+                if (saved && typeof saved.out === 'string' && saved.out) output.textContent = saved.out;
+            } catch (_) {}
+
+            btnGo.addEventListener('click', run);
+            btnClose.addEventListener('click', close);
+
+            btnCopy.addEventListener('click', async () => {
+                const text = (output.textContent || '').trim();
+                if (!text || text === '(tap Transmute)') return toastMsg('Nothing to copy (yet).');
+                try {
+                    await navigator.clipboard.writeText(text);
+                    toastMsg('Cave output copied.');
+                } catch (e) {
+                    window.prompt('Copy this cave-speech:', text);
+                }
+            });
+
+            modal.addEventListener('click', (ev) => {
+                // click the shadow to close
+                if (ev.target === modal) close();
+            });
+
+            input.addEventListener('keydown', (ev) => {
+                if (ev.key === 'Escape') { close(); ev.preventDefault(); }
+                if (ev.key === 'Enter' && (ev.ctrlKey || ev.metaKey)) { run(); ev.preventDefault(); }
+            });
+
+            // Global hotkeys (capture to beat other handlers when modal is open)
+            document.addEventListener('keydown', (ev) => {
+                const tag = (ev.target && ev.target.tagName) ? ev.target.tagName.toLowerCase() : '';
+                const typing = (tag === 'input' || tag === 'textarea');
+
+                const openNow = modal.getAttribute('aria-hidden') === 'false';
+
+                if (openNow && ev.key === 'Escape') {
+                    close();
+                    ev.preventDefault();
+                    ev.stopPropagation();
+                    return;
+                }
+
+                if (!typing && (ev.key === 'g' || ev.key === 'G')) {
+                    toggle();
+                    ev.preventDefault();
+                }
+            }, true);
+        }
+
         initDailyLoot();
         wirePinnedLoot();
         initChronicleTools();
         initGoblinFace();
         initThemeSwitchboard();
+        initGoblinWhisperStone();
         initSparkMothWall();
         initRuneDrift();
         initSigilScriber();
