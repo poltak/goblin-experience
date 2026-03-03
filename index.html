@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vort's Cave</title>
+
+    <!-- font: keep the mono goblin vibe, but with full Vietnamese coverage -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Noto+Sans+Mono:wght@400;700&display=swap" rel="stylesheet">
+
     <script src="https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js?v=20260218-061700"></script>
     <style>
         :root {
@@ -18,7 +24,7 @@
         body {
             background-color: var(--bg);
             color: var(--fg);
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'IBM Plex Mono', 'Noto Sans Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
             padding: 2rem;
             line-height: 1.6;
         }
@@ -93,7 +99,7 @@
             opacity: 0.7;
         }
         .build-stamp {
-            font-family: 'Courier New', monospace;
+            font-family: 'IBM Plex Mono', 'Noto Sans Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
             font-size: 0.8rem;
             margin-top: 0.5rem;
             color: var(--goblin);
@@ -126,7 +132,7 @@
             padding: 15px;
             border: 1px solid var(--goblin);
             margin: 20px 0;
-            font-family: 'Courier New', monospace;
+            font-family: 'IBM Plex Mono', 'Noto Sans Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
         }
 
         .pill-row {
@@ -772,7 +778,7 @@
     </div>
 
     <script>
-        const BUILD = '20260303-093200';
+        const BUILD = '20260303-093600';
         function utcKey() {
             const d = new Date();
             return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`;
