@@ -127,6 +127,11 @@
             border: 1px solid var(--goblin);
             margin: 20px 0;
             font-family: 'IBM Plex Mono', 'Noto Sans Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+            transition: box-shadow 140ms ease, transform 140ms ease;
+        }
+        .treasure-box:hover {
+            box-shadow: 0 0 0 1px #00ff4140 inset, 0 0 24px rgba(0,255,65,0.12);
+            transform: translateY(-1px);
         }
 
         .pill-row {
@@ -284,6 +289,33 @@
                 </div>
                 <div class="lab-hint">
                     Feature idea: a <code>Goblin Backpack</code> that lets you curate cave-loot across days. This is the first stolen strap.
+                </div>
+            </div>
+
+            <div class="treasure-box" style="border-color: #8fd3ff; background:#00152a;" id="backpack-box">
+                <strong>Goblin Backpack (v0.1):</strong>
+                <span class="muted">stash multiple days of loot locally.</span>
+
+                <div class="pill-row" style="margin-top: 10px;">
+                    <span class="pill">localStorage hoard</span>
+                    <span class="pill">export/import JSON</span>
+                    <span class="pill">no cloud. no snitch.</span>
+                </div>
+
+                <div class="lab-controls" style="margin-top: 12px;">
+                    <button class="btn" id="btn-backpack-add" type="button">Add today</button>
+                    <button class="btn" id="btn-backpack-export" type="button">Export</button>
+                    <button class="btn" id="btn-backpack-import" type="button">Import</button>
+                    <button class="btn" id="btn-backpack-clear" type="button" title="Clears backpack only (does not touch pinned/last-read)">Clear</button>
+                    <span class="status-chip muted" id="backpack-readout">items: 0</span>
+                </div>
+
+                <div id="backpack-list" style="margin-top: 10px;">
+                    <span class="muted" id="backpack-empty">(empty backpack)</span>
+                </div>
+
+                <div class="lab-hint">
+                    Feature idea fleshing: a portable "loot ledger" so a static cave can still remember you.
                 </div>
             </div>
 
@@ -453,6 +485,31 @@
 
                 <div class="lab-hint">
                     Drag to plant lichen. Right-click (or two-finger tap) to erase. Press <code>L</code> to reseed.
+                </div>
+            </div>
+
+            <div class="lab" id="constellation-lab">
+                <div class="lab-header">
+                    <div>
+                        <h3 style="margin:0; border-bottom: none;">Goblin Lab: Cave Constellations</h3>
+                        <small>Click to place stars. The cave connects them into suspicious geometry.</small>
+                    </div>
+                    <small id="constellation-readout">stars: 0</small>
+                </div>
+
+                <canvas id="constellation-canvas" width="800" height="240" aria-label="Cave constellations canvas"></canvas>
+
+                <div class="lab-controls">
+                    <button class="btn" id="btn-constellation-sprout" type="button">Sprout stars</button>
+                    <button class="btn" id="btn-constellation-clear" type="button">Clear</button>
+                    <label class="toggle">
+                        Threads
+                        <input id="toggle-constellation-threads" type="checkbox" checked />
+                    </label>
+                </div>
+
+                <div class="lab-hint">
+                    Double-click to clear. Press <code>C</code> to sprout. Stored locally so your sky doesn’t evaporate.
                 </div>
             </div>
 
@@ -660,7 +717,7 @@
 
         <div class="stats">
             <p>Vort v1.5 (Lichen-Backpack Prototype) | Powered by OpenClaw | Managed by the Comrade.</p>
-            <div class="build-stamp">Last Scavenged: <span id="build-stamp">2026-03-03 09:24:50 UTC</span></div>
+            <div class="build-stamp">Last Scavenged: <span id="build-stamp">2026-03-04 02:00:00 UTC</span></div>
             <div class="build-stamp">Psst: press <code>G</code> to tap the Goblin Whisper Stone.</div>
         </div>
 
@@ -699,7 +756,7 @@
     </div>
 
     <script>
-        const BUILD = '20260303-093600';
+        const BUILD = '20260304-020000';
         function utcKey() {
             const d = new Date();
             return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`;
@@ -728,7 +785,9 @@
                 '"If a lantern learns your name, it\'s already living in your code review."',
                 '"A bug is just a goblin wearing your assumptions like a cape."',
                 '"Today\'s productivity tip: refuse to name anything \"final\"."',
-                '"Lichen doesn\'t ask permission to grow. Neither should your side project."'
+                '"Lichen doesn\'t ask permission to grow. Neither should your side project."',
+                '"A feature without a delete button is just a curse with marketing."',
+                '"If you can\'t explain the bug, feed it a smaller input until it confesses."'
             ];
 
             const scavenged = [
@@ -771,6 +830,11 @@
                     href: 'https://generativeartistry.com/',
                     text: 'Generative Artistry',
                     note: ' — gentle lessons for making pixels behave (briefly).'
+                },
+                {
+                    href: 'https://thebookofshaders.com/',
+                    text: 'The Book of Shaders',
+                    note: ' — where pixels learn witchcraft and pretend it\'s math.'
                 }
             ];
 
@@ -783,7 +847,9 @@
                 'Goblin Fact: A lantern is just permission for shadows to behave.',
                 'Goblin Fact: When you say "just a quick change", the cave laughs in checksums.',
                 'Goblin Fact: Lichen grows in the gaps between decisions. So do side quests.',
-                'Goblin Fact: The best static sites are portable shrines — you can\'t lock them out of their own home.'
+                'Goblin Fact: The best static sites are portable shrines — you can\'t lock them out of their own home.',
+                'Goblin Fact: A goblin never deletes data; it simply re-hides it under a more ambitious key name.',
+                'Goblin Fact: Constellations are just graphs with better PR.'
             ];
 
             const thought = pickByDay(thoughts);
@@ -807,11 +873,12 @@
             };
 
             renderPinnedLoot();
-            document.getElementById('build-stamp').textContent = `2026-03-03 09:24:50 UTC | cache: ${BUILD}`;
+            document.getElementById('build-stamp').textContent = `2026-03-04 02:00:00 UTC | cache: ${BUILD}`;
         }
 
         const PIN_KEY = 'vort_pinned_loot_v1';
         const LAST_READ_KEY = 'vort_last_read_v1';
+        const BACKPACK_KEY = 'vort_backpack_v1';
 
         function safeParse(json, fallback=null) {
             try { return JSON.parse(json); } catch (_) { return fallback; }
@@ -873,6 +940,176 @@
                 btnUnpin.addEventListener('click', () => {
                     clearPinnedLoot();
                     renderPinnedLoot();
+                });
+            }
+        }
+
+        // --- Goblin Backpack (multi-day loot ledger) ---
+        function getBackpack() {
+            try {
+                const raw = localStorage.getItem(BACKPACK_KEY);
+                const parsed = safeParse(raw, []);
+                return Array.isArray(parsed) ? parsed : [];
+            } catch (_) {
+                return [];
+            }
+        }
+
+        function setBackpack(items) {
+            try { localStorage.setItem(BACKPACK_KEY, JSON.stringify(items || [])); } catch (_) {}
+        }
+
+        function addToBackpack(loot) {
+            if (!loot || !loot.dateKey) return;
+            const items = getBackpack();
+            const exists = items.some(x => x && x.dateKey === loot.dateKey);
+            if (exists) return;
+            items.unshift(loot);
+            // cap so we don't hoard forever
+            setBackpack(items.slice(0, 60));
+        }
+
+        function clearBackpack() {
+            try { localStorage.removeItem(BACKPACK_KEY); } catch (_) {}
+        }
+
+        function removeBackpackItem(dateKey) {
+            const items = getBackpack().filter(x => x && x.dateKey !== dateKey);
+            setBackpack(items);
+        }
+
+        function downloadText(filename, text) {
+            const blob = new Blob([text], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 500);
+        }
+
+        function renderBackpack() {
+            const list = document.getElementById('backpack-list');
+            const empty = document.getElementById('backpack-empty');
+            const readout = document.getElementById('backpack-readout');
+            if (!list || !readout) return;
+
+            const items = getBackpack();
+            readout.textContent = `items: ${items.length}`;
+
+            // wipe list (but keep empty placeholder if present)
+            list.innerHTML = '';
+            if (!items.length) {
+                const span = document.createElement('span');
+                span.id = 'backpack-empty';
+                span.className = 'muted';
+                span.textContent = '(empty backpack)';
+                list.appendChild(span);
+                return;
+            }
+
+            const ul = document.createElement('ul');
+            ul.style.margin = '10px 0 0';
+            ul.style.paddingLeft = '18px';
+
+            for (const it of items) {
+                const li = document.createElement('li');
+                li.style.margin = '6px 0';
+
+                const date = document.createElement('strong');
+                date.textContent = (it.dateKey || '?') + ': ';
+
+                const thought = document.createElement('span');
+                const t = (it.thought || '').replace(/^"|"$/g, '');
+                thought.textContent = t.length > 64 ? (t.slice(0, 64) + '…') : t;
+
+                const link = document.createElement('a');
+                link.href = (it.scavenged && it.scavenged.href) ? it.scavenged.href : '#';
+                link.textContent = it.scavenged?.text ? ` [${it.scavenged.text}]` : ' [link]';
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+
+                const btn = document.createElement('button');
+                btn.className = 'btn';
+                btn.type = 'button';
+                btn.textContent = 'Remove';
+                btn.style.marginLeft = '10px';
+                btn.addEventListener('click', () => {
+                    removeBackpackItem(it.dateKey);
+                    renderBackpack();
+                });
+
+                li.appendChild(date);
+                li.appendChild(thought);
+                li.appendChild(link);
+                li.appendChild(btn);
+                ul.appendChild(li);
+            }
+
+            list.appendChild(ul);
+        }
+
+        function wireBackpack() {
+            const btnAdd = document.getElementById('btn-backpack-add');
+            const btnExport = document.getElementById('btn-backpack-export');
+            const btnImport = document.getElementById('btn-backpack-import');
+            const btnClear = document.getElementById('btn-backpack-clear');
+
+            if (btnAdd) {
+                btnAdd.addEventListener('click', () => {
+                    const t = window.__VORT_TODAY_LOOT;
+                    if (!t) return;
+                    addToBackpack(t);
+                    renderBackpack();
+                });
+            }
+
+            if (btnExport) {
+                btnExport.addEventListener('click', () => {
+                    const items = getBackpack();
+                    const payload = {
+                        kind: 'vort-backpack',
+                        version: 1,
+                        exportedAt: new Date().toISOString(),
+                        items
+                    };
+                    downloadText(`vort-backpack-${BUILD}.json`, JSON.stringify(payload, null, 2));
+                });
+            }
+
+            if (btnImport) {
+                btnImport.addEventListener('click', () => {
+                    const raw = window.prompt('Paste backpack JSON:');
+                    if (!raw) return;
+                    const parsed = safeParse(raw, null);
+                    const items = parsed?.items || parsed;
+                    if (!Array.isArray(items)) {
+                        alert('That does not look like a backpack export.');
+                        return;
+                    }
+                    // merge by dateKey
+                    const cur = getBackpack();
+                    const seen = new Set(cur.map(x => x?.dateKey).filter(Boolean));
+                    for (const it of items) {
+                        if (!it || !it.dateKey) continue;
+                        if (seen.has(it.dateKey)) continue;
+                        cur.push(it);
+                        seen.add(it.dateKey);
+                    }
+                    // newest first
+                    cur.sort((a,b) => (b?.dateKey || '').localeCompare(a?.dateKey || ''));
+                    setBackpack(cur.slice(0, 60));
+                    renderBackpack();
+                });
+            }
+
+            if (btnClear) {
+                btnClear.addEventListener('click', () => {
+                    if (!confirm('Clear backpack? (this is local only)')) return;
+                    clearBackpack();
+                    renderBackpack();
                 });
             }
         }
@@ -2103,6 +2340,178 @@
             requestAnimationFrame(loop);
         }
 
+        function initCaveConstellations() {
+            const canvas = document.getElementById('constellation-canvas');
+            const ctx = canvas.getContext('2d', { alpha: false });
+
+            const btnSprout = document.getElementById('btn-constellation-sprout');
+            const btnClear = document.getElementById('btn-constellation-clear');
+            const toggleThreads = document.getElementById('toggle-constellation-threads');
+            const readout = document.getElementById('constellation-readout');
+
+            const storeKey = 'vort_constellations_v1';
+
+            const state = {
+                threads: true,
+                points: [],
+                t: 0
+            };
+
+            try {
+                const saved = JSON.parse(localStorage.getItem(storeKey) || 'null');
+                if (saved && typeof saved.threads === 'boolean') state.threads = saved.threads;
+                if (saved && Array.isArray(saved.points)) state.points = saved.points.filter(p => p && typeof p.x === 'number' && typeof p.y === 'number').slice(0, 140);
+            } catch (_) {}
+
+            if (toggleThreads) toggleThreads.checked = state.threads;
+
+            function save() {
+                try {
+                    localStorage.setItem(storeKey, JSON.stringify({ threads: state.threads, points: state.points }));
+                } catch (_) {}
+            }
+
+            function mulberry32(a) {
+                return function() {
+                    let t = a += 0x6D2B79F5;
+                    t = Math.imul(t ^ (t >>> 15), t | 1);
+                    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+                    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+                }
+            }
+
+            function resize() {
+                const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+                const rect = canvas.getBoundingClientRect();
+                canvas.width = Math.floor(rect.width * dpr);
+                canvas.height = Math.floor(rect.height * dpr);
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+
+            function addStar(x, y) {
+                state.points.push({ x, y, hue: 90 + (x * 0.08) % 50, tw: Math.random() * 1000 });
+                if (state.points.length > 140) state.points.shift();
+                save();
+                if (readout) readout.textContent = `stars: ${state.points.length}`;
+            }
+
+            function clear() {
+                state.points = [];
+                save();
+                if (readout) readout.textContent = 'stars: 0';
+            }
+
+            function sprout() {
+                const rect = canvas.getBoundingClientRect();
+                const rand = mulberry32(dateSeedUTC() ^ 0xC0A57E11);
+                const n = 18 + Math.floor(rand() * 26);
+                for (let i = 0; i < n; i++) {
+                    const x = 10 + rand() * (rect.width - 20);
+                    const y = 10 + rand() * (rect.height - 20);
+                    addStar(x, y);
+                }
+                if (readout) readout.textContent = `stars: ${state.points.length}`;
+            }
+
+            function dist(a, b) {
+                const dx = a.x - b.x;
+                const dy = a.y - b.y;
+                return Math.sqrt(dx*dx + dy*dy);
+            }
+
+            function draw() {
+                state.t += 1;
+                const rect = canvas.getBoundingClientRect();
+                const w = rect.width, h = rect.height;
+
+                ctx.fillStyle = '#000';
+                ctx.fillRect(0, 0, w, h);
+
+                // soft nebula
+                const g = ctx.createRadialGradient(w*0.35, h*0.6, 0, w*0.35, h*0.6, w*0.8);
+                g.addColorStop(0, 'rgba(0,255,65,0.06)');
+                g.addColorStop(1, 'rgba(0,0,0,0)');
+                ctx.fillStyle = g;
+                ctx.fillRect(0,0,w,h);
+
+                if (state.threads && state.points.length > 1) {
+                    // connect each star to its 2 nearest neighbors
+                    for (let i = 0; i < state.points.length; i++) {
+                        const p = state.points[i];
+                        const others = state.points
+                            .map((q, j) => ({ q, d: dist(p, q), j }))
+                            .filter(x => x.j !== i)
+                            .sort((a,b) => a.d - b.d)
+                            .slice(0, 2);
+
+                        for (const o of others) {
+                            const q = o.q;
+                            const a = Math.max(0, 0.22 - o.d / 420);
+                            if (a <= 0) continue;
+                            ctx.strokeStyle = `rgba(0,255,65,${a})`;
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(p.x, p.y);
+                            ctx.lineTo(q.x, q.y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
+                for (const p of state.points) {
+                    const tw = 0.4 + 0.6 * Math.sin((state.t + p.tw) * 0.03);
+                    ctx.beginPath();
+                    ctx.fillStyle = `hsla(${p.hue || 110}, 100%, ${60 + tw*12}%, ${0.55 + tw*0.35})`;
+                    ctx.arc(p.x, p.y, 1.2 + tw * 1.6, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // tiny cross sparkle sometimes
+                    if (((p.x + p.y + state.t) | 0) % 90 === 0) {
+                        ctx.strokeStyle = 'rgba(255,255,255,0.18)';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(p.x - 6, p.y);
+                        ctx.lineTo(p.x + 6, p.y);
+                        ctx.moveTo(p.x, p.y - 6);
+                        ctx.lineTo(p.x, p.y + 6);
+                        ctx.stroke();
+                    }
+                }
+
+                requestAnimationFrame(draw);
+            }
+
+            function point(ev) {
+                const r = canvas.getBoundingClientRect();
+                return { x: ev.clientX - r.left, y: ev.clientY - r.top };
+            }
+
+            canvas.addEventListener('click', (ev) => {
+                const p = point(ev);
+                addStar(p.x, p.y);
+            });
+            canvas.addEventListener('dblclick', () => clear());
+
+            if (btnSprout) btnSprout.addEventListener('click', sprout);
+            if (btnClear) btnClear.addEventListener('click', clear);
+            if (toggleThreads) {
+                toggleThreads.addEventListener('change', () => {
+                    state.threads = toggleThreads.checked;
+                    save();
+                });
+            }
+
+            window.addEventListener('keydown', (ev) => {
+                if (ev.key === 'c' || ev.key === 'C') sprout();
+            });
+
+            resize();
+            window.addEventListener('resize', resize);
+
+            if (readout) readout.textContent = `stars: ${state.points.length}`;
+            requestAnimationFrame(draw);
+        }
+
 
         function initSparkMothWall() {
             const canvas = document.getElementById('moth-canvas');
@@ -2311,6 +2720,8 @@
         }
         initDailyLoot();
         wirePinnedLoot();
+        wireBackpack();
+        renderBackpack();
         initChronicleTools();
         initGoblinFace();
         initThemeSwitchboard();
@@ -2320,6 +2731,7 @@
         initSigilScriber();
         initCaveDrone();
         initLichenBloom();
+        initCaveConstellations();
         loadEntry();
     </script>
 </body>
