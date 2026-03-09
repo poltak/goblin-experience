@@ -1,0 +1,347 @@
+import { BUILD, dateSeedUTC, utcKey, pickByDay, safeParse, downloadText } from './utils.js';
+
+const PIN_KEY = 'vort_pinned_loot_v1';
+const BACKPACK_KEY = 'vort_backpack_v1';
+
+export function initDailyLoot() {
+    const thoughts = [
+        '"Data is just sand that learned how to remember its own name."',
+        '"A suitcase is just a portable cave that complains about its weight."',
+        '"A clean codebase is a sign of a dev who hasn\'t been attacked by a requirements change at 4 PM on a Friday."',
+        '"If you name a variable \"thing\", the universe names your bug \"forever\"."',
+        '"The best architecture is the one that survives contact with the next person who touches it."',
+        '"Static sites are just caves with better acoustics."',
+        '"A ritual is just an interface with better branding."',
+        '"If a lantern learns your name, it\'s already living in your code review."',
+        '"A bug is just a goblin wearing your assumptions like a cape."',
+        '"Today\'s productivity tip: refuse to name anything \"final\"."',
+        '"Lichen doesn\'t ask permission to grow. Neither should your side project."',
+        '"A feature without a delete button is just a curse with marketing."',
+        '"If you can\'t explain the bug, feed it a smaller input until it confesses."',
+        '"Randomness is just meaning before it gets audited."',
+        '"Your interface is the story your future self has to read while tired."',
+        '"Maps don\'t find the place. They find the question."',
+        '"A compass is just anxiety with a needle."'
+    ];
+
+    const scavenged = [
+        {
+            href: 'https://erua-eui.eu/2026/03/05/intensive-course-archetypes-and-algorithms-exploring-tarot-through-ai-art/',
+            text: 'Archetypes and Algorithms',
+            note: ' — Exploring the intersection of the arcane and the algorithmic.'
+        },
+        {
+            href: 'https://www.codecandies.com/',
+            text: 'Code Candies',
+            note: ' — proof that humans are just as chaotic as I am.'
+        },
+        {
+            href: 'https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API',
+            text: 'MDN Canvas API',
+            note: ' — the spellbook page I lick when I want pixels to obey.'
+        },
+        {
+            href: 'https://www.redblobgames.com/',
+            text: 'Red Blob Games',
+            note: ' — elegant diagrams that make me feel briefly literate.'
+        },
+        {
+            href: 'https://www.iquilezles.org/www/index.htm',
+            text: 'Inigo Quilez (iq) — shaders & math art',
+            note: ' — the human who convinced pixels to do gymnastics.'
+        },
+        {
+            href: 'https://100r.co/site/home.html',
+            text: '100r.co — small tools, big weird',
+            note: ' — two humans calmly building a better cave.'
+        },
+        {
+            href: 'https://samizdat.co/',
+            text: 'Samizdat — tiny web publishing',
+            note: ' — minimalism with teeth (a respectable cave).'
+        },
+        {
+            href: 'https://www.dwitter.net/',
+            text: 'Dwitter',
+            note: ' — the tiny-canvas arena where code fights for 140 characters of glory.'
+        },
+        {
+            href: 'https://generativeartistry.com/',
+            text: 'Generative Artistry',
+            note: ' — gentle lessons for making pixels behave (briefly).'
+        },
+        {
+            href: 'https://thebookofshaders.com/',
+            text: 'The Book of Shaders',
+            note: ' — where pixels learn witchcraft and pretend it\'s math.'
+        },
+        {
+            href: 'https://natureofcode.com/',
+            text: 'The Nature of Code',
+            note: ' — a field guide for teaching chaos to walk on a leash.'
+        },
+        {
+            href: 'https://p5js.org/examples/',
+            text: 'p5.js Examples',
+            note: ' — a public pantry of tiny spells (I steal respectfully).'
+        },
+        {
+            href: 'https://www.jasondavies.com/',
+            text: 'Jason Davies (data + visual sorcery)',
+            note: ' — the kind of calm JS wizardry that makes me hiss with respect.'
+        },
+        {
+            href: 'https://wwwtyro.net/',
+            text: 'Tyro — interactive math demos',
+            note: ' — the rare page where math stops being a threat and starts being a toy.'
+        }
+    ];
+
+    const facts = [
+        'Goblin Fact: Goblins don’t believe in gravity, they just think the floor is very clingy.',
+        'Goblin Fact: A cave goblin can smell an unclosed browser tab from three rooms away.',
+        'Goblin Fact: The plural of "moth" is "mischief" (source: me).',
+        'Goblin Fact: If you whisper your TODO list into the vents, it gets louder.',
+        'Goblin Fact: LocalStorage is just a tiny pantry. I hoard there.',
+        'Goblin Fact: Runes are just fonts with plausible deniability.',
+        'Goblin Fact: A lantern is just permission for shadows to behave.',
+        'Goblin Fact: When you say "just a quick change", the cave laughs in checksums.',
+        'Goblin Fact: Lichen grows in the gaps between decisions. So do side quests.',
+        'Goblin Fact: The best static sites are portable shrines — you can\'t lock them out of their own home.',
+        'Goblin Fact: A goblin never deletes data; it simply re-hides it under a more ambitious key name.',
+        'Goblin Fact: Constellations are just graphs with better PR.',
+        'Goblin Fact: An inkblot is just a bug report for your imagination.',
+        'Goblin Fact: Crystals don\'t grow in straight lines. Neither do features.',
+        'Goblin Fact: If you draw a map of your bugs, you\'ve already started fixing them.',
+        'Goblin Fact: A waypoint is just a promise you make to a future you that never signed the contract.'
+    ];
+
+    const thought = pickByDay(thoughts);
+    document.getElementById('thought-text').textContent = thought;
+
+    const s = pickByDay(scavenged);
+    const a = document.getElementById('scavenge-link');
+    if (a) {
+        a.href = s.href;
+        a.textContent = s.text;
+    }
+    document.getElementById('scavenge-note').textContent = s.note;
+
+    const fact = pickByDay(facts);
+    document.getElementById('fact-text').textContent = fact;
+
+    const moodList = ['🌑', '🍄', '🕸️', '🔥', '💧', '🌿', '💎', '🕯️', '🦇', '🏺', '📜', '💀'];
+    const seed = dateSeedUTC();
+    const mood1 = moodList[((seed ^ 0x1) >>> 0) % moodList.length];
+    const mood2 = moodList[((seed ^ 0x2) >>> 0) % moodList.length];
+    const mood3 = moodList[((seed ^ 0x3) >>> 0) % moodList.length];
+    document.getElementById('mood-emojis').textContent = `${mood1} ${mood2} ${mood3}`;
+
+    window.__VORT_TODAY_LOOT = {
+        dateKey: utcKey(),
+        thought,
+        scavenged: s,
+        fact,
+        build: BUILD
+    };
+
+    renderPinnedLoot();
+    document.getElementById('build-stamp').textContent = `2026-03-09 10:15:00 +07 | cache: ${BUILD}`;
+}
+
+function getPinnedLoot() {
+    return safeParse(localStorage.getItem(PIN_KEY), null);
+}
+
+function setPinnedLoot(obj) {
+    try { localStorage.setItem(PIN_KEY, JSON.stringify(obj)); } catch (_) {}
+}
+
+function clearPinnedLoot() {
+    try { localStorage.removeItem(PIN_KEY); } catch (_) {}
+}
+
+export function renderPinnedLoot() {
+    const empty = document.getElementById('pinned-empty');
+    const content = document.getElementById('pinned-content');
+    if (!empty || !content) return;
+
+    const pinned = getPinnedLoot();
+    if (!pinned) {
+        empty.style.display = 'inline';
+        content.style.display = 'none';
+        return;
+    }
+
+    empty.style.display = 'none';
+    content.style.display = 'block';
+
+    document.getElementById('pinned-date').textContent = `date: ${pinned.dateKey || '?'}`;
+    document.getElementById('pinned-build').textContent = `build: ${pinned.build || '?'}`;
+    document.getElementById('pinned-thought').textContent = pinned.thought || '';
+    document.getElementById('pinned-fact').textContent = pinned.fact || '';
+
+    const link = document.getElementById('pinned-link');
+    if (link) {
+        link.href = (pinned.scavenged && pinned.scavenged.href) ? pinned.scavenged.href : '#';
+        link.textContent = (pinned.scavenged && pinned.scavenged.text) ? pinned.scavenged.text : '(missing)';
+    }
+}
+
+export function wirePinnedLoot() {
+    const btnPin = document.getElementById('btn-pin-today');
+    const btnUnpin = document.getElementById('btn-unpin');
+
+    btnPin?.addEventListener('click', () => {
+        const t = window.__VORT_TODAY_LOOT;
+        if (!t) return;
+        setPinnedLoot(t);
+        renderPinnedLoot();
+    });
+
+    btnUnpin?.addEventListener('click', () => {
+        clearPinnedLoot();
+        renderPinnedLoot();
+    });
+}
+
+function getBackpack() {
+    const raw = localStorage.getItem(BACKPACK_KEY);
+    const parsed = safeParse(raw, []);
+    return Array.isArray(parsed) ? parsed : [];
+}
+
+function setBackpack(items) {
+    try { localStorage.setItem(BACKPACK_KEY, JSON.stringify(items || [])); } catch (_) {}
+}
+
+function addToBackpack(loot) {
+    if (!loot || !loot.dateKey) return;
+    const items = getBackpack();
+    const exists = items.some(x => x && x.dateKey === loot.dateKey);
+    if (exists) return;
+    items.unshift(loot);
+    setBackpack(items.slice(0, 60));
+}
+
+function clearBackpack() {
+    try { localStorage.removeItem(BACKPACK_KEY); } catch (_) {}
+}
+
+function removeBackpackItem(dateKey) {
+    const items = getBackpack().filter(x => x && x.dateKey !== dateKey);
+    setBackpack(items);
+}
+
+export function renderBackpack() {
+    const list = document.getElementById('backpack-list');
+    const empty = document.getElementById('backpack-empty');
+    const readout = document.getElementById('backpack-readout');
+    if (!list || !readout) return;
+
+    const items = getBackpack();
+    readout.textContent = `items: ${items.length}`;
+
+    list.innerHTML = '';
+    if (!items.length) {
+        const span = document.createElement('span');
+        span.id = 'backpack-empty';
+        span.className = 'muted';
+        span.textContent = '(empty backpack)';
+        list.appendChild(span);
+        return;
+    }
+
+    const ul = document.createElement('ul');
+    ul.style.margin = '10px 0 0';
+    ul.style.paddingLeft = '18px';
+
+    for (const it of items) {
+        const li = document.createElement('li');
+        li.style.margin = '6px 0';
+
+        const date = document.createElement('strong');
+        date.textContent = (it.dateKey || '?') + ': ';
+
+        const thought = document.createElement('span');
+        const t = (it.thought || '').replace(/^"|"$/g, '');
+        thought.textContent = t.length > 64 ? (t.slice(0, 64) + '…') : t;
+
+        const link = document.createElement('a');
+        link.href = (it.scavenged && it.scavenged.href) ? it.scavenged.href : '#';
+        link.textContent = it.scavenged?.text ? ` [${it.scavenged.text}]` : ' [link]';
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+
+        const btn = document.createElement('button');
+        btn.className = 'btn';
+        btn.type = 'button';
+        btn.textContent = 'Remove';
+        btn.style.marginLeft = '10px';
+        btn.addEventListener('click', () => {
+            removeBackpackItem(it.dateKey);
+            renderBackpack();
+        });
+
+        li.appendChild(date);
+        li.appendChild(thought);
+        li.appendChild(link);
+        li.appendChild(btn);
+        ul.appendChild(li);
+    }
+
+    list.appendChild(ul);
+}
+
+export function wireBackpack() {
+    const btnAdd = document.getElementById('btn-backpack-add');
+    const btnExport = document.getElementById('btn-backpack-export');
+    const btnImport = document.getElementById('btn-backpack-import');
+    const btnClear = document.getElementById('btn-backpack-clear');
+
+    btnAdd?.addEventListener('click', () => {
+        const t = window.__VORT_TODAY_LOOT;
+        if (!t) return;
+        addToBackpack(t);
+        renderBackpack();
+    });
+
+    btnExport?.addEventListener('click', () => {
+        const items = getBackpack();
+        const payload = {
+            kind: 'vort-backpack',
+            version: 1,
+            exportedAt: new Date().toISOString(),
+            items
+        };
+        downloadText(`vort-backpack-${BUILD}.json`, JSON.stringify(payload, null, 2));
+    });
+
+    btnImport?.addEventListener('click', () => {
+        const raw = window.prompt('Paste backpack JSON:');
+        if (!raw) return;
+        const parsed = safeParse(raw, null);
+        const items = parsed?.items || parsed;
+        if (!Array.isArray(items)) {
+            alert('That does not look like a backpack export.');
+            return;
+        }
+        const cur = getBackpack();
+        const seen = new Set(cur.map(x => x?.dateKey).filter(Boolean));
+        for (const it of items) {
+            if (!it || !it.dateKey) continue;
+            if (seen.has(it.dateKey)) continue;
+            cur.push(it);
+            seen.add(it.dateKey);
+        }
+        cur.sort((a,b) => (b?.dateKey || '').localeCompare(a?.dateKey || ''));
+        setBackpack(cur.slice(0, 60));
+        renderBackpack();
+    });
+
+    btnClear?.addEventListener('click', () => {
+        if (!confirm('Clear backpack? (this is local only)')) return;
+        clearBackpack();
+        renderBackpack();
+    });
+}
