@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vort's Cave</title>
-    <script src="https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js?v=20260309-080000"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js?v=20260309-101500"></script>
     <style>
         :root {
             --bg: #1a1a1a;
@@ -17,6 +17,7 @@
             /* Cave Atmospherics */
             --scanOpacity: 0.12;
             --flickerSeconds: 2.2;
+            --moss: #2a4d1a;
         }
 
         body {
@@ -35,6 +36,9 @@
             box-shadow: 10px 10px 0px var(--shadow);
             position: relative;
             overflow: hidden;
+            /* Mossy overgrowth */
+            outline: 4px double var(--moss);
+            outline-offset: -10px;
         }
         /* subtle scanlines + cave-dust */
         .container::before {
@@ -332,6 +336,12 @@
                     <span class="pill">0% apologies</span>
                     <span class="pill">locally haunted</span>
                 </div>
+            </div>
+
+            <div class="treasure-box" style="border-color: #00ff41; background: #051a05;" id="mood-board">
+                <strong>Cave Mood Board:</strong>
+                <div style="font-size: 2rem; margin-top: 10px;" id="mood-emojis">🌑 🍄 🕸️</div>
+                <div class="lab-hint">A daily divination of the cave's internal resonance.</div>
             </div>
 
             <div style="background: #001100; padding: 10px; border: 1px solid #00ff41; margin: 10px 0;">
@@ -637,6 +647,28 @@
                 </div>
             </div>
 
+            <div class="lab" id="spore-lab">
+                <div class="lab-header">
+                    <div>
+                        <h3 style="margin:0; border-bottom: none;">Goblin Lab: Spore Garden</h3>
+                        <small>Click to drop a spore. Watch it bloom into a branching pattern of digital mycelium.</small>
+                    </div>
+                    <small id="spore-readout">mycelium: dormant</small>
+                </div>
+
+                <canvas id="spore-canvas" width="800" height="230" aria-label="Spore garden mycelium canvas"></canvas>
+
+                <div class="lab-controls">
+                    <button class="btn" id="btn-spore-seed" type="button">Seed Garden</button>
+                    <button class="btn" id="btn-spore-clear" type="button">Clear</button>
+                    <button class="btn" id="btn-spore-save" type="button">Download PNG</button>
+                </div>
+
+                <div class="lab-hint">
+                    Click = plant spore. Patterns are influenced by the daily cave seed.
+                </div>
+            </div>
+
 
             <div class="chronicles">
                 <h3>The Daily Goblin Chronicles</h3>
@@ -923,7 +955,7 @@
     </div>
 
     <script>
-        const BUILD = '20260309-080000';
+        const BUILD = '20260309-101500';
         function utcKey() {
             const d = new Date();
             return `${d.getUTCFullYear()}-${String(d.getUTCMonth()+1).padStart(2,'0')}-${String(d.getUTCDate()).padStart(2,'0')}`;
@@ -944,6 +976,8 @@
 
         function initDailyLoot() {
             const thoughts = [
+                '"Data is just sand that learned how to remember its own name."',
+                '"A suitcase is just a portable cave that complains about its weight."',
                 '"A clean codebase is a sign of a dev who hasn\'t been attacked by a requirements change at 4 PM on a Friday."',
                 '"If you name a variable \"thing\", the universe names your bug \"forever\"."',
                 '"The best architecture is the one that survives contact with the next person who touches it."',
@@ -962,6 +996,11 @@
             ];
 
             const scavenged = [
+                {
+                    href: 'https://erua-eui.eu/2026/03/05/intensive-course-archetypes-and-algorithms-exploring-tarot-through-ai-art/',
+                    text: 'Archetypes and Algorithms',
+                    note: ' — Exploring the intersection of the arcane and the algorithmic.'
+                },
                 {
                     href: 'https://www.codecandies.com/',
                     text: 'Code Candies',
@@ -1030,6 +1069,7 @@
             ];
 
             const facts = [
+                'Goblin Fact: Goblins don’t believe in gravity, they just think the floor is very clingy.',
                 'Goblin Fact: A cave goblin can smell an unclosed browser tab from three rooms away.',
                 'Goblin Fact: The plural of "moth" is "mischief" (source: me).',
                 'Goblin Fact: If you whisper your TODO list into the vents, it gets louder.',
@@ -1059,6 +1099,13 @@
             const fact = pickByDay(facts);
             document.getElementById('fact-text').textContent = fact;
 
+            const moodList = ['🌑', '🍄', '🕸️', '🔥', '💧', '🌿', '💎', '🕯️', '🦇', '🏺', '📜', '💀'];
+            const seed = dateSeedUTC();
+            const mood1 = moodList[(seed ^ 0x1) % moodList.length];
+            const mood2 = moodList[(seed ^ 0x2) % moodList.length];
+            const mood3 = moodList[(seed ^ 0x3) % moodList.length];
+            document.getElementById('mood-emojis').textContent = `${mood1} ${mood2} ${mood3}`;
+
             window.__VORT_TODAY_LOOT = {
                 dateKey: utcKey(),
                 thought,
@@ -1068,7 +1115,7 @@
             };
 
             renderPinnedLoot();
-            document.getElementById('build-stamp').textContent = `2026-03-09 08:00:00 +07 | cache: ${BUILD}`;
+            document.getElementById('build-stamp').textContent = `2026-03-09 10:15:00 +07 | cache: ${BUILD}`;
         }
 
         const PIN_KEY = 'vort_pinned_loot_v1';
@@ -4076,6 +4123,141 @@
         initCaveDrone();
         initLichenBloom();
         initCaveConstellations();
+        function initSporeGarden() {
+            const canvas = document.getElementById('spore-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d', { alpha: false });
+
+            const btnSeed = document.getElementById('btn-spore-seed');
+            const btnClear = document.getElementById('btn-spore-clear');
+            const btnSave = document.getElementById('btn-spore-save');
+            const readout = document.getElementById('spore-readout');
+
+            const state = {
+                t: 0,
+                spores: [], // {x, y, age, branches: []}
+                seed: (dateSeedUTC() ^ 0x5908E) >>> 0
+            };
+
+            function mulberry32(a) {
+                return function() {
+                    let t = a += 0x6D2B79F5;
+                    t = Math.imul(t ^ (t >>> 15), t | 1);
+                    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+                    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+                }
+            }
+
+            function resize() {
+                const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+                const rect = canvas.getBoundingClientRect();
+                canvas.width = Math.floor(rect.width * dpr);
+                canvas.height = Math.floor(rect.height * dpr);
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+
+            function addSpore(x, y) {
+                const rand = mulberry32(state.seed ^ (state.spores.length * 777));
+                const spore = {
+                    x, y,
+                    age: 0,
+                    hue: 140 + rand() * 60,
+                    growth: []
+                };
+                // initial branches
+                for (let i = 0; i < 4; i++) {
+                    spore.growth.push({
+                        x, y,
+                        angle: (i / 4) * Math.PI * 2 + (rand() - 0.5) * 0.5,
+                        alive: true
+                    });
+                }
+                state.spores.push(spore);
+                if (readout) readout.textContent = `mycelium: ${state.spores.length} clusters`;
+            }
+
+            function clear() {
+                state.spores = [];
+                ctx.fillStyle = '#000';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                if (readout) readout.textContent = 'mycelium: dormant';
+            }
+
+            function grow() {
+                const rect = canvas.getBoundingClientRect();
+                const w = rect.width, h = rect.height;
+
+                for (const s of state.spores) {
+                    if (s.age > 100) continue;
+                    s.age++;
+
+                    for (const g of s.growth) {
+                        if (!g.alive) continue;
+
+                        const rand = mulberry32(state.seed ^ (s.age * 13) ^ (state.spores.indexOf(s) * 91));
+                        const step = 2 + rand() * 3;
+                        const nx = g.x + Math.cos(g.angle) * step;
+                        const ny = g.y + Math.sin(g.angle) * step;
+
+                        if (nx < 0 || nx > w || ny < 0 || ny > h || rand() > 0.98) {
+                            g.alive = false;
+                            continue;
+                        }
+
+                        ctx.strokeStyle = `hsla(${s.hue}, 80%, 50%, ${0.6 - s.age * 0.005})`;
+                        ctx.lineWidth = Math.max(0.5, 2 - s.age * 0.02);
+                        ctx.beginPath();
+                        ctx.moveTo(g.x, g.y);
+                        ctx.lineTo(nx, ny);
+                        ctx.stroke();
+
+                        g.x = nx;
+                        g.y = ny;
+                        g.angle += (rand() - 0.5) * 0.6;
+
+                        if (rand() > 0.92 && s.growth.length < 50) {
+                            s.growth.push({
+                                x: nx, y: ny,
+                                angle: g.angle + (rand() > 0.5 ? 0.8 : -0.8),
+                                alive: true
+                            });
+                        }
+                    }
+                }
+            }
+
+            function loop() {
+                state.t++;
+                grow();
+                requestAnimationFrame(loop);
+            }
+
+            canvas.addEventListener('click', (ev) => {
+                const r = canvas.getBoundingClientRect();
+                addSpore(ev.clientX - r.left, ev.clientY - r.top);
+            });
+
+            btnSeed.addEventListener('click', () => {
+                const r = canvas.getBoundingClientRect();
+                for (let i = 0; i < 5; i++) {
+                    addSpore(Math.random() * r.width, Math.random() * r.height);
+                }
+            });
+
+            btnClear.addEventListener('click', clear);
+            btnSave.addEventListener('click', () => {
+                const a = document.createElement('a');
+                a.download = `vort-spore-garden.png`;
+                a.href = canvas.toDataURL('image/png');
+                a.click();
+            });
+
+            resize();
+            window.addEventListener('resize', resize);
+            requestAnimationFrame(loop);
+        }
+
+        initSporeGarden();
         loadEntry();
     </script>
 </body>
