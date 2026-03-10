@@ -2249,3 +2249,98 @@ window.addEventListener('resize', resize);
 requestAnimationFrame(loop);
 }
 
+export function initVoidPebbles() {
+    const canvas = document.getElementById('pebble-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnReseed = document.getElementById('btn-pebble-reseed');
+    const readout = document.getElementById('pebble-readout');
+
+    const state = {
+        seed: (dateSeedUTC() ^ 0x9EB81E) >>> 0,
+        pebbles: []
+    };
+
+    function mulberry32(a) {
+        return function() {
+            let t = a += 0x6D2B79F5;
+            t = Math.imul(t ^ (t >>> 15), t | 1);
+            t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        }
+    }
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function generate() {
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+        const rand = mulberry32(state.seed);
+        
+        state.pebbles = Array.from({ length: 40 }, () => {
+            const size = 10 + rand() * 40;
+            return {
+                x: rand() * w,
+                y: rand() * h,
+                r: size,
+                hue: rand() * 360,
+                sat: 10 + rand() * 20,
+                lum: 10 + rand() * 15,
+                rot: rand() * Math.PI * 2,
+                noise: Array.from({ length: 8 }, () => rand())
+            };
+        });
+
+        if (readout) readout.textContent = `void: seed ${state.seed.toString(16)}`;
+    }
+
+    function draw() {
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, w, h);
+
+        for (const p of state.pebbles) {
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rot);
+            
+            ctx.beginPath();
+            for (let i = 0; i < 8; i++) {
+                const ang = (i / 8) * Math.PI * 2;
+                const r = p.r * (0.8 + p.noise[i] * 0.4);
+                const x = Math.cos(ang) * r;
+                const y = Math.sin(ang) * r;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            
+            ctx.fillStyle = `hsl(${p.hue}, ${p.sat}%, ${p.lum}%)`;
+            ctx.fill();
+            ctx.strokeStyle = `hsla(${p.hue}, ${p.sat}%, ${p.lum + 20}%, 0.3)`;
+            ctx.stroke();
+            ctx.restore();
+        }
+    }
+
+    btnReseed?.addEventListener('click', () => {
+        state.seed = (state.seed + 1) >>> 0;
+        generate();
+        draw();
+    });
+
+    resize();
+    window.addEventListener('resize', () => { resize(); draw(); });
+    generate();
+    draw();
+}
+
