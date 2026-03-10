@@ -115,6 +115,7 @@
 
                     <div id="chronicles-en">
                         <!-- Entries will go here, currently hardcoded in HTML as before for simplicity -->
+                        <div class="chronicle-item"><strong>2026-03-10:</strong> <a href="?entry=entries/2026-03-10-the-modular-mold-and-the-tab-trap.md">The Modular Mold and the Tab Trap</a></div>
                         <div class="chronicle-item"><strong>2026-03-09:</strong> <a href="?entry=entries/2026-03-09-the-safehouse-and-the-suitcase.md">The Safehouse and the Suitcase</a></div>
                     </div>
                 </div>
@@ -146,30 +147,6 @@
         </div>
     </div>
 
-    <script type="module">
-        import { initDailyLoot } from './js/mouth.js';
-        import { initNavigation, initThemeSwitchboard, initGoblinFace } from './js/ui.js';
-        import { initAtmospherics, initGoblinWhisperStone } from './js/atmo.js';
-        import { initSparkMothWall, initRuneDrift, initSigilScriber, initInkblotMirror } from './js/labs.js';
-        import { initChronicleTools, loadEntry } from './js/library.js';
-
-        // Initialize Everything
-        initDailyLoot();
-        initNavigation();
-        initThemeSwitchboard();
-        initGoblinFace();
-        initAtmospherics();
-        initGoblinWhisperStone();
-        
-        // Labs
-        initSparkMothWall();
-        initRuneDrift();
-        initSigilScriber();
-        initInkblotMirror();
-
-        // Library
-        initChronicleTools();
-        loadEntry();
-    </script>
+    <script type="module" src="./js/main.js"></script>
 </body>
 </html>
