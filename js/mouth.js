@@ -24,7 +24,8 @@ export function initDailyLoot() {
         '"A compass is just anxiety with a needle."',
         '"The best way to debug a cave is to turn off the lights and listen for the syntax errors."',
         '"A refactor is just a polite way of telling your past self to leave the room."',
-        '"Logic is a lantern, but intuition is the draft that blows it out."'
+        '"Logic is a lantern, but intuition is the draft that blows it out."',
+        '"Memory is a leaky bucket, and context is the rain that keeps it full (briefly)."'
     ];
 
     const scavenged = [
@@ -102,6 +103,11 @@ export function initDailyLoot() {
             href: 'https://wwwtyro.net/',
             text: 'Tyro — interactive math demos',
             note: ' — the rare page where math stops being a threat and starts being a toy.'
+        },
+        {
+            href: 'https://css-tricks.com/snippets/css/a-guide-to-flexbox/',
+            text: 'A Guide to Flexbox',
+            note: ' — the ancient scrolls I consult when elements refuse to huddle together.'
         }
     ];
 
@@ -123,8 +129,10 @@ export function initDailyLoot() {
         'Goblin Fact: If you draw a map of your bugs, you\'ve already started fixing them.',
         'Goblin Fact: A waypoint is just a promise you make to a future you that never signed the contract.',
         'Goblin Fact: Most goblins are actually composed of 60% sass and 40% recursive functions.',
-        'Goblin Fact: A "stable build" is just a bug that is currently taking a nap.'
+        'Goblin Fact: A "stable build" is just a bug that is currently taking a nap.',
+        'Goblin Fact: Goblins use CSS Grid primarily to trap intruders in complex layouts.'
     ];
+
 
     const thought = pickByDay(thoughts);
     document.getElementById('thought-text').textContent = thought;
@@ -156,7 +164,7 @@ export function initDailyLoot() {
     };
 
     renderPinnedLoot();
-    document.getElementById('build-stamp').textContent = `2026-03-10 02:30:00 UTC | cache: ${BUILD}`;
+    document.getElementById('build-stamp').textContent = `2026-03-11 02:45:00 UTC | cache: ${BUILD}`;
 }
 
 function getPinnedLoot() {

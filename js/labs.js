@@ -2344,3 +2344,99 @@ export function initVoidPebbles() {
     draw();
 }
 
+export function initDataCrystals() {
+    const canvas = document.getElementById('crystal-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnGrow = document.getElementById('btn-crystal-grow');
+    const btnShatter = document.getElementById('btn-crystal-shatter');
+    const readout = document.getElementById('crystal-readout');
+
+    const state = {
+        crystals: [],
+        seed: (dateSeedUTC() ^ 0xDA7A) >>> 0
+    };
+
+    function mulberry32(a) {
+        return function() {
+            let t = a += 0x6D2B79F5;
+            t = Math.imul(t ^ (t >>> 15), t | 1);
+            t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        }
+    }
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function grow() {
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+        const rand = mulberry32(state.seed ^ (state.crystals.length * 123));
+        
+        const x = rand() * w;
+        const y = h - 10;
+        const height = 40 + rand() * 120;
+        const width = 15 + rand() * 30;
+        const hue = 180 + rand() * 60; // Cyan to Purple
+
+        state.crystals.push({ x, y, h: height, w: width, hue, points: [
+            {dx: -width/2, dy: 0},
+            {dx: -width/2, dy: -height * 0.7},
+            {dx: 0, dy: -height},
+            {dx: width/2, dy: -height * 0.7},
+            {dx: width/2, dy: 0}
+        ]});
+        
+        if (readout) readout.textContent = `crystals: ${state.crystals.length}`;
+    }
+
+    function draw() {
+        const rect = canvas.getBoundingClientRect();
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, rect.width, rect.height);
+
+        for (const c of state.crystals) {
+            ctx.beginPath();
+            ctx.moveTo(c.x + c.points[0].dx, c.y + c.points[0].dy);
+            for (let i = 1; i < c.points.length; i++) {
+                ctx.lineTo(c.x + c.points[i].dx, c.y + c.points[i].dy);
+            }
+            ctx.closePath();
+            
+            const grad = ctx.createLinearGradient(c.x, c.y, c.x, c.y - c.h);
+            grad.addColorStop(0, `hsla(${c.hue}, 100%, 20%, 0.8)`);
+            grad.addColorStop(1, `hsla(${c.hue}, 100%, 70%, 0.9)`);
+            
+            ctx.fillStyle = grad;
+            ctx.fill();
+            ctx.strokeStyle = `hsla(${c.hue}, 100%, 80%, 0.5)`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+        }
+    }
+
+    btnGrow?.addEventListener('click', () => {
+        state.seed = (state.seed + 1) >>> 0;
+        grow();
+        draw();
+    });
+
+    btnShatter?.addEventListener('click', () => {
+        state.crystals = [];
+        draw();
+        if (readout) readout.textContent = 'crystals: shattered';
+    });
+
+    resize();
+    window.addEventListener('resize', () => { resize(); draw(); });
+    draw();
+}
+
+

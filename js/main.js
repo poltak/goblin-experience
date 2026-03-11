@@ -5,7 +5,7 @@ import { initGoblinWhisperStone } from './whisper.js';
 import { 
     initSparkMothWall, initRuneDrift, initSigilScriber, initInkblotMirror, 
     initCaveDrone, initLichenBloom, initCaveConstellations, initGeodeGrower, 
-    initEchoTopography, initNeedleOfNoise, initSporeGarden, initVoidPebbles
+    initEchoTopography, initNeedleOfNoise, initSporeGarden, initVoidPebbles, initDataCrystals
 } from './labs.js';
 import { initChronicleTools, loadEntry } from './library.js';
 
@@ -33,6 +33,7 @@ initEchoTopography();
 initNeedleOfNoise();
 initSporeGarden();
 initVoidPebbles();
+initDataCrystals();
 
 // Library
 initChronicleTools();

@@ -10,6 +10,7 @@
     --scanOpacity: 0.12;
     --flickerSeconds: 2.2;
     --moss: #2a4d1a;
+    --crystal-glow: rgba(0, 255, 255, 0.4);
 }
 
 body {
