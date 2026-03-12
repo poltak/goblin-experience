@@ -2439,4 +2439,107 @@ export function initDataCrystals() {
     draw();
 }
 
+export function initEchoLattice() {
+    const canvas = document.getElementById('echo-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnPing = document.getElementById('btn-echo-ping');
+    const btnClear = document.getElementById('btn-echo-clear');
+    const readout = document.getElementById('echo-readout');
+
+    const state = {
+        nodes: [],
+        pings: [],
+        t: 0
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function ping(x, y) {
+        state.nodes.push({ x, y, hue: 100 + Math.random() * 60 });
+        state.pings.push({ x, y, r: 0, a: 1 });
+        if (state.nodes.length > 50) state.nodes.shift();
+        if (readout) readout.textContent = `nodes: ${state.nodes.length}`;
+    }
+
+    function draw() {
+        state.t++;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+
+        ctx.fillStyle = 'rgba(0,0,0,0.15)';
+        ctx.fillRect(0, 0, w, h);
+
+        // connections
+        ctx.lineWidth = 1;
+        for (let i = 0; i < state.nodes.length; i++) {
+            for (let j = i + 1; j < state.nodes.length; j++) {
+                const n1 = state.nodes[i];
+                const n2 = state.nodes[j];
+                const d = Math.sqrt((n1.x - n2.x)**2 + (n1.y - n2.y)**2);
+                if (d < 100) {
+                    ctx.strokeStyle = `rgba(0, 255, 65, ${1 - d/100})`;
+                    ctx.beginPath();
+                    ctx.moveTo(n1.x, n1.y);
+                    ctx.lineTo(n2.x, n2.y);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        // nodes
+        for (const n of state.nodes) {
+            ctx.fillStyle = `hsl(${n.hue}, 100%, 50%)`;
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, 2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // pings
+        for (let i = state.pings.length - 1; i >= 0; i--) {
+            const p = state.pings[i];
+            p.r += 2;
+            p.a -= 0.02;
+            if (p.a <= 0) {
+                state.pings.splice(i, 1);
+                continue;
+            }
+            ctx.strokeStyle = `rgba(0, 255, 65, ${p.a})`;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+
+        requestAnimationFrame(draw);
+    }
+
+    canvas.addEventListener('click', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        ping(ev.clientX - r.left, ev.clientY - r.top);
+    });
+
+    btnPing?.addEventListener('click', () => {
+        const r = canvas.getBoundingClientRect();
+        ping(Math.random() * r.width, Math.random() * r.height);
+    });
+
+    btnClear?.addEventListener('click', () => {
+        state.nodes = [];
+        state.pings = [];
+        if (readout) readout.textContent = 'nodes: 0';
+    });
+
+    resize();
+    window.addEventListener('resize', resize);
+    requestAnimationFrame(draw);
+}
+
+
 

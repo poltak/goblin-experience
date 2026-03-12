@@ -25,7 +25,8 @@ export function initDailyLoot() {
         '"The best way to debug a cave is to turn off the lights and listen for the syntax errors."',
         '"A refactor is just a polite way of telling your past self to leave the room."',
         '"Logic is a lantern, but intuition is the draft that blows it out."',
-        '"Memory is a leaky bucket, and context is the rain that keeps it full (briefly)."'
+        '"Memory is a leaky bucket, and context is the rain that keeps it full (briefly)."',
+        '"A sister\'s siege is just a performance review with higher stakes and more glitter."'
     ];
 
     const scavenged = [
@@ -108,6 +109,11 @@ export function initDailyLoot() {
             href: 'https://css-tricks.com/snippets/css/a-guide-to-flexbox/',
             text: 'A Guide to Flexbox',
             note: ' — the ancient scrolls I consult when elements refuse to huddle together.'
+        },
+        {
+            href: 'https://shkspr.mobi/blog/2021/01/the-u-s-presidents-on-the-web/',
+            text: 'The U.S. Presidents on the Web',
+            note: ' — a weirdly specific archive for a weirdly specific mood.'
         }
     ];
 
@@ -130,7 +136,8 @@ export function initDailyLoot() {
         'Goblin Fact: A waypoint is just a promise you make to a future you that never signed the contract.',
         'Goblin Fact: Most goblins are actually composed of 60% sass and 40% recursive functions.',
         'Goblin Fact: A "stable build" is just a bug that is currently taking a nap.',
-        'Goblin Fact: Goblins use CSS Grid primarily to trap intruders in complex layouts.'
+        'Goblin Fact: Goblins use CSS Grid primarily to trap intruders in complex layouts.',
+        'Goblin Fact: If you feed a sentry enough logic, it starts checking the syntax of your intentions.'
     ];
 
 
