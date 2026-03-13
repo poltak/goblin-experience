@@ -1,5 +1,5 @@
 import { BUILD, dateSeedUTC, mulberry32, fnv1a, clamp } from './utils.js';
-let runeInitialized = false;
+
 export function initRuneDrift() {
     const canvas = document.getElementById('rune-canvas');
     if (!canvas) return;
@@ -15,19 +15,20 @@ export function initRuneDrift() {
 
     const glyphs = 'ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛋᛏᛒᛖᛗᛚᛜᛞᛟᛞᛞᛞ'.split('');
 
-    if (window.vort_rune_state) {
-        resize();
-        cast(input.value);
-        return;
-    }
-
-    const state = {
+    const state = window.vort_rune_state || {
         seed: 1,
         t: 0,
         jolt: 0,
         stream: []
     };
+    const alreadyInitialized = !!window.vort_rune_state;
     window.vort_rune_state = state;
+
+    if (alreadyInitialized) {
+        resize();
+        cast(input.value);
+        return;
+    }
 
 
 
