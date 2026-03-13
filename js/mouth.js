@@ -161,14 +161,16 @@ export function initDailyLoot() {
     document.getElementById('scavenge-note').textContent = s.note;
 
     const fact = pickByDay(facts);
-    document.getElementById('fact-text').textContent = fact;
+    const factEl = document.getElementById('fact-text');
+    if (factEl) factEl.textContent = fact;
 
     const moodList = ['🌑', '🍄', '🕸️', '🔥', '💧', '🌿', '💎', '🕯️', '🦇', '🏺', '📜', '💀'];
     const seed = dateSeedUTC();
     const mood1 = moodList[((seed ^ 0x1) >>> 0) % moodList.length];
     const mood2 = moodList[((seed ^ 0x2) >>> 0) % moodList.length];
     const mood3 = moodList[((seed ^ 0x3) >>> 0) % moodList.length];
-    document.getElementById('mood-emojis').textContent = `${mood1} ${mood2} ${mood3}`;
+    const moodEl = document.getElementById('mood-emojis');
+    if (moodEl) moodEl.textContent = `${mood1} ${mood2} ${mood3}`;
 
     window.__VORT_TODAY_LOOT = {
         dateKey: utcKey(),
@@ -179,7 +181,8 @@ export function initDailyLoot() {
     };
 
     renderPinnedLoot();
-    document.getElementById('build-stamp').textContent = `2026-03-13 02:45:00 UTC | cache: ${BUILD}`;
+    const buildEl = document.getElementById('build-stamp');
+    if (buildEl) buildEl.textContent = `2026-03-13 13:13:13 UTC | cache: ${BUILD}`;
 }
 
 function getPinnedLoot() {

@@ -39,6 +39,48 @@
                     <span id="scavenge-note"></span>
                 </div>
 
+                <div class="treasure-box" style="border-color: #b7ffce;" id="pinned-box">
+                    <strong>Pinned Loot (prototype):</strong>
+                    <span id="pinned-empty">(nothing pinned yet)</span>
+
+                    <div id="pinned-content" style="display:none; margin-top: 10px;">
+                        <div class="pill-row">
+                            <span class="pill" id="pinned-date">date: ?</span>
+                            <span class="pill" id="pinned-build">build: ?</span>
+                        </div>
+                        <div style="margin-top: 10px;">
+                            <div><strong>Thought:</strong> <span id="pinned-thought"></span></div>
+                            <div style="margin-top: 6px;"><strong>Link:</strong> <a id="pinned-link" href="#" target="_blank" rel="noopener noreferrer"></a></div>
+                            <div style="margin-top: 6px;"><strong>Fact:</strong> <span id="pinned-fact"></span></div>
+                        </div>
+                    </div>
+
+                    <div class="lab-controls" style="margin-top: 10px;">
+                        <button class="btn" id="btn-pin-today" type="button">Pin today’s loot</button>
+                        <button class="btn" id="btn-unpin" type="button">Unpin</button>
+                    </div>
+                </div>
+
+                <div class="treasure-box" style="border-color: #8fd3ff; background:#00152a;" id="backpack-box">
+                    <strong>Goblin Backpack:</strong>
+                    <span class="muted">stash multiple days of loot locally.</span>
+                    <div class="lab-controls" style="margin-top: 12px;">
+                        <button class="btn" id="btn-backpack-add" type="button">Add today</button>
+                        <button class="btn" id="btn-backpack-export" type="button">Export</button>
+                        <button class="btn" id="btn-backpack-import" type="button">Import</button>
+                        <button class="btn" id="btn-backpack-clear" type="button">Clear</button>
+                        <span class="status-chip muted" id="backpack-readout">items: 0</span>
+                    </div>
+                    <div id="backpack-list" style="margin-top: 10px;">
+                        <span class="muted" id="backpack-empty">(empty backpack)</span>
+                    </div>
+                </div>
+
+                <div class="treasure-box" style="border-color: #39ff14;">
+                    <strong>Goblin Fact:</strong>
+                    <span id="fact-text">(the goblin is thinking)</span>
+                </div>
+
                 <div class="treasure-box" style="border-color: #00ff41; background: #051a05;" id="mood-board">
                     <strong>Cave Mood Board:</strong>
                     <div style="font-size: 2rem; margin-top: 10px;" id="mood-emojis">🌑 🍄 🕸️</div>
@@ -294,6 +336,30 @@
                         <input id="chronicle-filter" class="search-input" type="text" placeholder="filter..." />
                         <button class="btn" id="btn-random-en">Random EN</button>
                         <button class="btn" id="btn-random-vn">Random VN</button>
+                    </div>
+
+                    <div class="treasure-box" style="border-color: #8a2be2;" id="fortune-box">
+                        <strong>Goblin fortune:</strong>
+                        <span id="fortune-empty" class="muted">(press <code>F</code> to summon one)</span>
+                        <span id="fortune-content" style="display:none;">
+                            <span id="fortune-text"></span>
+                        </span>
+                        <div class="lab-controls" style="margin-top: 10px;">
+                            <button class="btn" id="btn-fortune" type="button">Summon</button>
+                            <button class="btn" id="btn-fortune-copy" type="button">Copy</button>
+                        </div>
+                    </div>
+
+                    <div class="treasure-box" style="border-color: #ffd54a;" id="continue-box">
+                        <strong>Continue reading:</strong>
+                        <span id="continue-empty">(no last-read chronicle yet)</span>
+                        <span id="continue-content" style="display:none;">
+                            <a id="continue-link" href="#">(loading)</a>
+                            <span class="muted" id="continue-meta"></span>
+                        </span>
+                        <div class="lab-controls" style="margin-top: 10px;">
+                            <button class="btn" id="btn-forget-last" type="button">Forget</button>
+                        </div>
                     </div>
 
                     <div id="chronicles-en">
