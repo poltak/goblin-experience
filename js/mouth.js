@@ -4,6 +4,7 @@ const PIN_KEY = 'vort_pinned_loot_v1';
 const BACKPACK_KEY = 'vort_backpack_v1';
 
 export function initDailyLoot() {
+    if (!document.getElementById('thought-text')) return;
     const thoughts = [
         '"Data is just sand that learned how to remember its own name."',
         '"A suitcase is just a portable cave that complains about its weight."',

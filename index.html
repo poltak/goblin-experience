@@ -74,6 +74,7 @@
 
             <!-- View: Lab -->
             <div id="view-lab" class="view-section">
+                <!-- 1. Spark-Moth Wall -->
                 <div class="lab" id="goblin-lab">
                     <div class="lab-header">
                         <h3 style="margin:0; border-bottom: none;">Spark-Moth Wall</h3>
@@ -87,6 +88,7 @@
                     </div>
                 </div>
 
+                <!-- 2. Rune Drift -->
                 <div class="lab" id="rune-lab">
                     <div class="lab-header">
                         <h3 style="margin:0; border-bottom: none;">Rune Drift</h3>
@@ -96,9 +98,143 @@
                     <div class="lab-controls">
                         <input id="chant-input" type="text" placeholder="chant..." />
                         <button class="btn" id="btn-chant">Cast</button>
+                        <button class="btn" id="btn-rune-jolt">Jolt</button>
+                        <button class="btn" id="btn-rune-wipe">Wipe</button>
                     </div>
                 </div>
 
+                <!-- 3. Sigil Scriber -->
+                <div class="lab" id="sigil-lab">
+                    <div class="lab-header">
+                        <h3 style="margin:0; border-bottom: none;">Sigil Scriber</h3>
+                        <small id="sigil-readout">ink: primed</small>
+                    </div>
+                    <canvas id="sigil-canvas" width="800" height="220"></canvas>
+                    <div class="lab-controls">
+                        <button class="btn" id="btn-sigil-clear">Clear</button>
+                        <button class="btn" id="btn-sigil-save">Save PNG</button>
+                        <label class="toggle"><input id="toggle-sigil-glow" type="checkbox" checked /> Glow</label>
+                    </div>
+                </div>
+
+                <!-- 4. Inkblot Mirror -->
+                <div class="lab" id="inkblot-lab">
+                    <div class="lab-header">
+                        <h3 style="margin:0; border-bottom: none;">Inkblot Mirror</h3>
+                        <small id="inkblot-readout">blot: (unspilled)</small>
+                    </div>
+                    <canvas id="inkblot-canvas" width="800" height="220"></canvas>
+                    <div class="lab-controls">
+                        <button class="btn" id="btn-inkblot">Regenerate</button>
+                        <button class="btn" id="btn-inkblot-save">Save PNG</button>
+                        <label class="toggle"><input id="toggle-inkblot-sym" type="checkbox" checked /> Symmetry</label>
+                    </div>
+                </div>
+
+                <!-- 5. Cave Drone -->
+                <div class="lab" id="audio-lab">
+                    <div class="lab-header">
+                        <h3 style="margin:0; border-bottom: none;">Cave Drone</h3>
+                        <small id="audio-readout">audio: sleeping</small>
+                    </div>
+                    <canvas id="audio-canvas" width="800" height="180"></canvas>
+                    <div class="lab-controls">
+                        <button class="btn" id="btn-audio-toggle">Awaken</button>
+                        <label class="toggle">Pitch <input id="audio-pitch" type="range" min="30" max="220" value="72" /></label>
+                        <label class="toggle">Drift <input id="audio-drift" type="range" min="0" max="100" value="22" /></label>
+                        <label class="toggle">Grit <input id="audio-grit" type="range" min="0" max="100" value="18" /></label>
+                    </div>
+                </div>
+
+                <!-- 6. Lichen Bloom -->
+                <div class="lab" id="lichen-lab">
+                    <div class="lab-header">
+                        <h3 style="margin:0; border-bottom: none;">Lichen Bloom</h3>
+                        <small id="lichen-readout">cells: ?</small>
+                    </div>
+                    <canvas id="lichen-canvas" width="800" height="240"></canvas>
+                    <div class="lab-controls">
+                        <button class="btn" id="btn-lichen-seed">Seed</button>
+                        <button class="btn" id="btn-lichen-freeze">Freeze</button>
+                        <label class="toggle"><input id="toggle-lichen-trails" type="checkbox" /> Trails</label>
+                        <label class="toggle">Brush <input id="lichen-brush" type="range" min="1" max="7" value="3" /></label>
+                    </div>
+                </div>
+
+                <!-- 7. Cave Constellations -->
+                <div class="lab" id="constellation-lab">
+                    <div class="lab-header">
+                        <h3 style="margin:0; border-bottom: none;">Cave Constellations</h3>
+                        <small id="constellation-readout">stars: 0</small>
+                    </div>
+                    <canvas id="constellation-canvas" width="800" height="240"></canvas>
+                    <div class="lab-controls">
+                        <button class="btn" id="btn-constellation-sprout">Sprout</button>
+                        <button class="btn" id="btn-constellation-clear">Clear</button>
+                        <label class="toggle"><input id="toggle-constellation-threads" type="checkbox" checked /> Threads</label>
+                    </div>
+                </div>
+
+                <!-- 8. Geode Grower -->
+                <div class="lab" id="geode-lab">
+                    <div class="lab-header">
+                        <h3 style="margin:0; border-bottom: none;">Geode Grower</h3>
+                        <small id="geode-readout">shards: 0</small>
+                    </div>
+                    <canvas id="geode-canvas" width="800" height="230"></canvas>
+                    <div class="lab-controls">
+                        <button class="btn" id="btn-geode-seed">Seed</button>
+                        <button class="btn" id="btn-geode-freeze">Freeze</button>
+                        <button class="btn" id="btn-geode-clear">Clear</button>
+                        <label class="toggle"><input id="toggle-geode-glow" type="checkbox" checked /> Glow</label>
+                    </div>
+                </div>
+
+                <!-- 9. Echo Topography -->
+                <div class="lab" id="topo-lab">
+                    <div class="lab-header">
+                        <h3 style="margin:0; border-bottom: none;">Echo Topography</h3>
+                        <small id="topo-readout">map: (unfolding)</small>
+                    </div>
+                    <canvas id="topo-canvas" width="800" height="230"></canvas>
+                    <div class="lab-controls">
+                        <button class="btn" id="btn-topo-regenerate">Regenerate</button>
+                        <button class="btn" id="btn-topo-freeze">Freeze</button>
+                        <button class="btn" id="btn-topo-save">Save PNG</button>
+                        <label class="toggle">Contours <input id="topo-contours" type="range" min="4" max="18" value="11" /></label>
+                    </div>
+                </div>
+
+                <!-- 10. Needle of Noise -->
+                <div class="lab" id="compass-lab">
+                    <div class="lab-header">
+                        <h3 style="margin:0; border-bottom: none;">Needle of Noise</h3>
+                        <small id="compass-readout">needle: (listening)</small>
+                    </div>
+                    <canvas id="compass-canvas" width="800" height="230"></canvas>
+                    <div class="lab-controls">
+                        <button class="btn" id="btn-compass-waypoint">Waypoint</button>
+                        <button class="btn" id="btn-compass-clear">Clear</button>
+                        <button class="btn" id="btn-compass-save">Save PNG</button>
+                        <label class="toggle">Jitter <input id="compass-jitter" type="range" min="0" max="30" value="12" /></label>
+                    </div>
+                </div>
+
+                <!-- 11. Spore Garden -->
+                <div class="lab" id="spore-lab">
+                    <div class="lab-header">
+                        <h3 style="margin:0; border-bottom: none;">Spore Garden</h3>
+                        <small id="spore-readout">mycelium: dormant</small>
+                    </div>
+                    <canvas id="spore-canvas" width="800" height="230"></canvas>
+                    <div class="lab-controls">
+                        <button class="btn" id="btn-spore-seed">Seed</button>
+                        <button class="btn" id="btn-spore-clear">Clear</button>
+                        <button class="btn" id="btn-spore-save">Save PNG</button>
+                    </div>
+                </div>
+
+                <!-- 12. Void Pebbles -->
                 <div class="lab" id="pebble-lab">
                     <div class="lab-header">
                         <h3 style="margin:0; border-bottom: none;">Void Pebbles</h3>
@@ -110,6 +246,7 @@
                     </div>
                 </div>
 
+                <!-- 13. Echo Lattice -->
                 <div class="lab" id="echo-lab">
                     <div class="lab-header">
                         <h3 style="margin:0; border-bottom: none;">Echo Lattice</h3>
@@ -122,6 +259,7 @@
                     </div>
                 </div>
 
+                <!-- 14. Digital Fossil -->
                 <div class="lab" id="fossil-lab">
                     <div class="lab-header">
                         <h3 style="margin:0; border-bottom: none;">Digital Fossil</h3>
@@ -134,6 +272,7 @@
                     </div>
                 </div>
 
+                <!-- 15. Data Crystals -->
                 <div class="lab" id="crystal-lab">
                     <div class="lab-header">
                         <h3 style="margin:0; border-bottom: none;">Data Crystals</h3>
@@ -145,9 +284,6 @@
                         <button class="btn" id="btn-crystal-shatter">Shatter</button>
                     </div>
                 </div>
-
-                <!-- (Other labs omitted for brevity in this initial rewrite, will add back) -->
-                <div class="manifesto">More labs being modularized... HSSS.</div>
             </div>
 
             <!-- View: Library -->

@@ -1,6 +1,7 @@
 import { BUILD, dateSeedUTC, mulberry32, fnv1a, clamp } from './utils.js';
 export function initRuneDrift() {
 const canvas = document.getElementById('rune-canvas');
+if (!canvas) return;
 const ctx = canvas.getContext('2d', { alpha: false });
 
 const input = document.getElementById('chant-input');
@@ -20,23 +21,9 @@ jolt: 0,
 stream: []
 };
 
-function fnv1a(str) {
-let h = 2166136261;
-for (let i = 0; i < str.length; i++) {
-h ^= str.charCodeAt(i);
-h = Math.imul(h, 16777619);
-}
-return (h >>> 0);
-}
 
-function mulberry32(a) {
-return function() {
-let t = a += 0x6D2B79F5;
-t = Math.imul(t ^ (t >>> 15), t | 1);
-t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-}
-}
+
+
 
 function resize() {
 const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
@@ -143,6 +130,7 @@ requestAnimationFrame(step);
 }
 export function initSigilScriber() {
 const canvas = document.getElementById('sigil-canvas');
+if (!canvas) return;
 const ctx = canvas.getContext('2d', { alpha: false });
 
 const btnClear = document.getElementById('btn-sigil-clear');
@@ -347,14 +335,7 @@ if (saved && typeof saved.sym === 'boolean') state.sym = saved.sym;
 
 if (toggleSym) toggleSym.checked = state.sym;
 
-function mulberry32(a) {
-return function() {
-let t = a += 0x6D2B79F5;
-t = Math.imul(t ^ (t >>> 15), t | 1);
-t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-}
-}
+
 
 function resize() {
 const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
@@ -491,6 +472,7 @@ render();
 }
 export function initCaveDrone() {
 const canvas = document.getElementById('audio-canvas');
+if (!canvas) return;
 const ctx = canvas.getContext('2d', { alpha: false });
 
 const btn = document.getElementById('btn-audio-toggle');
@@ -690,6 +672,7 @@ requestAnimationFrame(draw);
 
 export function initLichenBloom() {
 const canvas = document.getElementById('lichen-canvas');
+if (!canvas) return;
 const ctx = canvas.getContext('2d', { alpha: false });
 
 const btnSeed = document.getElementById('btn-lichen-seed');
@@ -725,14 +708,7 @@ if (saved && typeof saved.brush === 'number') state.brush = Math.max(1, Math.min
 if (toggleTrails) toggleTrails.checked = state.trails;
 if (brush) brush.value = String(state.brush);
 
-function mulberry32(a) {
-return function() {
-let t = a += 0x6D2B79F5;
-t = Math.imul(t ^ (t >>> 15), t | 1);
-t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-}
-}
+
 
 function savePrefs() {
 try {
@@ -966,6 +942,7 @@ requestAnimationFrame(loop);
 }
 export function initCaveConstellations() {
 const canvas = document.getElementById('constellation-canvas');
+if (!canvas) return;
 const ctx = canvas.getContext('2d', { alpha: false });
 
 const btnSprout = document.getElementById('btn-constellation-sprout');
@@ -995,14 +972,7 @@ localStorage.setItem(storeKey, JSON.stringify({ threads: state.threads, points: 
 } catch (_) {}
 }
 
-function mulberry32(a) {
-return function() {
-let t = a += 0x6D2B79F5;
-t = Math.imul(t ^ (t >>> 15), t | 1);
-t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-}
-}
+
 
 function resize() {
 const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
@@ -1158,23 +1128,9 @@ t: 0
 
 function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
 
-function mulberry32(a) {
-return function() {
-let t = a += 0x6D2B79F5;
-t = Math.imul(t ^ (t >>> 15), t | 1);
-t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-}
-}
 
-function fnv1a(str) {
-let h = 2166136261;
-for (let i = 0; i < str.length; i++) {
-h ^= str.charCodeAt(i);
-h = Math.imul(h, 16777619);
-}
-return (h >>> 0);
-}
+
+
 
 function save() {
 try {
@@ -1419,14 +1375,7 @@ t: 0
 
 function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
 
-function mulberry32(a) {
-return function() {
-let t = a += 0x6D2B79F5;
-t = Math.imul(t ^ (t >>> 15), t | 1);
-t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-}
-}
+
 
 function hash2i(ix, iy, seed) {
 // cheap deterministic hash: returns 0..1
@@ -1911,6 +1860,7 @@ requestAnimationFrame(loop);
 
 export function initSparkMothWall() {
 const canvas = document.getElementById('moth-canvas');
+if (!canvas) return;
 const ctx = canvas.getContext('2d', { alpha: false });
 
 const trailsToggle = document.getElementById('toggle-trails');
@@ -1937,14 +1887,7 @@ if (saved && typeof saved.trails === 'boolean') state.trails = saved.trails;
 
 trailsToggle.checked = state.trails;
 
-function mulberry32(a) {
-return function() {
-let t = a += 0x6D2B79F5;
-t = Math.imul(t ^ (t >>> 15), t | 1);
-t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-}
-}
+
 
 function resize() {
 const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
@@ -2131,14 +2074,7 @@ spores: [], // {x, y, age, branches: []}
 seed: (dateSeedUTC() ^ 0x5908E) >>> 0
 };
 
-function mulberry32(a) {
-return function() {
-let t = a += 0x6D2B79F5;
-t = Math.imul(t ^ (t >>> 15), t | 1);
-t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-}
-}
+
 
 function resize() {
 const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
@@ -2262,14 +2198,7 @@ export function initVoidPebbles() {
         pebbles: []
     };
 
-    function mulberry32(a) {
-        return function() {
-            let t = a += 0x6D2B79F5;
-            t = Math.imul(t ^ (t >>> 15), t | 1);
-            t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-        }
-    }
+    
 
     function resize() {
         const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
@@ -2358,14 +2287,7 @@ export function initDataCrystals() {
         seed: (dateSeedUTC() ^ 0xDA7A) >>> 0
     };
 
-    function mulberry32(a) {
-        return function() {
-            let t = a += 0x6D2B79F5;
-            t = Math.imul(t ^ (t >>> 15), t | 1);
-            t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-        }
-    }
+    
 
     function resize() {
         const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
@@ -2556,14 +2478,7 @@ export function initDigitalFossil() {
         seed: (dateSeedUTC() ^ 0xF0551L) >>> 0
     };
 
-    function mulberry32(a) {
-        return function() {
-            let t = a += 0x6D2B79F5;
-            t = Math.imul(t ^ (t >>> 15), t | 1);
-            t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-        }
-    }
+    
 
     function resize() {
         const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
