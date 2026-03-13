@@ -1917,7 +1917,7 @@ size: 0.7 + rand() * 1.8
 };
 });
 
-readout.textContent = `seed: ${state.seed.toString(16)}`;
+if (readout) readout.textContent = `seed: ${state.seed.toString(16)}`;
 }
 
 function savePrefs() {
@@ -2055,7 +2055,7 @@ window.addEventListener('resize', () => { resize(); reseed(state.seed); });
 
 reseed(state.seed);
 background();
-requestAnimationFrame(loop);
+requestAnimationFrame(step);
 }
 
 export function initSporeGarden() {

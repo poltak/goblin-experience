@@ -219,6 +219,27 @@ export function initChronicleTools() {
 
     filter.addEventListener('input', applyFilter);
 
+    // SPA Navigation: Intercept chronicle links
+    document.addEventListener('click', (e) => {
+        const a = e.target.closest('a');
+        if (!a) return;
+        const href = a.getAttribute('href') || '';
+        if (href.startsWith('?entry=')) {
+            e.preventDefault();
+            window.history.pushState({}, '', href);
+            loadEntry();
+        } else if (a.classList.contains('back-link')) {
+            // If it's the back link, we might want to just go to index.html or use history
+            e.preventDefault();
+            window.history.pushState({}, '', 'index.html');
+            loadEntry();
+        }
+    });
+
+    window.addEventListener('popstate', () => {
+        loadEntry();
+    });
+
     document.addEventListener('keydown', (e) => {
         const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
         const typing = (tag === 'input' || tag === 'textarea');
@@ -261,6 +282,11 @@ export async function loadEntry() {
             const response = await fetch(path + '?v=' + BUILD);
             if (!response.ok) throw new Error('File not found');
             const text = await response.text();
+
+            if (typeof marked === 'undefined') {
+                contentDiv.innerHTML = '<p style="color: red;">Error: Marked.js scavenge failed.</p>';
+                return;
+            }
             contentDiv.innerHTML = marked.parse(text);
 
             const heading = contentDiv.querySelector('h1, h2, h3');
@@ -311,5 +337,10 @@ export async function loadEntry() {
             contentDiv.innerHTML = '<p style="color: red;">Error: Could not scavenge this chronicle entry.</p>';
             console.error(err);
         }
+    } else {
+        const mainUI = document.getElementById('main-ui');
+        const entryUI = document.getElementById('entry-ui');
+        if (mainUI) mainUI.style.display = 'block';
+        if (entryUI) entryUI.style.display = 'none';
     }
 }
