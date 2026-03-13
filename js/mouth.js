@@ -158,7 +158,8 @@ export function initDailyLoot() {
         a.href = s.href;
         a.textContent = s.text;
     }
-    document.getElementById('scavenge-note').textContent = s.note;
+    const noteEl = document.getElementById('scavenge-note');
+    if (noteEl) noteEl.textContent = s.note;
 
     const fact = pickByDay(facts);
     const factEl = document.getElementById('fact-text');

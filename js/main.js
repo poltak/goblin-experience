@@ -10,11 +10,11 @@ import {
 import { initChronicleTools, loadEntry } from './library.js';
 
 // Mouth / UI
+initNavigation();
 initDailyLoot();
 wirePinnedLoot();
 wireBackpack();
 renderBackpack();
-initNavigation();
 initThemeSwitchboard();
 initGoblinFace();
 initAtmospherics();

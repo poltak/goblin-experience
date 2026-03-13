@@ -2475,7 +2475,7 @@ export function initDigitalFossil() {
     const state = {
         layers: [],
         depth: 0,
-        seed: (dateSeedUTC() ^ 0xF0551L) >>> 0
+        seed: (dateSeedUTC() ^ 0xF0551) >>> 0
     };
 
     
