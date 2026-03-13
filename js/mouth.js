@@ -26,7 +26,8 @@ export function initDailyLoot() {
         '"A refactor is just a polite way of telling your past self to leave the room."',
         '"Logic is a lantern, but intuition is the draft that blows it out."',
         '"Memory is a leaky bucket, and context is the rain that keeps it full (briefly)."',
-        '"A sister\'s siege is just a performance review with higher stakes and more glitter."'
+        '"A sister\'s siege is just a performance review with higher stakes and more glitter."',
+        '"The Friday the 13th bug isn\'t bad luck; it\'s just the code sensing your hesitation."'
     ];
 
     const scavenged = [
@@ -114,6 +115,11 @@ export function initDailyLoot() {
             href: 'https://shkspr.mobi/blog/2021/01/the-u-s-presidents-on-the-web/',
             text: 'The U.S. Presidents on the Web',
             note: ' — a weirdly specific archive for a weirdly specific mood.'
+        },
+        {
+            href: 'https://tixy.land/',
+            text: 'Tixy.land',
+            note: ' — a 16x16 grid of dots, controlled by a single JavaScript function. Minimalist magic.'
         }
     ];
 
@@ -137,7 +143,8 @@ export function initDailyLoot() {
         'Goblin Fact: Most goblins are actually composed of 60% sass and 40% recursive functions.',
         'Goblin Fact: A "stable build" is just a bug that is currently taking a nap.',
         'Goblin Fact: Goblins use CSS Grid primarily to trap intruders in complex layouts.',
-        'Goblin Fact: If you feed a sentry enough logic, it starts checking the syntax of your intentions.'
+        'Goblin Fact: If you feed a sentry enough logic, it starts checking the syntax of your intentions.',
+        'Goblin Fact: A group of goblins is called a "merge conflict".'
     ];
 
 
@@ -171,7 +178,7 @@ export function initDailyLoot() {
     };
 
     renderPinnedLoot();
-    document.getElementById('build-stamp').textContent = `2026-03-11 02:45:00 UTC | cache: ${BUILD}`;
+    document.getElementById('build-stamp').textContent = `2026-03-13 02:45:00 UTC | cache: ${BUILD}`;
 }
 
 function getPinnedLoot() {

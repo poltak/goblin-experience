@@ -2541,5 +2541,95 @@ export function initEchoLattice() {
     requestAnimationFrame(draw);
 }
 
+export function initDigitalFossil() {
+    const canvas = document.getElementById('fossil-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnDig = document.getElementById('btn-fossil-dig');
+    const btnReset = document.getElementById('btn-fossil-reset');
+    const readout = document.getElementById('fossil-readout');
+
+    const state = {
+        layers: [],
+        depth: 0,
+        seed: (dateSeedUTC() ^ 0xF0551L) >>> 0
+    };
+
+    function mulberry32(a) {
+        return function() {
+            let t = a += 0x6D2B79F5;
+            t = Math.imul(t ^ (t >>> 15), t | 1);
+            t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        }
+    }
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function dig() {
+        state.depth++;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+        const rand = mulberry32(state.seed ^ state.depth);
+        
+        const layer = {
+            y: (state.depth * 20) % h,
+            color: `hsl(${140 + rand() * 40}, ${20 + rand() * 30}%, ${10 + rand() * 20}%)`,
+            shapes: Array.from({ length: 5 }, () => ({
+                x: rand() * w,
+                r: 5 + rand() * 15,
+                type: rand() > 0.5 ? 'bone' : 'rock'
+            }))
+        };
+        state.layers.push(layer);
+        if (state.layers.length > 20) state.layers.shift();
+        
+        if (readout) readout.textContent = `depth: ${state.depth} spans`;
+        draw();
+    }
+
+    function draw() {
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+        ctx.fillStyle = '#1a1a1a';
+        ctx.fillRect(0, 0, w, h);
+
+        for (const l of state.layers) {
+            ctx.fillStyle = l.color;
+            ctx.fillRect(0, l.y, w, 20);
+            
+            for (const s of l.shapes) {
+                ctx.fillStyle = 'rgba(255,255,255,0.1)';
+                if (s.type === 'bone') {
+                    ctx.fillRect(s.x, l.y + 5, s.r * 2, 5);
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(s.x, l.y + 10, s.r, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+        }
+    }
+
+    btnDig?.addEventListener('click', dig);
+    btnReset?.addEventListener('click', () => {
+        state.layers = [];
+        state.depth = 0;
+        if (readout) readout.textContent = 'depth: 0';
+        draw();
+    });
+
+    resize();
+    window.addEventListener('resize', () => { resize(); draw(); });
+    draw();
+}
+
 
 

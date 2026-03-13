@@ -214,8 +214,10 @@ pre { background: #000; padding: 1rem; overflow-x: auto; border: 1px solid var(-
     padding: 6px 10px;
     cursor: pointer;
     font-family: inherit;
+    transition: transform 0.1s, filter 0.1s;
 }
 .btn:hover { background: #002700; }
+.btn:active { transform: scale(0.95); filter: brightness(1.2); }
 .toggle {
     display: inline-flex;
     align-items: center;
