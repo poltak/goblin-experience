@@ -1,25 +1,33 @@
 import { BUILD, dateSeedUTC, mulberry32, fnv1a, clamp } from './utils.js';
+let runeInitialized = false;
 export function initRuneDrift() {
-const canvas = document.getElementById('rune-canvas');
-if (!canvas) return;
-const ctx = canvas.getContext('2d', { alpha: false });
+    const canvas = document.getElementById('rune-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
 
-const input = document.getElementById('chant-input');
-const btnCast = document.getElementById('btn-chant');
-const btnJolt = document.getElementById('btn-rune-jolt');
-const btnWipe = document.getElementById('btn-rune-wipe');
-const readout = document.getElementById('rune-readout');
+    const input = document.getElementById('chant-input');
+    const btnCast = document.getElementById('btn-chant');
+    const btnJolt = document.getElementById('btn-rune-jolt');
+    const btnWipe = document.getElementById('btn-rune-wipe');
+    const readout = document.getElementById('rune-readout');
 
-const storeKey = 'vort_rune_v1';
+    const storeKey = 'vort_rune_v1';
 
-const glyphs = 'ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛋᛏᛒᛖᛗᛚᛜᛞᛟᛞᛞᛞ'.split('');
+    const glyphs = 'ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛋᛏᛒᛖᛗᛚᛜᛞᛟᛞᛞᛞ'.split('');
 
-const state = {
-seed: 1,
-t: 0,
-jolt: 0,
-stream: []
-};
+    if (window.vort_rune_state) {
+        resize();
+        cast(input.value);
+        return;
+    }
+
+    const state = {
+        seed: 1,
+        t: 0,
+        jolt: 0,
+        stream: []
+    };
+    window.vort_rune_state = state;
 
 
 
@@ -74,12 +82,13 @@ ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 function step() {
-const rect = canvas.getBoundingClientRect();
-const w = rect.width, h = rect.height;
+        if (state !== window.vort_rune_state) return;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
 
-state.t += 1;
+        state.t += 1;
 
-ctx.fillStyle = 'rgba(0,0,0,0.14)';
+        ctx.fillStyle = 'rgba(0,0,0,0.14)';
 ctx.fillRect(0, 0, w, h);
 
 const drift = 0.4 + 0.15 * Math.sin(state.t * 0.01);

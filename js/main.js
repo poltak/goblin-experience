@@ -10,7 +10,18 @@ import {
 import { initChronicleTools, loadEntry } from './library.js';
 
 const initializers = [
-    [initNavigation, 'Navigation'],
+    [() => initNavigation(viewId => {
+        if (viewId === 'lab') {
+            [
+                initSparkMothWall, initRuneDrift, initSigilScriber, initInkblotMirror, 
+                initCaveDrone, initLichenBloom, initCaveConstellations, initGeodeGrower, 
+                initEchoTopography, initNeedleOfNoise, initSporeGarden, initVoidPebbles, 
+                initDataCrystals, initEchoLattice, initDigitalFossil
+            ].forEach(fn => {
+                try { fn(); } catch (e) { console.error(`[Vort] Lab refresh failed`, e); }
+            });
+        }
+    }), 'Navigation'],
     [initDailyLoot, 'DailyLoot'],
     [wirePinnedLoot, 'PinnedLoot'],
     [wireBackpack, 'Backpack'],

@@ -16,7 +16,7 @@ export function initGoblinFace() {
     });
 }
 
-export function initNavigation() {
+export function initNavigation(onViewChange) {
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.view-section');
 
@@ -31,6 +31,7 @@ export function initNavigation() {
             target.classList.add('active');
             link.classList.add('active');
             window.location.hash = viewId;
+            if (onViewChange) onViewChange(viewId);
         }
     }
 
