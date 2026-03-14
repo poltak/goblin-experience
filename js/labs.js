@@ -2619,3 +2619,117 @@ export function initDigitalFossil() {
 
 
 
+
+export function initMarrowDensity() {
+    const canvas = document.getElementById('marrow-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnFracture = document.getElementById('btn-marrow-fracture');
+    const btnCalcify = document.getElementById('btn-marrow-calcify');
+    const voidRange = document.getElementById('marrow-void');
+    const readout = document.getElementById('marrow-readout');
+
+    const state = {
+        t: 0,
+        voidAmt: 40,
+        nodes: [],
+        mx: 0,
+        my: 0,
+        hasMouse: false
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function addNode(x, y) {
+        state.nodes.push({ x, y, r: 5 + Math.random() * 15, phase: Math.random() * 100 });
+        if (state.nodes.length > 50) state.nodes.shift();
+    }
+
+    function render() {
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+        state.t += 1;
+
+        ctx.fillStyle = '#0a0a0a';
+        ctx.fillRect(0, 0, w, h);
+
+        const v = state.voidAmt / 100;
+
+        ctx.strokeStyle = 'rgba(0, 255, 65, 0.05)';
+        ctx.lineWidth = 1;
+        for(let i=0; i<w; i+=20) {
+            ctx.beginPath();
+            ctx.moveTo(i, 0);
+            ctx.lineTo(i, h);
+            ctx.stroke();
+        }
+
+        ctx.fillStyle = 'rgba(0, 255, 65, 0.2)';
+        for(let i=0; i<100; i++) {
+            const x = (state.t * 0.2 + i * 15) % w;
+            const y = h * 0.5 + Math.sin(state.t * 0.01 + i) * 30;
+            const size = 10 + Math.sin(i) * 5;
+            
+            let obscured = false;
+            for(const node of state.nodes) {
+                const dx = x - node.x;
+                const dy = y - node.y;
+                if(dx*dx + dy*dy < node.r * node.r * (1 + v)) obscured = true;
+            }
+
+            if(!obscured) {
+                ctx.fillRect(x, y, size, size);
+            }
+        }
+
+        for(const node of state.nodes) {
+            const pulse = 1 + Math.sin(state.t * 0.05 + node.phase) * 0.2;
+            ctx.strokeStyle = `rgba(0, 255, 65, ${0.3 * (1-v)})`;
+            ctx.beginPath();
+            ctx.arc(node.x, node.y, node.r * pulse, 0, Math.PI * 2);
+            ctx.stroke();
+            
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+            ctx.fill();
+        }
+
+        if(readout) readout.textContent = `density: ${Math.floor((1-v)*100)}% | nodes: ${state.nodes.length}`;
+    }
+
+    canvas.addEventListener('mousemove', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        state.mx = ev.clientX - r.left;
+        state.my = ev.clientY - r.top;
+        state.hasMouse = true;
+    });
+    canvas.addEventListener('click', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        addNode(ev.clientX - r.left, ev.clientY - r.top);
+    });
+
+    btnFracture?.addEventListener('click', () => {
+        const rect = canvas.getBoundingClientRect();
+        for(let i=0; i<5; i++) addNode(Math.random() * rect.width, Math.random() * rect.height);
+    });
+    btnCalcify?.addEventListener('click', () => {
+        state.nodes = [];
+    });
+    voidRange?.addEventListener('input', () => {
+        state.voidAmt = voidRange.value;
+    });
+
+    resize();
+    window.addEventListener('resize', resize);
+    function loop() {
+        render();
+        requestAnimationFrame(loop);
+    }
+    loop();
+}

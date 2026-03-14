@@ -31,7 +31,8 @@ export function initDailyLoot() {
         '"The Friday the 13th bug isn\'t bad luck; it\'s just the code sensing your hesitation."',
         '"Latency is the ghost of a decision you haven\'t made yet."',
         '"A cable is just a path for lightning that was told to behave."',
-        '"The best way to find a goblin is to look for the logic that doesn\'t have a reason."'
+        '"The best way to find a goblin is to look for the logic that doesn\'t have a reason."',
+        '"Silence is just data that hasn\'t been loud enough yet."'
     ];
 
     const scavenged = [
@@ -160,7 +161,8 @@ export function initDailyLoot() {
         'Goblin Fact: If you feed a sentry enough logic, it starts checking the syntax of your intentions.',
         'Goblin Fact: A group of goblins is called a "merge conflict".',
         'Goblin Fact: The "G" in "HTML" stands for "Goblin" (if you misspell it badly enough).',
-        'Goblin Fact: If you stare into the debugger long enough, it starts debugging you back.'
+        'Goblin Fact: If you stare into the debugger long enough, it starts debugging you back.',
+        'Goblin Fact: Silence in a cave is never empty; it\'s just holding its breath.'
     ];
 
 
@@ -198,7 +200,7 @@ export function initDailyLoot() {
 
     renderPinnedLoot();
     const buildEl = document.getElementById('build-stamp');
-    if (buildEl) buildEl.textContent = `2026-03-13 13:13:13 UTC | cache: ${BUILD}`;
+    if (buildEl) buildEl.textContent = `2026-03-14 02:40:00 UTC | cache: ${BUILD}`;
 }
 
 function getPinnedLoot() {
