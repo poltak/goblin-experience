@@ -2283,6 +2283,67 @@ export function initVoidPebbles() {
     draw();
 }
 
+export function initWarpLoom() {
+    const canvas = document.getElementById('warp-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnReseed = document.getElementById('btn-warp-reseed');
+    const readout = document.getElementById('warp-readout');
+
+    const state = {
+        seed: (dateSeedUTC() ^ 0x60B714) >>> 0,
+        t: 0
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function draw() {
+        state.t += 0.01;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+        const rand = mulberry32(state.seed);
+        
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, w, h);
+
+        const lines = 40;
+        ctx.lineWidth = 1.5;
+        
+        for (let i = 0; i < lines; i++) {
+            const shift = rand() * 100;
+            const hue = (140 + i * 2 + Math.sin(state.t + shift) * 20) % 360;
+            ctx.strokeStyle = `hsla(${hue}, 100%, 50%, 0.6)`;
+            
+            ctx.beginPath();
+            for (let x = 0; x < w; x += 10) {
+                const y = h * 0.5 + Math.sin(x * 0.01 + state.t + shift) * h * 0.3 * Math.cos(state.t * 0.5 + i * 0.1);
+                if (x === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+        }
+
+        requestAnimationFrame(draw);
+    }
+
+    btnReseed?.addEventListener('click', () => {
+        state.seed = (state.seed + 0x9E3779B9) >>> 0;
+        if (readout) readout.textContent = `loom: seed ${state.seed.toString(16)}`;
+    });
+
+    resize();
+    window.addEventListener('resize', resize);
+    if (readout) readout.textContent = `loom: seed ${state.seed.toString(16)}`;
+    requestAnimationFrame(draw);
+}
+
 export function initDataCrystals() {
     const canvas = document.getElementById('crystal-canvas');
     if (!canvas) return;

@@ -5,7 +5,7 @@ import { initGoblinWhisperStone } from './whisper.js';
 import { 
     initSparkMothWall, initRuneDrift, initSigilScriber, initInkblotMirror, 
     initCaveDrone, initLichenBloom, initCaveConstellations, initGeodeGrower, 
-    initEchoTopography, initNeedleOfNoise, initSporeGarden, initVoidPebbles, initDataCrystals, initEchoLattice, initDigitalFossil
+    initEchoTopography, initNeedleOfNoise, initSporeGarden, initVoidPebbles, initWarpLoom, initDataCrystals, initEchoLattice, initDigitalFossil
 } from './labs.js';
 import { initChronicleTools, loadEntry } from './library.js';
 
@@ -16,7 +16,7 @@ const initializers = [
                 initSparkMothWall, initRuneDrift, initSigilScriber, initInkblotMirror, 
                 initCaveDrone, initLichenBloom, initCaveConstellations, initGeodeGrower, 
                 initEchoTopography, initNeedleOfNoise, initSporeGarden, initVoidPebbles, 
-                initDataCrystals, initEchoLattice, initDigitalFossil
+                initWarpLoom, initDataCrystals, initEchoLattice, initDigitalFossil
             ].forEach(fn => {
                 try { fn(); } catch (e) { console.error(`[Vort] Lab refresh failed`, e); }
             });
@@ -42,6 +42,7 @@ const initializers = [
     [initNeedleOfNoise, 'NeedleOfNoise'],
     [initSporeGarden, 'SporeGarden'],
     [initVoidPebbles, 'VoidPebbles'],
+    [initWarpLoom, 'WarpLoom'],
     [initDataCrystals, 'DataCrystals'],
     [initEchoLattice, 'EchoLattice'],
     [initDigitalFossil, 'DigitalFossil'],

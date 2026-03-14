@@ -28,7 +28,10 @@ export function initDailyLoot() {
         '"Logic is a lantern, but intuition is the draft that blows it out."',
         '"Memory is a leaky bucket, and context is the rain that keeps it full (briefly)."',
         '"A sister\'s siege is just a performance review with higher stakes and more glitter."',
-        '"The Friday the 13th bug isn\'t bad luck; it\'s just the code sensing your hesitation."'
+        '"The Friday the 13th bug isn\'t bad luck; it\'s just the code sensing your hesitation."',
+        '"Latency is the ghost of a decision you haven\'t made yet."',
+        '"A cable is just a path for lightning that was told to behave."',
+        '"The best way to find a goblin is to look for the logic that doesn\'t have a reason."'
     ];
 
     const scavenged = [
@@ -121,6 +124,16 @@ export function initDailyLoot() {
             href: 'https://tixy.land/',
             text: 'Tixy.land',
             note: ' — a 16x16 grid of dots, controlled by a single JavaScript function. Minimalist magic.'
+        },
+        {
+            href: 'https://pixelspiritdeck.com/',
+            text: 'Pixel Spirit Deck',
+            note: ' — a deck of GLSL spells for the aspiring pixel-witch.'
+        },
+        {
+            href: 'https://computational-creativity.org/',
+            text: 'Computational Creativity',
+            note: ' — making machines dream in a way that doesn\'t involve hallucinations.'
         }
     ];
 
@@ -145,7 +158,9 @@ export function initDailyLoot() {
         'Goblin Fact: A "stable build" is just a bug that is currently taking a nap.',
         'Goblin Fact: Goblins use CSS Grid primarily to trap intruders in complex layouts.',
         'Goblin Fact: If you feed a sentry enough logic, it starts checking the syntax of your intentions.',
-        'Goblin Fact: A group of goblins is called a "merge conflict".'
+        'Goblin Fact: A group of goblins is called a "merge conflict".',
+        'Goblin Fact: The "G" in "HTML" stands for "Goblin" (if you misspell it badly enough).',
+        'Goblin Fact: If you stare into the debugger long enough, it starts debugging you back.'
     ];
 
 
