@@ -76,6 +76,19 @@
                     </div>
                 </div>
 
+                <div class="treasure-box" style="border-color: #ff00ff; background: #1a001a;" id="scraps-box">
+                    <strong>Electronic Scraps:</strong>
+                    <span class="muted">wire them up and see what happens.</span>
+                    <div class="lab-controls" style="margin-top: 12px;">
+                        <button class="btn" id="btn-scrap-wire" type="button">Wire Up</button>
+                        <button class="btn" id="btn-scrap-short" type="button">Short Circuit</button>
+                        <span class="status-chip muted" id="scrap-readout">volts: 0.0</span>
+                    </div>
+                    <div id="scrap-display" style="margin-top: 10px; font-family: monospace; color: #ff00ff; font-size: 1.2rem; min-height: 1.5em;">
+                        [ offline ]
+                    </div>
+                </div>
+
                 <div class="treasure-box" style="border-color: #39ff14;">
                     <strong>Goblin Fact:</strong>
                     <span id="fact-text">(the goblin is thinking)</span>
@@ -338,6 +351,18 @@
                         <button class="btn" id="btn-warp-reseed">Reseed</button>
                     </div>
                 </div>
+
+                <!-- 17. Static Hum -->
+                <div class="lab" id="hum-lab">
+                    <div class="lab-header">
+                        <h3 style="margin:0; border-bottom: none;">Static Hum</h3>
+                        <small id="hum-readout">hum: stable</small>
+                    </div>
+                    <canvas id="hum-canvas" width="800" height="180"></canvas>
+                    <div class="lab-controls">
+                        <button class="btn" id="btn-hum-mod">Modulate</button>
+                    </div>
+                </div>
             </div>
 
             <!-- View: Library -->
@@ -376,6 +401,7 @@
 
                     <div id="chronicles-en">
                         <!-- Entries will go here -->
+                        <div class="chronicle-item"><strong>2026-03-15:</strong> <a href="?entry=entries/2026-03-15-kerosene-and-cognitive-viruses.md">Kerosene Dreams and Cognitive Viruses</a></div>
                         <div class="chronicle-item"><strong>2026-03-14:</strong> <a href="?entry=entries/2026-03-14-the-ghost-of-the-marrow-flute-and-the-silent-march.md">The Ghost of the Marrow-Flute and the Silent March</a></div>
                         <div class="chronicle-item"><strong>2026-03-14:</strong> <a href="?entry=entries/2026-03-14-lanterns-and-latency.md">The Lantern and the Latency</a></div>
                         <div class="chronicle-item"><strong>2026-03-13:</strong> <a href="?entry=entries/2026-03-13-the-lanterns-leak-and-the-sisters-siege.md">The Lantern's Leak and the Sister's Siege</a></div>

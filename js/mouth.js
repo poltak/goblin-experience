@@ -6,6 +6,7 @@ const BACKPACK_KEY = 'vort_backpack_v1';
 export function initDailyLoot() {
     if (!document.getElementById('thought-text')) return;
     const thoughts = [
+        '"A scrap of code is just a ghost with a job description."',
         '"Data is just sand that learned how to remember its own name."',
         '"A suitcase is just a portable cave that complains about its weight."',
         '"A clean codebase is a sign of a dev who hasn\'t been attacked by a requirements change at 4 PM on a Friday."',
@@ -32,10 +33,15 @@ export function initDailyLoot() {
         '"Latency is the ghost of a decision you haven\'t made yet."',
         '"A cable is just a path for lightning that was told to behave."',
         '"The best way to find a goblin is to look for the logic that doesn\'t have a reason."',
-        '"Silence is just data that hasn\'t been loud enough yet."'
+        '"The internet is just a very loud cave where everyone is trying to sell you a different Echo."'
     ];
 
     const scavenged = [
+        {
+            href: 'https://vincetools.com/vocalizer/',
+            text: 'Vocalizer',
+            note: ' — A weird little tool for making text sing. Or scream. Mostly scream.'
+        },
         {
             href: 'https://hundredrabbits.itch.io/dotgrid',
             text: 'Dotgrid by Hundred Rabbits',
@@ -139,6 +145,7 @@ export function initDailyLoot() {
     ];
 
     const facts = [
+        'Goblin Fact: If you feed a capacitor 5 volts of pure spite, it will hum in B flat.',
         'Goblin Fact: Goblins don’t believe in gravity, they just think the floor is very clingy.',
         'Goblin Fact: A cave goblin can smell an unclosed browser tab from three rooms away.',
         'Goblin Fact: The plural of "moth" is "mischief" (source: me).',
@@ -161,8 +168,7 @@ export function initDailyLoot() {
         'Goblin Fact: If you feed a sentry enough logic, it starts checking the syntax of your intentions.',
         'Goblin Fact: A group of goblins is called a "merge conflict".',
         'Goblin Fact: The "G" in "HTML" stands for "Goblin" (if you misspell it badly enough).',
-        'Goblin Fact: If you stare into the debugger long enough, it starts debugging you back.',
-        'Goblin Fact: Silence in a cave is never empty; it\'s just holding its breath.'
+        'Goblin Fact: If you stare into the debugger long enough, it starts debugging you back.'
     ];
 
 
@@ -200,7 +206,7 @@ export function initDailyLoot() {
 
     renderPinnedLoot();
     const buildEl = document.getElementById('build-stamp');
-    if (buildEl) buildEl.textContent = `2026-03-14 02:40:00 UTC | cache: ${BUILD}`;
+    if (buildEl) buildEl.textContent = `2026-03-13 13:13:13 UTC | cache: ${BUILD}`;
 }
 
 function getPinnedLoot() {
@@ -345,6 +351,51 @@ export function renderBackpack() {
     }
 
     list.appendChild(ul);
+}
+
+export function wireScraps() {
+    const btnWire = document.getElementById('btn-scrap-wire');
+    const btnShort = document.getElementById('btn-scrap-short');
+    const readout = document.getElementById('scrap-readout');
+    const display = document.getElementById('scrap-display');
+    
+    if (!btnWire || !display) return;
+
+    let volts = 0;
+    const scraps = [
+        "Empty soda can", "Burnt out LED", "Rusted spring", "Tangled copper wire", 
+        "Bent paperclip", "Old watch battery", "Shattered screen shard", "Frayed ribbon cable",
+        "Plastic gear", "Cracked magnet", "Dead capacitor", "Blown fuse"
+    ];
+
+    btnWire.addEventListener('click', () => {
+        volts += Math.random() * 1.5;
+        readout.textContent = `volts: ${volts.toFixed(1)}`;
+        
+        const s1 = scraps[Math.floor(Math.random() * scraps.length)];
+        const s2 = scraps[Math.floor(Math.random() * scraps.length)];
+        display.textContent = `[ ${s1} + ${s2} ] -> ${volts > 5 ? 'HUMMING' : 'CLICKING'}`;
+        
+        if (volts > 10) {
+            display.textContent = "!!! OVERLOAD !!!";
+            display.style.color = "#ff0000";
+            setTimeout(() => {
+                volts = 0;
+                readout.textContent = `volts: 0.0`;
+                display.textContent = "[ offline ]";
+                display.style.color = "#ff00ff";
+            }, 1000);
+        }
+    });
+
+    btnShort.addEventListener('click', () => {
+        volts = 0;
+        readout.textContent = `volts: 0.0`;
+        display.textContent = "* POP *";
+        setTimeout(() => {
+            display.textContent = "[ offline ]";
+        }, 500);
+    });
 }
 
 export function wireBackpack() {

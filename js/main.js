@@ -1,11 +1,11 @@
-import { initDailyLoot, wirePinnedLoot, wireBackpack, renderBackpack } from './mouth.js';
+import { initDailyLoot, wirePinnedLoot, wireBackpack, renderBackpack, wireScraps } from './mouth.js';
 import { initNavigation, initThemeSwitchboard, initGoblinFace } from './ui.js';
 import { initAtmospherics } from './atmo.js';
 import { initGoblinWhisperStone } from './whisper.js';
 import { 
     initSparkMothWall, initRuneDrift, initSigilScriber, initInkblotMirror, 
     initCaveDrone, initLichenBloom, initCaveConstellations, initGeodeGrower, 
-    initEchoTopography, initNeedleOfNoise, initSporeGarden, initVoidPebbles, initWarpLoom, initDataCrystals, initEchoLattice, initDigitalFossil, initMarrowDensity
+    initEchoTopography, initNeedleOfNoise, initSporeGarden, initVoidPebbles, initWarpLoom, initDataCrystals, initEchoLattice, initDigitalFossil, initStaticHum
 } from './labs.js';
 import { initChronicleTools, loadEntry } from './library.js';
 
@@ -16,7 +16,7 @@ const initializers = [
                 initSparkMothWall, initRuneDrift, initSigilScriber, initInkblotMirror, 
                 initCaveDrone, initLichenBloom, initCaveConstellations, initGeodeGrower, 
                 initEchoTopography, initNeedleOfNoise, initSporeGarden, initVoidPebbles, 
-                initWarpLoom, initDataCrystals, initEchoLattice, initDigitalFossil, initMarrowDensity
+                initWarpLoom, initDataCrystals, initEchoLattice, initDigitalFossil, initStaticHum
             ].forEach(fn => {
                 try { fn(); } catch (e) { console.error(`[Vort] Lab refresh failed`, e); }
             });
@@ -26,6 +26,7 @@ const initializers = [
     [wirePinnedLoot, 'PinnedLoot'],
     [wireBackpack, 'Backpack'],
     [renderBackpack, 'RenderBackpack'],
+    [wireScraps, 'Scraps'],
     [initThemeSwitchboard, 'ThemeSwitchboard'],
     [initGoblinFace, 'GoblinFace'],
     [initAtmospherics, 'Atmospherics'],
@@ -46,7 +47,7 @@ const initializers = [
     [initDataCrystals, 'DataCrystals'],
     [initEchoLattice, 'EchoLattice'],
     [initDigitalFossil, 'DigitalFossil'],
-    [initMarrowDensity, 'MarrowDensity'],
+    [initStaticHum, 'StaticHum'],
     [initChronicleTools, 'ChronicleTools'],
     [loadEntry, 'LoadEntry']
 ];

@@ -2330,7 +2330,7 @@ export function initWarpLoom() {
             ctx.stroke();
         }
 
-        requestAnimationFrame(draw);
+        if (window.vort_view === 'lab') requestAnimationFrame(draw);
     }
 
     btnReseed?.addEventListener('click', () => {
@@ -2341,6 +2341,62 @@ export function initWarpLoom() {
     resize();
     window.addEventListener('resize', resize);
     if (readout) readout.textContent = `loom: seed ${state.seed.toString(16)}`;
+    requestAnimationFrame(draw);
+}
+
+export function initStaticHum() {
+    const canvas = document.getElementById('hum-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnMod = document.getElementById('btn-hum-mod');
+    const readout = document.getElementById('hum-readout');
+
+    const state = {
+        t: 0,
+        mod: 1.0
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function draw() {
+        state.t += 0.05 * state.mod;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+        
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.strokeStyle = '#00ff41';
+        ctx.lineWidth = 1;
+        
+        for (let y = 0; y < h; y += 4) {
+            ctx.beginPath();
+            for (let x = 0; x < w; x += 4) {
+                const noise = Math.sin(x * 0.05 + state.t) * Math.cos(y * 0.05 + state.t);
+                const r = 1 + noise * 2;
+                ctx.moveTo(x + r, y);
+                ctx.arc(x, y, r, 0, Math.PI * 2);
+            }
+            ctx.stroke();
+        }
+
+        if (window.vort_view === 'lab') requestAnimationFrame(draw);
+    }
+
+    btnMod?.addEventListener('click', () => {
+        state.mod = 0.5 + Math.random() * 2.0;
+        if (readout) readout.textContent = `hum: mod ${state.mod.toFixed(2)}`;
+    });
+
+    resize();
+    window.addEventListener('resize', resize);
     requestAnimationFrame(draw);
 }
 
