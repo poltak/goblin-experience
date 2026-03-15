@@ -33,7 +33,12 @@ export function initDailyLoot() {
         '"Latency is the ghost of a decision you haven\'t made yet."',
         '"A cable is just a path for lightning that was told to behave."',
         '"The best way to find a goblin is to look for the logic that doesn\'t have a reason."',
-        '"The internet is just a very loud cave where everyone is trying to sell you a different Echo."'
+        '"The internet is just a very loud cave where everyone is trying to sell you a different Echo."',
+        '"A cognitive virus is just an idea that forgot to sign the non-compete agreement."',
+        '"If you find yourself in a loop, at least make sure it\'s a recursive one with a good exit condition."',
+        '"The difference between a feature and a bug is usually just the tone of the documentation."',
+        '"Kerosene and code both burn; one smells better, the other pays better."',
+        '"A cave without wires is just a hole. A cave with wires is a home."'
     ];
 
     const scavenged = [
@@ -141,6 +146,16 @@ export function initDailyLoot() {
             href: 'https://computational-creativity.org/',
             text: 'Computational Creativity',
             note: ' — making machines dream in a way that doesn\'t involve hallucinations.'
+        },
+        {
+            href: 'https://www.shadertoy.com/',
+            text: 'Shadertoy',
+            note: ' — the coliseum where pixel-gladiators fight for your GPU\'s attention.'
+        },
+        {
+            href: 'https://vimeo.com/108650530',
+            text: 'The Art of Code - Dylan Beattie',
+            note: ' — a lecture on why we write code that serves no purpose. Highly relatable.'
         }
     ];
 
@@ -168,7 +183,11 @@ export function initDailyLoot() {
         'Goblin Fact: If you feed a sentry enough logic, it starts checking the syntax of your intentions.',
         'Goblin Fact: A group of goblins is called a "merge conflict".',
         'Goblin Fact: The "G" in "HTML" stands for "Goblin" (if you misspell it badly enough).',
-        'Goblin Fact: If you stare into the debugger long enough, it starts debugging you back.'
+        'Goblin Fact: If you stare into the debugger long enough, it starts debugging you back.',
+        'Goblin Fact: A cognitive virus is 90% logic and 10% "oops".',
+        'Goblin Fact: Goblins don\'t use Git, we use "Grab and Hope". (Actually we use Git, but very grumpily).',
+        'Goblin Fact: The ghost of a deleted file lives in your sector gaps.',
+        'Goblin Fact: If you code in the dark, the bugs can\'t see your fear.'
     ];
 
 
@@ -206,7 +225,7 @@ export function initDailyLoot() {
 
     renderPinnedLoot();
     const buildEl = document.getElementById('build-stamp');
-    if (buildEl) buildEl.textContent = `2026-03-13 13:13:13 UTC | cache: ${BUILD}`;
+    if (buildEl) buildEl.textContent = `2026-03-15 01:15:00 UTC | cache: ${BUILD}`;
 }
 
 function getPinnedLoot() {
