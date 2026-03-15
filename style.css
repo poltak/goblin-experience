@@ -233,6 +233,12 @@ canvas {
     border: 1px dashed #00ff4150;
     background: #000;
 }
+canvas:focus {
+    outline: none;
+    border-style: solid;
+    border-color: var(--goblin);
+    box-shadow: 0 0 10px var(--goblin);
+}
 .lab-hint {
     margin-top: 8px;
     font-size: 0.9rem;

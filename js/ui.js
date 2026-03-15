@@ -31,6 +31,7 @@ export function initNavigation(onViewChange) {
             target.classList.add('active');
             link.classList.add('active');
             window.location.hash = viewId;
+            window.vort_view = viewId;
             if (onViewChange) onViewChange(viewId);
         }
     }
@@ -42,6 +43,7 @@ export function initNavigation(onViewChange) {
     });
 
     const hash = window.location.hash.replace('#', '');
+    window.vort_view = 'mouth';
     if (hash && document.getElementById(`view-${hash}`)) {
         showView(hash);
     }

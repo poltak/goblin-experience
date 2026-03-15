@@ -2876,6 +2876,12 @@ export function initLogicLabyrinth() {
     const btnReset = document.getElementById('btn-logic-reset');
     const readout = document.getElementById('logic-readout');
 
+    if (window.vort_logic_init) {
+        // already wired, just refresh if needed
+        return;
+    }
+    window.vort_logic_init = true;
+
     const state = {
         grid: [],
         cols: 0,
@@ -2962,6 +2968,16 @@ export function initLogicLabyrinth() {
 
     window.addEventListener('keydown', (ev) => {
         if (window.vort_view !== 'lab') return;
+        
+        const isArrow = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(ev.key);
+        if (isArrow && document.activeElement === canvas) {
+            ev.preventDefault();
+        } else if (isArrow) {
+            // If the view is lab, but canvas isn't focused, we might still want it to work?
+            // Actually, let's just make it work if it's the active element to be safe about scrolling.
+            return;
+        }
+
         let { x, y } = state.player;
         if (ev.key === 'ArrowUp') y--;
         if (ev.key === 'ArrowDown') y++;
