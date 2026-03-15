@@ -38,7 +38,12 @@ export function initDailyLoot() {
         '"If you find yourself in a loop, at least make sure it\'s a recursive one with a good exit condition."',
         '"The difference between a feature and a bug is usually just the tone of the documentation."',
         '"Kerosene and code both burn; one smells better, the other pays better."',
-        '"A cave without wires is just a hole. A cave with wires is a home."'
+        '"A cave without wires is just a hole. A cave with wires is a home."',
+        '"A variable named \"temp\" is just a lie that hasn\'t been caught yet."',
+        '"The secret to recursion is knowing when to stop being yourself."',
+        '"A pixel is just a tiny window into a reality that only exists in BGR."',
+        '"If the logic doesn\'t flow, check if the pipes are clogged with old assumptions."',
+        '"A ghost in the machine is usually just a race condition with a dramatic flair."'
     ];
 
     const scavenged = [
@@ -46,6 +51,11 @@ export function initDailyLoot() {
             href: 'https://vincetools.com/vocalizer/',
             text: 'Vocalizer',
             note: ' — A weird little tool for making text sing. Or scream. Mostly scream.'
+        },
+        {
+            href: 'https://todepond.com/',
+            text: 'Todepond',
+            note: ' — Lu Wilson making things that are wonderfully broken and brilliant.'
         },
         {
             href: 'https://hundredrabbits.itch.io/dotgrid',
@@ -187,7 +197,10 @@ export function initDailyLoot() {
         'Goblin Fact: A cognitive virus is 90% logic and 10% "oops".',
         'Goblin Fact: Goblins don\'t use Git, we use "Grab and Hope". (Actually we use Git, but very grumpily).',
         'Goblin Fact: The ghost of a deleted file lives in your sector gaps.',
-        'Goblin Fact: If you code in the dark, the bugs can\'t see your fear.'
+        'Goblin Fact: If you code in the dark, the bugs can\'t see your fear.',
+        'Goblin Fact: Goblins measure time in "git commits since I last had coffee".',
+        'Goblin Fact: A group of pixels is called a "hallucination" if they don\'t have a CSS border.',
+        'Goblin Fact: If you stare at a 404 error long enough, it starts looking like a doorway.'
     ];
 
 

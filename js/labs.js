@@ -2789,3 +2789,89 @@ export function initMarrowDensity() {
     }
     loop();
 }
+
+export function initSpectralFrequency() {
+    const canvas = document.getElementById('spectral-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnBurst = document.getElementById('btn-spectral-burst');
+    const readout = document.getElementById('spectral-readout');
+
+    const state = {
+        t: 0,
+        ghosts: []
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function burst() {
+        const rect = canvas.getBoundingClientRect();
+        for(let i=0; i<8; i++) {
+            state.ghosts.push({
+                x: Math.random() * rect.width,
+                y: Math.random() * rect.height,
+                vx: (Math.random() - 0.5) * 2,
+                vy: (Math.random() - 0.5) * 2,
+                life: 1.0,
+                hue: 140 + Math.random() * 40
+            });
+        }
+    }
+
+    function render() {
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+        state.t += 0.05;
+
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+        ctx.fillRect(0, 0, w, h);
+
+        for(let i = state.ghosts.length - 1; i >= 0; i--) {
+            const g = state.ghosts[i];
+            g.x += g.vx;
+            g.y += g.vy;
+            g.life -= 0.01;
+
+            if(g.life <= 0) {
+                state.ghosts.splice(i, 1);
+                continue;
+            }
+
+            ctx.strokeStyle = `hsla(${g.hue}, 100%, 50%, ${g.life})`;
+            ctx.beginPath();
+            ctx.moveTo(g.x, g.y);
+            const len = 20 * g.life;
+            ctx.lineTo(g.x - g.vx * len, g.y - g.vy * len);
+            ctx.stroke();
+        }
+
+        // background hum
+        ctx.strokeStyle = 'rgba(0, 255, 65, 0.05)';
+        ctx.beginPath();
+        for(let x = 0; x < w; x += 20) {
+            const y = h * 0.5 + Math.sin(x * 0.02 + state.t) * 20;
+            if(x === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+
+        if(readout) readout.textContent = `ghosts: ${state.ghosts.length} | freq: ${Math.sin(state.t).toFixed(2)}`;
+    }
+
+    btnBurst?.addEventListener('click', burst);
+    
+    resize();
+    window.addEventListener('resize', resize);
+    function loop() {
+        render();
+        requestAnimationFrame(loop);
+    }
+    loop();
+}
