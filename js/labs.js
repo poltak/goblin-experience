@@ -2865,13 +2865,117 @@ export function initSpectralFrequency() {
         if(readout) readout.textContent = `ghosts: ${state.ghosts.length} | freq: ${Math.sin(state.t).toFixed(2)}`;
     }
 
-    btnBurst?.addEventListener('click', burst);
-    
+    loop();
+}
+
+export function initLogicLabyrinth() {
+    const canvas = document.getElementById('logic-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnReset = document.getElementById('btn-logic-reset');
+    const readout = document.getElementById('logic-readout');
+
+    const state = {
+        grid: [],
+        cols: 0,
+        rows: 0,
+        cell: 20,
+        player: { x: 0, y: 0 },
+        goal: { x: 0, y: 0 },
+        t: 0
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        state.cols = Math.floor(rect.width / state.cell);
+        state.rows = Math.floor(rect.height / state.cell);
+        generate();
+    }
+
+    function generate() {
+        state.grid = Array(state.rows).fill().map(() => Array(state.cols).fill(1));
+        
+        function carve(x, y) {
+            state.grid[y][x] = 0;
+            const dirs = [[0, 1], [0, -1], [1, 0], [-1, 0]].sort(() => Math.random() - 0.5);
+            for (const [dx, dy] of dirs) {
+                const nx = x + dx * 2, ny = y + dy * 2;
+                if (nx >= 0 && nx < state.cols && ny >= 0 && ny < state.rows && state.grid[ny][nx] === 1) {
+                    state.grid[y + dy][x + dx] = 0;
+                    carve(nx, ny);
+                }
+            }
+        }
+        carve(0, 0);
+        state.player = { x: 0, y: 0 };
+        state.goal = { x: state.cols - (state.cols % 2 === 0 ? 2 : 1), y: state.rows - (state.rows % 2 === 0 ? 2 : 1) };
+        if (readout) readout.textContent = `maze: ${state.cols}x${state.rows} | solve it.`;
+    }
+
+    function draw() {
+        state.t++;
+        const rect = canvas.getBoundingClientRect();
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, rect.width, rect.height);
+
+        for (let y = 0; y < state.rows; y++) {
+            for (let x = 0; x < state.cols; x++) {
+                if (state.grid[y][x] === 1) {
+                    ctx.fillStyle = '#002200';
+                    ctx.fillRect(x * state.cell, y * state.cell, state.cell, state.cell);
+                    ctx.strokeStyle = '#00ff4133';
+                    ctx.strokeRect(x * state.cell, y * state.cell, state.cell, state.cell);
+                }
+            }
+        }
+
+        ctx.fillStyle = '#ff00ff';
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = '#ff00ff';
+        ctx.fillRect(state.goal.x * state.cell + 4, state.goal.y * state.cell + 4, state.cell - 8, state.cell - 8);
+        ctx.shadowBlur = 0;
+
+        ctx.fillStyle = '#00ff41';
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = '#00ff41';
+        const bounce = Math.sin(state.t * 0.1) * 2;
+        ctx.beginPath();
+        ctx.arc(state.player.x * state.cell + state.cell/2, state.player.y * state.cell + state.cell/2 + bounce, state.cell/3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        if (state.player.x === state.goal.x && state.player.y === state.goal.y) {
+            ctx.fillStyle = 'rgba(0, 255, 65, 0.8)';
+            ctx.font = '30px Courier New';
+            ctx.textAlign = 'center';
+            ctx.fillText('ESCAPE SUCCESSFUL', rect.width/2, rect.height/2);
+        }
+
+        requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('keydown', (ev) => {
+        if (window.vort_view !== 'lab') return;
+        let { x, y } = state.player;
+        if (ev.key === 'ArrowUp') y--;
+        if (ev.key === 'ArrowDown') y++;
+        if (ev.key === 'ArrowLeft') x--;
+        if (ev.key === 'ArrowRight') x++;
+
+        if (x >= 0 && x < state.cols && y >= 0 && y < state.rows && state.grid[y][x] === 0) {
+            state.player = { x, y };
+        }
+    });
+
+    btnReset?.addEventListener('click', generate);
+
     resize();
     window.addEventListener('resize', resize);
-    function loop() {
-        render();
-        requestAnimationFrame(loop);
-    }
-    loop();
+    requestAnimationFrame(draw);
 }

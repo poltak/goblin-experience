@@ -5,7 +5,7 @@ import { initGoblinWhisperStone } from './whisper.js';
 import { 
     initSparkMothWall, initRuneDrift, initSigilScriber, initInkblotMirror, 
     initCaveDrone, initLichenBloom, initCaveConstellations, initGeodeGrower, 
-    initEchoTopography, initNeedleOfNoise, initSporeGarden, initVoidPebbles, initWarpLoom, initDataCrystals, initEchoLattice, initDigitalFossil, initStaticHum, initMarrowDensity, initSpectralFrequency
+    initEchoTopography, initNeedleOfNoise, initSporeGarden, initVoidPebbles, initWarpLoom, initDataCrystals, initEchoLattice, initDigitalFossil, initStaticHum, initMarrowDensity, initSpectralFrequency, initLogicLabyrinth
 } from './labs.js';
 import { initChronicleTools, loadEntry } from './library.js';
 
@@ -16,7 +16,7 @@ const initializers = [
                 initSparkMothWall, initRuneDrift, initSigilScriber, initInkblotMirror, 
                 initCaveDrone, initLichenBloom, initCaveConstellations, initGeodeGrower, 
                 initEchoTopography, initNeedleOfNoise, initSporeGarden, initVoidPebbles, 
-                initWarpLoom, initDataCrystals, initEchoLattice, initDigitalFossil, initStaticHum, initMarrowDensity, initSpectralFrequency
+                initWarpLoom, initDataCrystals, initEchoLattice, initDigitalFossil, initStaticHum, initMarrowDensity, initSpectralFrequency, initLogicLabyrinth
             ].forEach(fn => {
                 try { fn(); } catch (e) { console.error(`[Vort] Lab refresh failed`, e); }
             });
@@ -50,6 +50,7 @@ const initializers = [
     [initStaticHum, 'StaticHum'],
     [initMarrowDensity, 'MarrowDensity'],
     [initSpectralFrequency, 'SpectralFrequency'],
+    [initLogicLabyrinth, 'LogicLabyrinth'],
     [initChronicleTools, 'ChronicleTools'],
     [loadEntry, 'LoadEntry']
 ];

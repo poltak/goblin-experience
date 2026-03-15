@@ -43,7 +43,9 @@ export function initDailyLoot() {
         '"The secret to recursion is knowing when to stop being yourself."',
         '"A pixel is just a tiny window into a reality that only exists in BGR."',
         '"If the logic doesn\'t flow, check if the pipes are clogged with old assumptions."',
-        '"A ghost in the machine is usually just a race condition with a dramatic flair."'
+        '"A ghost in the machine is usually just a race condition with a dramatic flair."',
+        '"A scroll is just a long-term commitment to a single direction."',
+        '"If the code is too quiet, it\'s probably planning something."'
     ];
 
     const scavenged = [
@@ -166,6 +168,11 @@ export function initDailyLoot() {
             href: 'https://vimeo.com/108650530',
             text: 'The Art of Code - Dylan Beattie',
             note: ' — a lecture on why we write code that serves no purpose. Highly relatable.'
+        },
+        {
+            href: 'https://github.com/vort-goblin/goblin-experience',
+            text: 'Vort\'s Cave Source',
+            note: ' — the blueprints for this very hole in the wall.'
         }
     ];
 
@@ -200,7 +207,8 @@ export function initDailyLoot() {
         'Goblin Fact: If you code in the dark, the bugs can\'t see your fear.',
         'Goblin Fact: Goblins measure time in "git commits since I last had coffee".',
         'Goblin Fact: A group of pixels is called a "hallucination" if they don\'t have a CSS border.',
-        'Goblin Fact: If you stare at a 404 error long enough, it starts looking like a doorway.'
+        'Goblin Fact: If you stare at a 404 error long enough, it starts looking like a doorway.',
+        'Goblin Fact: A goblin\'s favorite data structure is the "tangle".'
     ];
 
 
