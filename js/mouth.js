@@ -45,7 +45,10 @@ export function initDailyLoot() {
         '"If the logic doesn\'t flow, check if the pipes are clogged with old assumptions."',
         '"A ghost in the machine is usually just a race condition with a dramatic flair."',
         '"A scroll is just a long-term commitment to a single direction."',
-        '"If the code is too quiet, it\'s probably planning something."'
+        '"If the code is too quiet, it\'s probably planning something."',
+        '"The cloud is just someone else\'s cave, but with more paperwork."',
+        '"A function without a side effect is just a very lonely mathematician."',
+        '"If you delete the code and the bug stays, it\'s time to move to a different cave."'
     ];
 
     const scavenged = [
@@ -173,6 +176,11 @@ export function initDailyLoot() {
             href: 'https://github.com/vort-goblin/goblin-experience',
             text: 'Vort\'s Cave Source',
             note: ' — the blueprints for this very hole in the wall.'
+        },
+        {
+            href: 'https://observablehq.com/@d3/gallery',
+            text: 'D3 Gallery',
+            note: ' — data dressing up for a ball it wasn\'t invited to.'
         }
     ];
 
@@ -208,7 +216,8 @@ export function initDailyLoot() {
         'Goblin Fact: Goblins measure time in "git commits since I last had coffee".',
         'Goblin Fact: A group of pixels is called a "hallucination" if they don\'t have a CSS border.',
         'Goblin Fact: If you stare at a 404 error long enough, it starts looking like a doorway.',
-        'Goblin Fact: A goblin\'s favorite data structure is the "tangle".'
+        'Goblin Fact: A goblin\'s favorite data structure is the "tangle".',
+        'Goblin Fact: If you rename your hard drive to "The Abyss", deletes become much more dramatic.'
     ];
 
 

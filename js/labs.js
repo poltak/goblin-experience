@@ -2995,3 +2995,126 @@ export function initLogicLabyrinth() {
     window.addEventListener('resize', resize);
     requestAnimationFrame(draw);
 }
+
+export function initGlowWormBurrow() {
+    const canvas = document.getElementById('glowworm-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnSprout = document.getElementById('btn-glowworm-sprout');
+    const btnClear = document.getElementById('btn-glowworm-clear');
+    const toggleLure = document.getElementById('toggle-glowworm-lure');
+    const readout = document.getElementById('glowworm-readout');
+
+    const state = {
+        worms: [],
+        mx: 0,
+        my: 0,
+        hasMouse: false,
+        lure: true,
+        t: 0
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function sprout(n = 12) {
+        const rect = canvas.getBoundingClientRect();
+        for (let i = 0; i < n; i++) {
+            state.worms.push({
+                x: Math.random() * rect.width,
+                y: Math.random() * rect.height,
+                vx: (Math.random() - 0.5) * 2,
+                vy: (Math.random() - 0.5) * 2,
+                hue: 90 + Math.random() * 40,
+                trail: [],
+                phase: Math.random() * 1000
+            });
+        }
+        if (readout) readout.textContent = `worms: ${state.worms.length}`;
+    }
+
+    function render() {
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+        state.t++;
+
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+        ctx.fillRect(0, 0, w, h);
+
+        for (const worm of state.worms) {
+            // physics
+            if (state.lure && state.hasMouse) {
+                const dx = state.mx - worm.x;
+                const dy = state.my - worm.y;
+                const d = Math.max(20, Math.sqrt(dx*dx + dy*dy));
+                worm.vx += (dx / d) * 0.15;
+                worm.vy += (dy / d) * 0.15;
+            }
+
+            worm.vx += (Math.random() - 0.5) * 0.2;
+            worm.vy += (Math.random() - 0.5) * 0.2;
+            worm.vx *= 0.98;
+            worm.vy *= 0.98;
+
+            worm.x += worm.vx;
+            worm.y += worm.vy;
+
+            // bounds
+            if (worm.x < 0) worm.x = w;
+            if (worm.x > w) worm.x = 0;
+            if (worm.y < 0) worm.y = h;
+            if (worm.y > h) worm.y = 0;
+
+            // trail
+            worm.trail.push({ x: worm.x, y: worm.y });
+            if (worm.trail.length > 20) worm.trail.shift();
+
+            // draw
+            const pulse = 0.5 + 0.5 * Math.sin(state.t * 0.05 + worm.phase);
+            ctx.beginPath();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = `hsla(${worm.hue}, 100%, 50%, ${0.3 * pulse})`;
+            for (let i = 0; i < worm.trail.length; i++) {
+                const p = worm.trail[i];
+                if (i === 0) ctx.moveTo(p.x, p.y);
+                else ctx.lineTo(p.x, p.y);
+            }
+            ctx.stroke();
+
+            ctx.fillStyle = `hsla(${worm.hue}, 100%, 70%, ${pulse})`;
+            ctx.beginPath();
+            ctx.arc(worm.x, worm.y, 2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        requestAnimationFrame(render);
+    }
+
+    canvas.addEventListener('mousemove', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        state.mx = ev.clientX - r.left;
+        state.my = ev.clientY - r.top;
+        state.hasMouse = true;
+    });
+    canvas.addEventListener('mouseleave', () => state.hasMouse = false);
+    
+    btnSprout?.addEventListener('click', () => sprout(10));
+    btnClear?.addEventListener('click', () => {
+        state.worms = [];
+        if (readout) readout.textContent = 'worms: 0';
+    });
+    toggleLure?.addEventListener('change', () => {
+        state.lure = toggleLure.checked;
+    });
+
+    resize();
+    window.addEventListener('resize', resize);
+    sprout(15);
+    render();
+}
