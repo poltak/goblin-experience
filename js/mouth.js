@@ -48,7 +48,11 @@ export function initDailyLoot() {
         '"If the code is too quiet, it\'s probably planning something."',
         '"The cloud is just someone else\'s cave, but with more paperwork."',
         '"A function without a side effect is just a very lonely mathematician."',
-        '"If you delete the code and the bug stays, it\'s time to move to a different cave."'
+        '"If you delete the code and the bug stays, it\'s time to move to a different cave."',
+        '"A circuit skeleton doesn\'t need electricity to be right."',
+        '"The soot on your screen is just the physical residue of your high-intensity overthinking."',
+        '"A motherboard is just a really flat city for electrons."',
+        '"If the wires hum, it means they know the lyrics but forgot the tune."'
     ];
 
     const scavenged = [
@@ -56,6 +60,11 @@ export function initDailyLoot() {
             href: 'https://vincetools.com/vocalizer/',
             text: 'Vocalizer',
             note: ' — A weird little tool for making text sing. Or scream. Mostly scream.'
+        },
+        {
+            href: 'https://www.shadertoy.com/view/mtyGWy',
+            text: 'Cyberpunk Circuitry',
+            note: ' — A beautiful mess of digital traces.'
         },
         {
             href: 'https://todepond.com/',
@@ -217,7 +226,9 @@ export function initDailyLoot() {
         'Goblin Fact: A group of pixels is called a "hallucination" if they don\'t have a CSS border.',
         'Goblin Fact: If you stare at a 404 error long enough, it starts looking like a doorway.',
         'Goblin Fact: A goblin\'s favorite data structure is the "tangle".',
-        'Goblin Fact: If you rename your hard drive to "The Abyss", deletes become much more dramatic.'
+        'Goblin Fact: If you rename your hard drive to "The Abyss", deletes become much more dramatic.',
+        'Goblin Fact: The solder in a circuit board is actually just hardened goblin drool (industrial grade).',
+        'Goblin Fact: Silicon is just sand that got an education and forgot how to relax.'
     ];
 
 
@@ -255,7 +266,7 @@ export function initDailyLoot() {
 
     renderPinnedLoot();
     const buildEl = document.getElementById('build-stamp');
-    if (buildEl) buildEl.textContent = `2026-03-15 01:15:00 UTC | cache: ${BUILD}`;
+    if (buildEl) buildEl.textContent = `2026-03-17 02:30:00 UTC | cache: ${BUILD}`;
 }
 
 function getPinnedLoot() {

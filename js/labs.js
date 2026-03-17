@@ -3118,3 +3118,124 @@ export function initGlowWormBurrow() {
     sprout(15);
     render();
 }
+
+export function initCircuitSkeleton() {
+    const canvas = document.getElementById('circuit-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnGrow = document.getElementById('btn-circuit-grow');
+    const btnClear = document.getElementById('btn-circuit-clear');
+    const btnSave = document.getElementById('btn-circuit-save');
+    const readout = document.getElementById('circuit-readout');
+
+    const state = {
+        paths: [],
+        seed: (dateSeedUTC() ^ 0x5171C) >>> 0,
+        t: 0
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function grow() {
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+        const rand = mulberry32(state.seed ^ (state.paths.length * 99));
+        
+        const path = {
+            points: [],
+            hue: 120 + rand() * 40,
+            life: 1.0
+        };
+
+        let x = rand() * w;
+        let y = rand() * h;
+        path.points.push({x, y});
+
+        const steps = 10 + Math.floor(rand() * 20);
+        for(let i=0; i<steps; i++) {
+            const dir = Math.floor(rand() * 4);
+            const dist = 20 + Math.floor(rand() * 2) * 20;
+            if(dir === 0) x += dist;
+            else if(dir === 1) x -= dist;
+            else if(dir === 2) y += dist;
+            else y -= dist;
+            
+            x = clamp(x, 10, w - 10);
+            y = clamp(y, 10, h - 10);
+            path.points.push({x, y});
+        }
+
+        state.paths.push(path);
+        if (readout) readout.textContent = `traces: ${state.paths.length}`;
+        draw();
+    }
+
+    function draw() {
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, w, h);
+
+        // grid
+        ctx.strokeStyle = 'rgba(0, 255, 65, 0.05)';
+        ctx.lineWidth = 1;
+        for(let x=0; x<w; x+=20) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, h);
+            ctx.stroke();
+        }
+        for(let y=0; y<h; y+=20) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(w, y);
+            ctx.stroke();
+        }
+
+        for(const p of state.paths) {
+            ctx.strokeStyle = `hsla(${p.hue}, 100%, 50%, 0.8)`;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(p.points[0].x, p.points[0].y);
+            for(let i=1; i<p.points.length; i++) {
+                ctx.lineTo(p.points[i].x, p.points[i].y);
+            }
+            ctx.stroke();
+
+            // nodes
+            for(const pt of p.points) {
+                ctx.fillStyle = '#00ff41';
+                ctx.fillRect(pt.x - 3, pt.y - 3, 6, 6);
+            }
+        }
+    }
+
+    btnGrow?.addEventListener('click', () => {
+        state.seed = (state.seed + 1) >>> 0;
+        grow();
+    });
+
+    btnClear?.addEventListener('click', () => {
+        state.paths = [];
+        draw();
+        if (readout) readout.textContent = 'traces: 0';
+    });
+
+    btnSave?.addEventListener('click', () => {
+        const a = document.createElement('a');
+        a.download = `vort-circuit-skeleton.png`;
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+    });
+
+    resize();
+    window.addEventListener('resize', () => { resize(); draw(); });
+    draw();
+}
