@@ -3344,3 +3344,151 @@ export function initStaticWell() {
     window.addEventListener('resize', resize);
     requestAnimationFrame(draw);
 }
+
+export function initOilParasite() {
+    const canvas = document.getElementById('parasite-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnFeed = document.getElementById('btn-parasite-feed');
+    const btnWipe = document.getElementById('btn-parasite-wipe');
+    const toggleViscous = document.getElementById('toggle-parasite-viscous');
+    const readout = document.getElementById('parasite-readout');
+
+    const state = {
+        blobs: [],
+        code: [],
+        mx: 0,
+        my: 0,
+        hasMouse: false,
+        t: 0
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function spawnBlob(x, y) {
+        state.blobs.push({
+            x, y,
+            vx: 0, vy: 0,
+            r: 10 + Math.random() * 20,
+            hue: 120 + Math.random() * 40,
+            phase: Math.random() * 1000
+        });
+        if (readout) readout.textContent = `parasite: ${state.blobs.length} blobs feasting`;
+    }
+
+    function spawnCode() {
+        const rect = canvas.getBoundingClientRect();
+        const chars = '01<>[]{}+-/*%$#@!&'.split('');
+        for(let i=0; i<10; i++) {
+            state.code.push({
+                x: Math.random() * rect.width,
+                y: Math.random() * rect.height,
+                char: chars[Math.floor(Math.random() * chars.length)],
+                a: 1.0
+            });
+        }
+    }
+
+    function draw() {
+        state.t++;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+        ctx.fillRect(0, 0, w, h);
+
+        // Code fragments
+        ctx.font = '12px Courier New';
+        for (let i = state.code.length - 1; i >= 0; i--) {
+            const c = state.code[i];
+            ctx.fillStyle = `rgba(0, 255, 65, ${c.a * 0.4})`;
+            ctx.fillText(c.char, c.x, c.y);
+            
+            // Blobs consume code
+            for(const b of state.blobs) {
+                const d = Math.sqrt((c.x - b.x)**2 + (c.y - b.y)**2);
+                if(d < b.r) {
+                    c.a -= 0.05;
+                    b.r += 0.1;
+                }
+            }
+            if(c.a <= 0) state.code.splice(i, 1);
+        }
+
+        // Parasite Blobs
+        for (const b of state.blobs) {
+            // Physics
+            const tx = state.hasMouse ? state.mx : w/2;
+            const ty = state.hasMouse ? state.my : h/2;
+            
+            const dx = tx - b.x;
+            const dy = ty - b.y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist > 1) {
+                const force = toggleViscous.checked ? 0.02 : 0.1;
+                b.vx += (dx / dist) * force;
+                b.vy += (dy / dist) * force;
+            }
+            
+            b.vx *= toggleViscous.checked ? 0.94 : 0.98;
+            b.vy *= toggleViscous.checked ? 0.94 : 0.98;
+            
+            b.x += b.vx;
+            b.y += b.vy;
+
+            // Wobble
+            const wobble = Math.sin(state.t * 0.05 + b.phase) * 2;
+            const r = b.r + wobble;
+
+            ctx.fillStyle = `hsla(${b.hue}, 100%, 10%, 0.8)`;
+            ctx.beginPath();
+            ctx.arc(b.x, b.y, r, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Oil sheen
+            const grad = ctx.createRadialGradient(b.x - r*0.3, b.y - r*0.3, 0, b.x, b.y, r);
+            grad.addColorStop(0, `hsla(${b.hue}, 100%, 50%, 0.5)`);
+            grad.addColorStop(1, `hsla(${b.hue}, 100%, 10%, 0.0)`);
+            ctx.fillStyle = grad;
+            ctx.fill();
+
+            ctx.strokeStyle = `hsla(${b.hue}, 100%, 50%, 0.3)`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+        }
+
+        if (window.vort_view === 'lab') requestAnimationFrame(draw);
+    }
+
+    canvas.addEventListener('mousemove', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        state.mx = ev.clientX - r.left;
+        state.my = ev.clientY - r.top;
+        state.hasMouse = true;
+    });
+    canvas.addEventListener('mouseleave', () => state.hasMouse = false);
+    canvas.addEventListener('click', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        spawnBlob(ev.clientX - r.left, ev.clientY - r.top);
+    });
+
+    btnFeed?.addEventListener('click', spawnCode);
+    btnWipe?.addEventListener('click', () => {
+        state.blobs = [];
+        state.code = [];
+        if (readout) readout.textContent = 'parasite: starving';
+    });
+
+    resize();
+    window.addEventListener('resize', resize);
+    spawnBlob(400, 140);
+    spawnCode();
+    requestAnimationFrame(draw);
+}
