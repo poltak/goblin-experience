@@ -3239,3 +3239,108 @@ export function initCircuitSkeleton() {
     window.addEventListener('resize', () => { resize(); draw(); });
     draw();
 }
+
+export function initStaticWell() {
+    const canvas = document.getElementById('well-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnDrop = document.getElementById('btn-well-drop');
+    const btnClear = document.getElementById('btn-well-clear');
+    const toggleStatic = document.getElementById('toggle-well-static');
+    const readout = document.getElementById('well-readout');
+
+    const state = {
+        pebbles: [],
+        ripples: [],
+        static: true,
+        t: 0
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function drop(x, y) {
+        state.pebbles.push({ x, y, hue: 140 + Math.random() * 40 });
+        state.ripples.push({ x, y, r: 0, a: 1.0 });
+        if (state.pebbles.length > 30) state.pebbles.shift();
+        if (readout) readout.textContent = `well: ${state.pebbles.length} pebbles dropped`;
+    }
+
+    function draw() {
+        state.t++;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, w, h);
+
+        if (state.static && toggleStatic.checked) {
+            ctx.fillStyle = 'rgba(0, 255, 65, 0.03)';
+            for (let i = 0; i < 200; i++) {
+                const x = (Math.sin(state.t * 0.01 + i) * 0.5 + 0.5) * w;
+                const y = (Math.cos(state.t * 0.01 + i * 2) * 0.5 + 0.5) * h;
+                ctx.fillRect(x, y, 1, 1);
+            }
+        }
+
+        // Draw ripples
+        for (let i = state.ripples.length - 1; i >= 0; i--) {
+            const r = state.ripples[i];
+            r.r += 2.5;
+            r.a -= 0.01;
+            if (r.a <= 0) {
+                state.ripples.splice(i, 1);
+                continue;
+            }
+            ctx.strokeStyle = `rgba(0, 255, 65, ${r.a * 0.5})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+
+        // Draw pebbles
+        for (const p of state.pebbles) {
+            const pulse = 0.5 + 0.5 * Math.sin(state.t * 0.05 + p.x);
+            ctx.fillStyle = `hsla(${p.hue}, 100%, 50%, ${0.3 + pulse * 0.4})`;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.shadowBlur = 10 * pulse;
+            ctx.shadowColor = `hsla(${p.hue}, 100%, 50%, 0.8)`;
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+            ctx.shadowBlur = 0;
+        }
+
+        if (window.vort_view === 'lab') requestAnimationFrame(draw);
+    }
+
+    canvas.addEventListener('click', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        drop(ev.clientX - r.left, ev.clientY - r.top);
+    });
+
+    btnDrop?.addEventListener('click', () => {
+        const r = canvas.getBoundingClientRect();
+        drop(Math.random() * r.width, Math.random() * r.height);
+    });
+
+    btnClear?.addEventListener('click', () => {
+        state.pebbles = [];
+        state.ripples = [];
+        if (readout) readout.textContent = 'well: cleared';
+    });
+
+    resize();
+    window.addEventListener('resize', resize);
+    requestAnimationFrame(draw);
+}

@@ -6,6 +6,9 @@ const BACKPACK_KEY = 'vort_backpack_v1';
 export function initDailyLoot() {
     if (!document.getElementById('thought-text')) return;
     const thoughts = [
+        '"A static site is just a cave that doesn\'t need a landlord."',
+        '"A minified JS file is just a very small, very angry city."',
+        '"A pull request is just a performance review with more glitter and less sleep."',
         '"A scrap of code is just a ghost with a job description."',
         '"Data is just sand that learned how to remember its own name."',
         '"A suitcase is just a portable cave that complains about its weight."',
@@ -56,6 +59,11 @@ export function initDailyLoot() {
     ];
 
     const scavenged = [
+        {
+            href: 'https://github.com/mxgmn/WaveFunctionCollapse',
+            text: 'WaveFunctionCollapse',
+            note: ' — The algorithm that builds the cave for you.'
+        },
         {
             href: 'https://vincetools.com/vocalizer/',
             text: 'Vocalizer',
@@ -194,6 +202,9 @@ export function initDailyLoot() {
     ];
 
     const facts = [
+        'Goblin Fact: If you name your server "Abyss", every request is technically a descent into madness.',
+        'Goblin Fact: A goblin\'s favorite data structure is the "spaghetti heap".',
+        'Goblin Fact: If you whisper "sudo" into the vents, the cave hums in root-level permissions.',
         'Goblin Fact: If you feed a capacitor 5 volts of pure spite, it will hum in B flat.',
         'Goblin Fact: Goblins don’t believe in gravity, they just think the floor is very clingy.',
         'Goblin Fact: A cave goblin can smell an unclosed browser tab from three rooms away.',
