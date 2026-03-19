@@ -3492,3 +3492,83 @@ export function initOilParasite() {
     spawnCode();
     requestAnimationFrame(draw);
 }
+import { BUILD, dateSeedUTC, mulberry32 } from './utils.js';
+
+export function initDraftlandsAtlas() {
+    const canvas = document.getElementById('draftlands-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnNext = document.getElementById('btn-draftlands-next');
+    const readout = document.getElementById('draftlands-readout');
+
+    const atlas = new Image();
+    atlas.src = './assets/draftlands-mycelium-4x4.png';
+
+    const state = {
+        ready: false,
+        tileIdx: 0,
+        cols: 4,
+        rows: 4,
+        tileSize: 0 // Will be computed
+    };
+
+    atlas.onload = () => {
+        state.ready = true;
+        state.tileSize = atlas.width / state.cols;
+        render();
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function render() {
+        if (!state.ready) return;
+        resize();
+
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, w, h);
+
+        const targetSize = Math.min(w, h) * 0.8;
+        const tx = (w - targetSize) / 2;
+        const ty = (h - targetSize) / 2;
+
+        const sx = (state.tileIdx % state.cols) * state.tileSize;
+        const sy = Math.floor(state.tileIdx / state.cols) * state.tileSize;
+
+        ctx.drawImage(
+            atlas,
+            sx, sy, state.tileSize, state.tileSize,
+            tx, ty, targetSize, targetSize
+        );
+
+        // Grid overlay
+        ctx.strokeStyle = 'rgba(0, 255, 65, 0.2)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(tx, ty, targetSize, targetSize);
+
+        if (readout) {
+            readout.textContent = `tile: ${state.tileIdx + 1}/16 | ${state.tileSize}px source`;
+        }
+    }
+
+    btnNext?.addEventListener('click', () => {
+        state.tileIdx = (state.tileIdx + 1) % (state.cols * state.rows);
+        render();
+    });
+
+    canvas.addEventListener('click', () => {
+        state.tileIdx = (state.tileIdx + 1) % (state.cols * state.rows);
+        render();
+    });
+
+    window.addEventListener('resize', render);
+}
