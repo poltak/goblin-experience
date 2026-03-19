@@ -1,5 +1,86 @@
 import { BUILD, dateSeedUTC, mulberry32, fnv1a, clamp } from './utils.js';
 
+export function initParticleScraps() {
+    const canvas = document.getElementById('particle-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnSpray = document.getElementById('btn-particle-spray');
+    const btnClear = document.getElementById('btn-particle-clear');
+    const readout = document.getElementById('particle-readout');
+
+    const state = {
+        particles: [],
+        t: 0
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function spray() {
+        const rect = canvas.getBoundingClientRect();
+        for (let i = 0; i < 20; i++) {
+            state.particles.push({
+                x: Math.random() * rect.width,
+                y: -10,
+                vx: (Math.random() - 0.5) * 2,
+                vy: 2 + Math.random() * 3,
+                size: 2 + Math.random() * 4,
+                hue: 140 + Math.random() * 40,
+                rot: Math.random() * Math.PI * 2,
+                vrot: (Math.random() - 0.5) * 0.2
+            });
+        }
+        if (readout) readout.textContent = `particles: ${state.particles.length}`;
+    }
+
+    function draw() {
+        state.t++;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, w, h);
+
+        for (let i = state.particles.length - 1; i >= 0; i--) {
+            const p = state.particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.rot += p.vrot;
+
+            if (p.y > h + 10) {
+                state.particles.splice(i, 1);
+                continue;
+            }
+
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.rot);
+            ctx.fillStyle = `hsla(${p.hue}, 100%, 50%, 0.8)`;
+            ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+            ctx.restore();
+        }
+
+        if (readout) readout.textContent = `particles: ${state.particles.length}`;
+        if (window.vort_view === 'lab') requestAnimationFrame(draw);
+    }
+
+    btnSpray?.addEventListener('click', spray);
+    btnClear?.addEventListener('click', () => {
+        state.particles = [];
+        if (readout) readout.textContent = 'particles: 0';
+    });
+
+    resize();
+    window.addEventListener('resize', resize);
+    requestAnimationFrame(draw);
+}
+
 export function initRuneDrift() {
     const canvas = document.getElementById('rune-canvas');
     if (!canvas) return;

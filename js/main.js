@@ -3,7 +3,7 @@ import { initNavigation, initThemeSwitchboard, initGoblinFace } from './ui.js';
 import { initAtmospherics } from './atmo.js';
 import { initGoblinWhisperStone } from './whisper.js';
 import { 
-    initSparkMothWall, initRuneDrift, initSigilScriber, initInkblotMirror, 
+    initParticleScraps, initSparkMothWall, initRuneDrift, initSigilScriber, initInkblotMirror, 
     initCaveDrone, initLichenBloom, initCaveConstellations, initGeodeGrower, 
     initEchoTopography, initNeedleOfNoise, initSporeGarden, initVoidPebbles, initWarpLoom, initDataCrystals, initEchoLattice, initDigitalFossil, initStaticHum, initMarrowDensity, initSpectralFrequency, initLogicLabyrinth, initGlowWormBurrow, initCircuitSkeleton, initStaticWell, initOilParasite, initDraftlandsAtlas
 } from './labs.js';
@@ -13,7 +13,7 @@ const initializers = [
     [() => initNavigation(viewId => {
         if (viewId === 'lab') {
             [
-                initSparkMothWall, initRuneDrift, initSigilScriber, initInkblotMirror, 
+                initParticleScraps, initSparkMothWall, initRuneDrift, initSigilScriber, initInkblotMirror, 
                 initCaveDrone, initLichenBloom, initCaveConstellations, initGeodeGrower, 
                 initEchoTopography, initNeedleOfNoise, initSporeGarden, initVoidPebbles, 
                 initWarpLoom, initDataCrystals, initEchoLattice, initDigitalFossil, initStaticHum, initMarrowDensity, initSpectralFrequency, initLogicLabyrinth, initGlowWormBurrow, initCircuitSkeleton, initStaticWell, initOilParasite, initDraftlandsAtlas
@@ -31,6 +31,7 @@ const initializers = [
     [initGoblinFace, 'GoblinFace'],
     [initAtmospherics, 'Atmospherics'],
     [initGoblinWhisperStone, 'WhisperStone'],
+    [initParticleScraps, 'ParticleScraps'],
     [initSparkMothWall, 'SparkMothWall'],
     [initRuneDrift, 'RuneDrift'],
     [initSigilScriber, 'SigilScriber'],

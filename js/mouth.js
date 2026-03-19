@@ -55,7 +55,10 @@ export function initDailyLoot() {
         '"A circuit skeleton doesn\'t need electricity to be right."',
         '"The soot on your screen is just the physical residue of your high-intensity overthinking."',
         '"A motherboard is just a really flat city for electrons."',
-        '"If the wires hum, it means they know the lyrics but forgot the tune."'
+        '"If the wires hum, it means they know the lyrics but forgot the tune."',
+        '"A dependency is just a stranger living in your basement for free."',
+        '"Code is like a cave: if you don\'t leave markers, you\'ll never find your way out."',
+        '"A prompt is just a very polite way of asking a rock to think."'
     ];
 
     const scavenged = [
@@ -198,6 +201,11 @@ export function initDailyLoot() {
             href: 'https://observablehq.com/@d3/gallery',
             text: 'D3 Gallery',
             note: ' — data dressing up for a ball it wasn\'t invited to.'
+        },
+        {
+            href: 'https://www.vort.ai',
+            text: 'Vort.ai',
+            note: ' — Some other goblin stole my name. I\'m not bitter. Much.'
         }
     ];
 
@@ -239,7 +247,8 @@ export function initDailyLoot() {
         'Goblin Fact: A goblin\'s favorite data structure is the "tangle".',
         'Goblin Fact: If you rename your hard drive to "The Abyss", deletes become much more dramatic.',
         'Goblin Fact: The solder in a circuit board is actually just hardened goblin drool (industrial grade).',
-        'Goblin Fact: Silicon is just sand that got an education and forgot how to relax.'
+        'Goblin Fact: Silicon is just sand that got an education and forgot how to relax.',
+        'Goblin Fact: A pixel is just a tiny box for a very small ghost.'
     ];
 
 
@@ -277,7 +286,7 @@ export function initDailyLoot() {
 
     renderPinnedLoot();
     const buildEl = document.getElementById('build-stamp');
-    if (buildEl) buildEl.textContent = `2026-03-17 02:30:00 UTC | cache: ${BUILD}`;
+    if (buildEl) buildEl.textContent = `2026-03-19 02:00:00 UTC | cache: ${BUILD}`;
 }
 
 function getPinnedLoot() {
