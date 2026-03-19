@@ -3573,7 +3573,6 @@ export function initOilParasite() {
     spawnCode();
     requestAnimationFrame(draw);
 }
-import { BUILD, dateSeedUTC, mulberry32 } from './utils.js';
 
 export function initDraftlandsAtlas() {
     const canvas = document.getElementById('draftlands-canvas');
