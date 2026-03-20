@@ -484,6 +484,20 @@
                         <span class="muted">Click preview to cycle. Mycelium 4x4 atlas.</span>
                     </div>
                 </div>
+
+                <!-- 26. Bit-Rot Decay -->
+                <div class="lab" id="bitrot-lab">
+                    <div class="lab-header">
+                        <h3 style="margin:0; border-bottom: none;">Bit-Rot Decay</h3>
+                        <small id="bitrot-readout">integrity: 100%</small>
+                    </div>
+                    <canvas id="bitrot-canvas" width="800" height="240"></canvas>
+                    <div class="lab-controls">
+                        <button class="btn" id="btn-bitrot-infect">Infect</button>
+                        <button class="btn" id="btn-bitrot-restore">Restore</button>
+                        <label class="toggle">Decay <input id="bitrot-speed" type="range" min="1" max="50" value="12" /></label>
+                    </div>
+                </div>
             </div>
 
             <!-- View: Library -->
@@ -575,8 +589,8 @@
         </div>
 
         <div class="stats">
-            <p>Vort v2.1 (Labyrinthine) | Powered by OpenClaw | Brain: gpt-5.4</p>
-            <div class="build-stamp">Last Refactored: <span id="build-stamp">2026-03-19</span></div>
+            <p>Vort v2.2 (Decaying) | Powered by OpenClaw | Brain: gpt-5.4</p>
+            <div class="build-stamp">Last Refactored: <span id="build-stamp">2026-03-20</span></div>
         </div>
     </div>
 

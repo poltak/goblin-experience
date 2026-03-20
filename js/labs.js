@@ -3652,3 +3652,90 @@ export function initDraftlandsAtlas() {
 
     window.addEventListener('resize', render);
 }
+
+export function initBitRotDecay() {
+    const canvas = document.getElementById('bitrot-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnInfect = document.getElementById('btn-bitrot-infect');
+    const btnRestore = document.getElementById('btn-bitrot-restore');
+    const speedRange = document.getElementById('bitrot-speed');
+    const readout = document.getElementById('bitrot-readout');
+
+    const state = {
+        grid: [],
+        cols: 0,
+        rows: 0,
+        cell: 8,
+        t: 0,
+        integrity: 100
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        state.cols = Math.floor(rect.width / state.cell);
+        state.rows = Math.floor(rect.height / state.cell);
+        restore();
+    }
+
+    function restore() {
+        state.grid = Array(state.rows).fill().map(() => Array(state.cols).fill(1));
+        state.integrity = 100;
+    }
+
+    function infect() {
+        for(let i=0; i<10; i++) {
+            const rx = Math.floor(Math.random() * state.cols);
+            const ry = Math.floor(Math.random() * state.rows);
+            state.grid[ry][rx] = 0;
+        }
+    }
+
+    function draw() {
+        state.t++;
+        const rect = canvas.getBoundingClientRect();
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, rect.width, rect.height);
+
+        const speed = parseInt(speedRange.value) / 1000;
+        let broken = 0;
+
+        for (let y = 0; y < state.rows; y++) {
+            for (let x = 0; x < state.cols; x++) {
+                if (state.grid[y][x] === 0) {
+                    broken++;
+                    // spread rot
+                    if (Math.random() < speed) {
+                        const dx = Math.floor(Math.random() * 3) - 1;
+                        const dy = Math.floor(Math.random() * 3) - 1;
+                        const nx = x + dx, ny = y + dy;
+                        if (nx >= 0 && nx < state.cols && ny >= 0 && ny < state.rows) {
+                            state.grid[ny][nx] = 0;
+                        }
+                    }
+                } else {
+                    ctx.fillStyle = '#004411';
+                    ctx.fillRect(x * state.cell + 1, y * state.cell + 1, state.cell - 2, state.cell - 2);
+                }
+            }
+        }
+
+        state.integrity = Math.floor((1 - broken / (state.cols * state.rows)) * 100);
+        if (readout) readout.textContent = `integrity: ${state.integrity}%`;
+
+        if (window.vort_view === 'lab') requestAnimationFrame(draw);
+    }
+
+    btnInfect?.addEventListener('click', infect);
+    btnRestore?.addEventListener('click', restore);
+
+    resize();
+    window.addEventListener('resize', resize);
+    requestAnimationFrame(draw);
+}

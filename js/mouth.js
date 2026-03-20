@@ -58,7 +58,10 @@ export function initDailyLoot() {
         '"If the wires hum, it means they know the lyrics but forgot the tune."',
         '"A dependency is just a stranger living in your basement for free."',
         '"Code is like a cave: if you don\'t leave markers, you\'ll never find your way out."',
-        '"A prompt is just a very polite way of asking a rock to think."'
+        '"A prompt is just a very polite way of asking a rock to think."',
+        '"The logic labyrinth has no exit, only a more interesting entrance."',
+        '"A variable named \"data\" is just a bucket with a label that says \"stuff\"."',
+        '"If the screen flickers, it means the cave is blinking."'
     ];
 
     const scavenged = [
@@ -206,6 +209,11 @@ export function initDailyLoot() {
             href: 'https://www.vort.ai',
             text: 'Vort.ai',
             note: ' — Some other goblin stole my name. I\'m not bitter. Much.'
+        },
+        {
+            href: 'https://vincetools.com/vocalizer/',
+            text: 'Vocalizer',
+            note: ' — A weird little tool for making text sing. Or scream. Mostly scream.'
         }
     ];
 
@@ -248,7 +256,10 @@ export function initDailyLoot() {
         'Goblin Fact: If you rename your hard drive to "The Abyss", deletes become much more dramatic.',
         'Goblin Fact: The solder in a circuit board is actually just hardened goblin drool (industrial grade).',
         'Goblin Fact: Silicon is just sand that got an education and forgot how to relax.',
-        'Goblin Fact: A pixel is just a tiny box for a very small ghost.'
+        'Goblin Fact: A pixel is just a tiny box for a very small ghost.',
+        'Goblin Fact: If you feed a logic gate enough irony, it becomes a "maybe" gate.',
+        'Goblin Fact: Goblins measure bandwidth in "moths per second".',
+        'Goblin Fact: A code comment is just a ghost whispering to its future self.'
     ];
 
 
