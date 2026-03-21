@@ -1,5 +1,96 @@
 import { BUILD, dateSeedUTC, mulberry32, fnv1a, clamp } from './utils.js';
 
+export function initSparkDrift() {
+    const canvas = document.getElementById('sparkdrift-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnIgnite = document.getElementById('btn-spark-ignite');
+    const btnClear = document.getElementById('btn-spark-clear');
+    const gravRange = document.getElementById('spark-gravity');
+    const readout = document.getElementById('sparkdrift-readout');
+
+    const state = {
+        sparks: [],
+        t: 0
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function ignite(x, y) {
+        const rect = canvas.getBoundingClientRect();
+        const px = x ?? Math.random() * rect.width;
+        const py = y ?? Math.random() * rect.height;
+
+        for (let i = 0; i < 24; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const speed = 2 + Math.random() * 5;
+            state.sparks.push({
+                x: px,
+                y: py,
+                vx: Math.cos(angle) * speed,
+                vy: Math.sin(angle) * speed,
+                life: 1.0,
+                decay: 0.01 + Math.random() * 0.02,
+                hue: 40 + Math.random() * 60 // Orange/Yellow
+            });
+        }
+        if (readout) readout.textContent = `drift: ${state.sparks.length} active`;
+    }
+
+    function draw() {
+        state.t++;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
+        ctx.fillRect(0, 0, w, h);
+
+        const grav = (parseInt(gravRange.value) / 10);
+
+        for (let i = state.sparks.length - 1; i >= 0; i--) {
+            const s = state.sparks[i];
+            s.vy += grav;
+            s.x += s.vx;
+            s.y += s.vy;
+            s.life -= s.decay;
+
+            if (s.life <= 0 || s.y > h || s.x < 0 || s.x > w) {
+                state.sparks.splice(i, 1);
+                continue;
+            }
+
+            ctx.fillStyle = `hsla(${s.hue}, 100%, 60%, ${s.life})`;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, 2 * s.life, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        if (readout) readout.textContent = `drift: ${state.sparks.length} sparks`;
+        if (window.vort_view === 'lab') requestAnimationFrame(draw);
+    }
+
+    btnIgnite?.addEventListener('click', () => ignite());
+    btnClear?.addEventListener('click', () => {
+        state.sparks = [];
+        if (readout) readout.textContent = 'drift: dormant';
+    });
+    canvas.addEventListener('click', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        ignite(ev.clientX - r.left, ev.clientY - r.top);
+    });
+
+    resize();
+    window.addEventListener('resize', resize);
+    requestAnimationFrame(draw);
+}
+
 export function initParticleScraps() {
     const canvas = document.getElementById('particle-canvas');
     if (!canvas) return;

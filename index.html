@@ -129,6 +129,20 @@
 
             <!-- View: Lab -->
             <div id="view-lab" class="view-section">
+                <!-- 0. Spark Drift (NEW) -->
+                <div class="lab" id="sparkdrift-lab">
+                    <div class="lab-header">
+                        <h3 style="margin:0; border-bottom: none;">Spark Drift</h3>
+                        <small id="sparkdrift-readout">drift: dormant</small>
+                    </div>
+                    <canvas id="sparkdrift-canvas" width="800" height="260"></canvas>
+                    <div class="lab-controls">
+                        <button class="btn" id="btn-spark-ignite">Ignite</button>
+                        <button class="btn" id="btn-spark-clear">Wipe Sparks</button>
+                        <label class="toggle">Gravity <input id="spark-gravity" type="range" min="-10" max="10" value="2" /></label>
+                    </div>
+                </div>
+
                 <!-- 0. Particle Scraps -->
                 <div class="lab" id="particle-lab">
                     <div class="lab-header">

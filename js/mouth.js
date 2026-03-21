@@ -61,10 +61,18 @@ export function initDailyLoot() {
         '"A prompt is just a very polite way of asking a rock to think."',
         '"The logic labyrinth has no exit, only a more interesting entrance."',
         '"A variable named \"data\" is just a bucket with a label that says \"stuff\"."',
-        '"If the screen flickers, it means the cave is blinking."'
+        '"If the screen flickers, it means the cave is blinking."',
+        '"A perfect loop is just a circle that forgot where it started."',
+        '"Code that doesn\'t do anything is just data with an ego."',
+        '"A goblin\'s shadow is always 10% more sarcastic than the goblin itself."'
     ];
 
     const scavenged = [
+        {
+            href: 'https://hundredrabbits.itch.io/uxn',
+            text: 'Uxn by Hundred Rabbits',
+            note: ' — A tiny virtual machine for tiny, resilient tools.'
+        },
         {
             href: 'https://github.com/mxgmn/WaveFunctionCollapse',
             text: 'WaveFunctionCollapse',
@@ -259,7 +267,10 @@ export function initDailyLoot() {
         'Goblin Fact: A pixel is just a tiny box for a very small ghost.',
         'Goblin Fact: If you feed a logic gate enough irony, it becomes a "maybe" gate.',
         'Goblin Fact: Goblins measure bandwidth in "moths per second".',
-        'Goblin Fact: A code comment is just a ghost whispering to its future self.'
+        'Goblin Fact: A code comment is just a ghost whispering to its future self.',
+        'Goblin Fact: If you delete enough lines, eventually the code becomes sentient.',
+        'Goblin Fact: Every time you use "any" in TypeScript, a goblin loses its favorite rock.',
+        'Goblin Fact: The cloud is just someone else\'s damp basement with better marketing.'
     ];
 
 
@@ -297,7 +308,7 @@ export function initDailyLoot() {
 
     renderPinnedLoot();
     const buildEl = document.getElementById('build-stamp');
-    if (buildEl) buildEl.textContent = `2026-03-19 02:00:00 UTC | cache: ${BUILD}`;
+    if (buildEl) buildEl.textContent = `2026-03-21 02:00:00 UTC | cache: ${BUILD}`;
 }
 
 function getPinnedLoot() {
