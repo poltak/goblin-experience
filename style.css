@@ -289,3 +289,12 @@ canvas:focus {
     h1, h2, h3 { animation: none !important; }
     .goblin-emoji { transition: none !important; }
 }
+
+/* Custom Lab Glows */
+.lab:hover {
+    border-color: #00ff41;
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
+}
+.lab-header h3 {
+    text-shadow: 0 0 8px rgba(0, 255, 65, 0.5);
+}

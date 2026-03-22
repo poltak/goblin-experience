@@ -3830,3 +3830,129 @@ export function initBitRotDecay() {
     window.addEventListener('resize', resize);
     requestAnimationFrame(draw);
 }
+
+export function initMothSwarm() {
+    const canvas = document.getElementById('mothswarm-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnSpawn = document.getElementById('btn-swarm-spawn');
+    const btnClear = document.getElementById('btn-swarm-clear');
+    const agiRange = document.getElementById('swarm-agitation');
+    const readout = document.getElementById('mothswarm-readout');
+
+    const state = {
+        moths: [],
+        mx: 0,
+        my: 0,
+        hasMouse: false,
+        t: 0
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function spawn(x, y) {
+        const rect = canvas.getBoundingClientRect();
+        const px = x ?? Math.random() * rect.width;
+        const py = y ?? Math.random() * rect.height;
+
+        for (let i = 0; i < 15; i++) {
+            state.moths.push({
+                x: px,
+                y: py,
+                vx: (Math.random() - 0.5) * 4,
+                vy: (Math.random() - 0.5) * 4,
+                hue: 80 + Math.random() * 60,
+                phase: Math.random() * 1000,
+                size: 1 + Math.random() * 2
+            });
+        }
+    }
+
+    function draw() {
+        state.t++;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+        ctx.fillRect(0, 0, w, h);
+
+        const agitation = parseInt(agiRange.value) / 100;
+        const lx = state.hasMouse ? state.mx : w / 2;
+        const ly = state.hasMouse ? state.my : h / 2;
+
+        // draw light
+        const g = ctx.createRadialGradient(lx, ly, 0, lx, ly, 100);
+        g.addColorStop(0, 'rgba(0, 255, 65, 0.1)');
+        g.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+
+        for (let i = state.moths.length - 1; i >= 0; i--) {
+            const m = state.moths[i];
+            
+            // attraction to light
+            const dx = lx - m.x;
+            const dy = ly - m.y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist > 10) {
+                m.vx += (dx / dist) * 0.15;
+                m.vy += (dy / dist) * 0.15;
+            }
+
+            // flutter
+            m.vx += (Math.random() - 0.5) * 1.5 * agitation;
+            m.vy += (Math.random() - 0.5) * 1.5 * agitation;
+            
+            m.vx *= 0.96;
+            m.vy *= 0.96;
+            
+            m.x += m.vx;
+            m.y += m.vy;
+
+            // wrap
+            if (m.x < 0) m.x = w;
+            if (m.x > w) m.x = 0;
+            if (m.y < 0) m.y = h;
+            if (m.y > h) m.y = 0;
+
+            const glow = 0.5 + 0.5 * Math.sin(state.t * 0.1 + m.phase);
+            ctx.fillStyle = `hsla(${m.hue}, 100%, 60%, ${0.4 + glow * 0.4})`;
+            ctx.beginPath();
+            ctx.arc(m.x, m.y, m.size * (1 + glow), 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        if (readout) readout.textContent = `swarm: ${state.moths.length} moths`;
+        if (window.vort_view === 'lab') requestAnimationFrame(draw);
+    }
+
+    canvas.addEventListener('mousemove', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        state.mx = ev.clientX - r.left;
+        state.my = ev.clientY - r.top;
+        state.hasMouse = true;
+    });
+    canvas.addEventListener('mouseleave', () => state.hasMouse = false);
+    canvas.addEventListener('click', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        spawn(ev.clientX - r.left, ev.clientY - r.top);
+    });
+
+    btnSpawn?.addEventListener('click', () => spawn());
+    btnClear?.addEventListener('click', () => {
+        state.moths = [];
+        if (readout) readout.textContent = 'swarm: vanished';
+    });
+
+    resize();
+    window.addEventListener('resize', resize);
+    spawn();
+    requestAnimationFrame(draw);
+}

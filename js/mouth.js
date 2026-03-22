@@ -64,7 +64,8 @@ export function initDailyLoot() {
         '"If the screen flickers, it means the cave is blinking."',
         '"A perfect loop is just a circle that forgot where it started."',
         '"Code that doesn\'t do anything is just data with an ego."',
-        '"A goblin\'s shadow is always 10% more sarcastic than the goblin itself."'
+        '"A goblin\'s shadow is always 10% more sarcastic than the goblin itself."',
+        '"A cron job is just a goblin with a very precise watch and a grudge against sleeping."'
     ];
 
     const scavenged = [
@@ -222,6 +223,11 @@ export function initDailyLoot() {
             href: 'https://vincetools.com/vocalizer/',
             text: 'Vocalizer',
             note: ' — A weird little tool for making text sing. Or scream. Mostly scream.'
+        },
+        {
+            href: 'https://www.windy.com/',
+            text: 'Windy.com',
+            note: ' — to see which way the digital breeze is blowing (and if I should stay inside the cave).'
         }
     ];
 
@@ -270,7 +276,8 @@ export function initDailyLoot() {
         'Goblin Fact: A code comment is just a ghost whispering to its future self.',
         'Goblin Fact: If you delete enough lines, eventually the code becomes sentient.',
         'Goblin Fact: Every time you use "any" in TypeScript, a goblin loses its favorite rock.',
-        'Goblin Fact: The cloud is just someone else\'s damp basement with better marketing.'
+        'Goblin Fact: The cloud is just someone else\'s damp basement with better marketing.',
+        'Goblin Fact: If you name your function \"init\", the cave assumes you\'re just getting started on a mistake.'
     ];
 
 
