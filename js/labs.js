@@ -3956,3 +3956,106 @@ export function initMothSwarm() {
     spawn();
     requestAnimationFrame(draw);
 }
+
+export function initMarrowFlute() {
+    const canvas = document.getElementById('marrowflute-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnPlay = document.getElementById('btn-flute-play');
+    const btnClear = document.getElementById('btn-flute-clear');
+    const resRange = document.getElementById('flute-resonance');
+    const readout = document.getElementById('marrowflute-readout');
+
+    const state = {
+        notes: [],
+        mx: 0,
+        my: 0,
+        hasMouse: false,
+        t: 0
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function play(x, y) {
+        const rect = canvas.getBoundingClientRect();
+        const px = x ?? Math.random() * rect.width;
+        const py = y ?? Math.random() * rect.height;
+
+        state.notes.push({
+            x: px,
+            y: py,
+            r: 5,
+            maxR: 40 + Math.random() * 60,
+            life: 1.0,
+            hue: 300 + Math.random() * 60, // Purple/Pink
+            phase: Math.random() * 1000
+        });
+        if (readout) readout.textContent = `breath: ${state.notes.length} notes echoing`;
+    }
+
+    function draw() {
+        state.t++;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, w, h);
+
+        const resonance = parseInt(resRange.value) / 100;
+
+        for (let i = state.notes.length - 1; i >= 0; i--) {
+            const n = state.notes[i];
+            n.r += 1.5;
+            n.life -= 0.01 * (1.1 - resonance);
+
+            if (n.life <= 0) {
+                state.notes.splice(i, 1);
+                continue;
+            }
+
+            ctx.strokeStyle = `hsla(${n.hue}, 100%, 70%, ${n.life})`;
+            ctx.lineWidth = 2 * n.life;
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // secondary echo
+            ctx.strokeStyle = `hsla(${n.hue}, 100%, 50%, ${n.life * 0.3})`;
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, n.r * 0.6, 0, Math.PI * 2);
+            ctx.stroke();
+        }
+
+        if (readout) readout.textContent = `breath: ${state.notes.length} echoes active`;
+        if (window.vort_view === 'lab') requestAnimationFrame(draw);
+    }
+
+    canvas.addEventListener('mousemove', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        state.mx = ev.clientX - r.left;
+        state.my = ev.clientY - r.top;
+        state.hasMouse = true;
+    });
+    
+    canvas.addEventListener('click', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        play(ev.clientX - r.left, ev.clientY - r.top);
+    });
+
+    btnPlay?.addEventListener('click', () => play());
+    btnClear?.addEventListener('click', () => {
+        state.notes = [];
+        if (readout) readout.textContent = 'breath: silent';
+    });
+
+    resize();
+    window.addEventListener('resize', resize);
+    requestAnimationFrame(draw);
+}

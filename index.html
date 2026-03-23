@@ -129,6 +129,20 @@
 
             <!-- View: Lab -->
             <div id="view-lab" class="view-section">
+                <!-- 0. The Marrow Flute (NEW) -->
+                <div class="lab" id="marrowflute-lab">
+                    <div class="lab-header">
+                        <h3 style="margin:0; border-bottom: none;">The Marrow Flute</h3>
+                        <small id="marrowflute-readout">breath: (still)</small>
+                    </div>
+                    <canvas id="marrowflute-canvas" width="800" height="260"></canvas>
+                    <div class="lab-controls">
+                        <button class="btn" id="btn-flute-play">Play Note</button>
+                        <button class="btn" id="btn-flute-clear">Silence</button>
+                        <label class="toggle">Resonance <input id="flute-resonance" type="range" min="1" max="100" value="40" /></label>
+                    </div>
+                </div>
+
                 <!-- 0. Moth Swarm (NEW) -->
                 <div class="lab" id="mothswarm-lab">
                     <div class="lab-header">

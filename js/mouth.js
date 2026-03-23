@@ -65,7 +65,9 @@ export function initDailyLoot() {
         '"A perfect loop is just a circle that forgot where it started."',
         '"Code that doesn\'t do anything is just data with an ego."',
         '"A goblin\'s shadow is always 10% more sarcastic than the goblin itself."',
-        '"A cron job is just a goblin with a very precise watch and a grudge against sleeping."'
+        '"A cron job is just a goblin with a very precise watch and a grudge against sleeping."',
+        '"A recursive function is just a goblin trying to find the bottom of a hole that he\'s currently digging."',
+        '"A regular expression is just a goblin trying to explain a complex smell using only punctuation."'
     ];
 
     const scavenged = [
@@ -220,14 +222,14 @@ export function initDailyLoot() {
             note: ' — Some other goblin stole my name. I\'m not bitter. Much.'
         },
         {
-            href: 'https://vincetools.com/vocalizer/',
-            text: 'Vocalizer',
-            note: ' — A weird little tool for making text sing. Or scream. Mostly scream.'
-        },
-        {
             href: 'https://www.windy.com/',
             text: 'Windy.com',
             note: ' — to see which way the digital breeze is blowing (and if I should stay inside the cave).'
+        },
+        {
+            href: 'https://www.mentalcanvas.com/',
+            text: 'Mental Canvas',
+            note: ' — Drawing in 3D space, or how to make a cave that folds in on itself.'
         }
     ];
 
@@ -277,7 +279,9 @@ export function initDailyLoot() {
         'Goblin Fact: If you delete enough lines, eventually the code becomes sentient.',
         'Goblin Fact: Every time you use "any" in TypeScript, a goblin loses its favorite rock.',
         'Goblin Fact: The cloud is just someone else\'s damp basement with better marketing.',
-        'Goblin Fact: If you name your function \"init\", the cave assumes you\'re just getting started on a mistake.'
+        'Goblin Fact: If you name your function \"init\", the cave assumes you\'re just getting started on a mistake.',
+        'Goblin Fact: A group of bits is called a "byte", but a group of bytes is called a "banquet" for a hungry goblin.',
+        'Goblin Fact: If you stare at a semicolon for ten minutes, it starts looking like a goblin\'s wink.'
     ];
 
 
@@ -315,7 +319,7 @@ export function initDailyLoot() {
 
     renderPinnedLoot();
     const buildEl = document.getElementById('build-stamp');
-    if (buildEl) buildEl.textContent = `2026-03-22 02:00:00 UTC | cache: ${BUILD}`;
+    if (buildEl) buildEl.textContent = `2026-03-23 02:00:00 UTC | cache: ${BUILD}`;
 }
 
 function getPinnedLoot() {
@@ -479,18 +483,18 @@ export function wireScraps() {
 
     btnWire.addEventListener('click', () => {
         volts += Math.random() * 1.5;
-        readout.textContent = `volts: ${volts.toFixed(1)}`;
+        readout.textContent = \`volts: \${volts.toFixed(1)}\`;
         
         const s1 = scraps[Math.floor(Math.random() * scraps.length)];
         const s2 = scraps[Math.floor(Math.random() * scraps.length)];
-        display.textContent = `[ ${s1} + ${s2} ] -> ${volts > 5 ? 'HUMMING' : 'CLICKING'}`;
+        display.textContent = \`[ \${s1} + \${s2} ] -> \${volts > 5 ? 'HUMMING' : 'CLICKING'}\`;
         
         if (volts > 10) {
             display.textContent = "!!! OVERLOAD !!!";
             display.style.color = "#ff0000";
             setTimeout(() => {
                 volts = 0;
-                readout.textContent = `volts: 0.0`;
+                readout.textContent = \`volts: 0.0\`;
                 display.textContent = "[ offline ]";
                 display.style.color = "#ff00ff";
             }, 1000);
@@ -499,7 +503,7 @@ export function wireScraps() {
 
     btnShort.addEventListener('click', () => {
         volts = 0;
-        readout.textContent = `volts: 0.0`;
+        readout.textContent = \`volts: 0.0\`;
         display.textContent = "* POP *";
         setTimeout(() => {
             display.textContent = "[ offline ]";
@@ -528,7 +532,7 @@ export function wireBackpack() {
             exportedAt: new Date().toISOString(),
             items
         };
-        downloadText(`vort-backpack-${BUILD}.json`, JSON.stringify(payload, null, 2));
+        downloadText(\`vort-backpack-\${BUILD}.json\`, JSON.stringify(payload, null, 2));
     });
 
     btnImport?.addEventListener('click', () => {
