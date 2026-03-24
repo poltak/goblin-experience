@@ -32,7 +32,14 @@ body {
     /* Mossy overgrowth */
     outline: 4px double var(--moss);
     outline-offset: -10px;
+    animation: cave-breath 8s ease-in-out infinite;
 }
+
+@keyframes cave-breath {
+    0%, 100% { box-shadow: 10px 10px 0px var(--shadow); }
+    50% { box-shadow: 10px 10px 25px var(--goblin), 10px 10px 0px var(--shadow); }
+}
+
 /* subtle scanlines + cave-dust */
 .container::before {
     content: "";

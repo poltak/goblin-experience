@@ -4059,3 +4059,137 @@ export function initMarrowFlute() {
     window.addEventListener('resize', resize);
     requestAnimationFrame(draw);
 }
+
+export function initShadowWeaver() {
+    const canvas = document.getElementById('shadow-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnCast = document.getElementById('btn-shadow-cast');
+    const btnClear = document.getElementById('btn-shadow-clear');
+    const gloomRange = document.getElementById('shadow-gloom');
+    const readout = document.getElementById('shadow-readout');
+
+    const state = {
+        shadows: [],
+        mx: 0,
+        my: 0,
+        hasMouse: false,
+        t: 0
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function cast(x, y) {
+        const rect = canvas.getBoundingClientRect();
+        const px = x ?? Math.random() * rect.width;
+        const py = y ?? Math.random() * rect.height;
+
+        state.shadows.push({
+            x: px,
+            y: py,
+            vx: (Math.random() - 0.5) * 1,
+            vy: (Math.random() - 0.5) * 1,
+            r: 20 + Math.random() * 40,
+            points: Array.from({ length: 12 }, () => 0.8 + Math.random() * 0.4),
+            life: 1.0,
+            decay: 0.002 + Math.random() * 0.005,
+            hue: 240 + Math.random() * 60 // Dark purple/blue
+        });
+        if (readout) readout.textContent = `shadows: ${state.shadows.length} entities drifting`;
+    }
+
+    function draw() {
+        state.t++;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, w, h);
+
+        const gloom = parseInt(gloomRange.value) / 100;
+
+        // Mouse trail (tendrils)
+        if (state.hasMouse && state.t % 2 === 0) {
+            state.shadows.push({
+                x: state.mx,
+                y: state.my,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5,
+                r: 5 + Math.random() * 10,
+                points: Array.from({ length: 8 }, () => 0.7 + Math.random() * 0.6),
+                life: 0.4,
+                decay: 0.02,
+                hue: 200 + Math.random() * 40
+            });
+        }
+
+        for (let i = state.shadows.length - 1; i >= 0; i--) {
+            const s = state.shadows[i];
+            s.x += s.vx;
+            s.y += s.vy;
+            s.life -= s.decay;
+
+            if (s.life <= 0) {
+                state.shadows.splice(i, 1);
+                continue;
+            }
+
+            ctx.save();
+            ctx.translate(s.x, s.y);
+            ctx.rotate(state.t * 0.01 + s.x * 0.001);
+            
+            ctx.beginPath();
+            for (let j = 0; j < s.points.length; j++) {
+                const ang = (j / s.points.length) * Math.PI * 2;
+                const r = s.r * s.points[j] * (0.9 + 0.1 * Math.sin(state.t * 0.1 + j));
+                const tx = Math.cos(ang) * r;
+                const ty = Math.sin(ang) * r;
+                if (j === 0) ctx.moveTo(tx, ty);
+                else ctx.lineTo(tx, ty);
+            }
+            ctx.closePath();
+
+            const alpha = s.life * gloom;
+            ctx.fillStyle = `hsla(${s.hue}, 40%, 10%, ${alpha})`;
+            ctx.fill();
+            ctx.strokeStyle = `hsla(${s.hue}, 100%, 40%, ${alpha * 0.5})`;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            
+            ctx.restore();
+        }
+
+        if (readout) readout.textContent = `shadows: ${state.shadows.length} entities`;
+        if (window.vort_view === 'lab') requestAnimationFrame(draw);
+    }
+
+    canvas.addEventListener('mousemove', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        state.mx = ev.clientX - r.left;
+        state.my = ev.clientY - r.top;
+        state.hasMouse = true;
+    });
+    canvas.addEventListener('mouseleave', () => state.hasMouse = false);
+    
+    canvas.addEventListener('click', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        cast(ev.clientX - r.left, ev.clientY - r.top);
+    });
+
+    btnCast?.addEventListener('click', () => cast());
+    btnClear?.addEventListener('click', () => {
+        state.shadows = [];
+        if (readout) readout.textContent = 'shadows: purged';
+    });
+
+    resize();
+    window.addEventListener('resize', resize);
+    requestAnimationFrame(draw);
+}

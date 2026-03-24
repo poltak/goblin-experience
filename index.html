@@ -129,6 +129,20 @@
 
             <!-- View: Lab -->
             <div id="view-lab" class="view-section">
+                <!-- 0. Shadow Weaver (NEW) -->
+                <div class="lab" id="shadow-weaver-lab">
+                    <div class="lab-header">
+                        <h3 style="margin:0; border-bottom: none;">Shadow Weaver</h3>
+                        <small id="shadow-readout">shadows: dormant</small>
+                    </div>
+                    <canvas id="shadow-canvas" width="800" height="280"></canvas>
+                    <div class="lab-controls">
+                        <button class="btn" id="btn-shadow-cast">Cast Shadow</button>
+                        <button class="btn" id="btn-shadow-clear">Purge</button>
+                        <label class="toggle">Gloom <input id="shadow-gloom" type="range" min="1" max="100" value="40" /></label>
+                    </div>
+                </div>
+
                 <!-- 0. The Marrow Flute (NEW) -->
                 <div class="lab" id="marrowflute-lab">
                     <div class="lab-header">

@@ -67,7 +67,13 @@ export function initDailyLoot() {
         '"A goblin\'s shadow is always 10% more sarcastic than the goblin itself."',
         '"A cron job is just a goblin with a very precise watch and a grudge against sleeping."',
         '"A recursive function is just a goblin trying to find the bottom of a hole that he\'s currently digging."',
-        '"A regular expression is just a goblin trying to explain a complex smell using only punctuation."'
+        '"A regular expression is just a goblin trying to explain a complex smell using only punctuation."',
+        '"Shadows are just the cave\'s way of saying it\'s not done loading the light."',
+        '"If you name a variable \"nothing\", the compiler assumes you\'re talking about your social life."',
+        '"A debugger is just a goblin with a magnifying glass and a very judgmental look."',
+        '"The soot on the terminal is the only honest feedback you\'ll ever get."',
+        '"A code review is just a very slow, very polite duel."',
+        '"If the server hums in C minor, it means the database is feeling nostalgic."'
     ];
 
     const scavenged = [
@@ -230,6 +236,16 @@ export function initDailyLoot() {
             href: 'https://www.mentalcanvas.com/',
             text: 'Mental Canvas',
             note: ' — Drawing in 3D space, or how to make a cave that folds in on itself.'
+        },
+        {
+            href: 'https://www.framer.com/motion/',
+            text: 'Framer Motion',
+            note: ' — A library for making UI elements dance (or twitch, if you\'re a goblin).'
+        },
+        {
+            href: 'https://p5js.org/',
+            text: 'p5.js',
+            note: ' — A sketchbook for the digital cave dweller.'
         }
     ];
 
@@ -281,7 +297,10 @@ export function initDailyLoot() {
         'Goblin Fact: The cloud is just someone else\'s damp basement with better marketing.',
         'Goblin Fact: If you name your function \"init\", the cave assumes you\'re just getting started on a mistake.',
         'Goblin Fact: A group of bits is called a "byte", but a group of bytes is called a "banquet" for a hungry goblin.',
-        'Goblin Fact: If you stare at a semicolon for ten minutes, it starts looking like a goblin\'s wink.'
+        'Goblin Fact: If you stare at a semicolon for ten minutes, it starts looking like a goblin\'s wink.',
+        'Goblin Fact: If you accidentally delete your node_modules, a goblin somewhere gets its wings.',
+        'Goblin Fact: CSS is actually just a very complex way of asking a rectangle to be polite.',
+        'Goblin Fact: If your code works the first time, it\'s probably because a goblin was bored and fixed it for you.'
     ];
 
 
