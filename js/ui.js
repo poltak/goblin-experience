@@ -93,6 +93,17 @@ export function initThemeSwitchboard() {
                 '--panel': '#1a1a1a',
                 '--panel2': '#101010'
             }
+        },
+        soot: {
+            name: 'Soot',
+            vars: {
+                '--bg': '#050505',
+                '--fg': '#888888',
+                '--goblin': '#444444',
+                '--shadow': '#000',
+                '--panel': '#111111',
+                '--panel2': '#080808'
+            }
         }
     };
 
@@ -112,4 +123,5 @@ export function initThemeSwitchboard() {
     document.getElementById('theme-dank')?.addEventListener('click', () => applyTheme('dank'));
     document.getElementById('theme-moss')?.addEventListener('click', () => applyTheme('moss'));
     document.getElementById('theme-ash')?.addEventListener('click', () => applyTheme('ash'));
+    document.getElementById('theme-soot')?.addEventListener('click', () => applyTheme('soot'));
 }

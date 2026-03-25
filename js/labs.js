@@ -1,5 +1,115 @@
 import { BUILD, dateSeedUTC, mulberry32, fnv1a, clamp } from './utils.js';
 
+export function initSootSprawl() {
+    const canvas = document.getElementById('soot-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnScatter = document.getElementById('btn-soot-scatter');
+    const btnWipe = document.getElementById('btn-soot-wipe');
+    const densRange = document.getElementById('soot-density');
+    const readout = document.getElementById('soot-readout');
+
+    const state = {
+        particles: [],
+        mx: 0,
+        my: 0,
+        hasMouse: false,
+        t: 0
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function scatter(x, y) {
+        const rect = canvas.getBoundingClientRect();
+        const px = x ?? Math.random() * rect.width;
+        const py = y ?? Math.random() * rect.height;
+        const density = parseInt(densRange.value) / 100;
+
+        for (let i = 0; i < 30 * density; i++) {
+            const angle = Math.random() * Math.PI * 2;
+            const dist = Math.random() * 50;
+            state.particles.push({
+                x: px + Math.cos(angle) * dist,
+                y: py + Math.sin(angle) * dist,
+                vx: (Math.random() - 0.5) * 1.5,
+                vy: (Math.random() - 0.5) * 1.5,
+                size: 1 + Math.random() * 3,
+                life: 1.0,
+                decay: 0.005 + Math.random() * 0.01
+            });
+        }
+    }
+
+    function draw() {
+        state.t++;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, w, h);
+
+        if (state.hasMouse && state.t % 3 === 0) {
+            scatter(state.mx, state.my);
+        }
+
+        for (let i = state.particles.length - 1; i >= 0; i--) {
+            const p = state.particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.life -= p.decay;
+
+            if (p.life <= 0) {
+                state.particles.splice(i, 1);
+                continue;
+            }
+
+            const alpha = p.life * 0.6;
+            ctx.fillStyle = `rgba(100, 100, 100, ${alpha})`;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // tiny black center
+            ctx.fillStyle = `rgba(0, 0, 0, ${alpha * 0.8})`;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size * 0.5, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        if (readout) readout.textContent = `soot: ${state.particles.length} specks settling`;
+        if (window.vort_view === 'lab') requestAnimationFrame(draw);
+    }
+
+    canvas.addEventListener('mousemove', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        state.mx = ev.clientX - r.left;
+        state.my = ev.clientY - r.top;
+        state.hasMouse = true;
+    });
+    canvas.addEventListener('mouseleave', () => state.hasMouse = false);
+    
+    canvas.addEventListener('click', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        scatter(ev.clientX - r.left, ev.clientY - r.top);
+    });
+
+    btnScatter?.addEventListener('click', () => scatter());
+    btnWipe?.addEventListener('click', () => {
+        state.particles = [];
+    });
+
+    resize();
+    window.addEventListener('resize', resize);
+    requestAnimationFrame(draw);
+}
+
 export function initSparkDrift() {
     const canvas = document.getElementById('sparkdrift-canvas');
     if (!canvas) return;

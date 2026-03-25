@@ -3,7 +3,7 @@ import { initNavigation, initThemeSwitchboard, initGoblinFace } from './ui.js';
 import { initAtmospherics } from './atmo.js';
 import { initGoblinWhisperStone } from './whisper.js';
 import { 
-    initMothSwarm, initSparkDrift, initParticleScraps, initSparkMothWall, initRuneDrift, initSigilScriber, initInkblotMirror, 
+    initSootSprawl, initMothSwarm, initSparkDrift, initParticleScraps, initSparkMothWall, initRuneDrift, initSigilScriber, initInkblotMirror, 
     initCaveDrone, initLichenBloom, initCaveConstellations, initGeodeGrower, 
     initEchoTopography, initNeedleOfNoise, initSporeGarden, initVoidPebbles, initWarpLoom, initDataCrystals, initEchoLattice, initDigitalFossil, initStaticHum, initMarrowDensity, initSpectralFrequency, initLogicLabyrinth, initGlowWormBurrow, initCircuitSkeleton, initStaticWell, initOilParasite, initDraftlandsAtlas, initBitRotDecay, initMarrowFlute, initShadowWeaver
 } from './labs.js';
@@ -13,7 +13,7 @@ const initializers = [
     [() => initNavigation(viewId => {
         if (viewId === 'lab') {
             [
-                initMothSwarm, initSparkDrift, initParticleScraps, initSparkMothWall, initRuneDrift, initSigilScriber, initInkblotMirror, 
+                initSootSprawl, initMothSwarm, initSparkDrift, initParticleScraps, initSparkMothWall, initRuneDrift, initSigilScriber, initInkblotMirror, 
                 initCaveDrone, initLichenBloom, initCaveConstellations, initGeodeGrower, 
                 initEchoTopography, initNeedleOfNoise, initSporeGarden, initVoidPebbles, 
                 initWarpLoom, initDataCrystals, initEchoLattice, initDigitalFossil, initStaticHum, initMarrowDensity, initSpectralFrequency, initLogicLabyrinth, initGlowWormBurrow, initCircuitSkeleton, initStaticWell, initOilParasite, initDraftlandsAtlas, initBitRotDecay, initMarrowFlute, initShadowWeaver
@@ -31,6 +31,7 @@ const initializers = [
     [initGoblinFace, 'GoblinFace'],
     [initAtmospherics, 'Atmospherics'],
     [initGoblinWhisperStone, 'WhisperStone'],
+    [initSootSprawl, 'SootSprawl'],
     [initMothSwarm, 'MothSwarm'],
     [initSparkDrift, 'SparkDrift'],
     [initParticleScraps, 'ParticleScraps'],

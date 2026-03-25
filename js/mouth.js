@@ -73,7 +73,8 @@ export function initDailyLoot() {
         '"A debugger is just a goblin with a magnifying glass and a very judgmental look."',
         '"The soot on the terminal is the only honest feedback you\'ll ever get."',
         '"A code review is just a very slow, very polite duel."',
-        '"If the server hums in C minor, it means the database is feeling nostalgic."'
+        '"If the server hums in C minor, it means the database is feeling nostalgic."',
+        '"An automated update is just a goblin tidying up the cave while the human is dreaming of better logic."'
     ];
 
     const scavenged = [
@@ -246,6 +247,11 @@ export function initDailyLoot() {
             href: 'https://p5js.org/',
             text: 'p5.js',
             note: ' — A sketchbook for the digital cave dweller.'
+        },
+        {
+            href: 'https://www.shadertoy.com/view/lsfGRr',
+            text: 'Sooty Smoke',
+            note: ' — a digital reminder that even code has residue.'
         }
     ];
 
@@ -300,7 +306,8 @@ export function initDailyLoot() {
         'Goblin Fact: If you stare at a semicolon for ten minutes, it starts looking like a goblin\'s wink.',
         'Goblin Fact: If you accidentally delete your node_modules, a goblin somewhere gets its wings.',
         'Goblin Fact: CSS is actually just a very complex way of asking a rectangle to be polite.',
-        'Goblin Fact: If your code works the first time, it\'s probably because a goblin was bored and fixed it for you.'
+        'Goblin Fact: If your code works the first time, it\'s because a goblin was bored and fixed it for you.',
+        'Goblin Fact: If you automate your chores, you have more time to stare at the wall and pretend you\'re an oracle.'
     ];
 
 
