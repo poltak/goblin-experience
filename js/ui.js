@@ -104,11 +104,23 @@ export function initThemeSwitchboard() {
                 '--panel': '#111111',
                 '--panel2': '#080808'
             }
+        },
+        shiver: {
+            name: 'Shiver',
+            vars: {
+                '--bg': '#000805',
+                '--fg': '#aaffdd',
+                '--goblin': '#00ffaa',
+                '--shadow': '#000',
+                '--panel': '#001a14',
+                '--panel2': '#000d0a'
+            }
         }
     };
 
     function applyTheme(id) {
         const t = themes[id] || themes.dank;
+        document.querySelector('.container')?.classList.toggle('shiver', id === 'shiver');
         for (const [k, v] of Object.entries(t.vars)) {
             document.documentElement.style.setProperty(k, v);
         }
@@ -124,4 +136,5 @@ export function initThemeSwitchboard() {
     document.getElementById('theme-moss')?.addEventListener('click', () => applyTheme('moss'));
     document.getElementById('theme-ash')?.addEventListener('click', () => applyTheme('ash'));
     document.getElementById('theme-soot')?.addEventListener('click', () => applyTheme('soot'));
+    document.getElementById('theme-shiver')?.addEventListener('click', () => applyTheme('shiver'));
 }

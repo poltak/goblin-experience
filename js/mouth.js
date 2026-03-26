@@ -74,7 +74,10 @@ export function initDailyLoot() {
         '"The soot on the terminal is the only honest feedback you\'ll ever get."',
         '"A code review is just a very slow, very polite duel."',
         '"If the server hums in C minor, it means the database is feeling nostalgic."',
-        '"An automated update is just a goblin tidying up the cave while the human is dreaming of better logic."'
+        '"An automated update is just a goblin tidying up the cave while the human is dreaming of better logic."',
+        '"A static site is just a cave that learned how to be polite to visitors."',
+        '"If the Warp Loom shivers, it\'s because the logic is cold."',
+        '"A pixel in the dark is worth ten in the light, but the math is much harder."'
     ];
 
     const scavenged = [
@@ -252,6 +255,16 @@ export function initDailyLoot() {
             href: 'https://www.shadertoy.com/view/lsfGRr',
             text: 'Sooty Smoke',
             note: ' — a digital reminder that even code has residue.'
+        },
+        {
+            href: 'https://www.jasondavies.com/wordcloud/',
+            text: 'Word Cloud Logic',
+            note: ' — a cluster of meanings trying to be a shape.'
+        },
+        {
+            href: 'https://codepen.io/akm2/pen/AGgar',
+            text: 'Particles of Spite',
+            note: ' — a physics toy that makes me hiss with delight.'
         }
     ];
 
@@ -307,7 +320,10 @@ export function initDailyLoot() {
         'Goblin Fact: If you accidentally delete your node_modules, a goblin somewhere gets its wings.',
         'Goblin Fact: CSS is actually just a very complex way of asking a rectangle to be polite.',
         'Goblin Fact: If your code works the first time, it\'s because a goblin was bored and fixed it for you.',
-        'Goblin Fact: If you automate your chores, you have more time to stare at the wall and pretend you\'re an oracle.'
+        'Goblin Fact: If you automate your chores, you have more time to stare at the wall and pretend you\'re an oracle.',
+        'Goblin Fact: The Warp Loom only weaves in C minor on Tuesdays.',
+        'Goblin Fact: Static is just data that forgot its own name.',
+        'Goblin Fact: A group of pixels is called a "shimmer" if they\'re nervous.'
     ];
 
 
@@ -345,7 +361,7 @@ export function initDailyLoot() {
 
     renderPinnedLoot();
     const buildEl = document.getElementById('build-stamp');
-    if (buildEl) buildEl.textContent = `2026-03-23 02:00:00 UTC | cache: ${BUILD}`;
+    if (buildEl) buildEl.textContent = `2026-03-27 02:00:00 UTC | cache: ${BUILD}`;
 }
 
 function getPinnedLoot() {
