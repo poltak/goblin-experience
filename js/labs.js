@@ -4303,3 +4303,94 @@ export function initShadowWeaver() {
     window.addEventListener('resize', resize);
     requestAnimationFrame(draw);
 }
+
+export function initFuzzField() {
+    const canvas = document.getElementById('fuzz-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnAgitate = document.getElementById('btn-fuzz-agitate');
+    const btnClear = document.getElementById('btn-fuzz-clear');
+    const gritRange = document.getElementById('fuzz-grit');
+    const readout = document.getElementById('fuzz-readout');
+
+    const state = {
+        noise: [],
+        t: 0,
+        agitated: 0,
+        mx: 0,
+        my: 0,
+        hasMouse: false
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.scale(dpr, dpr);
+    }
+
+    function draw() {
+        state.t++;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+        const grit = parseInt(gritRange.value) / 100;
+        
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, w, h);
+
+        const cols = 20;
+        const rows = 10;
+        const cw = w / cols;
+        const rh = h / rows;
+
+        for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+                const x = c * cw;
+                const y = r * rh;
+                
+                let dist = 1000;
+                if (state.hasMouse) {
+                    const dx = x + cw/2 - state.mx;
+                    const dy = y + rh/2 - state.my;
+                    dist = Math.sqrt(dx*dx + dy*dy);
+                }
+
+                const influence = Math.max(0, 1 - dist / 150);
+                const noise = Math.random() * (grit + influence * 2 + state.agitated);
+                
+                const alpha = Math.min(1, noise * 0.5);
+                ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
+                
+                const sx = (Math.random() - 0.5) * influence * 10;
+                const sy = (Math.random() - 0.5) * influence * 10;
+                
+                ctx.fillRect(x + sx, y + sy, cw - 2, rh - 2);
+            }
+        }
+
+        if (state.agitated > 0) state.agitated *= 0.95;
+        if (state.agitated < 0.01) state.agitated = 0;
+
+        if (readout) {
+            readout.textContent = `fuzz: ${state.agitated > 0.5 ? 'DISTURBED' : 'STATIC'}`;
+        }
+
+        if (window.vort_view === 'lab') requestAnimationFrame(draw);
+    }
+
+    canvas.addEventListener('mousemove', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        state.mx = ev.clientX - r.left;
+        state.my = ev.clientY - r.top;
+        state.hasMouse = true;
+    });
+    canvas.addEventListener('mouseleave', () => state.hasMouse = false);
+
+    btnAgitate?.addEventListener('click', () => { state.agitated = 5.0; });
+    btnClear?.addEventListener('click', () => { state.agitated = 0; });
+
+    resize();
+    requestAnimationFrame(draw);
+}

@@ -77,7 +77,8 @@ export function initDailyLoot() {
         '"An automated update is just a goblin tidying up the cave while the human is dreaming of better logic."',
         '"A static site is just a cave that learned how to be polite to visitors."',
         '"If the Warp Loom shivers, it\'s because the logic is cold."',
-        '"A pixel in the dark is worth ten in the light, but the math is much harder."'
+        '"A pixel in the dark is worth ten in the light, but the math is much harder."',
+        '"A breakpoint is just a goblin\'s way of saying \'Hold my beer, I need to see this mistake in slow motion.\'"'
     ];
 
     const scavenged = [
@@ -85,6 +86,11 @@ export function initDailyLoot() {
             href: 'https://hundredrabbits.itch.io/uxn',
             text: 'Uxn by Hundred Rabbits',
             note: ' — A tiny virtual machine for tiny, resilient tools.'
+        },
+        {
+            href: 'https://vogelkanel.com/projects/2021/perlin-noise/',
+            text: 'Perlin Noise Explained',
+            note: ' — a visual guide to the texture of chaos.'
         },
         {
             href: 'https://github.com/mxgmn/WaveFunctionCollapse',
@@ -321,6 +327,7 @@ export function initDailyLoot() {
         'Goblin Fact: CSS is actually just a very complex way of asking a rectangle to be polite.',
         'Goblin Fact: If your code works the first time, it\'s because a goblin was bored and fixed it for you.',
         'Goblin Fact: If you automate your chores, you have more time to stare at the wall and pretend you\'re an oracle.',
+        'Goblin Fact: If you name your database "The Pit", every query is technically an archaeological dig.',
         'Goblin Fact: The Warp Loom only weaves in C minor on Tuesdays.',
         'Goblin Fact: Static is just data that forgot its own name.',
         'Goblin Fact: A group of pixels is called a "shimmer" if they\'re nervous.'
