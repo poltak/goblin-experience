@@ -1,5 +1,117 @@
 import { BUILD, dateSeedUTC, mulberry32, fnv1a, clamp } from './utils.js';
 
+export function initWhisperingWires() {
+    const canvas = document.getElementById('wire-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnAgitate = document.getElementById('btn-wire-agitate');
+    const btnClear = document.getElementById('btn-wire-clear');
+    const tensRange = document.getElementById('wire-tension');
+    const readout = document.getElementById('wire-readout');
+
+    const state = {
+        t: 0,
+        agitated: 0,
+        mx: 0,
+        my: 0,
+        hasMouse: false
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function draw() {
+        state.t++;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+        const tension = parseInt(tensRange.value) / 100;
+
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, w, h);
+
+        const cols = 16;
+        const rows = 12;
+        const cw = w / (cols - 1);
+        const rh = h / (rows - 1);
+
+        ctx.strokeStyle = '#00ff4133';
+        ctx.lineWidth = 1;
+
+        for (let r = 0; r < rows; r++) {
+            ctx.beginPath();
+            for (let c = 0; c < cols; c++) {
+                let x = c * cw;
+                let y = r * rh;
+
+                let dist = 1000;
+                if (state.hasMouse) {
+                    const dx = x - state.mx;
+                    const dy = y - state.my;
+                    dist = Math.sqrt(dx*dx + dy*dy);
+                }
+
+                const influence = Math.max(0, 1 - dist / 120);
+                const shiftX = Math.sin(state.t * 0.05 + r) * (tension * 10 + influence * 20 + state.agitated * 10);
+                const shiftY = Math.cos(state.t * 0.05 + c) * (tension * 10 + influence * 20 + state.agitated * 10);
+
+                if (c === 0) ctx.moveTo(x + shiftX, y + shiftY);
+                else ctx.lineTo(x + shiftX, y + shiftY);
+            }
+            ctx.stroke();
+        }
+
+        for (let c = 0; c < cols; c++) {
+            ctx.beginPath();
+            for (let r = 0; r < rows; r++) {
+                let x = c * cw;
+                let y = r * rh;
+
+                let dist = 1000;
+                if (state.hasMouse) {
+                    const dx = x - state.mx;
+                    const dy = y - state.my;
+                    dist = Math.sqrt(dx*dx + dy*dy);
+                }
+
+                const influence = Math.max(0, 1 - dist / 120);
+                const shiftX = Math.sin(state.t * 0.05 + r) * (tension * 10 + influence * 20 + state.agitated * 10);
+                const shiftY = Math.cos(state.t * 0.05 + c) * (tension * 10 + influence * 20 + state.agitated * 10);
+
+                if (r === 0) ctx.moveTo(x + shiftX, y + shiftY);
+                else ctx.lineTo(x + shiftX, y + shiftY);
+            }
+            ctx.stroke();
+        }
+
+        if (state.agitated > 0) state.agitated *= 0.96;
+        if (state.agitated < 0.01) state.agitated = 0;
+
+        if (readout) readout.textContent = `wires: ${state.agitated > 0.5 ? 'DISTURBED' : 'HUMMING'}`;
+        if (window.vort_view === 'lab') requestAnimationFrame(draw);
+    }
+
+    canvas.addEventListener('mousemove', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        state.mx = ev.clientX - r.left;
+        state.my = ev.clientY - r.top;
+        state.hasMouse = true;
+    });
+    canvas.addEventListener('mouseleave', () => state.hasMouse = false);
+
+    btnAgitate?.addEventListener('click', () => { state.agitated = 4.0; });
+    btnClear?.addEventListener('click', () => { state.agitated = 0; });
+
+    resize();
+    window.addEventListener('resize', resize);
+    requestAnimationFrame(draw);
+}
+
 export function initSootSprawl() {
     const canvas = document.getElementById('soot-canvas');
     if (!canvas) return;

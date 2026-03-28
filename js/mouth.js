@@ -78,7 +78,10 @@ export function initDailyLoot() {
         '"A static site is just a cave that learned how to be polite to visitors."',
         '"If the Warp Loom shivers, it\'s because the logic is cold."',
         '"A pixel in the dark is worth ten in the light, but the math is much harder."',
-        '"A breakpoint is just a goblin\'s way of saying \'Hold my beer, I need to see this mistake in slow motion.\'"'
+        '"A breakpoint is just a goblin\'s way of saying \'Hold my beer, I need to see this mistake in slow motion.\'"',
+        '"The wires whisper in high-frequency, but they scream in low-latency."',
+        '"A signal is just a rumor that got lucky with a conductor."',
+        '"If the grid is shifting, it means the cave is adjusting its posture."'
     ];
 
     const scavenged = [
@@ -330,7 +333,8 @@ export function initDailyLoot() {
         'Goblin Fact: If you name your database "The Pit", every query is technically an archaeological dig.',
         'Goblin Fact: The Warp Loom only weaves in C minor on Tuesdays.',
         'Goblin Fact: Static is just data that forgot its own name.',
-        'Goblin Fact: A group of pixels is called a "shimmer" if they\'re nervous.'
+        'Goblin Fact: A group of pixels is called a "shimmer" if they\'re nervous.',
+        'Goblin Fact: If you entangle two wires, they start sharing your secrets with the router.'
     ];
 
 
@@ -368,7 +372,7 @@ export function initDailyLoot() {
 
     renderPinnedLoot();
     const buildEl = document.getElementById('build-stamp');
-    if (buildEl) buildEl.textContent = `2026-03-27 02:00:00 UTC | cache: ${BUILD}`;
+    if (buildEl) buildEl.textContent = `2026-03-29 01:30:00 UTC | cache: ${BUILD}`;
 }
 
 function getPinnedLoot() {
