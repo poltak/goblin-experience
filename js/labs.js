@@ -4629,3 +4629,99 @@ export function initBoneWeaver() {
     window.addEventListener('resize', resize);
     requestAnimationFrame(draw);
 }
+
+export function initGlitchShifter() {
+    const canvas = document.getElementById('glitch-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnGlitch = document.getElementById('btn-glitch-jolt');
+    const btnClear = document.getElementById('btn-glitch-clear');
+    const driftRange = document.getElementById('glitch-drift');
+    const readout = document.getElementById('glitch-readout');
+
+    const state = {
+        blocks: [],
+        mx: 0,
+        my: 0,
+        hasMouse: false,
+        t: 0,
+        jolt: 0
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        generate();
+    }
+
+    function generate() {
+        const rect = canvas.getBoundingClientRect();
+        if (!rect) return;
+        const w = rect.width, h = rect.height;
+        state.blocks = [];
+        for (let i = 0; i < 40; i++) {
+            state.blocks.push({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                w: 10 + Math.random() * 80,
+                h: 5 + Math.random() * 30,
+                hue: Math.random() * 360,
+                vx: (Math.random() - 0.5) * 0.5,
+                vy: (Math.random() - 0.5) * 0.5
+            });
+        }
+    }
+
+    function draw() {
+        state.t++;
+        const rect = canvas.getBoundingClientRect();
+        if (!rect) return;
+        const w = rect.width, h = rect.height;
+        const drift = parseInt(driftRange.value) / 10;
+
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, w, h);
+
+        if (state.jolt > 0) state.jolt *= 0.9;
+
+        for (const b of state.blocks) {
+            b.x += b.vx * drift;
+            b.y += b.vy * drift;
+
+            if (b.x < -100) b.x = w;
+            if (b.x > w) b.x = -100;
+            if (b.y < -50) b.y = h;
+            if (b.y > h) b.y = -50;
+
+            let gx = 0, gy = 0;
+            if (Math.random() < 0.02 * (state.jolt + 0.1)) {
+                gx = (Math.random() - 0.5) * 20;
+                gy = (Math.random() - 0.5) * 10;
+            }
+
+            ctx.fillStyle = `hsla(${b.hue}, 100%, 50%, 0.6)`;
+            ctx.fillRect(b.x + gx, b.y + gy, b.w, b.h);
+
+            // ghost frames
+            if (state.jolt > 0.5) {
+                ctx.strokeStyle = `hsla(${b.hue + 180}, 100%, 50%, 0.3)`;
+                ctx.strokeRect(b.x - gx, b.y - gy, b.w, b.h);
+            }
+        }
+
+        if (readout) readout.textContent = `glitch: ${state.jolt > 1 ? 'UNSTABLE' : 'DRIFTING'}`;
+        if (window.vort_view === 'lab') requestAnimationFrame(draw);
+    }
+
+    btnGlitch?.addEventListener('click', () => { state.jolt = 10.0; });
+    btnClear?.addEventListener('click', () => { generate(); state.jolt = 0; });
+
+    resize();
+    window.addEventListener('resize', resize);
+    requestAnimationFrame(draw);
+}
+

@@ -126,6 +126,17 @@ export function initThemeSwitchboard() {
                 '--panel': '#2a2622',
                 '--panel2': '#1a1714'
             }
+        },
+        neon: {
+            name: 'Neon',
+            vars: {
+                '--bg': '#000000',
+                '--fg': '#ffffff',
+                '--goblin': '#ff00ff',
+                '--shadow': '#000',
+                '--panel': '#1a001a',
+                '--panel2': '#0a000a'
+            }
         }
     };
 
@@ -149,4 +160,5 @@ export function initThemeSwitchboard() {
     document.getElementById('theme-soot')?.addEventListener('click', () => applyTheme('soot'));
     document.getElementById('theme-shiver')?.addEventListener('click', () => applyTheme('shiver'));
     document.getElementById('theme-bone')?.addEventListener('click', () => applyTheme('bone'));
+    document.getElementById('theme-neon')?.addEventListener('click', () => applyTheme('neon'));
 }

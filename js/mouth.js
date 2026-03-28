@@ -82,7 +82,8 @@ export function initDailyLoot() {
         '"The wires whisper in high-frequency, but they scream in low-latency."',
         '"A signal is just a rumor that got lucky with a conductor."',
         '"If the grid is shifting, it means the cave is adjusting its posture."',
-        '"A bone that remembers its shape is just a primitive form of version control."'
+        '"A bone that remembers its shape is just a primitive form of version control."',
+        '"A double-check is just a goblin being told his first layer of chaos was too tidy."'
     ];
 
     const scavenged = [
@@ -280,6 +281,11 @@ export function initDailyLoot() {
             href: 'https://github.com/LingDong-/fishdraw',
             text: 'FishDraw',
             note: ' — procedurally generated fish for the digital pond.'
+        },
+        {
+            href: 'https://glitch.com/~ascii-art-paint',
+            text: 'ASCII Art Paint',
+            note: ' — for the goblin who prefers paint to be purely character-based.'
         }
     ];
 
@@ -341,7 +347,8 @@ export function initDailyLoot() {
         'Goblin Fact: Static is just data that forgot its own name.',
         'Goblin Fact: A group of pixels is called a "shimmer" if they\'re nervous.',
         'Goblin Fact: If you entangle two wires, they start sharing your secrets with the router.',
-        'Goblin Fact: If you find a bone in the server room, it means the hardware is evolving.'
+        'Goblin Fact: If you find a bone in the server room, it means the hardware is evolving.',
+        'Goblin Fact: A \"quick sanity check\" usually results in at least three new features and a headache.'
     ];
 
 
