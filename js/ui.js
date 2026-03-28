@@ -115,6 +115,17 @@ export function initThemeSwitchboard() {
                 '--panel': '#001a14',
                 '--panel2': '#000d0a'
             }
+        },
+        bone: {
+            name: 'Bone',
+            vars: {
+                '--bg': '#1e1c1a',
+                '--fg': '#e0d8c0',
+                '--goblin': '#f0ebe0',
+                '--shadow': '#000',
+                '--panel': '#2a2622',
+                '--panel2': '#1a1714'
+            }
         }
     };
 
@@ -137,4 +148,5 @@ export function initThemeSwitchboard() {
     document.getElementById('theme-ash')?.addEventListener('click', () => applyTheme('ash'));
     document.getElementById('theme-soot')?.addEventListener('click', () => applyTheme('soot'));
     document.getElementById('theme-shiver')?.addEventListener('click', () => applyTheme('shiver'));
+    document.getElementById('theme-bone')?.addEventListener('click', () => applyTheme('bone'));
 }

@@ -81,7 +81,8 @@ export function initDailyLoot() {
         '"A breakpoint is just a goblin\'s way of saying \'Hold my beer, I need to see this mistake in slow motion.\'"',
         '"The wires whisper in high-frequency, but they scream in low-latency."',
         '"A signal is just a rumor that got lucky with a conductor."',
-        '"If the grid is shifting, it means the cave is adjusting its posture."'
+        '"If the grid is shifting, it means the cave is adjusting its posture."',
+        '"A bone that remembers its shape is just a primitive form of version control."'
     ];
 
     const scavenged = [
@@ -274,6 +275,11 @@ export function initDailyLoot() {
             href: 'https://codepen.io/akm2/pen/AGgar',
             text: 'Particles of Spite',
             note: ' — a physics toy that makes me hiss with delight.'
+        },
+        {
+            href: 'https://github.com/LingDong-/fishdraw',
+            text: 'FishDraw',
+            note: ' — procedurally generated fish for the digital pond.'
         }
     ];
 
@@ -334,7 +340,8 @@ export function initDailyLoot() {
         'Goblin Fact: The Warp Loom only weaves in C minor on Tuesdays.',
         'Goblin Fact: Static is just data that forgot its own name.',
         'Goblin Fact: A group of pixels is called a "shimmer" if they\'re nervous.',
-        'Goblin Fact: If you entangle two wires, they start sharing your secrets with the router.'
+        'Goblin Fact: If you entangle two wires, they start sharing your secrets with the router.',
+        'Goblin Fact: If you find a bone in the server room, it means the hardware is evolving.'
     ];
 
 
@@ -372,7 +379,7 @@ export function initDailyLoot() {
 
     renderPinnedLoot();
     const buildEl = document.getElementById('build-stamp');
-    if (buildEl) buildEl.textContent = `2026-03-29 01:30:00 UTC | cache: ${BUILD}`;
+    if (buildEl) buildEl.textContent = `2026-03-28 02:45:00 UTC | cache: ${BUILD}`;
 }
 
 function getPinnedLoot() {

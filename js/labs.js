@@ -4506,3 +4506,126 @@ export function initFuzzField() {
     resize();
     requestAnimationFrame(draw);
 }
+
+export function initBoneWeaver() {
+    const canvas = document.getElementById('bone-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnSnap = document.getElementById('btn-bone-snap');
+    const btnClear = document.getElementById('btn-bone-clear');
+    const marrowRange = document.getElementById('bone-marrow');
+    const readout = document.getElementById('bone-readout');
+
+    const state = {
+        bones: [],
+        mx: 0,
+        my: 0,
+        hasMouse: false,
+        t: 0
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function snap(x, y) {
+        const rect = canvas.getBoundingClientRect();
+        const px = x ?? Math.random() * rect.width;
+        const py = y ?? Math.random() * rect.height;
+
+        state.bones.push({
+            x1: px,
+            y1: py,
+            x2: px + (Math.random() - 0.5) * 100,
+            y2: py + (Math.random() - 0.5) * 100,
+            life: 1.0,
+            decay: 0.005 + Math.random() * 0.01,
+            hue: 30 + Math.random() * 20 // Bone-ish color
+        });
+        if (readout) readout.textContent = `bones: ${state.bones.length} fragments calcifying`;
+    }
+
+    function draw() {
+        state.t++;
+        const rect = canvas.getBoundingClientRect();
+        const w = rect.width, h = rect.height;
+
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, w, h);
+
+        const marrow = parseInt(marrowRange.value) / 100;
+
+        for (let i = state.bones.length - 1; i >= 0; i--) {
+            const b = state.bones[i];
+            b.life -= b.decay;
+
+            if (b.life <= 0) {
+                state.bones.splice(i, 1);
+                continue;
+            }
+
+            const alpha = b.life * 0.8;
+            ctx.strokeStyle = `hsla(${b.hue}, 20%, 80%, ${alpha})`;
+            ctx.lineWidth = 4 * b.life;
+            ctx.lineCap = 'round';
+            
+            ctx.beginPath();
+            ctx.moveTo(b.x1, b.y1);
+            ctx.lineTo(b.x2, b.y2);
+            ctx.stroke();
+            
+            // Marrow detail
+            ctx.strokeStyle = `hsla(${b.hue}, 100%, 30%, ${alpha * marrow})`;
+            ctx.lineWidth = 1.5 * b.life;
+            ctx.beginPath();
+            ctx.moveTo(b.x1, b.y1);
+            ctx.lineTo(b.x2, b.y2);
+            ctx.stroke();
+
+            // Weaver effect (connect to neighbors)
+            if (i > 0) {
+                const prev = state.bones[i-1];
+                const d = Math.sqrt((b.x1 - prev.x1)**2 + (b.y1 - prev.y1)**2);
+                if (d < 120) {
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - d/120) * alpha})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(b.x1, b.y1);
+                    ctx.lineTo(prev.x1, prev.y1);
+                    ctx.stroke();
+                }
+            }
+        }
+
+        if (readout) readout.textContent = `bones: ${state.bones.length} fragments`;
+        if (window.vort_view === 'lab') requestAnimationFrame(draw);
+    }
+
+    canvas.addEventListener('mousemove', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        state.mx = ev.clientX - r.left;
+        state.my = ev.clientY - r.top;
+        state.hasMouse = true;
+    });
+    canvas.addEventListener('mouseleave', () => state.hasMouse = false);
+    
+    canvas.addEventListener('click', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        snap(ev.clientX - r.left, ev.clientY - r.top);
+    });
+
+    btnSnap?.addEventListener('click', () => snap());
+    btnClear?.addEventListener('click', () => {
+        state.bones = [];
+        if (readout) readout.textContent = 'bones: purged';
+    });
+
+    resize();
+    window.addEventListener('resize', resize);
+    requestAnimationFrame(draw);
+}

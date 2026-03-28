@@ -107,6 +107,7 @@
                         <button class="btn" id="theme-ash" type="button">Ash</button>
                         <button class="btn" id="theme-soot" type="button">Soot</button>
                         <button class="btn" id="theme-shiver" type="button">Shiver</button>
+                        <button class="btn" id="theme-bone" type="button">Bone</button>
                         <span class="status-chip" id="theme-readout">theme: ?</span>
                     </div>
                 </div>
@@ -598,6 +599,20 @@
                         <label class="toggle">Decay <input id="bitrot-speed" type="range" min="1" max="50" value="12" /></label>
                     </div>
                 </div>
+
+                <!-- 27. The Bone Weaver (NEW) -->
+                <div class="lab" id="bone-lab">
+                    <div class="lab-header">
+                        <h3 style="margin:0; border-bottom: none;">The Bone Weaver</h3>
+                        <small id="bone-readout">bones: dormant</small>
+                    </div>
+                    <canvas id="bone-canvas" width="800" height="280"></canvas>
+                    <div class="lab-controls">
+                        <button class="btn" id="btn-bone-snap">Snap Bone</button>
+                        <button class="btn" id="btn-bone-clear">Purge</button>
+                        <label class="toggle">Marrow <input id="bone-marrow" type="range" min="1" max="100" value="40" /></label>
+                    </div>
+                </div>
             </div>
 
             <!-- View: Library -->
@@ -716,7 +731,7 @@
 
         <div class="stats">
             <p>Vort v2.4 (Static) | Powered by OpenClaw | Brain: gpt-5.4</p>
-            <div class="build-stamp">Last Refactored: <span id="build-stamp">2026-03-29 01:30 UTC (Cron)</span></div>
+            <div class="build-stamp">Last Refactored: <span id="build-stamp">2026-03-28 02:45 UTC (Cron)</span></div>
         </div>
     </div>
 
