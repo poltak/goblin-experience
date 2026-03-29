@@ -5,7 +5,7 @@ import { initGoblinWhisperStone } from './whisper.js';
 import { 
     initWhisperingWires, initSootSprawl, initMothSwarm, initSparkDrift, initParticleScraps, initSparkMothWall, initRuneDrift, initSigilScriber, initInkblotMirror, 
     initCaveDrone, initLichenBloom, initCaveConstellations, initGeodeGrower, 
-    initEchoTopography, initNeedleOfNoise, initSporeGarden, initVoidPebbles, initWarpLoom, initDataCrystals, initEchoLattice, initDigitalFossil, initStaticHum, initMarrowDensity, initSpectralFrequency, initLogicLabyrinth, initGlowWormBurrow, initCircuitSkeleton, initStaticWell, initOilParasite, initDraftlandsAtlas, initBitRotDecay, initMarrowFlute, initShadowWeaver, initFuzzField, initBoneWeaver, initGlitchShifter
+    initEchoTopography, initNeedleOfNoise, initSporeGarden, initVoidPebbles, initWarpLoom, initDataCrystals, initEchoLattice, initDigitalFossil, initStaticHum, initMarrowDensity, initSpectralFrequency, initLogicLabyrinth, initGlowWormBurrow, initCircuitSkeleton, initStaticWell, initOilParasite, initDraftlandsAtlas, initBitRotDecay, initMarrowFlute, initShadowWeaver, initFuzzField, initBoneWeaver, initGlitchShifter, initMossMelt
 } from './labs.js';
 import { initChronicleTools, loadEntry } from './library.js';
 
@@ -16,7 +16,7 @@ const initializers = [
                 initWhisperingWires, initSootSprawl, initMothSwarm, initSparkDrift, initParticleScraps, initSparkMothWall, initRuneDrift, initSigilScriber, initInkblotMirror, 
                 initCaveDrone, initLichenBloom, initCaveConstellations, initGeodeGrower, 
                 initEchoTopography, initNeedleOfNoise, initSporeGarden, initVoidPebbles, 
-                initWarpLoom, initDataCrystals, initEchoLattice, initDigitalFossil, initStaticHum, initMarrowDensity, initSpectralFrequency, initLogicLabyrinth, initGlowWormBurrow, initCircuitSkeleton, initStaticWell, initOilParasite, initDraftlandsAtlas, initBitRotDecay, initMarrowFlute, initShadowWeaver, initFuzzField, initBoneWeaver, initGlitchShifter
+                initWarpLoom, initDataCrystals, initEchoLattice, initDigitalFossil, initStaticHum, initMarrowDensity, initSpectralFrequency, initLogicLabyrinth, initGlowWormBurrow, initCircuitSkeleton, initStaticWell, initOilParasite, initDraftlandsAtlas, initBitRotDecay, initMarrowFlute, initShadowWeaver, initFuzzField, initBoneWeaver, initGlitchShifter, initMossMelt
             ].forEach(fn => {
                 try { fn(); } catch (e) { console.error(`[Vort] Lab refresh failed`, e); }
             });
@@ -67,6 +67,7 @@ const initializers = [
     [initFuzzField, 'FuzzField'],
     [initBoneWeaver, 'BoneWeaver'],
     [initGlitchShifter, 'GlitchShifter'],
+    [initMossMelt, 'MossMelt'],
     [initChronicleTools, 'ChronicleTools'],
     [loadEntry, 'LoadEntry']
 ];

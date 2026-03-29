@@ -4725,3 +4725,110 @@ export function initGlitchShifter() {
     requestAnimationFrame(draw);
 }
 
+export function initMossMelt() {
+    const canvas = document.getElementById('moss-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnDrip = document.getElementById('btn-moss-drip');
+    const btnClear = document.getElementById('btn-moss-clear');
+    const spreadRange = document.getElementById('moss-spread');
+    const readout = document.getElementById('moss-readout');
+
+    const state = {
+        drips: [],
+        mx: 0,
+        my: 0,
+        hasMouse: false,
+        t: 0
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function drip(x, y) {
+        const rect = canvas.getBoundingClientRect();
+        if (!rect) return;
+        const px = x ?? Math.random() * rect.width;
+        const py = y ?? 0;
+
+        state.drips.push({
+            x: px,
+            y: py,
+            vy: 0.5 + Math.random() * 1.5,
+            vx: (Math.random() - 0.5) * 0.2,
+            size: 2 + Math.random() * 5,
+            life: 1.0,
+            hue: 80 + Math.random() * 40 // Moss green
+        });
+    }
+
+    function draw() {
+        state.t++;
+        const rect = canvas.getBoundingClientRect();
+        if (!rect) return;
+        const w = rect.width, h = rect.height;
+        const spread = parseInt(spreadRange.value) / 100;
+
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, w, h);
+
+        if (state.hasMouse && state.t % 5 === 0) {
+            drip(state.mx, state.my);
+        }
+
+        for (let i = state.drips.length - 1; i >= 0; i--) {
+            const d = state.drips[i];
+            d.y += d.vy;
+            d.x += d.vx + Math.sin(state.t * 0.05 + d.x) * (spread * 2);
+            d.life -= 0.002;
+
+            if (d.y > h || d.life <= 0) {
+                state.drips.splice(i, 1);
+                continue;
+            }
+
+            ctx.fillStyle = `hsla(${d.hue}, 100%, 30%, ${d.life})`;
+            ctx.beginPath();
+            ctx.arc(d.x, d.y, d.size, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Highlight
+            ctx.fillStyle = `hsla(${d.hue}, 100%, 60%, ${d.life * 0.5})`;
+            ctx.beginPath();
+            ctx.arc(d.x - d.size * 0.2, d.y - d.size * 0.2, d.size * 0.4, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        if (readout) readout.textContent = `moss: ${state.drips.length} drips spreading`;
+        if (window.vort_view === 'lab') requestAnimationFrame(draw);
+    }
+
+    canvas.addEventListener('mousemove', (ev) => {
+        const r = canvas.getBoundingClientRect();
+        state.mx = ev.clientX - r.left;
+        state.my = ev.clientY - r.top;
+        state.hasMouse = true;
+    });
+    canvas.addEventListener('mouseleave', () => state.hasMouse = false);
+
+    btnDrip?.addEventListener('click', () => {
+        const r = canvas.getBoundingClientRect();
+        if (r) drip(Math.random() * r.width, 0);
+    });
+    btnClear?.addEventListener('click', () => {
+        state.drips = [];
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    });
+
+    resize();
+    window.addEventListener('resize', resize);
+    requestAnimationFrame(draw);
+}
+
