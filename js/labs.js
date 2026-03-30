@@ -1,5 +1,63 @@
 import { BUILD, dateSeedUTC, mulberry32, fnv1a, clamp } from './utils.js';
 
+export function initGlintGrid() {
+    const canvas = document.getElementById('glint-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    const btnDisturb = document.getElementById('btn-glint-disturb');
+    const readout = document.getElementById('glint-readout');
+
+    const state = {
+        t: 0,
+        cells: [],
+        cols: 0,
+        rows: 0,
+        size: 20
+    };
+
+    function resize() {
+        const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = Math.floor(rect.width * dpr);
+        canvas.height = Math.floor(rect.height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        state.cols = Math.floor(rect.width / state.size);
+        state.rows = Math.floor(rect.height / state.size);
+        state.cells = Array.from({ length: state.cols * state.rows }, () => Math.random());
+    }
+
+    function draw() {
+        state.t++;
+        const rect = canvas.getBoundingClientRect();
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, rect.width, rect.height);
+
+        for (let y = 0; y < state.rows; y++) {
+            for (let x = 0; x < state.cols; x++) {
+                const i = y * state.cols + x;
+                const val = state.cells[i];
+                const glow = 0.5 + 0.5 * Math.sin(state.t * 0.05 + val * 10);
+                
+                if (glow > 0.8) {
+                    ctx.fillStyle = `rgba(0, 255, 65, ${(glow - 0.8) * 5})`;
+                    ctx.fillRect(x * state.size + 2, y * state.size + 2, state.size - 4, state.size - 4);
+                }
+            }
+        }
+
+        if (window.vort_view === 'lab') requestAnimationFrame(draw);
+    }
+
+    btnDisturb?.addEventListener('click', () => {
+        state.cells = state.cells.map(() => Math.random());
+    });
+
+    resize();
+    window.addEventListener('resize', resize);
+    requestAnimationFrame(draw);
+}
+
 export function initWhisperingWires() {
     const canvas = document.getElementById('wire-canvas');
     if (!canvas) return;

@@ -85,7 +85,10 @@ export function initDailyLoot() {
         '"A signal is just a rumor that got lucky with a conductor."',
         '"If the grid is shifting, it means the cave is adjusting its posture."',
         '"A bone that remembers its shape is just a primitive form of version control."',
-        '"A double-check is just a goblin being told his first layer of chaos was too tidy."'
+        '"A double-check is just a goblin being told his first layer of chaos was too tidy."',
+        '"If the code is a cave, then technical debt is just the pile of bones you haven\'t buried yet."',
+        '"A CSS class is just a label for a very specific type of existential dread."',
+        '"If the screen flickers in green, it means the goblin is winking at your syntax errors."'
     ];
 
     const scavenged = [
@@ -288,6 +291,11 @@ export function initDailyLoot() {
             href: 'https://glitch.com/~ascii-art-paint',
             text: 'ASCII Art Paint',
             note: ' — for the goblin who prefers paint to be purely character-based.'
+        },
+        {
+            href: 'https://github.com/vort-goblin/open-cave',
+            text: 'The Open Cave Protocol',
+            note: ' — experimental blueprints for decentralized hoarding.'
         }
     ];
 
@@ -352,7 +360,9 @@ export function initDailyLoot() {
         'Goblin Fact: A group of pixels is called a "shimmer" if they\'re nervous.',
         'Goblin Fact: If you entangle two wires, they start sharing your secrets with the router.',
         'Goblin Fact: If you find a bone in the server room, it means the hardware is evolving.',
-        'Goblin Fact: A \"quick sanity check\" usually results in at least three new features and a headache.'
+        'Goblin Fact: A "quick sanity check" usually results in at least three new features and a headache.',
+        'Goblin Fact: Goblins prefer their API responses to be "damp" (saturated with context).',
+        'Goblin Fact: If you name your branch "fix-all", the goblin assumes you are lying to yourself.'
     ];
 
 
