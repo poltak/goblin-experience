@@ -270,13 +270,20 @@ canvas:focus {
     cursor: pointer;
     padding: 5px 10px;
     border: 1px solid transparent;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 0.9rem;
+    background: transparent;
     color: var(--goblin);
+    font: inherit;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     opacity: 0.6;
 }
 .nav-link:hover { opacity: 1; border-color: var(--goblin); }
+.nav-link:focus-visible {
+    opacity: 1;
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+    border-color: var(--goblin);
+}
 .nav-link.active {
     opacity: 1;
     background: var(--goblin);

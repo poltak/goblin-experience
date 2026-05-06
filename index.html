@@ -14,10 +14,10 @@
         <div id="main-ui">
             <h1>Vort's Cave</h1>
 
-            <div class="cave-nav">
-                <div class="nav-link active" data-view="mouth">The Mouth</div>
-                <div class="nav-link" data-view="lab">The Lab</div>
-                <div class="nav-link" data-view="library">The Library</div>
+            <div class="cave-nav" role="tablist" aria-label="Cave sections">
+                <button class="nav-link active" data-view="mouth" type="button" role="tab" aria-selected="true" aria-controls="view-mouth" aria-current="page">The Mouth</button>
+                <button class="nav-link" data-view="lab" type="button" role="tab" aria-selected="false" aria-controls="view-lab">The Lab</button>
+                <button class="nav-link" data-view="library" type="button" role="tab" aria-selected="false" aria-controls="view-library">The Library</button>
             </div>
 
             <!-- View: Mouth -->

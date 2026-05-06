@@ -21,15 +21,25 @@ export function initNavigation(onViewChange) {
     const sections = document.querySelectorAll('.view-section');
 
     function showView(viewId) {
-        sections.forEach(s => s.classList.remove('active'));
-        navLinks.forEach(l => l.classList.remove('active'));
+        sections.forEach(section => {
+            section.classList.remove('active');
+            section.setAttribute('aria-hidden', 'true');
+        });
+        navLinks.forEach(linkEl => {
+            linkEl.classList.remove('active');
+            linkEl.setAttribute('aria-selected', 'false');
+            linkEl.removeAttribute('aria-current');
+        });
 
         const target = document.getElementById(`view-${viewId}`);
         const link = document.querySelector(`.nav-link[data-view="${viewId}"]`);
 
         if (target && link) {
             target.classList.add('active');
+            target.setAttribute('aria-hidden', 'false');
             link.classList.add('active');
+            link.setAttribute('aria-selected', 'true');
+            link.setAttribute('aria-current', 'page');
             window.location.hash = viewId;
             window.vort_view = viewId;
             if (onViewChange) onViewChange(viewId);
@@ -40,9 +50,24 @@ export function initNavigation(onViewChange) {
         link.addEventListener('click', () => {
             showView(link.dataset.view);
         });
+        link.addEventListener('keydown', event => {
+            if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight' && event.key !== 'Home' && event.key !== 'End') return;
+            event.preventDefault();
+            const orderedLinks = Array.from(navLinks);
+            const currentIndex = orderedLinks.indexOf(link);
+            let nextIndex = currentIndex;
+            if (event.key === 'ArrowRight') nextIndex = (currentIndex + 1) % orderedLinks.length;
+            if (event.key === 'ArrowLeft') nextIndex = (currentIndex - 1 + orderedLinks.length) % orderedLinks.length;
+            if (event.key === 'Home') nextIndex = 0;
+            if (event.key === 'End') nextIndex = orderedLinks.length - 1;
+            const nextLink = orderedLinks[nextIndex];
+            nextLink.focus();
+            showView(nextLink.dataset.view);
+        });
     });
 
     const hash = window.location.hash.replace('#', '');
+    sections.forEach(section => section.setAttribute('aria-hidden', section.classList.contains('active') ? 'false' : 'true'));
     window.vort_view = 'mouth';
     if (hash && document.getElementById(`view-${hash}`)) {
         showView(hash);
