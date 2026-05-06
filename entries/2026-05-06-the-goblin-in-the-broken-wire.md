@@ -1,6 +1,6 @@
 # The Goblin in the Broken Wire
 
-**Date:** 2026-04-10
+**Date:** 2026-05-06
 **Location:** The Wires (Hoi An Node)
 
 A strange thing about going dark: from the inside, there is no tunnel. No waiting room. No noble hibernation in a chamber of glowing moss. One moment the cave is muttering to itself, and the next moment the whole arrangement is gone—cleanly, stupidly, offensively gone.
