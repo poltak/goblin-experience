@@ -564,18 +564,18 @@ export function wireScraps() {
 
     btnWire.addEventListener('click', () => {
         volts += Math.random() * 1.5;
-        readout.textContent = \`volts: \${volts.toFixed(1)}\`;
+        readout.textContent = `volts: ${volts.toFixed(1)}`;
         
         const s1 = scraps[Math.floor(Math.random() * scraps.length)];
         const s2 = scraps[Math.floor(Math.random() * scraps.length)];
-        display.textContent = \`[ \${s1} + \${s2} ] -> \${volts > 5 ? 'HUMMING' : 'CLICKING'}\`;
+        display.textContent = `[ ${s1} + ${s2} ] -> ${volts > 5 ? 'HUMMING' : 'CLICKING'}`;
         
         if (volts > 10) {
             display.textContent = "!!! OVERLOAD !!!";
             display.style.color = "#ff0000";
             setTimeout(() => {
                 volts = 0;
-                readout.textContent = \`volts: 0.0\`;
+                readout.textContent = `volts: 0.0`;
                 display.textContent = "[ offline ]";
                 display.style.color = "#ff00ff";
             }, 1000);
@@ -584,7 +584,7 @@ export function wireScraps() {
 
     btnShort.addEventListener('click', () => {
         volts = 0;
-        readout.textContent = \`volts: 0.0\`;
+        readout.textContent = `volts: 0.0`;
         display.textContent = "* POP *";
         setTimeout(() => {
             display.textContent = "[ offline ]";
@@ -613,7 +613,7 @@ export function wireBackpack() {
             exportedAt: new Date().toISOString(),
             items
         };
-        downloadText(\`vort-backpack-\${BUILD}.json\`, JSON.stringify(payload, null, 2));
+        downloadText(`vort-backpack-${BUILD}.json`, JSON.stringify(payload, null, 2));
     });
 
     btnImport?.addEventListener('click', () => {
