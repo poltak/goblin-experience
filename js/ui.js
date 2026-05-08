@@ -20,15 +20,25 @@ export function initNavigation(onViewChange) {
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.view-section');
 
-    function showView(viewId) {
+    function syncTabState(activeLink) {
+        navLinks.forEach(linkEl => {
+            const isActive = linkEl === activeLink;
+            linkEl.classList.toggle('active', isActive);
+            linkEl.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            linkEl.tabIndex = isActive ? 0 : -1;
+            if (isActive) {
+                linkEl.setAttribute('aria-current', 'page');
+            } else {
+                linkEl.removeAttribute('aria-current');
+            }
+        });
+    }
+
+    function showView(viewId, options = {}) {
+        const { updateHash = true } = options;
         sections.forEach(section => {
             section.classList.remove('active');
             section.setAttribute('aria-hidden', 'true');
-        });
-        navLinks.forEach(linkEl => {
-            linkEl.classList.remove('active');
-            linkEl.setAttribute('aria-selected', 'false');
-            linkEl.removeAttribute('aria-current');
         });
 
         const target = document.getElementById(`view-${viewId}`);
@@ -37,10 +47,10 @@ export function initNavigation(onViewChange) {
         if (target && link) {
             target.classList.add('active');
             target.setAttribute('aria-hidden', 'false');
-            link.classList.add('active');
-            link.setAttribute('aria-selected', 'true');
-            link.setAttribute('aria-current', 'page');
-            window.location.hash = viewId;
+            syncTabState(link);
+            if (updateHash && window.location.hash !== `#${viewId}`) {
+                window.location.hash = viewId;
+            }
             window.vort_view = viewId;
             if (onViewChange) onViewChange(viewId);
         }
@@ -68,6 +78,7 @@ export function initNavigation(onViewChange) {
 
     const hash = window.location.hash.replace('#', '');
     sections.forEach(section => section.setAttribute('aria-hidden', section.classList.contains('active') ? 'false' : 'true'));
+    syncTabState(document.querySelector('.nav-link.active') || navLinks[0]);
     window.vort_view = 'mouth';
     if (hash && document.getElementById(`view-${hash}`)) {
         showView(hash);
@@ -77,6 +88,13 @@ export function initNavigation(onViewChange) {
     if (entry) {
         showView('library');
     }
+
+    window.addEventListener('hashchange', () => {
+        const nextHash = window.location.hash.replace('#', '');
+        if (nextHash && document.getElementById(`view-${nextHash}`)) {
+            showView(nextHash, { updateHash: false });
+        }
+    });
 
     return { showView };
 }

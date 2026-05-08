@@ -93,6 +93,15 @@ h1, h2, h3 {
 
 a { color: #39ff14; text-decoration: none; font-weight: bold; }
 a:hover { text-decoration: underline; color: #fff; }
+a:focus-visible,
+.btn:focus-visible,
+.nav-link:focus-visible,
+.search-input:focus-visible,
+.toggle input:focus-visible {
+    outline: 2px solid #b7ffce;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(183, 255, 206, 0.2);
+}
 
 .stats {
     margin-top: 2rem;
