@@ -400,7 +400,7 @@ export function initDailyLoot() {
 
     renderPinnedLoot();
     const buildEl = document.getElementById('build-stamp');
-    if (buildEl) buildEl.textContent = `2026-05-07 15:41 UTC | cache: ${BUILD}`;
+    if (buildEl) buildEl.textContent = `2026-05-08 05:00 UTC | cache: ${BUILD}`;
 }
 
 function getPinnedLoot() {
