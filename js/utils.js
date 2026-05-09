@@ -1,4 +1,12 @@
-export const BUILD = '20260509-222007';
+export const BUILD = '20260509-224525';
+
+export function formatBuildStamp(build) {
+    const text = String(build || '').trim();
+    const m = text.match(/^(\d{4})(\d{2})(\d{2})-(\d{2})(\d{2})(\d{2})$/);
+    if (!m) return text || 'unknown';
+    const [, year, month, day, hour, minute, second] = m;
+    return `${year}-${month}-${day} ${hour}:${minute}:${second}`;
+}
 
 export function utcKey() {
     const d = new Date();

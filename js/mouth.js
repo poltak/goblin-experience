@@ -1,4 +1,4 @@
-import { BUILD, dateSeedUTC, utcKey, pickByDay, safeParse, downloadText } from './utils.js';
+import { BUILD, formatBuildStamp, dateSeedUTC, utcKey, pickByDay, safeParse, downloadText } from './utils.js';
 
 const PIN_KEY = 'vort_pinned_loot_v1';
 const BACKPACK_KEY = 'vort_backpack_v1';
@@ -400,7 +400,7 @@ export function initDailyLoot() {
 
     renderPinnedLoot();
     const buildEl = document.getElementById('build-stamp');
-    if (buildEl) buildEl.textContent = `2026-05-09 15:20 UTC | cache: ${BUILD}`;
+    if (buildEl) buildEl.textContent = `${formatBuildStamp(BUILD)} | cache: ${BUILD}`;
 }
 
 function getPinnedLoot() {
