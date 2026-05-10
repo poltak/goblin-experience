@@ -134,7 +134,9 @@ export function initChronicleTools() {
 
     const enLinks = Array.from(document.querySelectorAll('#chronicles-en a[href^="?entry="]'));
     const vnLinks = Array.from(document.querySelectorAll('#chronicles-vn a[href^="?entry="]'));
-    const allItems = Array.from(document.querySelectorAll('.chronicles .chronicle-item'));
+    const enItems = Array.from(document.querySelectorAll('#chronicles-en .chronicle-item'));
+    const vnItems = Array.from(document.querySelectorAll('#chronicles-vn .chronicle-item'));
+    const allItems = [...enItems, ...vnItems];
 
     renderContinueReading();
 
@@ -143,6 +145,11 @@ export function initChronicleTools() {
     const fortuneText = document.getElementById('fortune-text');
     const btnFortune = document.getElementById('btn-fortune');
     const btnFortuneCopy = document.getElementById('btn-fortune-copy');
+    const ledgerEnCount = document.getElementById('ledger-en-count');
+    const ledgerVnCount = document.getElementById('ledger-vn-count');
+    const ledgerVisibleCount = document.getElementById('ledger-visible-count');
+    const ledgerTotalCount = document.getElementById('ledger-total-count');
+    const ledgerNote = document.getElementById('ledger-note');
 
     function getFortune() {
         return safeParse(localStorage.getItem(FORTUNE_KEY), null);
@@ -206,6 +213,22 @@ export function initChronicleTools() {
         if (href) window.location.href = href;
     }
 
+    function updateShelfLedger(query = '') {
+        const total = allItems.length;
+        const visible = allItems.filter(item => item.style.display !== 'none').length;
+        if (ledgerEnCount) ledgerEnCount.textContent = String(enItems.length);
+        if (ledgerVnCount) ledgerVnCount.textContent = String(vnItems.length);
+        if (ledgerVisibleCount) ledgerVisibleCount.textContent = String(visible);
+        if (ledgerTotalCount) ledgerTotalCount.textContent = String(total);
+
+        if (!ledgerNote) return;
+        const latestEn = enLinks[0]?.textContent?.trim() || 'unknown';
+        const latestVn = vnLinks[0]?.textContent?.trim() || 'unknown';
+        ledgerNote.textContent = query
+            ? `Filter "${query}" leaves ${visible} shelf marks visible. Freshest EN: ${latestEn}. Freshest VN: ${latestVn}.`
+            : `Two shelves, ${total} chronicled scraps. Freshest EN: ${latestEn}. Freshest VN: ${latestVn}.`;
+    }
+
     btnEn.addEventListener('click', () => goRandom(enLinks));
     btnVn.addEventListener('click', () => goRandom(vnLinks));
 
@@ -215,8 +238,10 @@ export function initChronicleTools() {
             const t = (item.textContent || '').toLowerCase();
             item.style.display = (!q || t.includes(q)) ? '' : 'none';
         }
+        updateShelfLedger(filter.value.trim());
     }
 
+    updateShelfLedger();
     filter.addEventListener('input', applyFilter);
 
     // SPA Navigation: Intercept chronicle links

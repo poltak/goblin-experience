@@ -175,6 +175,10 @@ a:focus-visible,
     font-size: 0.75rem;
     opacity: 0.9;
 }
+.ledger-note {
+    margin-top: 10px;
+    line-height: 1.5;
+}
 
 #content-area { margin-top: 2rem; }
 .back-link { display: inline-block; margin-bottom: 1rem; }
