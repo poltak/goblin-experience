@@ -136,7 +136,24 @@ a:focus-visible,
 }
 .search-input::placeholder { color: #00ff4188; }
 .chronicle-item { border-bottom: 1px solid #00ff4133; padding: 10px 0; }
+.chronicle-item.shelf-hidden { display: none; }
 .muted { opacity: 0.7; }
+
+.shelf-language-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: -4px 0 16px;
+}
+.shelf-language-label {
+    font-size: 0.9rem;
+}
+.shelf-toggle.active {
+    background: #003f19;
+    color: #d8ffe2;
+    box-shadow: 0 0 0 1px #9cffb080 inset;
+}
 
 .treasure-box {
     background: #002200;

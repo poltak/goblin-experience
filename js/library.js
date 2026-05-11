@@ -132,11 +132,19 @@ export function initChronicleTools() {
     const btnVn = document.getElementById('btn-random-vn');
     if (!filter || !btnEn || !btnVn) return;
 
+    const enShelf = document.getElementById('chronicles-en');
+    const vnShelf = document.getElementById('chronicles-vn');
     const enLinks = Array.from(document.querySelectorAll('#chronicles-en a[href^="?entry="]'));
     const vnLinks = Array.from(document.querySelectorAll('#chronicles-vn a[href^="?entry="]'));
     const enItems = Array.from(document.querySelectorAll('#chronicles-en .chronicle-item'));
     const vnItems = Array.from(document.querySelectorAll('#chronicles-vn .chronicle-item'));
     const allItems = [...enItems, ...vnItems];
+    const shelfButtons = {
+        all: document.getElementById('btn-shelf-all'),
+        en: document.getElementById('btn-shelf-en'),
+        vn: document.getElementById('btn-shelf-vn')
+    };
+    let shelfMode = 'all';
 
     renderContinueReading();
 
@@ -215,7 +223,8 @@ export function initChronicleTools() {
 
     function updateShelfLedger(query = '') {
         const total = allItems.length;
-        const visible = allItems.filter(item => item.style.display !== 'none').length;
+        const shelfItems = shelfMode === 'en' ? enItems : shelfMode === 'vn' ? vnItems : allItems;
+        const visible = shelfItems.filter(item => !item.classList.contains('shelf-hidden')).length;
         if (ledgerEnCount) ledgerEnCount.textContent = String(enItems.length);
         if (ledgerVnCount) ledgerVnCount.textContent = String(vnItems.length);
         if (ledgerVisibleCount) ledgerVisibleCount.textContent = String(visible);
@@ -224,24 +233,45 @@ export function initChronicleTools() {
         if (!ledgerNote) return;
         const latestEn = enLinks[0]?.textContent?.trim() || 'unknown';
         const latestVn = vnLinks[0]?.textContent?.trim() || 'unknown';
+        const modeLabel = shelfMode === 'en' ? 'English shelf only' : shelfMode === 'vn' ? 'Vietnamese shelf only' : 'Both shelves';
         ledgerNote.textContent = query
-            ? `Filter "${query}" leaves ${visible} shelf marks visible. Freshest EN: ${latestEn}. Freshest VN: ${latestVn}.`
-            : `Two shelves, ${total} chronicled scraps. Freshest EN: ${latestEn}. Freshest VN: ${latestVn}.`;
+            ? `${modeLabel}. Filter "${query}" leaves ${visible} shelf marks visible. Freshest EN: ${latestEn}. Freshest VN: ${latestVn}.`
+            : `${modeLabel}. ${total} chronicled scraps. Freshest EN: ${latestEn}. Freshest VN: ${latestVn}.`;
+    }
+
+    function setShelfMode(mode = 'all') {
+        shelfMode = (mode === 'en' || mode === 'vn') ? mode : 'all';
+
+        if (enShelf) enShelf.style.display = (shelfMode === 'vn') ? 'none' : '';
+        if (vnShelf) vnShelf.style.display = (shelfMode === 'en') ? 'none' : '';
+
+        for (const [key, btn] of Object.entries(shelfButtons)) {
+            if (!btn) continue;
+            const active = key === shelfMode;
+            btn.classList.toggle('active', active);
+            btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+        }
+
+        applyFilter();
     }
 
     btnEn.addEventListener('click', () => goRandom(enLinks));
     btnVn.addEventListener('click', () => goRandom(vnLinks));
+    shelfButtons.all?.addEventListener('click', () => setShelfMode('all'));
+    shelfButtons.en?.addEventListener('click', () => setShelfMode('en'));
+    shelfButtons.vn?.addEventListener('click', () => setShelfMode('vn'));
 
     function applyFilter() {
         const q = (filter.value || '').trim().toLowerCase();
         for (const item of allItems) {
             const t = (item.textContent || '').toLowerCase();
-            item.style.display = (!q || t.includes(q)) ? '' : 'none';
+            const matches = !q || t.includes(q);
+            item.classList.toggle('shelf-hidden', !matches);
         }
         updateShelfLedger(filter.value.trim());
     }
 
-    updateShelfLedger();
+    setShelfMode('all');
     filter.addEventListener('input', applyFilter);
 
     // SPA Navigation: Intercept chronicle links
