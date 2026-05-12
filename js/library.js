@@ -153,6 +153,7 @@ export function initChronicleTools() {
     const fortuneText = document.getElementById('fortune-text');
     const btnFortune = document.getElementById('btn-fortune');
     const btnFortuneCopy = document.getElementById('btn-fortune-copy');
+    const btnCopyShelfLink = document.getElementById('btn-copy-shelf-link');
     const ledgerEnCount = document.getElementById('ledger-en-count');
     const ledgerVnCount = document.getElementById('ledger-vn-count');
     const ledgerVisibleCount = document.getElementById('ledger-visible-count');
@@ -221,6 +222,23 @@ export function initChronicleTools() {
         if (href) window.location.href = href;
     }
 
+    function updateShelfUrl() {
+        if (window.location.search.includes('entry=')) return window.location.href;
+
+        const params = new URLSearchParams(window.location.search);
+        if (shelfMode !== 'all') params.set('shelf', shelfMode);
+        else params.delete('shelf');
+
+        const q = (filter.value || '').trim();
+        if (q) params.set('q', q);
+        else params.delete('q');
+
+        const next = params.toString();
+        const url = `${window.location.pathname}${next ? `?${next}` : ''}${window.location.hash || ''}`;
+        window.history.replaceState({}, '', url);
+        return `${window.location.origin}${url}`;
+    }
+
     function updateShelfLedger(query = '') {
         const total = allItems.length;
         const shelfItems = shelfMode === 'en' ? enItems : shelfMode === 'vn' ? vnItems : allItems;
@@ -255,8 +273,22 @@ export function initChronicleTools() {
         applyFilter();
     }
 
+    async function copyShelfLink() {
+        const url = updateShelfUrl() || window.location.href;
+        try {
+            await navigator.clipboard.writeText(url);
+            if (!btnCopyShelfLink) return;
+            const prev = btnCopyShelfLink.textContent;
+            btnCopyShelfLink.textContent = 'Copied';
+            setTimeout(() => (btnCopyShelfLink.textContent = prev), 1000);
+        } catch (e) {
+            window.prompt('Copy this shelf link:', url);
+        }
+    }
+
     btnEn.addEventListener('click', () => goRandom(enLinks));
     btnVn.addEventListener('click', () => goRandom(vnLinks));
+    btnCopyShelfLink?.addEventListener('click', copyShelfLink);
     shelfButtons.all?.addEventListener('click', () => setShelfMode('all'));
     shelfButtons.en?.addEventListener('click', () => setShelfMode('en'));
     shelfButtons.vn?.addEventListener('click', () => setShelfMode('vn'));
@@ -269,9 +301,15 @@ export function initChronicleTools() {
             item.classList.toggle('shelf-hidden', !matches);
         }
         updateShelfLedger(filter.value.trim());
+        updateShelfUrl();
     }
 
-    setShelfMode('all');
+    const initialParams = new URLSearchParams(window.location.search);
+    const initialMode = initialParams.get('shelf');
+    const initialQuery = (initialParams.get('q') || '').trim();
+    if (initialQuery) filter.value = initialQuery;
+
+    setShelfMode(initialMode || 'all');
     filter.addEventListener('input', applyFilter);
 
     // SPA Navigation: Intercept chronicle links
