@@ -192,6 +192,16 @@ a:focus-visible,
     font-size: 0.75rem;
     opacity: 0.9;
 }
+.twin-badge {
+    display: inline-block;
+    margin-left: 8px;
+    border: 1px solid #5fd1ff;
+    padding: 1px 6px;
+    background: #001520;
+    color: #8fd3ff;
+    font-size: 0.75rem;
+    opacity: 0.95;
+}
 .ledger-note {
     margin-top: 10px;
     line-height: 1.5;

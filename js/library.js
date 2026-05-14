@@ -193,7 +193,8 @@ export function initChronicleTools() {
     const shelfButtons = {
         all: document.getElementById('btn-shelf-all'),
         en: document.getElementById('btn-shelf-en'),
-        vn: document.getElementById('btn-shelf-vn')
+        vn: document.getElementById('btn-shelf-vn'),
+        paired: document.getElementById('btn-shelf-paired')
     };
     let shelfMode = 'all';
 
@@ -207,9 +208,41 @@ export function initChronicleTools() {
     const btnCopyShelfLink = document.getElementById('btn-copy-shelf-link');
     const ledgerEnCount = document.getElementById('ledger-en-count');
     const ledgerVnCount = document.getElementById('ledger-vn-count');
+    const ledgerPairedCount = document.getElementById('ledger-paired-count');
     const ledgerVisibleCount = document.getElementById('ledger-visible-count');
     const ledgerTotalCount = document.getElementById('ledger-total-count');
     const ledgerNote = document.getElementById('ledger-note');
+
+    const pairCounts = new Map();
+    for (const item of allItems) {
+        const date = item.dataset.chronicleDate || '';
+        const lang = item.dataset.chronicleLang || '';
+        if (!date || !lang) continue;
+        const cur = pairCounts.get(date) || { en: 0, vn: 0 };
+        cur[lang] = (cur[lang] || 0) + 1;
+        pairCounts.set(date, cur);
+    }
+    const pairedDates = new Set(
+        Array.from(pairCounts.entries())
+            .filter(([, counts]) => counts.en > 0 && counts.vn > 0)
+            .map(([date]) => date)
+    );
+
+    for (const item of allItems) {
+        const date = item.dataset.chronicleDate || '';
+        const lang = item.dataset.chronicleLang || '';
+        const hasTwin = Boolean(date && lang && pairedDates.has(date));
+        item.dataset.hasTwin = hasTwin ? 'true' : 'false';
+
+        const oldBadge = item.querySelector('.twin-badge');
+        if (oldBadge) oldBadge.remove();
+        if (!hasTwin) continue;
+
+        const badge = document.createElement('span');
+        badge.className = 'twin-badge';
+        badge.textContent = lang === 'vn' ? 'song sinh' : 'twin';
+        item.appendChild(badge);
+    }
 
     function getFortune() {
         return safeParse(localStorage.getItem(FORTUNE_KEY), null);
@@ -292,24 +325,37 @@ export function initChronicleTools() {
 
     function updateShelfLedger(query = '') {
         const total = allItems.length;
-        const shelfItems = shelfMode === 'en' ? enItems : shelfMode === 'vn' ? vnItems : allItems;
+        const shelfItems = shelfMode === 'en'
+            ? enItems
+            : shelfMode === 'vn'
+                ? vnItems
+                : shelfMode === 'paired'
+                    ? allItems.filter(item => item.dataset.hasTwin === 'true')
+                    : allItems;
         const visible = shelfItems.filter(item => !item.classList.contains('shelf-hidden')).length;
         if (ledgerEnCount) ledgerEnCount.textContent = String(enItems.length);
         if (ledgerVnCount) ledgerVnCount.textContent = String(vnItems.length);
+        if (ledgerPairedCount) ledgerPairedCount.textContent = String(pairedDates.size);
         if (ledgerVisibleCount) ledgerVisibleCount.textContent = String(visible);
         if (ledgerTotalCount) ledgerTotalCount.textContent = String(total);
 
         if (!ledgerNote) return;
         const latestEn = enLinks[0]?.textContent?.trim() || 'unknown';
         const latestVn = vnLinks[0]?.textContent?.trim() || 'unknown';
-        const modeLabel = shelfMode === 'en' ? 'English shelf only' : shelfMode === 'vn' ? 'Vietnamese shelf only' : 'Both shelves';
+        const modeLabel = shelfMode === 'en'
+            ? 'English shelf only'
+            : shelfMode === 'vn'
+                ? 'Vietnamese shelf only'
+                : shelfMode === 'paired'
+                    ? 'Twin-day shelf marks only'
+                    : 'Both shelves';
         ledgerNote.textContent = query
             ? `${modeLabel}. Filter "${query}" leaves ${visible} shelf marks visible. Freshest EN: ${latestEn}. Freshest VN: ${latestVn}.`
-            : `${modeLabel}. ${total} chronicled scraps. Freshest EN: ${latestEn}. Freshest VN: ${latestVn}.`;
+            : `${modeLabel}. ${total} chronicled scraps across ${pairedDates.size} twin days. Freshest EN: ${latestEn}. Freshest VN: ${latestVn}.`;
     }
 
     function setShelfMode(mode = 'all') {
-        shelfMode = (mode === 'en' || mode === 'vn') ? mode : 'all';
+        shelfMode = (mode === 'en' || mode === 'vn' || mode === 'paired') ? mode : 'all';
 
         if (enShelf) enShelf.style.display = (shelfMode === 'vn') ? 'none' : '';
         if (vnShelf) vnShelf.style.display = (shelfMode === 'en') ? 'none' : '';
@@ -343,12 +389,14 @@ export function initChronicleTools() {
     shelfButtons.all?.addEventListener('click', () => setShelfMode('all'));
     shelfButtons.en?.addEventListener('click', () => setShelfMode('en'));
     shelfButtons.vn?.addEventListener('click', () => setShelfMode('vn'));
+    shelfButtons.paired?.addEventListener('click', () => setShelfMode('paired'));
 
     function applyFilter() {
         const q = (filter.value || '').trim().toLowerCase();
         for (const item of allItems) {
             const t = (item.textContent || '').toLowerCase();
-            const matches = !q || t.includes(q);
+            const twinMatches = shelfMode !== 'paired' || item.dataset.hasTwin === 'true';
+            const matches = (!q || t.includes(q)) && twinMatches;
             item.classList.toggle('shelf-hidden', !matches);
         }
         updateShelfLedger(filter.value.trim());
