@@ -177,6 +177,82 @@ function renderTranslationBridge(entryFile) {
     meta.textContent = twin.twinLang === 'vn' ? ' — Vietnamese shelf twin' : ' — English shelf twin';
 }
 
+function findChronicleNeighbors(entryFile) {
+    const normalized = (entryFile || '').replace(/^entries\//, '');
+    if (!normalized) return null;
+
+    const currentLink = document.querySelector(`a[href="?entry=entries/${normalized}"]`);
+    const currentItem = currentLink?.closest('.chronicle-item');
+    if (!currentItem) return null;
+
+    const lang = currentItem.dataset?.chronicleLang || (/^\d{4}-\d{2}-\d{2}-con-/.test(normalized) ? 'vn' : 'en');
+    const shelfId = lang === 'vn' ? '#chronicles-vn' : '#chronicles-en';
+    const shelfItems = Array.from(document.querySelectorAll(`${shelfId} .chronicle-item`));
+    const index = shelfItems.indexOf(currentItem);
+    if (index === -1) return null;
+
+    const linkFor = (item) => {
+        if (!item) return null;
+        const anchor = item.querySelector('a[href^="?entry="]');
+        if (!anchor) return null;
+        return {
+            href: anchor.getAttribute('href') || '#',
+            title: (anchor.textContent || '').trim() || 'Shelf mark'
+        };
+    };
+
+    return {
+        lang,
+        total: shelfItems.length,
+        position: index + 1,
+        newer: linkFor(shelfItems[index - 1] || null),
+        older: linkFor(shelfItems[index + 1] || null)
+    };
+}
+
+function renderChronicleTrail(entryFile) {
+    const trail = document.getElementById('chronicle-trail');
+    const empty = document.getElementById('chronicle-trail-empty');
+    const content = document.getElementById('chronicle-trail-content');
+    const older = document.getElementById('chronicle-trail-prev');
+    const newer = document.getElementById('chronicle-trail-next');
+    const meta = document.getElementById('chronicle-trail-meta');
+    if (!trail || !empty || !content || !older || !newer || !meta) return;
+
+    const neighbors = findChronicleNeighbors(entryFile);
+    trail.style.display = 'block';
+
+    if (!neighbors) {
+        empty.style.display = 'inline';
+        content.style.display = 'none';
+        meta.textContent = '';
+        return;
+    }
+
+    const bindTrailLink = (node, data, fallbackText) => {
+        if (data?.href) {
+            node.href = data.href;
+            node.textContent = fallbackText;
+            node.classList.remove('trail-link-disabled');
+            node.removeAttribute('aria-disabled');
+            node.tabIndex = 0;
+        } else {
+            node.removeAttribute('href');
+            node.textContent = `${fallbackText} ∅`;
+            node.classList.add('trail-link-disabled');
+            node.setAttribute('aria-disabled', 'true');
+            node.tabIndex = -1;
+        }
+    };
+
+    bindTrailLink(older, neighbors.older, 'Older');
+    bindTrailLink(newer, neighbors.newer, 'Newer');
+
+    empty.style.display = 'none';
+    content.style.display = 'inline';
+    meta.textContent = ` — ${neighbors.lang === 'vn' ? 'Vietnamese' : 'English'} shelf, mark ${neighbors.position} of ${neighbors.total}`;
+}
+
 export function initChronicleTools() {
     const filter = document.getElementById('chronicle-filter');
     const btnEn = document.getElementById('btn-random-en');
@@ -485,6 +561,7 @@ export async function loadEntry() {
             const title = heading ? (heading.textContent || '').trim() : '';
             const date = /^\d{4}-\d{2}-\d{2}/.test(safeEntry) ? safeEntry.slice(0, 10) : '';
 
+            renderChronicleTrail(safeEntry);
             renderTranslationBridge(safeEntry);
 
             try {
@@ -538,5 +615,7 @@ export async function loadEntry() {
         if (entryUI) entryUI.style.display = 'none';
         const bridge = document.getElementById('translation-bridge');
         if (bridge) bridge.style.display = 'none';
+        const trail = document.getElementById('chronicle-trail');
+        if (trail) trail.style.display = 'none';
     }
 }
