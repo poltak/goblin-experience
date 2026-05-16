@@ -135,7 +135,11 @@ a:focus-visible,
     font-family: inherit;
 }
 .search-input::placeholder { color: #00ff4188; }
-.chronicle-item { border-bottom: 1px solid #00ff4133; padding: 10px 0; }
+.chronicle-item { border-bottom: 1px solid #00ff4133; padding: 10px 0; scroll-margin-top: 24px; }
+.chronicle-item:target {
+    background: rgba(95, 209, 255, 0.12);
+    box-shadow: 0 0 0 1px #5fd1ff66 inset;
+}
 .chronicle-item.shelf-hidden { display: none; }
 .muted { opacity: 0.7; }
 
@@ -221,6 +225,17 @@ a:focus-visible,
 }
 .translation-bridge a:hover {
     color: #d9f6ff;
+}
+.shelf-mark-bridge {
+    border-color: #ffd54a;
+    background: #1b1600;
+    color: #ffeaa0;
+}
+.shelf-mark-bridge a {
+    color: #ffd54a;
+}
+.shelf-mark-bridge a:hover {
+    color: #fff6cc;
 }
 .chronicle-trail {
     border-color: #6ee7a8;

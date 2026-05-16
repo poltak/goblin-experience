@@ -126,7 +126,11 @@ export function markLastReadInList(entryFile) {
     }
 }
 
-function findChronicleTwin(entryFile) {
+function getChronicleMarkId(date, lang) {
+    return date && lang ? `mark-${date}-${lang}` : '';
+}
+
+function findChronicleContext(entryFile) {
     const normalized = (entryFile || '').replace(/^entries\//, '');
     if (!normalized) return null;
 
@@ -134,8 +138,27 @@ function findChronicleTwin(entryFile) {
     const currentItem = currentLink?.closest('.chronicle-item');
     const date = currentItem?.dataset?.chronicleDate || (/^\d{4}-\d{2}-\d{2}/.test(normalized) ? normalized.slice(0, 10) : '');
     const lang = currentItem?.dataset?.chronicleLang || (/^\d{4}-\d{2}-\d{2}-con-/.test(normalized) ? 'vn' : 'en');
-    if (!date) return null;
+    if (!date || !lang || !currentItem || !currentLink) return null;
 
+    const markId = getChronicleMarkId(date, lang);
+    if (markId && !currentItem.id) currentItem.id = markId;
+
+    return {
+        normalized,
+        currentItem,
+        currentLink,
+        date,
+        lang,
+        markId,
+        title: (currentLink.textContent || '').trim() || normalized
+    };
+}
+
+function findChronicleTwin(entryFile) {
+    const context = findChronicleContext(entryFile);
+    if (!context) return null;
+
+    const { date, lang } = context;
     const twinLang = lang === 'vn' ? 'en' : 'vn';
     const twinItem = document.querySelector(`.chronicle-item[data-chronicle-date="${date}"][data-chronicle-lang="${twinLang}"]`);
     const twinLink = twinItem?.querySelector('a[href^="?entry="]');
@@ -175,6 +198,37 @@ function renderTranslationBridge(entryFile) {
     link.href = twin.href;
     link.textContent = twin.title;
     meta.textContent = twin.twinLang === 'vn' ? ' — Vietnamese shelf twin' : ' — English shelf twin';
+}
+
+function renderShelfMarkBridge(entryFile) {
+    const bridge = document.getElementById('shelf-mark-bridge');
+    const empty = document.getElementById('shelf-mark-bridge-empty');
+    const content = document.getElementById('shelf-mark-bridge-content');
+    const link = document.getElementById('shelf-mark-bridge-link');
+    const meta = document.getElementById('shelf-mark-bridge-meta');
+    if (!bridge || !empty || !content || !link || !meta) return;
+
+    const context = findChronicleContext(entryFile);
+    bridge.style.display = 'block';
+
+    if (!context) {
+        empty.style.display = 'inline';
+        content.style.display = 'none';
+        link.removeAttribute('href');
+        link.textContent = 'Return to this shelf mark';
+        meta.textContent = '';
+        return;
+    }
+
+    const shelfParams = new URLSearchParams();
+    shelfParams.set('shelf', context.lang);
+    const href = `index.html?${shelfParams.toString()}#${context.markId}`;
+
+    empty.style.display = 'none';
+    content.style.display = 'inline';
+    link.href = href;
+    link.textContent = 'Return to this shelf mark';
+    meta.textContent = ` — ${context.lang === 'vn' ? 'Vietnamese' : 'English'} shelf · ${context.date}`;
 }
 
 function findChronicleNeighbors(entryFile) {
@@ -308,6 +362,8 @@ export function initChronicleTools() {
         const date = item.dataset.chronicleDate || '';
         const lang = item.dataset.chronicleLang || '';
         const hasTwin = Boolean(date && lang && pairedDates.has(date));
+        const markId = getChronicleMarkId(date, lang);
+        if (markId && !item.id) item.id = markId;
         item.dataset.hasTwin = hasTwin ? 'true' : 'false';
 
         const oldBadge = item.querySelector('.twin-badge');
@@ -561,6 +617,7 @@ export async function loadEntry() {
             const title = heading ? (heading.textContent || '').trim() : '';
             const date = /^\d{4}-\d{2}-\d{2}/.test(safeEntry) ? safeEntry.slice(0, 10) : '';
 
+            renderShelfMarkBridge(safeEntry);
             renderChronicleTrail(safeEntry);
             renderTranslationBridge(safeEntry);
 
@@ -615,6 +672,8 @@ export async function loadEntry() {
         if (entryUI) entryUI.style.display = 'none';
         const bridge = document.getElementById('translation-bridge');
         if (bridge) bridge.style.display = 'none';
+        const shelfMarkBridge = document.getElementById('shelf-mark-bridge');
+        if (shelfMarkBridge) shelfMarkBridge.style.display = 'none';
         const trail = document.getElementById('chronicle-trail');
         if (trail) trail.style.display = 'none';
     }
