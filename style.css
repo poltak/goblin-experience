@@ -205,6 +205,14 @@ a:focus-visible,
     color: #8fd3ff;
     font-size: 0.75rem;
     opacity: 0.95;
+    text-decoration: none;
+}
+.twin-badge:hover,
+.twin-badge:focus-visible {
+    color: #d9f6ff;
+    border-color: #bfefff;
+    background: #00283a;
+    text-decoration: none;
 }
 .ledger-note {
     margin-top: 10px;

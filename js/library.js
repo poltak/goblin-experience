@@ -370,9 +370,17 @@ export function initChronicleTools() {
         if (oldBadge) oldBadge.remove();
         if (!hasTwin) continue;
 
-        const badge = document.createElement('span');
+        const twinLang = lang === 'vn' ? 'en' : 'vn';
+        const twinItem = document.querySelector(`.chronicle-item[data-chronicle-date="${date}"][data-chronicle-lang="${twinLang}"]`);
+        const twinLink = twinItem?.querySelector('a[href^="?entry="]');
+        if (!twinLink) continue;
+
+        const badge = document.createElement('a');
         badge.className = 'twin-badge';
-        badge.textContent = lang === 'vn' ? 'song sinh' : 'twin';
+        badge.href = twinLink.getAttribute('href') || '#';
+        badge.textContent = lang === 'vn' ? 'EN twin' : 'Bản Việt';
+        badge.setAttribute('title', `Open ${twinLang === 'vn' ? 'Vietnamese' : 'English'} twin chronicle for ${date}`);
+        badge.setAttribute('aria-label', `Open ${twinLang === 'vn' ? 'Vietnamese' : 'English'} twin chronicle for ${date}`);
         item.appendChild(badge);
     }
 
