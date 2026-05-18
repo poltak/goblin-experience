@@ -358,6 +358,47 @@ export function initChronicleTools() {
             .map(([date]) => date)
     );
 
+    function renderTwinLantern() {
+        const empty = document.getElementById('twin-lantern-empty');
+        const content = document.getElementById('twin-lantern-content');
+        const dateNode = document.getElementById('twin-lantern-date');
+        const countNode = document.getElementById('twin-lantern-count');
+        const enNode = document.getElementById('twin-lantern-en');
+        const vnNode = document.getElementById('twin-lantern-vn');
+        const noteNode = document.getElementById('twin-lantern-note');
+        if (!empty || !content || !dateNode || !countNode || !enNode || !vnNode || !noteNode) return;
+
+        const sortedPairedDates = Array.from(pairedDates).sort().reverse();
+        countNode.textContent = `paired days: ${sortedPairedDates.length}`;
+        if (!sortedPairedDates.length) {
+            empty.style.display = 'inline';
+            content.style.display = 'none';
+            return;
+        }
+
+        const date = sortedPairedDates[0];
+        const enLink = document.querySelector(`.chronicle-item[data-chronicle-date="${date}"][data-chronicle-lang="en"] a[href^="?entry="]`);
+        const vnLink = document.querySelector(`.chronicle-item[data-chronicle-date="${date}"][data-chronicle-lang="vn"] a[href^="?entry="]`);
+        if (!enLink || !vnLink) {
+            empty.style.display = 'inline';
+            content.style.display = 'none';
+            return;
+        }
+
+        empty.style.display = 'none';
+        content.style.display = 'block';
+        dateNode.textContent = `date: ${date}`;
+        enNode.href = enLink.getAttribute('href') || '#';
+        enNode.textContent = (enLink.textContent || '').trim() || 'English chronicle';
+        vnNode.href = vnLink.getAttribute('href') || '#';
+        vnNode.textContent = (vnLink.textContent || '').trim() || 'Vietnamese chronicle';
+        noteNode.textContent = sortedPairedDates.length > 1
+            ? `Newest day with both shelf twins. ${sortedPairedDates.length - 1} older paired day${sortedPairedDates.length === 2 ? '' : 's'} still glow below.`
+            : 'Newest day with both shelf twins.';
+    }
+
+    renderTwinLantern();
+
     for (const item of allItems) {
         const date = item.dataset.chronicleDate || '';
         const lang = item.dataset.chronicleLang || '';
