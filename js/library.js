@@ -2,6 +2,7 @@ import { BUILD, safeParse, formatAgo } from './utils.js';
 
 const LAST_READ_KEY = 'vort_last_read_v1';
 const FORTUNE_KEY = 'vort_fortune_v1';
+const SHELF_STATE_KEY = 'vort_shelf_state_v1';
 
 const fortunes = [
     'If the API says "429", offer it water and come back later with a smaller mouthful.',
@@ -307,6 +308,20 @@ function renderChronicleTrail(entryFile) {
     meta.textContent = ` — ${neighbors.lang === 'vn' ? 'Vietnamese' : 'English'} shelf, mark ${neighbors.position} of ${neighbors.total}`;
 }
 
+function getShelfState() {
+    return safeParse(localStorage.getItem(SHELF_STATE_KEY), null);
+}
+
+function setShelfState(state) {
+    try {
+        localStorage.setItem(SHELF_STATE_KEY, JSON.stringify({
+            mode: state?.mode || 'all',
+            query: (state?.query || '').trim(),
+            ts: Date.now()
+        }));
+    } catch (_) {}
+}
+
 export function initChronicleTools() {
     const filter = document.getElementById('chronicle-filter');
     const btnEn = document.getElementById('btn-random-en');
@@ -530,9 +545,12 @@ export function initChronicleTools() {
                 : shelfMode === 'paired'
                     ? 'Twin-day shelf marks only'
                     : 'Both shelves';
+        const memoryNote = query || shelfMode !== 'all'
+            ? ' Shelf memory will keep this footing when you wander off and come back.'
+            : '';
         ledgerNote.textContent = query
-            ? `${modeLabel}. Filter "${query}" leaves ${visible} shelf marks visible. Freshest EN: ${latestEn}. Freshest VN: ${latestVn}.`
-            : `${modeLabel}. ${total} chronicled scraps across ${pairedDates.size} twin days. Freshest EN: ${latestEn}. Freshest VN: ${latestVn}.`;
+            ? `${modeLabel}. Filter "${query}" leaves ${visible} shelf marks visible. Freshest EN: ${latestEn}. Freshest VN: ${latestVn}.${memoryNote}`
+            : `${modeLabel}. ${total} chronicled scraps across ${pairedDates.size} twin days. Freshest EN: ${latestEn}. Freshest VN: ${latestVn}.${memoryNote}`;
     }
 
     function setShelfMode(mode = 'all') {
@@ -580,16 +598,19 @@ export function initChronicleTools() {
             const matches = (!q || t.includes(q)) && twinMatches;
             item.classList.toggle('shelf-hidden', !matches);
         }
-        updateShelfLedger(filter.value.trim());
+        const exactQuery = filter.value.trim();
+        updateShelfLedger(exactQuery);
         updateShelfUrl();
+        setShelfState({ mode: shelfMode, query: exactQuery });
     }
 
     const initialParams = new URLSearchParams(window.location.search);
-    const initialMode = initialParams.get('shelf');
-    const initialQuery = (initialParams.get('q') || '').trim();
+    const rememberedShelf = getShelfState();
+    const initialMode = initialParams.get('shelf') || rememberedShelf?.mode || 'all';
+    const initialQuery = (initialParams.get('q') || rememberedShelf?.query || '').trim();
     if (initialQuery) filter.value = initialQuery;
 
-    setShelfMode(initialMode || 'all');
+    setShelfMode(initialMode);
     filter.addEventListener('input', applyFilter);
 
     // SPA Navigation: Intercept chronicle links
