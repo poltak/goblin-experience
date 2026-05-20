@@ -357,6 +357,13 @@ export function initChronicleTools() {
     const ledgerVisibleCount = document.getElementById('ledger-visible-count');
     const ledgerTotalCount = document.getElementById('ledger-total-count');
     const ledgerNote = document.getElementById('ledger-note');
+    const shelfTrailheadEmpty = document.getElementById('shelf-trailhead-empty');
+    const shelfTrailheadContent = document.getElementById('shelf-trailhead-content');
+    const shelfTrailheadMode = document.getElementById('shelf-trailhead-mode');
+    const shelfTrailheadSpan = document.getElementById('shelf-trailhead-span');
+    const shelfTrailheadFresh = document.getElementById('shelf-trailhead-fresh');
+    const shelfTrailheadOld = document.getElementById('shelf-trailhead-old');
+    const shelfTrailheadNote = document.getElementById('shelf-trailhead-note');
 
     const pairCounts = new Map();
     for (const item of allItems) {
@@ -418,7 +425,8 @@ export function initChronicleTools() {
         const date = item.dataset.chronicleDate || '';
         const lang = item.dataset.chronicleLang || '';
         const hasTwin = Boolean(date && lang && pairedDates.has(date));
-        const markId = getChronicleMarkId(date, lang);
+        const fallbackId = `chronicle-mark-${allItems.indexOf(item) + 1}`;
+        const markId = getChronicleMarkId(date, lang) || fallbackId;
         if (markId && !item.id) item.id = markId;
         item.dataset.hasTwin = hasTwin ? 'true' : 'false';
 
@@ -553,6 +561,51 @@ export function initChronicleTools() {
             : `${modeLabel}. ${total} chronicled scraps across ${pairedDates.size} twin days. Freshest EN: ${latestEn}. Freshest VN: ${latestVn}.${memoryNote}`;
     }
 
+    function updateShelfTrailhead(query = '') {
+        if (!shelfTrailheadEmpty || !shelfTrailheadContent || !shelfTrailheadMode || !shelfTrailheadSpan || !shelfTrailheadFresh || !shelfTrailheadOld || !shelfTrailheadNote) return;
+
+        const visibleItems = allItems.filter(item => !item.classList.contains('shelf-hidden'));
+        const modeLabel = shelfMode === 'en'
+            ? 'English shelf'
+            : shelfMode === 'vn'
+                ? 'Vietnamese shelf'
+                : shelfMode === 'paired'
+                    ? 'Twin-day shelf'
+                    : 'Both shelves';
+
+        shelfTrailheadMode.textContent = `focus: ${modeLabel.toLowerCase()}`;
+        shelfTrailheadSpan.textContent = `span: ${visibleItems.length} mark${visibleItems.length === 1 ? '' : 's'}`;
+
+        if (!visibleItems.length) {
+            shelfTrailheadEmpty.style.display = 'inline';
+            shelfTrailheadContent.style.display = 'none';
+            shelfTrailheadNote.textContent = query
+                ? `Nothing matches "${query}" on this shelf footing.`
+                : 'Nothing is visible on this shelf footing.';
+            return;
+        }
+
+        const freshest = visibleItems[0];
+        const oldest = visibleItems[visibleItems.length - 1];
+        const bindShelfEdge = (node, item) => {
+            const anchor = item?.querySelector('a[href^="?entry="]');
+            node.href = `#${item?.id || ''}`;
+            node.textContent = (anchor?.textContent || '').trim() || 'Untitled shelf mark';
+            node.title = (anchor?.textContent || '').trim() || 'Untitled shelf mark';
+        };
+
+        bindShelfEdge(shelfTrailheadFresh, freshest);
+        bindShelfEdge(shelfTrailheadOld, oldest);
+        shelfTrailheadEmpty.style.display = 'none';
+        shelfTrailheadContent.style.display = 'block';
+
+        const freshestDate = freshest?.querySelector('strong')?.textContent?.replace(/:\s*$/, '') || 'unknown';
+        const oldestDate = oldest?.querySelector('strong')?.textContent?.replace(/:\s*$/, '') || 'unknown';
+        shelfTrailheadNote.textContent = query
+            ? `${modeLabel} filtered by "${query}". Walk from ${freshestDate} down to ${oldestDate}.`
+            : `${modeLabel}. Walk from ${freshestDate} down to ${oldestDate}.`;
+    }
+
     function setShelfMode(mode = 'all') {
         shelfMode = (mode === 'en' || mode === 'vn' || mode === 'paired') ? mode : 'all';
 
@@ -600,6 +653,7 @@ export function initChronicleTools() {
         }
         const exactQuery = filter.value.trim();
         updateShelfLedger(exactQuery);
+        updateShelfTrailhead(exactQuery);
         updateShelfUrl();
         setShelfState({ mode: shelfMode, query: exactQuery });
     }
