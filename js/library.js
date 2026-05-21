@@ -702,8 +702,31 @@ export function initChronicleTools() {
             return;
         }
 
+        if (!typing && e.key === '/') {
+            e.preventDefault();
+            filter.focus();
+            filter.select();
+            return;
+        }
+
         if (typing) return;
 
+        if (e.key === '1') {
+            e.preventDefault();
+            setShelfMode('all');
+        }
+        if (e.key === '2') {
+            e.preventDefault();
+            setShelfMode('en');
+        }
+        if (e.key === '3') {
+            e.preventDefault();
+            setShelfMode('vn');
+        }
+        if (e.key === '4') {
+            e.preventDefault();
+            setShelfMode('paired');
+        }
         if (e.key === 'r' || e.key === 'R') goRandom(enLinks);
         if (e.key === 'v' || e.key === 'V') goRandom(vnLinks);
         if (e.key === 'f' || e.key === 'F') summonFortune();
