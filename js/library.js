@@ -364,6 +364,12 @@ export function initChronicleTools() {
     const shelfTrailheadFresh = document.getElementById('shelf-trailhead-fresh');
     const shelfTrailheadOld = document.getElementById('shelf-trailhead-old');
     const shelfTrailheadNote = document.getElementById('shelf-trailhead-note');
+    const shelfShareTagEmpty = document.getElementById('shelf-share-tag-empty');
+    const shelfShareTagContent = document.getElementById('shelf-share-tag-content');
+    const shelfShareTagMode = document.getElementById('shelf-share-tag-mode');
+    const shelfShareTagQuery = document.getElementById('shelf-share-tag-query');
+    const shelfShareTagLink = document.getElementById('shelf-share-tag-link');
+    const shelfShareTagNote = document.getElementById('shelf-share-tag-note');
 
     const pairCounts = new Map();
     for (const item of allItems) {
@@ -527,6 +533,30 @@ export function initChronicleTools() {
         return `${window.location.origin}${url}`;
     }
 
+    function updateShelfShareTag(query = '') {
+        if (!shelfShareTagEmpty || !shelfShareTagContent || !shelfShareTagMode || !shelfShareTagQuery || !shelfShareTagLink || !shelfShareTagNote) return;
+
+        const url = updateShelfUrl() || window.location.href;
+        const modeLabel = shelfMode === 'en'
+            ? 'English shelf'
+            : shelfMode === 'vn'
+                ? 'Vietnamese shelf'
+                : shelfMode === 'paired'
+                    ? 'Twin-day shelf'
+                    : 'Both shelves';
+        const trimmedQuery = query.trim();
+
+        shelfShareTagEmpty.style.display = 'none';
+        shelfShareTagContent.style.display = 'block';
+        shelfShareTagMode.textContent = `focus: ${modeLabel.toLowerCase()}`;
+        shelfShareTagQuery.textContent = trimmedQuery ? `filter: ${trimmedQuery}` : 'filter: none';
+        shelfShareTagLink.href = url;
+        shelfShareTagLink.textContent = url;
+        shelfShareTagNote.textContent = trimmedQuery || shelfMode !== 'all'
+            ? 'This tag will bring a future goblin back to the same shelf footing.'
+            : 'This tag points to the broad mouth of the library.';
+    }
+
     function updateShelfLedger(query = '') {
         const total = allItems.length;
         const shelfItems = shelfMode === 'en'
@@ -654,7 +684,7 @@ export function initChronicleTools() {
         const exactQuery = filter.value.trim();
         updateShelfLedger(exactQuery);
         updateShelfTrailhead(exactQuery);
-        updateShelfUrl();
+        updateShelfShareTag(exactQuery);
         setShelfState({ mode: shelfMode, query: exactQuery });
     }
 
@@ -726,6 +756,10 @@ export function initChronicleTools() {
         if (e.key === '4') {
             e.preventDefault();
             setShelfMode('paired');
+        }
+        if (e.key === 'c' || e.key === 'C') {
+            e.preventDefault();
+            copyShelfLink();
         }
         if (e.key === 'r' || e.key === 'R') goRandom(enLinks);
         if (e.key === 'v' || e.key === 'V') goRandom(vnLinks);
