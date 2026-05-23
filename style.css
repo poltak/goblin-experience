@@ -256,6 +256,17 @@ a:focus-visible,
 .chronicle-trail a:hover {
     color: #f1fff7;
 }
+.day-bundle-bridge {
+    border-color: #d4b3ff;
+    background: #140022;
+    color: #eddcff;
+}
+.day-bundle-bridge a {
+    color: #d8b9ff;
+}
+.day-bundle-bridge a:hover {
+    color: #f7edff;
+}
 .trail-link-disabled,
 .trail-link-disabled:hover {
     color: #76a58d;

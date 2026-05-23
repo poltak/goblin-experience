@@ -308,6 +308,68 @@ function renderChronicleTrail(entryFile) {
     meta.textContent = ` — ${neighbors.lang === 'vn' ? 'Vietnamese' : 'English'} shelf, mark ${neighbors.position} of ${neighbors.total}`;
 }
 
+function findSameDayChronicles(entryFile) {
+    const context = findChronicleContext(entryFile);
+    if (!context) return null;
+
+    const items = Array.from(document.querySelectorAll(`.chronicle-item[data-chronicle-date="${context.date}"][data-chronicle-lang="${context.lang}"]`));
+    const companions = items
+        .filter(item => item !== context.currentItem)
+        .map((item) => {
+            const anchor = item.querySelector('a[href^="?entry="]');
+            if (!anchor) return null;
+            return {
+                href: anchor.getAttribute('href') || '#',
+                title: (anchor.textContent || '').trim() || 'Same-day chronicle'
+            };
+        })
+        .filter(Boolean);
+
+    return {
+        date: context.date,
+        lang: context.lang,
+        companions
+    };
+}
+
+function renderDayBundleBridge(entryFile) {
+    const bridge = document.getElementById('day-bundle-bridge');
+    const empty = document.getElementById('day-bundle-bridge-empty');
+    const content = document.getElementById('day-bundle-bridge-content');
+    const label = document.getElementById('day-bundle-bridge-label');
+    const sep = document.getElementById('day-bundle-bridge-sep');
+    const links = document.getElementById('day-bundle-bridge-links');
+    const meta = document.getElementById('day-bundle-bridge-meta');
+    if (!bridge || !empty || !content || !label || !sep || !links || !meta) return;
+
+    const bundle = findSameDayChronicles(entryFile);
+    bridge.style.display = 'block';
+
+    if (!bundle || !bundle.companions.length) {
+        empty.style.display = 'inline';
+        content.style.display = 'none';
+        links.textContent = '';
+        meta.textContent = '';
+        return;
+    }
+
+    empty.style.display = 'none';
+    content.style.display = 'inline';
+    label.textContent = bundle.lang === 'vn' ? 'Other Vietnamese scraps from this date' : 'Other English scraps from this date';
+    sep.style.display = 'inline';
+    links.textContent = '';
+
+    bundle.companions.forEach((item, index) => {
+        if (index > 0) links.append(document.createTextNode(' · '));
+        const anchor = document.createElement('a');
+        anchor.href = item.href;
+        anchor.textContent = item.title;
+        links.append(anchor);
+    });
+
+    meta.textContent = ` — ${bundle.date} · ${bundle.companions.length} neighboring scrap${bundle.companions.length === 1 ? '' : 's'}`;
+}
+
 function getShelfState() {
     return safeParse(localStorage.getItem(SHELF_STATE_KEY), null);
 }
@@ -800,6 +862,7 @@ export async function loadEntry() {
 
             renderShelfMarkBridge(safeEntry);
             renderChronicleTrail(safeEntry);
+            renderDayBundleBridge(safeEntry);
             renderTranslationBridge(safeEntry);
 
             try {
