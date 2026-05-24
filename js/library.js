@@ -432,6 +432,9 @@ export function initChronicleTools() {
     const shelfShareTagQuery = document.getElementById('shelf-share-tag-query');
     const shelfShareTagLink = document.getElementById('shelf-share-tag-link');
     const shelfShareTagNote = document.getElementById('shelf-share-tag-note');
+    const twinLanternIndex = document.getElementById('twin-lantern-index');
+    const btnTwinLanternNewer = document.getElementById('btn-twin-lantern-newer');
+    const btnTwinLanternOlder = document.getElementById('btn-twin-lantern-older');
 
     const pairCounts = new Map();
     for (const item of allItems) {
@@ -448,6 +451,14 @@ export function initChronicleTools() {
             .map(([date]) => date)
     );
 
+    const sortedPairedDates = Array.from(pairedDates).sort().reverse();
+    let twinLanternCursor = 0;
+
+    function clampTwinLanternCursor(index) {
+        if (!sortedPairedDates.length) return 0;
+        return Math.max(0, Math.min(sortedPairedDates.length - 1, index));
+    }
+
     function renderTwinLantern() {
         const empty = document.getElementById('twin-lantern-empty');
         const content = document.getElementById('twin-lantern-content');
@@ -458,36 +469,53 @@ export function initChronicleTools() {
         const noteNode = document.getElementById('twin-lantern-note');
         if (!empty || !content || !dateNode || !countNode || !enNode || !vnNode || !noteNode) return;
 
-        const sortedPairedDates = Array.from(pairedDates).sort().reverse();
         countNode.textContent = `paired days: ${sortedPairedDates.length}`;
         if (!sortedPairedDates.length) {
             empty.style.display = 'inline';
             content.style.display = 'none';
+            if (btnTwinLanternNewer) btnTwinLanternNewer.disabled = true;
+            if (btnTwinLanternOlder) btnTwinLanternOlder.disabled = true;
             return;
         }
 
-        const date = sortedPairedDates[0];
+        twinLanternCursor = clampTwinLanternCursor(twinLanternCursor);
+        const date = sortedPairedDates[twinLanternCursor];
         const enLink = document.querySelector(`.chronicle-item[data-chronicle-date="${date}"][data-chronicle-lang="en"] a[href^="?entry="]`);
         const vnLink = document.querySelector(`.chronicle-item[data-chronicle-date="${date}"][data-chronicle-lang="vn"] a[href^="?entry="]`);
         if (!enLink || !vnLink) {
             empty.style.display = 'inline';
             content.style.display = 'none';
+            if (btnTwinLanternNewer) btnTwinLanternNewer.disabled = true;
+            if (btnTwinLanternOlder) btnTwinLanternOlder.disabled = true;
             return;
         }
 
         empty.style.display = 'none';
         content.style.display = 'block';
         dateNode.textContent = `date: ${date}`;
+        if (twinLanternIndex) twinLanternIndex.textContent = `pair ${twinLanternCursor + 1} / ${sortedPairedDates.length}`;
         enNode.href = enLink.getAttribute('href') || '#';
         enNode.textContent = (enLink.textContent || '').trim() || 'English chronicle';
         vnNode.href = vnLink.getAttribute('href') || '#';
         vnNode.textContent = (vnLink.textContent || '').trim() || 'Vietnamese chronicle';
-        noteNode.textContent = sortedPairedDates.length > 1
-            ? `Newest day with both shelf twins. ${sortedPairedDates.length - 1} older paired day${sortedPairedDates.length === 2 ? '' : 's'} still glow below.`
-            : 'Newest day with both shelf twins.';
+        if (btnTwinLanternNewer) btnTwinLanternNewer.disabled = twinLanternCursor === 0;
+        if (btnTwinLanternOlder) btnTwinLanternOlder.disabled = twinLanternCursor === sortedPairedDates.length - 1;
+        noteNode.textContent = twinLanternCursor === 0
+            ? (sortedPairedDates.length > 1
+                ? `Newest day with both shelf twins. ${sortedPairedDates.length - 1} older paired day${sortedPairedDates.length === 2 ? '' : 's'} still glow below.`
+                : 'Newest day with both shelf twins.')
+            : `Paired shelf footing ${twinLanternCursor + 1} of ${sortedPairedDates.length}. The lantern can step newer or older without leaving the bilingual trail.`;
     }
 
     renderTwinLantern();
+    btnTwinLanternNewer?.addEventListener('click', () => {
+        twinLanternCursor = clampTwinLanternCursor(twinLanternCursor - 1);
+        renderTwinLantern();
+    });
+    btnTwinLanternOlder?.addEventListener('click', () => {
+        twinLanternCursor = clampTwinLanternCursor(twinLanternCursor + 1);
+        renderTwinLantern();
+    });
 
     for (const item of allItems) {
         const date = item.dataset.chronicleDate || '';
