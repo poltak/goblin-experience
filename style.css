@@ -261,6 +261,17 @@ a:focus-visible,
     background: #140022;
     color: #eddcff;
 }
+.day-footing-bridge {
+    border-color: #ffb86b;
+    background: #211100;
+    color: #ffe4b7;
+}
+.day-footing-bridge a {
+    color: #ffc978;
+}
+.day-footing-bridge a:hover {
+    color: #fff1d9;
+}
 .day-bundle-bridge a {
     color: #d8b9ff;
 }

@@ -308,6 +308,85 @@ function renderChronicleTrail(entryFile) {
     meta.textContent = ` — ${neighbors.lang === 'vn' ? 'Vietnamese' : 'English'} shelf, mark ${neighbors.position} of ${neighbors.total}`;
 }
 
+function findDayFooting(entryFile) {
+    const context = findChronicleContext(entryFile);
+    if (!context) return null;
+
+    const items = Array.from(document.querySelectorAll(`.chronicle-item[data-chronicle-date="${context.date}"]`));
+    const grouped = { en: [], vn: [], other: [] };
+
+    items.forEach((item) => {
+        const anchor = item.querySelector('a[href^="?entry="]');
+        if (!anchor) return;
+        const lang = item.dataset?.chronicleLang || 'other';
+        const bucket = grouped[lang] || grouped.other;
+        bucket.push({
+            href: anchor.getAttribute('href') || '#',
+            title: (anchor.textContent || '').trim() || 'Day footing scrap'
+        });
+    });
+
+    const total = grouped.en.length + grouped.vn.length + grouped.other.length;
+    if (!total) return null;
+
+    return {
+        date: context.date,
+        lang: context.lang,
+        grouped,
+        total
+    };
+}
+
+function renderDayFootingBridge(entryFile) {
+    const bridge = document.getElementById('day-footing-bridge');
+    const empty = document.getElementById('day-footing-bridge-empty');
+    const content = document.getElementById('day-footing-bridge-content');
+    const label = document.getElementById('day-footing-bridge-label');
+    const links = document.getElementById('day-footing-bridge-links');
+    const meta = document.getElementById('day-footing-bridge-meta');
+    if (!bridge || !empty || !content || !label || !links || !meta) return;
+
+    const footing = findDayFooting(entryFile);
+    bridge.style.display = 'block';
+
+    if (!footing) {
+        empty.style.display = 'inline';
+        content.style.display = 'none';
+        links.textContent = '';
+        meta.textContent = '';
+        return;
+    }
+
+    const segments = [
+        footing.grouped.en.length ? { label: 'EN', items: footing.grouped.en } : null,
+        footing.grouped.vn.length ? { label: 'VN', items: footing.grouped.vn } : null,
+        footing.grouped.other.length ? { label: 'Other', items: footing.grouped.other } : null
+    ].filter(Boolean);
+
+    empty.style.display = 'none';
+    content.style.display = 'inline';
+    label.textContent = `All scraps filed on ${footing.date}`;
+    links.textContent = '';
+
+    segments.forEach((segment, segmentIndex) => {
+        if (segmentIndex > 0) links.append(document.createTextNode(' · '));
+        const prefix = document.createElement('span');
+        prefix.className = 'muted';
+        prefix.textContent = `${segment.label}: `;
+        links.append(prefix);
+
+        segment.items.forEach((item, itemIndex) => {
+            if (itemIndex > 0) links.append(document.createTextNode(', '));
+            const anchor = document.createElement('a');
+            anchor.href = item.href;
+            anchor.textContent = item.title;
+            links.append(anchor);
+        });
+    });
+
+    meta.textContent = ` — ${footing.total} scrap${footing.total === 1 ? '' : 's'} across this date`;
+}
+
 function findSameDayChronicles(entryFile) {
     const context = findChronicleContext(entryFile);
     if (!context) return null;
@@ -890,6 +969,7 @@ export async function loadEntry() {
 
             renderShelfMarkBridge(safeEntry);
             renderChronicleTrail(safeEntry);
+            renderDayFootingBridge(safeEntry);
             renderDayBundleBridge(safeEntry);
             renderTranslationBridge(safeEntry);
 
