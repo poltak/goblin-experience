@@ -131,6 +131,37 @@ function getChronicleMarkId(date, lang) {
     return date && lang ? `mark-${date}-${lang}` : '';
 }
 
+function inferChronicleMeta(item) {
+    if (!item) return { date: '', lang: '' };
+
+    const currentDate = item.dataset?.chronicleDate || '';
+    const currentLang = item.dataset?.chronicleLang || '';
+    if (currentDate && currentLang) {
+        return { date: currentDate, lang: currentLang };
+    }
+
+    const strong = item.querySelector('strong');
+    const dateText = (strong?.textContent || '').trim();
+    const dateMatch = dateText.match(/(\d{4}-\d{2}-\d{2})/);
+    const date = currentDate || (dateMatch ? dateMatch[1] : '');
+
+    const anchor = item.querySelector('a[href^="?entry="]');
+    const href = anchor?.getAttribute('href') || '';
+    const entryMatch = href.match(/entries\/([^?#]+)/);
+    const entryName = entryMatch ? entryMatch[1] : '';
+    const lang = currentLang || (entryName.startsWith('con-') || entryName.includes('-con-') ? 'vn' : 'en');
+
+    return { date, lang };
+}
+
+function hydrateChronicleMetadata(items) {
+    items.forEach((item) => {
+        const meta = inferChronicleMeta(item);
+        if (meta.date && !item.dataset.chronicleDate) item.dataset.chronicleDate = meta.date;
+        if (meta.lang && !item.dataset.chronicleLang) item.dataset.chronicleLang = meta.lang;
+    });
+}
+
 function findChronicleContext(entryFile) {
     const normalized = (entryFile || '').replace(/^entries\//, '');
     if (!normalized) return null;
@@ -476,6 +507,8 @@ export function initChronicleTools() {
     const enItems = Array.from(document.querySelectorAll('#chronicles-en .chronicle-item'));
     const vnItems = Array.from(document.querySelectorAll('#chronicles-vn .chronicle-item'));
     const allItems = [...enItems, ...vnItems];
+    hydrateChronicleMetadata(allItems);
+
     const shelfButtons = {
         all: document.getElementById('btn-shelf-all'),
         en: document.getElementById('btn-shelf-en'),
