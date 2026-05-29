@@ -528,6 +528,7 @@ export function initChronicleTools() {
     const ledgerEnCount = document.getElementById('ledger-en-count');
     const ledgerVnCount = document.getElementById('ledger-vn-count');
     const ledgerPairedCount = document.getElementById('ledger-paired-count');
+    const ledgerLoneCount = document.getElementById('ledger-lone-count');
     const ledgerVisibleCount = document.getElementById('ledger-visible-count');
     const ledgerTotalCount = document.getElementById('ledger-total-count');
     const ledgerNote = document.getElementById('ledger-note');
@@ -564,6 +565,9 @@ export function initChronicleTools() {
     );
 
     const sortedPairedDates = Array.from(pairedDates).sort().reverse();
+    const loneDates = Array.from(pairCounts.entries())
+        .filter(([, counts]) => !((counts.en || 0) > 0 && (counts.vn || 0) > 0))
+        .map(([date]) => date);
     let twinLanternCursor = 0;
 
     function clampTwinLanternCursor(index) {
@@ -772,6 +776,7 @@ export function initChronicleTools() {
         if (ledgerEnCount) ledgerEnCount.textContent = String(enItems.length);
         if (ledgerVnCount) ledgerVnCount.textContent = String(vnItems.length);
         if (ledgerPairedCount) ledgerPairedCount.textContent = String(pairedDates.size);
+        if (ledgerLoneCount) ledgerLoneCount.textContent = String(loneDates.length);
         if (ledgerVisibleCount) ledgerVisibleCount.textContent = String(visible);
         if (ledgerTotalCount) ledgerTotalCount.textContent = String(total);
 
@@ -790,7 +795,7 @@ export function initChronicleTools() {
             : '';
         ledgerNote.textContent = query
             ? `${modeLabel}. Filter "${query}" leaves ${visible} shelf marks visible. Freshest EN: ${latestEn}. Freshest VN: ${latestVn}.${memoryNote}`
-            : `${modeLabel}. ${total} chronicled scraps across ${pairedDates.size} twin days. Freshest EN: ${latestEn}. Freshest VN: ${latestVn}.${memoryNote}`;
+            : `${modeLabel}. ${total} chronicled scraps across ${pairedDates.size} twin days, with ${loneDates.length} lone day${loneDates.length === 1 ? '' : 's'} still waiting for a shelf twin. Freshest EN: ${latestEn}. Freshest VN: ${latestVn}.${memoryNote}`;
     }
 
     function updateShelfTrailhead(query = '') {
