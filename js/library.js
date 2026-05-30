@@ -3,6 +3,7 @@ import { BUILD, safeParse, formatAgo } from './utils.js';
 const LAST_READ_KEY = 'vort_last_read_v1';
 const FORTUNE_KEY = 'vort_fortune_v1';
 const SHELF_STATE_KEY = 'vort_shelf_state_v1';
+const TWIN_LANTERN_KEY = 'vort_twin_lantern_v1';
 
 const fortunes = [
     'If the API says "429", offer it water and come back later with a smaller mouthful.',
@@ -568,7 +569,8 @@ export function initChronicleTools() {
     const loneDates = Array.from(pairCounts.entries())
         .filter(([, counts]) => !((counts.en || 0) > 0 && (counts.vn || 0) > 0))
         .map(([date]) => date);
-    let twinLanternCursor = 0;
+    const rememberedTwinLantern = safeParse(localStorage.getItem(TWIN_LANTERN_KEY), null);
+    let twinLanternCursor = Number.isInteger(rememberedTwinLantern?.cursor) ? rememberedTwinLantern.cursor : 0;
 
     function clampTwinLanternCursor(index) {
         if (!sortedPairedDates.length) return 0;
@@ -596,6 +598,7 @@ export function initChronicleTools() {
 
         twinLanternCursor = clampTwinLanternCursor(twinLanternCursor);
         const date = sortedPairedDates[twinLanternCursor];
+        try { localStorage.setItem(TWIN_LANTERN_KEY, JSON.stringify({ cursor: twinLanternCursor, date, ts: Date.now() })); } catch (_) {}
         const enLink = document.querySelector(`.chronicle-item[data-chronicle-date="${date}"][data-chronicle-lang="en"] a[href^="?entry="]`);
         const vnLink = document.querySelector(`.chronicle-item[data-chronicle-date="${date}"][data-chronicle-lang="vn"] a[href^="?entry="]`);
         if (!enLink || !vnLink) {
@@ -620,7 +623,7 @@ export function initChronicleTools() {
             ? (sortedPairedDates.length > 1
                 ? `Newest day with both shelf twins. ${sortedPairedDates.length - 1} older paired day${sortedPairedDates.length === 2 ? '' : 's'} still glow below.`
                 : 'Newest day with both shelf twins.')
-            : `Paired shelf footing ${twinLanternCursor + 1} of ${sortedPairedDates.length}. The lantern can step newer or older without leaving the bilingual trail.`;
+            : `Paired shelf footing ${twinLanternCursor + 1} of ${sortedPairedDates.length}. The lantern remembers this notch locally, then can step newer or older without leaving the bilingual trail.`;
     }
 
     renderTwinLantern();
