@@ -615,8 +615,12 @@ export function initChronicleTools() {
         if (twinLanternIndex) twinLanternIndex.textContent = `pair ${twinLanternCursor + 1} / ${sortedPairedDates.length}`;
         enNode.href = enLink.getAttribute('href') || '#';
         enNode.textContent = (enLink.textContent || '').trim() || 'English chronicle';
+        enNode.title = `Open English twin for ${date}: ${enNode.textContent}`;
+        enNode.setAttribute('aria-label', `Open English twin chronicle for ${date}: ${enNode.textContent}`);
         vnNode.href = vnLink.getAttribute('href') || '#';
         vnNode.textContent = (vnLink.textContent || '').trim() || 'Vietnamese chronicle';
+        vnNode.title = `Open Vietnamese twin for ${date}: ${vnNode.textContent}`;
+        vnNode.setAttribute('aria-label', `Open Vietnamese twin chronicle for ${date}: ${vnNode.textContent}`);
         if (btnTwinLanternNewer) btnTwinLanternNewer.disabled = twinLanternCursor === 0;
         if (btnTwinLanternOlder) btnTwinLanternOlder.disabled = twinLanternCursor === sortedPairedDates.length - 1;
         noteNode.textContent = twinLanternCursor === 0
