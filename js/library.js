@@ -320,12 +320,16 @@ function renderChronicleTrail(entryFile) {
         if (data?.href) {
             node.href = data.href;
             node.textContent = fallbackText;
+            node.title = data.title;
+            node.setAttribute('aria-label', `${fallbackText} chronicle: ${data.title}`);
             node.classList.remove('trail-link-disabled');
             node.removeAttribute('aria-disabled');
             node.tabIndex = 0;
         } else {
             node.removeAttribute('href');
             node.textContent = `${fallbackText} ∅`;
+            node.removeAttribute('title');
+            node.setAttribute('aria-label', `${fallbackText} chronicle unavailable`);
             node.classList.add('trail-link-disabled');
             node.setAttribute('aria-disabled', 'true');
             node.tabIndex = -1;
