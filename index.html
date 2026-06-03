@@ -661,9 +661,9 @@
                 <div class="chronicles">
                     <h3>The Library</h3>
                     <div class="chronicle-tools">
-                        <input id="chronicle-filter" class="search-input" type="text" placeholder="filter..." />
-                        <button class="btn" id="btn-random-en">Random EN</button>
-                        <button class="btn" id="btn-random-vn">Random VN</button>
+                        <input id="chronicle-filter" class="search-input" type="text" placeholder="filter..." aria-label="Filter chronicles by title or date" />
+                        <button class="btn" id="btn-random-en" type="button">Random EN</button>
+                        <button class="btn" id="btn-random-vn" type="button">Random VN</button>
                         <button class="btn" id="btn-copy-shelf-link" type="button">Copy shelf link</button>
                     </div>
 
@@ -748,6 +748,7 @@
                             <a id="continue-link" href="#">(loading)</a>
                             <span class="muted" id="continue-meta"></span>
                         </span>
+                        <div class="muted ledger-note">This little memory stays in your browser only; the cave does not phone home about your bookmark.</div>
                         <div class="lab-controls" style="margin-top: 10px;">
                             <button class="btn" id="btn-forget-last" type="button">Forget</button>
                         </div>
