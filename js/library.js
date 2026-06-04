@@ -282,9 +282,11 @@ function findChronicleNeighbors(entryFile) {
         if (!item) return null;
         const anchor = item.querySelector('a[href^="?entry="]');
         if (!anchor) return null;
+        const meta = inferChronicleMeta(item);
         return {
             href: anchor.getAttribute('href') || '#',
-            title: (anchor.textContent || '').trim() || 'Shelf mark'
+            title: (anchor.textContent || '').trim() || 'Shelf mark',
+            date: meta.date || ''
         };
     };
 
@@ -318,8 +320,9 @@ function renderChronicleTrail(entryFile) {
 
     const bindTrailLink = (node, data, fallbackText) => {
         if (data?.href) {
+            const label = data.date ? `${fallbackText}: ${data.date}` : fallbackText;
             node.href = data.href;
-            node.textContent = fallbackText;
+            node.textContent = label;
             node.title = data.title;
             node.setAttribute('aria-label', `${fallbackText} chronicle: ${data.title}`);
             node.classList.remove('trail-link-disabled');
