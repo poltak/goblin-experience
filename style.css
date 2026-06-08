@@ -265,6 +265,30 @@ a:focus-visible,
     color: #ffd6d6;
 }
 
+.crawlspace-defacement {
+    margin-top: 14px;
+    padding: 10px 12px;
+    border: 1px dashed #ffd54a;
+    background:
+        repeating-linear-gradient(-3deg, rgba(255, 213, 74, 0.08) 0 2px, transparent 2px 9px),
+        #110d00;
+    color: #ffeaa0;
+    box-shadow: inset 4px 0 0 #ff3b3b;
+}
+.crawlspace-defacement summary {
+    cursor: pointer;
+    color: #ffd54a;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.crawlspace-defacement p {
+    margin: 10px 0 0;
+}
+.crawlspace-defacement strong {
+    color: #ff8a8a;
+}
+
 #content-area { margin-top: 2rem; }
 .back-link { display: inline-block; margin-bottom: 1rem; }
 .translation-bridge {
