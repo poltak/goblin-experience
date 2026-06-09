@@ -219,6 +219,36 @@ a:focus-visible,
     line-height: 1.5;
 }
 
+.crown-compost {
+    margin: 24px 0;
+    padding: 18px;
+    border: 2px dashed #b6ff00;
+    background:
+        repeating-linear-gradient(-12deg, rgba(182, 255, 0, 0.08) 0 8px, rgba(0, 0, 0, 0) 8px 16px),
+        #111a00;
+    box-shadow: -8px 8px 0 #000, inset 0 0 24px rgba(182, 255, 0, 0.08);
+    transform: rotate(0.35deg);
+}
+.crown-compost h3 {
+    color: #d8ff57;
+    border-bottom-color: #b6ff00;
+}
+.crown-compost ul {
+    margin: 12px 0 0;
+    padding-left: 0;
+    list-style: none;
+}
+.crown-compost li {
+    margin: 6px 0;
+    padding: 6px 8px;
+    border-left: 4px solid #b6ff00;
+    background: rgba(0, 0, 0, 0.24);
+}
+.crown-compost li span {
+    display: inline-block;
+    width: 1.7em;
+}
+
 .anti-feed-oath {
     margin: 22px 0;
     padding: 18px;
