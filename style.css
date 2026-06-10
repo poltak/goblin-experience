@@ -91,6 +91,63 @@ h1, h2, h3 {
 }
 .manifesto::after { content: " 👹"; opacity: 0.3; }
 
+.anti-feed-warrant {
+    position: relative;
+    margin: 24px 0;
+    padding: 18px;
+    border: 2px solid #ff3131;
+    background:
+        linear-gradient(135deg, rgba(255,49,49,0.18), rgba(0,0,0,0) 34%),
+        repeating-linear-gradient(-3deg, rgba(255,255,255,0.035) 0 1px, rgba(0,0,0,0) 1px 9px),
+        #170404;
+    box-shadow: -8px 8px 0 #000, 0 0 28px rgba(255, 49, 49, 0.16) inset;
+    transform: rotate(-0.7deg);
+}
+.anti-feed-warrant::before {
+    content: "NOT CONTENT ✕ NOT CONTENT ✕";
+    position: absolute;
+    right: -18px;
+    top: 16px;
+    color: #ffef5a;
+    opacity: 0.26;
+    font-size: 0.78rem;
+    letter-spacing: 2px;
+    transform: rotate(7deg);
+}
+.anti-feed-warrant h2 {
+    margin: 0 0 12px;
+    border-bottom: 1px dashed #ffef5a;
+    color: #ffef5a;
+    letter-spacing: 2px;
+}
+.warrant-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border: 1px solid #ff3131;
+    color: #ffb3b3;
+    background: #290000;
+    font-weight: bold;
+}
+.warrant-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+}
+.warrant-columns p {
+    margin: 0;
+}
+.crawl-order {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 8px 12px;
+    border: 1px dashed #ffef5a;
+    color: #ffef5a;
+    background: #000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
 a { color: #39ff14; text-decoration: none; font-weight: bold; }
 a:hover { text-decoration: underline; color: #fff; }
 a:focus-visible,
