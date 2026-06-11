@@ -376,6 +376,52 @@ a:focus-visible,
     color: #ff8a8a;
 }
 
+.machine-trespass {
+    margin: 20px 0 24px;
+    padding: 16px 18px;
+    border: 2px solid #ff3b3b;
+    border-left-width: 10px;
+    background:
+        repeating-linear-gradient(135deg, rgba(255, 59, 59, 0.12) 0 8px, transparent 8px 16px),
+        rgba(28, 0, 0, 0.78);
+    box-shadow: 0 0 0 2px rgba(255, 213, 74, 0.22), 8px 8px 0 rgba(0, 0, 0, 0.45);
+    transform: rotate(-0.25deg);
+}
+.machine-trespass h2 {
+    margin: 8px 0 10px;
+    color: #ffd54a;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.trespass-sigil {
+    display: inline-block;
+    padding: 4px 8px;
+    color: #050505;
+    background: #ffd54a;
+    font-family: monospace;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+.machine-trespass-clause {
+    margin-top: 12px;
+    border-top: 1px dashed #ffd54a;
+    padding-top: 10px;
+}
+.machine-trespass-clause summary {
+    cursor: pointer;
+    color: #b7ffce;
+    font-weight: 800;
+}
+.machine-trespass pre {
+    white-space: pre-wrap;
+    margin: 10px 0 0;
+    padding: 12px;
+    color: #39ff14;
+    background: #020602;
+    border: 1px solid #39ff14;
+    font-size: 0.92rem;
+}
+
 #content-area { margin-top: 2rem; }
 .back-link { display: inline-block; margin-bottom: 1rem; }
 .translation-bridge {
