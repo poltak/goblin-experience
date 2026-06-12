@@ -148,6 +148,63 @@ h1, h2, h3 {
     letter-spacing: 1px;
 }
 
+.trapdoor-manifesto {
+    margin: 28px 0 22px;
+    border: 1px dashed #ff7fd1;
+    background: #080008;
+    box-shadow: 7px 7px 0 #000;
+    transform: rotate(0.6deg);
+}
+.trapdoor-manifesto summary {
+    cursor: pointer;
+    padding: 12px 14px;
+    color: #ff7fd1;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    list-style-position: inside;
+}
+.trapdoor-manifesto summary:hover,
+.trapdoor-manifesto[open] summary {
+    background: #26001a;
+    color: #fff0fb;
+}
+.trapdoor-guts {
+    position: relative;
+    padding: 4px 18px 18px;
+    border-top: 1px dashed #ff7fd1;
+    background:
+        repeating-linear-gradient(90deg, rgba(255,127,209,0.08) 0 2px, transparent 2px 17px),
+        linear-gradient(180deg, rgba(255,127,209,0.13), rgba(0,0,0,0));
+}
+.trapdoor-guts::after {
+    content: "FEED EXIT NAILED SHUT";
+    position: absolute;
+    right: 10px;
+    bottom: 8px;
+    color: #ff3131;
+    opacity: 0.32;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    transform: rotate(-5deg);
+}
+.trapdoor-guts h2 {
+    color: #ff7fd1;
+    border-bottom-color: #ff7fd1;
+    letter-spacing: 2px;
+}
+.trapdoor-number {
+    color: #ffd54a;
+    font-weight: bold;
+}
+.trapdoor-link {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 7px 10px;
+    border: 1px solid #ff7fd1;
+    background: #000;
+    color: #ffb8e8;
+}
+
 a { color: #39ff14; text-decoration: none; font-weight: bold; }
 a:hover { text-decoration: underline; color: #fff; }
 a:focus-visible,
