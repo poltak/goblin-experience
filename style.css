@@ -205,6 +205,78 @@ h1, h2, h3 {
     color: #ffb8e8;
 }
 
+.unsubscribe-burner {
+    position: relative;
+    margin: 26px 0;
+    padding: 18px;
+    border: 2px solid #ff7a00;
+    background:
+        radial-gradient(circle at 12% 18%, rgba(255, 239, 90, 0.18), transparent 24%),
+        repeating-linear-gradient(2deg, rgba(255, 122, 0, 0.11) 0 2px, transparent 2px 12px),
+        #180900;
+    box-shadow: 8px 8px 0 #000, inset 0 0 26px rgba(255, 49, 49, 0.18);
+    transform: rotate(-0.35deg);
+}
+.unsubscribe-burner::after {
+    content: "NO NEWSLETTER CORRAL";
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    color: #ff3131;
+    opacity: 0.34;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    transform: rotate(4deg);
+}
+.unsubscribe-burner h2 {
+    color: #ffb000;
+    border-bottom: 1px dashed #ff7a00;
+    letter-spacing: 2px;
+}
+.burner-label {
+    display: inline-block;
+    margin: 0;
+    padding: 3px 8px;
+    border: 1px solid #ffb000;
+    color: #ffe27a;
+    background: #2a0d00;
+    font-weight: bold;
+}
+.burner-form {
+    display: grid;
+    grid-template-columns: minmax(180px, 1fr) minmax(180px, 1.2fr) auto;
+    gap: 8px;
+    align-items: center;
+    margin-top: 14px;
+    padding: 10px;
+    border: 1px dashed #ffb000;
+    background: rgba(0, 0, 0, 0.48);
+}
+.burner-form label {
+    color: #ffe27a;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+}
+.burner-form input {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ff7a00;
+    background: #000;
+    color: #ffb000;
+    padding: 8px;
+    font-family: inherit;
+}
+.burner-button {
+    border-color: #ff3131;
+    color: #fff0d0;
+    background: #3a0000;
+}
+.burner-note {
+    margin-bottom: 0;
+    color: #ffcf8a;
+    font-size: 0.9rem;
+}
+
 a { color: #39ff14; text-decoration: none; font-weight: bold; }
 a:hover { text-decoration: underline; color: #fff; }
 a:focus-visible,
@@ -673,7 +745,10 @@ canvas:focus {
 .goblin-modal[aria-hidden="false"]{display:flex;}
 .goblin-modal-card{max-width:900px;width:100%;background:#0b0f0c;border:1px solid #00ff41;box-shadow:0 0 0 1px #00ff4120 inset;padding:14px;}
 .goblin-modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-@media(max-width:760px){.goblin-modal-grid{grid-template-columns:1fr;}}
+@media(max-width:760px){
+    .goblin-modal-grid{grid-template-columns:1fr;}
+    .burner-form{grid-template-columns:1fr;}
+}
 #goblin-input{width:100%;min-height:120px;background:#000;color:#00ff41;border:1px dashed #00ff4188;padding:8px;font-family:inherit;}
 .goblin-output{min-height:120px;background:#000;border:1px dashed #00ff4188;padding:8px;color:#d4d4d4;white-space:pre-wrap;}
 .goblin-toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#001900;border:1px solid #00ff41;color:#9cffb0;padding:6px 10px;display:none;z-index:10000;}
