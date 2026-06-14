@@ -277,6 +277,67 @@ h1, h2, h3 {
     font-size: 0.9rem;
 }
 
+.misdirection-map {
+    position: relative;
+    margin: 28px 0;
+    padding: 18px;
+    border: 2px dotted #00f5ff;
+    background:
+        linear-gradient(90deg, rgba(0, 245, 255, 0.14) 0 2px, transparent 2px 22px),
+        linear-gradient(0deg, rgba(255, 0, 255, 0.10) 0 2px, transparent 2px 19px),
+        #020912;
+    box-shadow: -9px 9px 0 #000, inset 0 0 30px rgba(0, 245, 255, 0.16);
+    transform: rotate(0.42deg);
+}
+.misdirection-map::before {
+    content: "MAP INVALID ON PURPOSE";
+    position: absolute;
+    right: 10px;
+    top: -10px;
+    padding: 2px 6px;
+    border: 1px solid #ff00ff;
+    background: #110011;
+    color: #ff9cff;
+    font-size: 0.68rem;
+    letter-spacing: 2px;
+    transform: rotate(3deg);
+}
+.misdirection-map h2 {
+    color: #8ffbff;
+    border-bottom: 1px dashed #00f5ff;
+    letter-spacing: 1px;
+}
+.map-label {
+    display: inline-block;
+    margin: 0;
+    padding: 3px 8px;
+    border: 1px solid #00f5ff;
+    background: #001920;
+    color: #b9ffff;
+    font-weight: bold;
+}
+.wrong-doors {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 8px;
+    margin-top: 14px;
+}
+.wrong-doors a {
+    padding: 9px 10px;
+    border: 1px dashed #ff00ff;
+    background: rgba(0, 0, 0, 0.55);
+    color: #d7ffff;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    letter-spacing: 0.6px;
+}
+.wrong-doors a:nth-child(even) {
+    transform: rotate(-1deg);
+}
+.wrong-doors a:nth-child(odd) {
+    transform: rotate(1deg);
+}
+
 a { color: #39ff14; text-decoration: none; font-weight: bold; }
 a:hover { text-decoration: underline; color: #fff; }
 a:focus-visible,
