@@ -259,6 +259,60 @@ h1, h2, h3 {
     letter-spacing: 1px;
 }
 
+.customs-table {
+    position: relative;
+    margin: 28px 0;
+    padding: 18px;
+    border: 2px solid #00ff41;
+    background:
+        linear-gradient(92deg, rgba(0, 255, 65, 0.16), transparent 30%),
+        repeating-linear-gradient(-7deg, rgba(255, 239, 90, 0.08) 0 2px, transparent 2px 10px),
+        #001409;
+    box-shadow: 11px 10px 0 #000, inset 0 0 34px rgba(0, 255, 65, 0.14);
+    transform: rotate(0.55deg);
+}
+.customs-table::after {
+    content: "DECLARE CONTRABAND";
+    position: absolute;
+    right: 14px;
+    top: 12px;
+    color: #ffef5a;
+    opacity: 0.36;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    transform: rotate(-6deg);
+}
+.customs-table h3 {
+    color: #b7ffce;
+    border-bottom: 1px dashed #00ff41;
+    letter-spacing: 2px;
+}
+.customs-stamp {
+    display: inline-block;
+    margin: 0 0 8px;
+    padding: 3px 8px;
+    border: 1px solid #b7ffce;
+    color: #b7ffce;
+    background: #001f10;
+    font-weight: bold;
+}
+.customs-choices {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+.customs-choices a {
+    display: inline-block;
+    padding: 7px 10px;
+    border: 1px solid #00ff41;
+    background: #000;
+    color: #b7ffce;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    letter-spacing: 1px;
+}
+
 .unsubscribe-burner {
     position: relative;
     margin: 26px 0;
