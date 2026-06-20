@@ -211,6 +211,77 @@ h1, h2, h3 {
     color: #001100;
 }
 
+.king-captcha {
+    position: relative;
+    margin: 30px 0;
+    padding: 18px;
+    border: 3px double #ffd54a;
+    background:
+        repeating-linear-gradient(135deg, rgba(255,213,74,0.12) 0 8px, rgba(0,0,0,0) 8px 16px),
+        radial-gradient(circle at 80% 10%, rgba(255,49,49,0.22), transparent 32%),
+        #160f00;
+    box-shadow: -10px 10px 0 #000, inset 0 0 24px rgba(255,213,74,0.16);
+    transform: rotate(-0.35deg);
+}
+.king-captcha::before {
+    content: "ACCESS DENIED TO CROWNS";
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    color: #ff3131;
+    opacity: 0.4;
+    font-weight: bold;
+    letter-spacing: 2px;
+    transform: rotate(6deg);
+}
+.king-captcha h2 {
+    margin-top: 0;
+    color: #ffd54a;
+    border-bottom: 1px dashed #ff3131;
+    letter-spacing: 2px;
+}
+.captcha-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border: 1px solid #ffd54a;
+    color: #fff1a8;
+    background: #2b1200;
+    font-weight: bold;
+}
+.captcha-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(80px, 1fr));
+    gap: 8px;
+    margin: 16px 0;
+    max-width: 520px;
+}
+.captcha-grid span {
+    display: grid;
+    min-height: 54px;
+    place-items: center;
+    border: 1px solid #ffd54a;
+    background: #000;
+    color: #ffd54a;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 3px 3px 0 #3a0000;
+}
+.captcha-grid span:nth-child(odd) {
+    color: #ff9a9a;
+    border-color: #ff3131;
+    text-decoration: line-through;
+}
+.captcha-verdict {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px dashed #ffd54a;
+    color: #000;
+    background: #ffd54a;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
 .trapdoor-manifesto {
     margin: 28px 0 22px;
     border: 1px dashed #ff7fd1;
