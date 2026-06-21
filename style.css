@@ -211,6 +211,61 @@ h1, h2, h3 {
     color: #001100;
 }
 
+.algorithm-confessional {
+    position: relative;
+    margin: 28px 0;
+    padding: 18px;
+    border: 2px solid #8fd3ff;
+    background:
+        radial-gradient(circle at 18% 0%, rgba(143,211,255,0.24), transparent 30%),
+        repeating-linear-gradient(180deg, rgba(255,255,255,0.055) 0 1px, transparent 1px 11px),
+        #020817;
+    box-shadow: -7px 7px 0 #210018, inset 0 0 30px rgba(143,211,255,0.12);
+    transform: rotate(-0.35deg);
+}
+.algorithm-confessional::before {
+    content: "RANKING GHOST ON TRIAL";
+    position: absolute;
+    right: 14px;
+    bottom: 10px;
+    color: #ff7fd1;
+    opacity: 0.28;
+    font-weight: bold;
+    letter-spacing: 2px;
+    transform: rotate(-5deg);
+}
+.algorithm-confessional h2 {
+    margin-top: 0;
+    color: #8fd3ff;
+    border-bottom: 1px dashed #ff7fd1;
+}
+.confessional-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border: 1px solid #8fd3ff;
+    color: #ccecff;
+    background: #00152a;
+    font-weight: bold;
+}
+.confessional-slot {
+    margin-top: 12px;
+    padding: 10px 12px;
+    border: 1px dashed #ff7fd1;
+    background: rgba(0,0,0,0.36);
+}
+.confessional-slot summary {
+    cursor: pointer;
+    color: #ffb8e8;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.confessional-slot ol {
+    margin: 10px 0 0 22px;
+    color: #b7ffce;
+}
+
 .king-captcha {
     position: relative;
     margin: 30px 0;
