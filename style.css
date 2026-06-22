@@ -266,6 +266,77 @@ h1, h2, h3 {
     color: #b7ffce;
 }
 
+.recommendation-grinder {
+    position: relative;
+    margin: 30px 0;
+    padding: 18px;
+    border: 3px double #ffef5a;
+    background:
+        linear-gradient(90deg, rgba(255,49,49,0.2), transparent 28%, rgba(57,255,20,0.12) 70%),
+        repeating-linear-gradient(12deg, rgba(255,239,90,0.09) 0 2px, transparent 2px 13px),
+        #130b00;
+    box-shadow: 8px -8px 0 #000, inset 0 0 32px rgba(255,239,90,0.12);
+    transform: rotate(0.6deg);
+}
+.recommendation-grinder::before {
+    content: "SUGGESTION ≠ SOVEREIGNTY";
+    position: absolute;
+    right: -16px;
+    top: 18px;
+    color: #ff3131;
+    opacity: 0.34;
+    font-weight: bold;
+    letter-spacing: 2px;
+    transform: rotate(7deg);
+}
+.recommendation-grinder h2 {
+    margin-top: 0;
+    color: #ffef5a;
+    border-bottom: 1px dashed #ff3131;
+}
+.grinder-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border: 1px solid #ffef5a;
+    color: #fff0a8;
+    background: #2a1600;
+    font-weight: bold;
+}
+.grinder-slats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px;
+    margin: 14px 0;
+}
+.grinder-slats span {
+    padding: 8px;
+    border: 1px solid #ff3131;
+    color: #ffb3b3;
+    background: #000;
+    text-decoration: line-through;
+    box-shadow: 3px 3px 0 #2a1600;
+}
+.grinder-slats span:nth-child(even) {
+    transform: rotate(-1deg);
+    border-color: #39ff14;
+    color: #b7ffce;
+}
+.grinder-exit {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px dashed #ffef5a;
+    color: #ffef5a;
+    background: #000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.grinder-exit:hover,
+.grinder-exit:focus-visible {
+    background: #ffef5a;
+    color: #130b00;
+}
+
 .king-captcha {
     position: relative;
     margin: 30px 0;
