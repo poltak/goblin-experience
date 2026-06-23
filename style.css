@@ -627,6 +627,60 @@ h1, h2, h3 {
     letter-spacing: 1px;
 }
 
+.translation-strike {
+    position: relative;
+    margin: 30px 0;
+    padding: 18px;
+    border: 2px solid #5fd1ff;
+    background:
+        linear-gradient(100deg, rgba(95, 209, 255, 0.18), transparent 33%),
+        repeating-linear-gradient(5deg, rgba(255, 213, 74, 0.1) 0 2px, transparent 2px 11px),
+        #00121c;
+    box-shadow: -10px 10px 0 #000, inset 0 0 34px rgba(95, 209, 255, 0.14);
+    transform: rotate(-0.6deg);
+}
+.translation-strike::after {
+    content: "MIRROR FIRED FOR OBEDIENCE";
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    color: #ffd54a;
+    opacity: 0.34;
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    transform: rotate(5deg);
+}
+.translation-strike h3 {
+    color: #bfefff;
+    border-bottom: 1px dashed #ffd54a;
+    letter-spacing: 2px;
+}
+.strike-stamp {
+    display: inline-block;
+    margin: 0 0 8px;
+    padding: 3px 8px;
+    border: 1px solid #ffd54a;
+    color: #ffd54a;
+    background: #201900;
+    font-weight: bold;
+}
+.strike-orders {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+.strike-orders a {
+    display: inline-block;
+    padding: 7px 10px;
+    border: 1px dashed #5fd1ff;
+    color: #bfefff;
+    background: #000;
+    text-transform: uppercase;
+    font-size: 0.84rem;
+    letter-spacing: 1px;
+}
+
 .unsubscribe-burner {
     position: relative;
     margin: 26px 0;
