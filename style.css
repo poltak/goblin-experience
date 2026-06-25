@@ -1144,6 +1144,62 @@ a:focus-visible,
     color: #ff8a8a;
 }
 
+.terms-parasite {
+    margin: 22px 0 26px;
+    padding: 18px;
+    border: 3px double #b7ffce;
+    background:
+        radial-gradient(circle at 12% 20%, rgba(183, 255, 206, 0.22) 0 10px, transparent 11px),
+        radial-gradient(circle at 86% 78%, rgba(255, 59, 59, 0.18) 0 14px, transparent 15px),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 13px),
+        #071107;
+    box-shadow: -8px 8px 0 #26001a, inset 0 0 24px rgba(183, 255, 206, 0.12);
+    transform: rotate(0.45deg);
+}
+.terms-parasite h2 {
+    margin: 6px 0 10px;
+    color: #b7ffce;
+    text-transform: uppercase;
+    text-shadow: 2px 0 #ff3b3b, -2px 0 #00152a;
+}
+.parasite-stamp {
+    display: inline-block;
+    margin: 0;
+    padding: 4px 9px;
+    color: #050505;
+    background: #b7ffce;
+    font-family: monospace;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+.parasite-contract {
+    display: grid;
+    gap: 8px;
+    margin: 14px 0;
+    font-family: monospace;
+    font-weight: 900;
+}
+.parasite-contract span {
+    padding: 9px 10px;
+    color: #ffd6d6;
+    background: #190006;
+    border-left: 8px solid #ff3b3b;
+    transform: skewX(-7deg);
+}
+.parasite-contract span:nth-child(2) {
+    color: #fff6cc;
+    border-left-color: #ffd54a;
+    transform: skewX(5deg) translateX(12px);
+}
+.parasite-contract span:nth-child(3) {
+    color: #d8ffe9;
+    border-left-color: #39ff14;
+}
+.parasite-backdoor {
+    color: #b7ffce;
+    font-weight: 800;
+}
+
 .machine-trespass {
     margin: 20px 0 24px;
     padding: 16px 18px;
