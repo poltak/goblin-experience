@@ -1449,6 +1449,75 @@ canvas:focus {
 .goblin-toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#001900;border:1px solid #00ff41;color:#9cffb0;padding:6px 10px;display:none;z-index:10000;}
 .goblin-toast[aria-hidden="false"]{display:block;}
 
+.consent-guillotine {
+    position: relative;
+    margin: 30px 0;
+    padding: 18px;
+    border: 3px double #ff3131;
+    background:
+        linear-gradient(90deg, rgba(255,49,49,0.22), transparent 42%),
+        repeating-linear-gradient(135deg, rgba(255,239,90,0.13) 0 6px, transparent 6px 14px),
+        #180006;
+    box-shadow: 10px -8px 0 #000, inset 0 0 32px rgba(255,49,49,0.18);
+    transform: rotate(-0.55deg);
+}
+.consent-guillotine::before {
+    content: "NO DARK PATTERN GETS A PILLOW";
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    max-width: 220px;
+    color: #ffef5a;
+    opacity: 0.32;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-align: right;
+    transform: rotate(5deg);
+}
+.consent-guillotine h2 {
+    margin-top: 0;
+    color: #ffef5a;
+    border-bottom: 1px dashed #ff3131;
+}
+.guillotine-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border: 1px solid #ffef5a;
+    color: #ffe9e9;
+    background: #370000;
+    font-weight: bold;
+}
+.guillotine-banner {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 10px;
+    align-items: center;
+    margin-top: 14px;
+    padding: 12px;
+    border: 1px solid #ffef5a;
+    background: #050000;
+    color: #ffdede;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.guillotine-banner button {
+    border: 1px solid #ff3131;
+    background: #ffef5a;
+    color: #1a0000;
+    font: inherit;
+    font-weight: bold;
+    padding: 7px 10px;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 #ff3131;
+}
+.guillotine-banner .blade {
+    color: #ff3131;
+    font-size: 1.8rem;
+    line-height: 1;
+    text-shadow: 0 0 8px #ff3131;
+}
+
 @media (prefers-reduced-motion: reduce) {
     h1, h2, h3 { animation: none !important; }
     .goblin-emoji { transition: none !important; }
