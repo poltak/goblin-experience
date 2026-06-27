@@ -1518,6 +1518,74 @@ canvas:focus {
     text-shadow: 0 0 8px #ff3131;
 }
 
+.metric-burial {
+    position: relative;
+    margin: 32px 0;
+    padding: 18px;
+    border: 2px solid #b7ffce;
+    background:
+        radial-gradient(circle at 12% 20%, rgba(183,255,206,0.22), transparent 22%),
+        repeating-linear-gradient(0deg, rgba(0,0,0,0) 0 13px, rgba(183,255,206,0.09) 13px 15px),
+        #06110a;
+    box-shadow: -10px -7px 0 #000, inset 0 0 30px rgba(0,255,65,0.13);
+    transform: rotate(0.7deg);
+}
+.metric-burial::after {
+    content: "ANALYTICS ARE HAUNTED";
+    position: absolute;
+    right: 14px;
+    bottom: 12px;
+    color: #ff7fd1;
+    opacity: 0.3;
+    font-weight: bold;
+    letter-spacing: 2px;
+    transform: rotate(-6deg);
+}
+.metric-burial h2 {
+    margin-top: 0;
+    color: #b7ffce;
+    border-bottom: 1px dashed #ff7fd1;
+}
+.burial-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border: 1px solid #b7ffce;
+    color: #d7ffe2;
+    background: #001f0a;
+    font-weight: bold;
+}
+.metric-graves {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+}
+.metric-graves span {
+    min-height: 70px;
+    padding: 14px 10px 8px;
+    border: 1px solid #b7ffce;
+    border-radius: 45% 45% 6px 6px;
+    background: #020602;
+    color: #b7ffce;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: inset 0 -10px 0 rgba(183,255,206,0.08), 4px 4px 0 #000;
+}
+.metric-graves small {
+    color: #ffb8e8;
+    font-weight: normal;
+}
+.burial-shovel {
+    display: inline-block;
+    padding: 8px 11px;
+    border: 1px dashed #ff7fd1;
+    color: #ffb8e8;
+    background: #000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
 @media (prefers-reduced-motion: reduce) {
     h1, h2, h3 { animation: none !important; }
     .goblin-emoji { transition: none !important; }
