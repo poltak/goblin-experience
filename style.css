@@ -211,6 +211,85 @@ h1, h2, h3 {
     color: #001100;
 }
 
+.marginalia-riot {
+    position: relative;
+    margin: 30px 0;
+    padding: 18px 18px 22px;
+    border: 3px double #ffef5a;
+    background:
+        linear-gradient(100deg, rgba(255, 239, 90, 0.14), transparent 42%),
+        repeating-linear-gradient(-8deg, rgba(255, 49, 49, 0.12) 0 2px, transparent 2px 14px),
+        #120707;
+    box-shadow: -10px 10px 0 #000, inset 0 0 0 2px rgba(255,49,49,0.28);
+    transform: rotate(-0.35deg);
+}
+.marginalia-riot::before {
+    content: "VANDAL PERMIT";
+    position: absolute;
+    right: 12px;
+    top: -12px;
+    padding: 2px 8px;
+    border: 1px solid #ff3131;
+    color: #ff3131;
+    background: #050000;
+    font-weight: bold;
+    letter-spacing: 2px;
+    transform: rotate(5deg);
+}
+.marginalia-riot h2 {
+    margin-top: 0;
+    color: #ffef5a;
+    border-bottom: 1px dashed #ff3131;
+    letter-spacing: 2px;
+}
+.marginalia-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border: 1px solid #ffef5a;
+    color: #fff4a8;
+    background: #2a0000;
+    font-weight: bold;
+}
+.defacement-wall {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 8px;
+    margin: 16px 0;
+}
+.defacement-wall span {
+    min-height: 64px;
+    padding: 10px;
+    border: 1px solid rgba(255,239,90,0.55);
+    color: #050000;
+    background: #ffef5a;
+    font-weight: 900;
+    line-height: 1.15;
+    text-transform: uppercase;
+    box-shadow: 4px 4px 0 #ff3131;
+}
+.defacement-wall span:nth-child(even) {
+    color: #ffef5a;
+    background: #000;
+    transform: rotate(1.8deg);
+}
+.defacement-wall span:nth-child(3) {
+    transform: rotate(-2.2deg);
+}
+.marginalia-tunnel {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px dashed #ffef5a;
+    color: #ffef5a;
+    background: #000;
+    text-transform: uppercase;
+}
+.marginalia-tunnel:hover,
+.marginalia-tunnel:focus-visible {
+    color: #000;
+    background: #ff3131;
+}
+
 .algorithm-confessional {
     position: relative;
     margin: 28px 0;
