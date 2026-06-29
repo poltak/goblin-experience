@@ -290,6 +290,88 @@ h1, h2, h3 {
     background: #ff3131;
 }
 
+.dead-drop {
+    position: relative;
+    margin: 32px 0;
+    padding: 20px;
+    border: 2px solid #b7ffce;
+    background:
+        radial-gradient(circle at 8% 12%, rgba(183,255,206,0.18), transparent 22%),
+        repeating-linear-gradient(115deg, rgba(0,0,0,0) 0 10px, rgba(183,255,206,0.08) 10px 12px),
+        #06120b;
+    box-shadow: 12px 12px 0 #000, inset 0 0 30px rgba(0,255,65,0.12);
+    transform: rotate(0.55deg);
+}
+.dead-drop::before {
+    content: "COMMENT BOX FOUND EMPTY / WALL FOUND GUILTY";
+    position: absolute;
+    left: 14px;
+    top: -13px;
+    padding: 2px 9px;
+    border: 1px dashed #ffef5a;
+    color: #ffef5a;
+    background: #000;
+    font-size: 0.72rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transform: rotate(-2deg);
+}
+.dead-drop h2 {
+    margin-top: 0;
+    color: #b7ffce;
+    border-bottom: 1px dashed #b7ffce;
+    letter-spacing: 2px;
+}
+.dead-drop-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border: 1px solid #b7ffce;
+    color: #d9ffe6;
+    background: #001f0b;
+    font-weight: bold;
+}
+.dead-drop-slits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 9px;
+    margin: 16px 0;
+}
+.dead-drop-slits span {
+    position: relative;
+    padding: 12px 12px 12px 44px;
+    border: 1px solid rgba(183,255,206,0.62);
+    background: #000;
+    color: #b7ffce;
+    box-shadow: 4px 4px 0 #14331d;
+}
+.dead-drop-slits span::before {
+    content: attr(data-scar);
+    position: absolute;
+    left: 10px;
+    top: 11px;
+    color: #ff3131;
+    font-weight: bold;
+}
+.dead-drop-slits span:nth-child(even) {
+    transform: rotate(-1.4deg);
+    border-color: #ffef5a;
+    color: #fff4a8;
+}
+.dead-drop-slits span:nth-child(odd) {
+    transform: rotate(1.1deg);
+}
+.dead-drop-ritual summary {
+    cursor: pointer;
+    color: #ffef5a;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.dead-drop-ritual[open] {
+    border-left: 4px solid #ff3131;
+    padding-left: 12px;
+}
+
 .algorithm-confessional {
     position: relative;
     margin: 28px 0;
