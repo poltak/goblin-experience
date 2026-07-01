@@ -372,6 +372,81 @@ h1, h2, h3 {
     padding-left: 12px;
 }
 
+.authority-leak {
+    position: relative;
+    margin: 34px 0;
+    padding: 20px;
+    border: 3px solid #ff3131;
+    background:
+        linear-gradient(92deg, rgba(255,49,49,0.24), transparent 38%),
+        repeating-linear-gradient(-12deg, rgba(255,239,90,0.1) 0 2px, transparent 2px 14px),
+        #180606;
+    box-shadow: -10px 10px 0 #000, inset 0 0 34px rgba(255,49,49,0.16);
+    transform: rotate(-0.8deg);
+}
+.authority-leak::after {
+    content: "UNAPPROVED WAYFINDING";
+    position: absolute;
+    right: -8px;
+    top: -12px;
+    padding: 3px 9px;
+    border: 1px solid #ffef5a;
+    color: #ffef5a;
+    background: #000;
+    font-size: 0.72rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transform: rotate(5deg);
+}
+.authority-leak h2 {
+    margin-top: 0;
+    color: #ffef5a;
+    border-bottom: 1px dashed #ff3131;
+    letter-spacing: 2px;
+}
+.leak-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border: 1px solid #ff3131;
+    color: #ffd0d0;
+    background: #300000;
+    font-weight: bold;
+}
+.leak-signs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+}
+.leak-signs a {
+    padding: 10px 12px;
+    border: 1px dashed #ffef5a;
+    color: #ffef5a;
+    background: #000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 4px 4px 0 #3a0000;
+}
+.leak-signs a:nth-child(even) {
+    transform: rotate(2deg);
+    border-color: #b7ffce;
+    color: #b7ffce;
+}
+.leak-signs a:nth-child(odd) {
+    transform: rotate(-1.6deg);
+}
+.leak-signs a:hover,
+.leak-signs a:focus-visible {
+    background: #ff3131;
+    color: #fff;
+}
+.leak-fineprint {
+    color: #ffb3b3;
+    font-size: 0.92rem;
+    margin-bottom: 0;
+}
+
 .algorithm-confessional {
     position: relative;
     margin: 28px 0;
