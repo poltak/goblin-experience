@@ -1991,3 +1991,66 @@ canvas:focus {
 .shiver {
     animation: shiver 0.3s infinite linear;
 }
+
+.boss-keyhole {
+    position: relative;
+    margin: 28px 0;
+    padding: 18px;
+    border: 2px solid #ffef5a;
+    background:
+        repeating-linear-gradient(4deg, rgba(255, 239, 90, 0.12) 0 2px, transparent 2px 11px),
+        linear-gradient(135deg, rgba(255, 49, 49, 0.24), transparent 42%, rgba(0, 255, 65, 0.14)),
+        #160f00;
+    box-shadow: 11px 11px 0 #000, inset 0 0 30px rgba(255, 239, 90, 0.12);
+    transform: rotate(0.6deg);
+}
+.boss-keyhole::after {
+    content: "AUTHORITY CHECK FAILED";
+    position: absolute;
+    right: 12px;
+    top: 10px;
+    color: #ff3131;
+    opacity: 0.42;
+    font-weight: bold;
+    letter-spacing: 2px;
+    transform: rotate(5deg);
+}
+.boss-keyhole h2 {
+    margin-top: 0;
+    color: #ffef5a;
+    border-bottom: 1px dashed #ff3131;
+}
+.keyhole-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border: 1px solid #ffef5a;
+    color: #fff4a0;
+    background: #2a1800;
+    font-weight: bold;
+}
+.boss-keyhole-panel summary {
+    cursor: pointer;
+    display: inline-block;
+    margin: 8px 0 12px;
+    padding: 8px 12px;
+    border: 1px solid #ff3131;
+    color: #ffb3b3;
+    background: #000;
+    text-transform: uppercase;
+    box-shadow: 4px 4px 0 #3a0000;
+}
+.boss-memo {
+    padding: 12px;
+    border: 2px dashed #00ff41;
+    background: #000;
+    color: #b7ffce;
+    text-transform: uppercase;
+    transform: rotate(-0.8deg);
+}
+.keyhole-escape {
+    display: inline-block;
+    margin-top: 12px;
+    color: #ffef5a;
+    border-bottom: 1px wavy #ff3131;
+}
