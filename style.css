@@ -2054,3 +2054,84 @@ canvas:focus {
     color: #ffef5a;
     border-bottom: 1px wavy #ff3131;
 }
+
+.serp-sabotage {
+    position: relative;
+    margin: 30px 0;
+    padding: 18px;
+    border: 2px solid #8fd3ff;
+    background:
+        linear-gradient(90deg, rgba(143, 211, 255, 0.18), transparent 34%, rgba(255, 49, 49, 0.16)),
+        repeating-linear-gradient(-8deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 10px),
+        #020915;
+    box-shadow: -12px 12px 0 #000, inset 0 0 34px rgba(143, 211, 255, 0.14);
+    transform: rotate(-0.45deg);
+}
+.serp-sabotage::before {
+    content: "SNIPPET ROT / ĐOẠN TRÍCH MỤC";
+    position: absolute;
+    right: 10px;
+    top: -12px;
+    padding: 2px 8px;
+    border: 1px solid #ff3131;
+    color: #ffb3b3;
+    background: #000;
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    transform: rotate(2deg);
+}
+.serp-sabotage h2 {
+    margin-top: 0;
+    color: #8fd3ff;
+    border-bottom: 1px dashed #ffef5a;
+}
+.serp-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border: 1px solid #8fd3ff;
+    color: #ccecff;
+    background: #00152a;
+    font-weight: bold;
+}
+.fake-serp {
+    display: grid;
+    gap: 12px;
+    margin: 16px 0;
+}
+.fake-serp a {
+    display: grid;
+    gap: 4px;
+    padding: 12px;
+    border: 1px dashed #8fd3ff;
+    background: #000;
+    color: #d9f3ff;
+    box-shadow: 5px 5px 0 #250000;
+    text-decoration: none;
+}
+.fake-serp a:nth-child(2) {
+    transform: rotate(1.1deg);
+    border-color: #ffef5a;
+    color: #fff4a0;
+}
+.fake-serp a:nth-child(3) {
+    transform: rotate(-0.8deg);
+    border-color: #ff7fd1;
+}
+.fake-serp span {
+    color: #ff3131;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+.fake-serp strong {
+    text-decoration: line-through wavy #ff3131;
+}
+.fake-serp em {
+    color: #b7ffce;
+    font-style: normal;
+}
+.serp-footnote {
+    color: #ffef5a;
+    margin-bottom: 0;
+}
