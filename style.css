@@ -1625,6 +1625,83 @@ a:focus-visible,
     font-size: 0.92rem;
 }
 
+.wrong-mirror {
+    position: relative;
+    margin: 24px 0 28px;
+    padding: 18px;
+    border: 2px solid #d4b3ff;
+    background:
+        linear-gradient(117deg, rgba(255, 59, 59, 0.18) 0 18%, transparent 18% 31%, rgba(95, 209, 255, 0.14) 31% 45%, transparent 45%),
+        repeating-linear-gradient(-8deg, rgba(212, 179, 255, 0.10) 0 2px, transparent 2px 15px),
+        #100018;
+    box-shadow: 10px -8px 0 rgba(255, 213, 74, 0.16), inset 0 0 28px rgba(212, 179, 255, 0.12);
+    transform: rotate(-0.55deg);
+    overflow: hidden;
+}
+.wrong-mirror::after {
+    content: "THIS REFLECTION IS CONTRABAND";
+    position: absolute;
+    right: -46px;
+    top: 18px;
+    padding: 4px 52px;
+    color: #050505;
+    background: #ff3b3b;
+    font: 900 0.72rem monospace;
+    letter-spacing: 1px;
+    transform: rotate(19deg);
+}
+.wrong-mirror h2 {
+    margin: 8px 0 10px;
+    color: #d4b3ff;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0 #2a0012;
+}
+.mirror-stamp {
+    display: inline-block;
+    margin: 0;
+    padding: 4px 8px;
+    color: #050505;
+    background: #d4b3ff;
+    font-family: monospace;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+.mirror-shards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+}
+.mirror-shards a {
+    min-height: 62px;
+    padding: 10px;
+    color: #f3e9ff;
+    background: rgba(0, 0, 0, 0.48);
+    border: 1px dashed #5fd1ff;
+    text-decoration: none;
+    font-weight: 800;
+    clip-path: polygon(7% 0, 100% 11%, 91% 100%, 0 86%);
+}
+.mirror-shards a:nth-child(even) {
+    border-color: #ffd54a;
+    transform: translateY(8px) rotate(1.5deg);
+}
+.mirror-shards span {
+    display: block;
+    color: #ff8a8a;
+    font: 900 0.72rem monospace;
+    letter-spacing: 1px;
+}
+.mirror-graffiti {
+    margin: 14px 0 0;
+    padding: 9px 11px;
+    color: #050505;
+    background: #b7ffce;
+    font-family: monospace;
+    font-weight: 900;
+    transform: skewX(-5deg);
+}
+
 #content-area { margin-top: 2rem; }
 .back-link { display: inline-block; margin-bottom: 1rem; }
 .translation-bridge {
