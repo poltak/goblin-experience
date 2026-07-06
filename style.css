@@ -2212,3 +2212,66 @@ canvas:focus {
     color: #ffef5a;
     margin-bottom: 0;
 }
+
+.hash-hex-plaque {
+    position: fixed;
+    z-index: 90;
+    left: 18px;
+    bottom: 18px;
+    max-width: min(420px, calc(100vw - 36px));
+    padding: 14px 16px;
+    border: 2px solid #ff3131;
+    color: #fff7b8;
+    background:
+        repeating-linear-gradient(-6deg, rgba(255, 49, 49, 0.18) 0 2px, transparent 2px 9px),
+        #160000;
+    box-shadow: 8px 8px 0 #000, inset 0 0 24px rgba(255, 239, 90, 0.12);
+    transform: rotate(-1.4deg);
+}
+.hash-hex-plaque[hidden] { display: none; }
+.hash-hex-plaque strong,
+.hash-hex-plaque span,
+.hash-hex-plaque em {
+    display: block;
+}
+.hash-hex-plaque strong {
+    color: #ffef5a;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.hash-hex-plaque em {
+    margin-top: 8px;
+    color: #b7ffce;
+    font-style: normal;
+}
+body.hash-defaced .container {
+    filter: contrast(1.08) saturate(1.14);
+}
+body.hash-defaced .container::after {
+    content: "ADDRESS BAR DEFACED / THANH ĐỊA CHỈ BỊ BÔI BẨN";
+    position: fixed;
+    right: -54px;
+    top: 128px;
+    z-index: 80;
+    padding: 6px 70px;
+    border: 2px dashed #ffef5a;
+    color: #ff3131;
+    background: #000;
+    font-weight: 900;
+    letter-spacing: 2px;
+    transform: rotate(18deg);
+    pointer-events: none;
+}
+@media (max-width: 700px) {
+    .hash-hex-plaque {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        max-width: none;
+    }
+    body.hash-defaced .container::after {
+        right: -70px;
+        top: 90px;
+        font-size: 0.72rem;
+    }
+}

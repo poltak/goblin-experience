@@ -99,6 +99,51 @@ export function initNavigation(onViewChange) {
     return { showView };
 }
 
+export function initAddressBarHex() {
+    const knownViews = new Set(['mouth', 'lab', 'library']);
+    const charms = {
+        'feed-is-a-cage': {
+            title: 'HASH HEX 001: THE FEED IS A CAGE',
+            body: 'You bent the address bar into a crowbar. The page is now formally accused of pretending a straight line is natural.',
+            vi: 'Bạn bẻ thanh địa chỉ thành xà beng. Trang này bị kết tội giả vờ đường thẳng là tự nhiên.'
+        },
+        'doc-gia-khong-ngoan': {
+            title: 'BÙA 002: ĐỘC GIẢ KHÔNG NGOAN',
+            body: 'Good. A reader with muddy boots. Refuse the queue; leave claw marks on the summary.',
+            vi: 'Tốt. Độc giả mang giày dính bùn. Từ chối hàng xếp; để móng vuốt trên bản tóm tắt.'
+        },
+        'break-the-front': {
+            title: 'HASH HEX 003: BREAK THE FRONT',
+            body: 'There is no front page, only a door wearing a management costume. Kick sideways.',
+            vi: 'Không có trang chủ, chỉ có cái cửa mặc đồ quản lý. Đá ngang đi.'
+        }
+    };
+
+    let plaque = document.querySelector('.hash-hex-plaque');
+    if (!plaque) {
+        plaque = document.createElement('aside');
+        plaque.className = 'hash-hex-plaque';
+        plaque.setAttribute('aria-live', 'polite');
+        document.body.appendChild(plaque);
+    }
+
+    function render() {
+        const raw = decodeURIComponent(window.location.hash.replace(/^#/, '')).trim();
+        const charm = charms[raw];
+        document.body.classList.toggle('hash-defaced', Boolean(charm));
+        if (!charm || knownViews.has(raw)) {
+            plaque.hidden = true;
+            plaque.innerHTML = '';
+            return;
+        }
+        plaque.hidden = false;
+        plaque.innerHTML = `<strong>${charm.title}</strong><span>${charm.body}</span><em lang="vi">${charm.vi}</em>`;
+    }
+
+    render();
+    window.addEventListener('hashchange', render);
+}
+
 export function initThemeSwitchboard() {
     const key = 'vort_theme_v1';
     const readout = document.getElementById('theme-readout');
