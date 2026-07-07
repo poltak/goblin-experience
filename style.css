@@ -1523,6 +1523,70 @@ a:focus-visible,
     color: #ff8a8a;
 }
 
+.source-curse {
+    margin: 24px 0 28px;
+    padding: 18px;
+    border: 2px solid #ff00aa;
+    background:
+        linear-gradient(90deg, rgba(255, 0, 170, 0.16), transparent 28%, rgba(183, 255, 206, 0.12) 72%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.08) 0 1px, transparent 1px 11px),
+        #120012;
+    box-shadow: 9px -7px 0 #00152a, inset 0 0 0 2px rgba(255, 213, 74, 0.18);
+    transform: rotate(-0.7deg);
+    position: relative;
+}
+.source-curse::after {
+    content: "VIEW-SOURCE OR BE VIEWED";
+    position: absolute;
+    right: 12px;
+    bottom: -12px;
+    padding: 3px 8px;
+    color: #050505;
+    background: #ffd54a;
+    font: 900 0.72rem monospace;
+    letter-spacing: 1px;
+}
+.source-curse h2 {
+    color: #ff7adf;
+    text-shadow: 2px 2px 0 #000, -2px 0 0 #b7ffce;
+}
+.source-stamp {
+    display: inline-block;
+    margin: 0 0 8px;
+    padding: 4px 8px;
+    background: #ff00aa;
+    color: #050505;
+    font-family: monospace;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+.source-crawl {
+    display: grid;
+    gap: 9px;
+    margin: 14px 0;
+    padding: 12px;
+    border: 1px dashed #b7ffce;
+    background: #050005;
+}
+.source-crawl code {
+    display: block;
+    color: #b7ffce;
+    white-space: normal;
+}
+.source-crawl a {
+    justify-self: start;
+    color: #ffd54a;
+    border-bottom: 2px solid #ff00aa;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+.source-warning {
+    margin-bottom: 0;
+    color: #ffd6d6;
+    font-family: monospace;
+    font-weight: 900;
+}
+
 .terms-parasite {
     margin: 22px 0 26px;
     padding: 18px;
