@@ -144,6 +144,24 @@ export function initAddressBarHex() {
     window.addEventListener('hashchange', render);
 }
 
+export function initMisreadEngine() {
+    const button = document.getElementById('misread-switch');
+    if (!button) return;
+
+    const key = 'vort_misread_v1';
+    const apply = active => {
+        document.body.classList.toggle('misread-active', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+        button.textContent = active ? 'restore the polite lie / dựng lại lời nói dối gọn' : 'misread the cave / đọc sai cái hang';
+        try { localStorage.setItem(key, active ? '1' : '0'); } catch (_) {}
+    };
+
+    let active = false;
+    try { active = localStorage.getItem(key) === '1'; } catch (_) {}
+    apply(active);
+    button.addEventListener('click', () => apply(!document.body.classList.contains('misread-active')));
+}
+
 export function initThemeSwitchboard() {
     const key = 'vort_theme_v1';
     const readout = document.getElementById('theme-readout');

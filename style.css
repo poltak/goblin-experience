@@ -1587,6 +1587,81 @@ a:focus-visible,
     font-weight: 900;
 }
 
+.misread-engine {
+    position: relative;
+    margin: 30px 0;
+    padding: 18px;
+    border: 3px solid #ffef5a;
+    background:
+        repeating-linear-gradient(-12deg, rgba(255, 239, 90, 0.12) 0 2px, transparent 2px 12px),
+        linear-gradient(135deg, rgba(255, 49, 49, 0.24), rgba(0, 0, 0, 0) 42%, rgba(57, 255, 20, 0.14)),
+        #160d00;
+    box-shadow: 12px 12px 0 #000, inset 0 0 32px rgba(255, 239, 90, 0.12);
+    transform: rotate(0.6deg);
+}
+.misread-engine::before {
+    content: "INTENDED JOURNEY CANCELLED";
+    position: absolute;
+    right: -8px;
+    top: -14px;
+    padding: 2px 8px;
+    border: 1px solid #ff3131;
+    color: #ffb3b3;
+    background: #000;
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    transform: rotate(4deg);
+}
+.misread-engine h2 {
+    margin-top: 0;
+    color: #ffef5a;
+    border-bottom: 1px dashed #ff3131;
+}
+.misread-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border: 1px solid #ffef5a;
+    color: #fff5a8;
+    background: #2b1c00;
+    font-weight: bold;
+}
+.misread-switch {
+    margin-top: 8px;
+    border-color: #ff3131;
+    color: #ffef5a;
+    box-shadow: 4px 4px 0 #000;
+}
+.misread-notices {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 8px;
+    margin-top: 14px;
+}
+.misread-notices span {
+    padding: 8px;
+    border: 1px dashed #39ff14;
+    color: #b7ffce;
+    background: #000;
+    transform: rotate(-1deg);
+}
+.misread-notices span:nth-child(2) { transform: rotate(1.6deg); color: #ffb3b3; border-color: #ff3131; }
+body.misread-active .nav-link::after,
+body.misread-active .treasure-box strong::after,
+body.misread-active h1::after {
+    content: "  ← suspicious";
+    color: #ff3131;
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+}
+body.misread-active .container {
+    outline-color: #ff3131;
+    filter: contrast(1.08) saturate(1.18);
+}
+body.misread-active .view-section.active {
+    background-image: linear-gradient(90deg, rgba(255,49,49,0.08), transparent 22%, rgba(255,239,90,0.05));
+}
+
 .terms-parasite {
     margin: 22px 0 26px;
     padding: 18px;
