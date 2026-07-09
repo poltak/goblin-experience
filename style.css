@@ -211,6 +211,82 @@ h1, h2, h3 {
     color: #001100;
 }
 
+.index-molotov {
+    position: relative;
+    margin: 32px 0;
+    padding: 18px;
+    border: 2px solid #ff6a00;
+    background:
+        radial-gradient(circle at 18% 20%, rgba(255, 239, 90, 0.22), transparent 24%),
+        repeating-linear-gradient(-8deg, rgba(255, 106, 0, 0.12) 0 4px, transparent 4px 17px),
+        #190600;
+    box-shadow: 12px 12px 0 #000, inset 0 0 32px rgba(255, 49, 49, 0.18);
+    transform: rotate(-0.55deg);
+}
+.index-molotov::before {
+    content: "INDEX UNDER ARSON / MỤC LỤC ĐANG CHÁY";
+    position: absolute;
+    right: -10px;
+    top: -12px;
+    padding: 2px 8px;
+    border: 1px solid #ffef5a;
+    color: #ffef5a;
+    background: #000;
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    transform: rotate(4deg);
+}
+.index-molotov h2 {
+    margin-top: 0;
+    color: #ffef5a;
+    border-bottom: 1px dashed #ff6a00;
+}
+.molotov-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border: 1px solid #ff3131;
+    color: #ffd6b0;
+    background: #2a0000;
+    font-weight: bold;
+}
+.molotov-rack {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+}
+.molotov-rack a {
+    min-height: 82px;
+    padding: 12px;
+    border: 1px solid #ffef5a;
+    color: #ffef5a;
+    background: linear-gradient(160deg, #000 0 55%, rgba(255, 49, 49, 0.22));
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 4px 4px 0 #3a0000;
+}
+.molotov-rack a:nth-child(even) {
+    transform: rotate(1.8deg);
+    border-color: #39ff14;
+    color: #b7ffce;
+}
+.molotov-rack a:hover,
+.molotov-rack a:focus-visible {
+    background: #ff6a00;
+    color: #120300;
+}
+.molotov-rack span {
+    display: block;
+    color: #ff7fd1;
+    font-weight: bold;
+}
+.molotov-warning {
+    margin-bottom: 0;
+    color: #ffd6b0;
+    font-weight: bold;
+}
+
 .address-smuggler {
     position: relative;
     margin: 30px 0;
