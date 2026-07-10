@@ -211,6 +211,85 @@ h1, h2, h3 {
     color: #001100;
 }
 
+.cease-and-desist {
+    position: relative;
+    margin: 34px 0;
+    padding: 18px;
+    border: 3px double #ffef5a;
+    background:
+        linear-gradient(102deg, rgba(255,255,255,0.08), transparent 18% 82%, rgba(255,49,49,0.18)),
+        repeating-linear-gradient(0deg, rgba(255,239,90,0.08) 0 2px, transparent 2px 14px),
+        #120b00;
+    box-shadow: -12px 10px 0 #000, inset 0 0 34px rgba(255, 106, 0, 0.2);
+    transform: rotate(0.7deg);
+}
+.cease-and-desist::before {
+    content: "SERVED TO THE SCROLL MACHINE";
+    position: absolute;
+    top: -14px;
+    right: 18px;
+    padding: 2px 9px;
+    border: 1px solid #ff3131;
+    color: #ffb3b3;
+    background: #000;
+    font-size: 0.72rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transform: rotate(-3deg);
+}
+.cease-and-desist::after {
+    content: "VOID WHERE OPTIMIZED";
+    position: absolute;
+    right: -18px;
+    bottom: 18px;
+    color: #ff3131;
+    opacity: 0.38;
+    font-weight: bold;
+    letter-spacing: 3px;
+    transform: rotate(-13deg);
+}
+.cease-and-desist h2 {
+    margin-top: 0;
+    color: #ffef5a;
+    border-bottom: 1px dashed #ff3131;
+}
+.cease-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border: 1px solid #ffef5a;
+    color: #fff0a6;
+    background: #2a1200;
+    font-weight: bold;
+}
+.cease-paper {
+    display: grid;
+    gap: 8px;
+    margin: 16px 0;
+    padding: 12px;
+    border-left: 6px solid #ff3131;
+    background: rgba(0,0,0,0.5);
+}
+.cease-paper span {
+    padding: 6px 8px;
+    border: 1px dashed rgba(255,239,90,0.55);
+    color: #ffd6b0;
+    text-transform: uppercase;
+}
+.cease-paper span:nth-child(even) {
+    transform: translateX(10px) rotate(-0.8deg);
+    color: #b7ffce;
+}
+.cease-signature {
+    display: inline-block;
+    padding: 8px 12px;
+    border: 1px solid #ff3131;
+    color: #ffef5a;
+    background: #000;
+    text-transform: uppercase;
+    box-shadow: 4px 4px 0 #3a0000;
+}
+
 .index-molotov {
     position: relative;
     margin: 32px 0;
