@@ -358,6 +358,77 @@ h1, h2, h3 {
     font-weight: bold;
 }
 
+.sortition-pit {
+    position: relative;
+    margin: 38px 0;
+    padding: 18px;
+    border: 3px ridge #8b5a2b;
+    background:
+        radial-gradient(circle at 12% 18%, rgba(255,239,90,0.24), transparent 20%),
+        radial-gradient(circle at 80% 82%, rgba(0,255,65,0.16), transparent 26%),
+        repeating-linear-gradient(172deg, rgba(139,90,43,0.28) 0 5px, rgba(0,0,0,0) 5px 19px),
+        #130a03;
+    box-shadow: 12px 12px 0 #000, inset 0 0 42px rgba(139, 90, 43, 0.35);
+    transform: rotate(0.55deg);
+}
+.sortition-pit::before {
+    content: "SORTITION > SORTING";
+    position: absolute;
+    right: 14px;
+    top: -14px;
+    padding: 2px 9px;
+    border: 1px solid #ffef5a;
+    color: #ffef5a;
+    background: #000;
+    font-size: 0.72rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transform: rotate(4deg);
+}
+.sortition-pit h2 {
+    margin-top: 0;
+    color: #ffef5a;
+    border-bottom: 1px dashed #8bff8b;
+}
+.pit-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border: 1px solid #8bff8b;
+    color: #d9ffd9;
+    background: #061800;
+    font-weight: bold;
+}
+.mud-lottery {
+    display: grid;
+    gap: 10px;
+    margin: 16px 0;
+}
+.mud-lottery a {
+    display: block;
+    padding: 10px 12px;
+    border: 1px solid #8b5a2b;
+    color: #ffe7a6;
+    background: rgba(0,0,0,0.55);
+    text-transform: uppercase;
+    box-shadow: 4px 4px 0 #050200;
+    clip-path: polygon(2% 0, 100% 6%, 97% 100%, 0 94%);
+}
+.mud-lottery a:nth-child(2) {
+    transform: translateX(18px) rotate(-1.1deg);
+    color: #b7ffce;
+    border-color: #39ff14;
+}
+.mud-lottery span {
+    display: inline-block;
+    margin-right: 8px;
+    color: #ff8a8a;
+}
+.pit-verdict {
+    color: #fff0a6;
+    font-weight: bold;
+}
+
 .index-molotov {
     position: relative;
     margin: 32px 0;
