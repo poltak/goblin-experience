@@ -429,6 +429,76 @@ h1, h2, h3 {
     font-weight: bold;
 }
 
+.crawl-tax {
+    position: relative;
+    margin: 34px 0;
+    padding: 18px;
+    border: 2px dashed #ffef5a;
+    background:
+        linear-gradient(90deg, rgba(255,239,90,0.18), transparent 22% 76%, rgba(57,255,20,0.14)),
+        repeating-linear-gradient(45deg, rgba(255,49,49,0.16) 0 4px, transparent 4px 16px),
+        #150f00;
+    box-shadow: -10px 12px 0 #000, inset 0 0 36px rgba(255, 239, 90, 0.16);
+    transform: rotate(-0.45deg);
+}
+.crawl-tax::before {
+    content: "PAY IN MUD / TRẢ BẰNG BÙN";
+    position: absolute;
+    right: 12px;
+    top: -13px;
+    padding: 2px 8px;
+    border: 1px solid #ff3131;
+    color: #ffb3b3;
+    background: #000;
+    font-size: 0.72rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transform: rotate(3deg);
+}
+.crawl-tax h2 {
+    margin-top: 0;
+    color: #ffef5a;
+    border-bottom: 1px dotted #39ff14;
+}
+.tax-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border: 1px solid #ffef5a;
+    color: #fff0a6;
+    background: #241900;
+    font-weight: bold;
+}
+.tax-booth {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+}
+.tax-booth span {
+    padding: 10px;
+    border: 1px solid #ff3131;
+    color: #ffe7a6;
+    background: #000;
+    box-shadow: 4px 4px 0 #2a0000;
+    text-transform: uppercase;
+    clip-path: polygon(0 8%, 98% 0, 100% 88%, 4% 100%);
+}
+.tax-booth span:nth-child(even) {
+    border-color: #39ff14;
+    color: #b7ffce;
+    transform: rotate(1.2deg);
+}
+.tax-booth b {
+    display: block;
+    color: #ff8a8a;
+    margin-bottom: 4px;
+}
+.tax-verdict {
+    color: #fff0a6;
+    font-weight: bold;
+}
+
 .index-molotov {
     position: relative;
     margin: 32px 0;
