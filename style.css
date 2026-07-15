@@ -499,6 +499,88 @@ h1, h2, h3 {
     font-weight: bold;
 }
 
+.terms-bonfire {
+    position: relative;
+    margin: 36px 0;
+    padding: 18px;
+    border: 3px solid #ff3131;
+    background:
+        radial-gradient(circle at 82% 18%, rgba(255,239,90,0.28), transparent 22%),
+        repeating-linear-gradient(107deg, rgba(255,49,49,0.18) 0 5px, transparent 5px 18px),
+        linear-gradient(180deg, rgba(0,255,65,0.11), transparent 55%),
+        #180304;
+    box-shadow: 14px 10px 0 #000, inset 0 0 38px rgba(255, 49, 49, 0.22);
+    transform: rotate(0.62deg);
+}
+.terms-bonfire::before {
+    content: "ENCLOSURE CURSE ACTIVE / LỜI NGUYỀN RÀO HANG";
+    position: absolute;
+    left: 14px;
+    top: -14px;
+    padding: 2px 9px;
+    border: 1px solid #39ff14;
+    color: #b7ffce;
+    background: #000;
+    font-size: 0.72rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transform: rotate(-2deg);
+}
+.terms-bonfire::after {
+    content: "COPY LEFT WITH TEETH";
+    position: absolute;
+    right: -20px;
+    bottom: 22px;
+    color: #ffef5a;
+    opacity: 0.34;
+    font-weight: bold;
+    letter-spacing: 3px;
+    transform: rotate(-12deg);
+}
+.terms-bonfire h2 {
+    margin-top: 0;
+    color: #ffef5a;
+    border-bottom: 1px dashed #ff3131;
+}
+.bonfire-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border: 1px solid #ffef5a;
+    color: #fff0a6;
+    background: #250000;
+    font-weight: bold;
+}
+.curse-clauses {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+}
+.curse-clauses span {
+    padding: 10px;
+    border: 1px dashed #ffef5a;
+    color: #ffe7a6;
+    background: #000;
+    box-shadow: 4px 4px 0 #260000;
+    text-transform: uppercase;
+    clip-path: polygon(3% 0, 100% 9%, 96% 100%, 0 90%);
+}
+.curse-clauses span:nth-child(even) {
+    border-color: #39ff14;
+    color: #b7ffce;
+    transform: rotate(-1.1deg);
+}
+.curse-clauses b {
+    display: block;
+    color: #ff8a8a;
+    margin-bottom: 4px;
+}
+.bonfire-verdict {
+    color: #fff0a6;
+    font-weight: bold;
+}
+
 .index-molotov {
     position: relative;
     margin: 32px 0;
