@@ -581,6 +581,87 @@ h1, h2, h3 {
     font-weight: bold;
 }
 
+.polite-mode-autopsy {
+    position: relative;
+    margin: 38px 0;
+    padding: 18px;
+    border: 2px solid #b7ffce;
+    background:
+        linear-gradient(90deg, rgba(255,49,49,0.2) 0 12%, transparent 12% 18%, rgba(57,255,20,0.1) 18% 100%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.045) 0 1px, transparent 1px 11px),
+        #04110a;
+    box-shadow: -12px 12px 0 #000, inset 0 0 34px rgba(183,255,206,0.14);
+    transform: rotate(-0.48deg);
+}
+.polite-mode-autopsy::before {
+    content: "VOICE REMOVED / GIỌNG NGOAN BỊ CẮT";
+    position: absolute;
+    top: -13px;
+    left: 18px;
+    padding: 2px 9px;
+    border: 1px solid #ff3131;
+    color: #ffb3b3;
+    background: #000;
+    font-size: 0.72rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transform: rotate(-3deg);
+}
+.polite-mode-autopsy::after {
+    content: "NO DELIGHTFUL JOURNEY";
+    position: absolute;
+    right: -16px;
+    bottom: 24px;
+    color: #ffef5a;
+    opacity: 0.36;
+    font-weight: bold;
+    letter-spacing: 3px;
+    transform: rotate(10deg);
+}
+.polite-mode-autopsy h2 {
+    margin-top: 0;
+    color: #b7ffce;
+    border-bottom: 1px dashed #ff3131;
+}
+.autopsy-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border: 1px solid #b7ffce;
+    color: #d8ffe5;
+    background: #001a0a;
+    font-weight: bold;
+}
+.autopsy-table {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+}
+.autopsy-table span {
+    padding: 11px;
+    border: 1px dashed #ffef5a;
+    background: #000;
+    color: #fff0a6;
+    box-shadow: 4px 4px 0 #150000;
+    clip-path: polygon(0 8%, 97% 0, 100% 88%, 4% 100%);
+    text-transform: uppercase;
+}
+.autopsy-table span:nth-child(even) {
+    color: #b7ffce;
+    border-color: #39ff14;
+    transform: rotate(1.2deg);
+}
+.autopsy-table b {
+    display: block;
+    color: #ff8a8a;
+    margin-bottom: 4px;
+}
+.autopsy-verdict {
+    color: #d8ffe5;
+    font-weight: bold;
+}
+
 .index-molotov {
     position: relative;
     margin: 32px 0;
