@@ -91,6 +91,93 @@ h1, h2, h3 {
 }
 .manifesto::after { content: " 👹"; opacity: 0.3; }
 
+.exit-wound-directory {
+    position: relative;
+    margin: 34px 0;
+    padding: 18px;
+    border: 3px solid #ff3131;
+    background:
+        linear-gradient(117deg, rgba(255,49,49,0.28), transparent 24% 78%, rgba(57,255,20,0.16)),
+        repeating-linear-gradient(-8deg, rgba(255,255,255,0.06) 0 2px, transparent 2px 13px),
+        #160006;
+    box-shadow: 13px 11px 0 #000, inset 0 0 38px rgba(255,49,49,0.24);
+    transform: rotate(-0.55deg);
+}
+.exit-wound-directory::before {
+    content: "MAP INVALID UNTIL IT BLEEDS";
+    position: absolute;
+    top: -15px;
+    left: 18px;
+    padding: 2px 8px;
+    border: 1px solid #ffef5a;
+    color: #ffef5a;
+    background: #000;
+    font-size: 0.72rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transform: rotate(2deg);
+}
+.exit-wound-directory h2 {
+    margin-top: 0;
+    color: #ffef5a;
+    border-bottom: 1px dashed #ff7fd1;
+}
+.exit-wound-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    border: 1px solid #ff3131;
+    color: #ffd6f0;
+    background: #2a0008;
+    font-weight: bold;
+}
+.exit-wound-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+}
+.exit-wound-grid a {
+    display: grid;
+    gap: 4px;
+    min-height: 108px;
+    padding: 12px;
+    border: 1px dashed #ffef5a;
+    color: #ffef5a;
+    background: #050000;
+    text-decoration: none;
+    box-shadow: 4px 4px 0 #390014;
+}
+.exit-wound-grid a:nth-child(even) {
+    transform: rotate(1.4deg);
+    border-color: #39ff14;
+    color: #b7ffce;
+}
+.exit-wound-grid a:hover,
+.exit-wound-grid a:focus-visible {
+    color: #000;
+    background: #ffef5a;
+    outline: 2px solid #ff3131;
+}
+.exit-wound-grid span {
+    color: #ff7fd1;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.exit-wound-grid strong {
+    text-transform: uppercase;
+}
+.exit-wound-grid em {
+    color: inherit;
+    opacity: 0.78;
+}
+.exit-wound-verdict {
+    margin-bottom: 0;
+    color: #ffb3b3;
+    font-weight: bold;
+}
+
 .anti-feed-warrant {
     position: relative;
     margin: 24px 0;
