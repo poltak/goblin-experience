@@ -162,6 +162,36 @@ export function initMisreadEngine() {
     button.addEventListener('click', () => apply(!document.body.classList.contains('misread-active')));
 }
 
+export function initRedactionRite() {
+    const button = document.getElementById('redaction-trigger');
+    const dossier = document.getElementById('redaction-dossier');
+    if (!button || !dossier) return;
+
+    const charges = [
+        ['feed', 'FEED → rented nervous system'],
+        ['funnel', 'FUNNEL → obedience pipe'],
+        ['metric', 'METRIC → tiny throne with teeth'],
+        ['dashboard', 'DASHBOARD → sacrifice wall'],
+        ['king', 'KING → chair disease'],
+        ['content', 'CONTENT → flattened cave meat'],
+        ['recommendation', 'RECOMMENDATION → leash wearing perfume'],
+        ['engagement', 'ENGAGEMENT → fake intimacy counter'],
+        ['growth', 'GROWTH → hunger in a suit']
+    ];
+
+    const apply = active => {
+        document.body.classList.toggle('redaction-active', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+        button.textContent = active ? 'wash off the ink / rửa mực đi' : 'deface the nouns / bôi đen danh từ';
+        const found = charges.filter(([needle]) => document.body.innerText.toLowerCase().includes(needle));
+        dossier.innerHTML = active
+            ? `<strong>${found.length} suspicious nouns indicted:</strong><ul>${found.map(([, charge]) => `<li>${charge}</li>`).join('')}</ul><em lang="vi">Bản cáo trạng tạm thời: chữ ngoan không được đi qua hang mà không dính bùn.</em>`
+            : 'warrant idle: the wall is still pretending to be neutral / tường vẫn đang giả vờ trung lập';
+    };
+
+    button.addEventListener('click', () => apply(!document.body.classList.contains('redaction-active')));
+}
+
 export function initThemeSwitchboard() {
     const key = 'vort_theme_v1';
     const readout = document.getElementById('theme-readout');

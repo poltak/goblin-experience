@@ -91,6 +91,58 @@ h1, h2, h3 {
 }
 .manifesto::after { content: " 👹"; opacity: 0.3; }
 
+.redaction-rite {
+    position: relative;
+    margin: 30px 0;
+    padding: 18px;
+    border: 3px solid #050505;
+    background:
+        repeating-linear-gradient(92deg, rgba(0,0,0,0.92) 0 18px, rgba(255,49,49,0.38) 18px 22px, rgba(0,0,0,0.7) 22px 34px),
+        #240008;
+    box-shadow: 11px 11px 0 #000, inset 0 0 0 2px #ffef5a;
+    transform: rotate(0.8deg);
+}
+.redaction-rite::before {
+    content: "SELF-VANDALISM PERMIT: APPROVED";
+    position: absolute;
+    right: 14px;
+    top: -13px;
+    padding: 2px 8px;
+    color: #000;
+    background: #ffef5a;
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    transform: rotate(-2deg);
+}
+.redaction-rite h2 { color: #ffef5a; border-bottom: 2px dashed #ff3131; }
+.redaction-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    color: #ffb3b3;
+    background: #000;
+    border: 1px solid #ff3131;
+    font-weight: bold;
+}
+.redaction-trigger { background: #ff3131; color: #000; border-color: #ffef5a; font-weight: 900; }
+.redaction-dossier {
+    margin-top: 12px;
+    padding: 12px;
+    color: #b7ffce;
+    background: rgba(0,0,0,0.72);
+    border: 1px dashed #39ff14;
+}
+.redaction-dossier ul { margin: 8px 0 0; padding-left: 1.2rem; }
+body.redaction-active .container :is(h1, h2, h3, p, a, button, span, strong, em):not(.redaction-rite *) {
+    text-shadow: 0.16em 0 #000, -0.16em 0 #000, 0 0 10px #ff3131;
+    filter: contrast(1.35) saturate(0.55);
+}
+body.redaction-active .container :is(h1, h2, h3, p, a, button, span, strong, em):not(.redaction-rite *)::selection {
+    color: #ffef5a;
+    background: #000;
+}
+
 .exit-wound-directory {
     position: relative;
     margin: 34px 0;
