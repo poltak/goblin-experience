@@ -143,6 +143,85 @@ body.redaction-active .container :is(h1, h2, h3, p, a, button, span, strong, em)
     background: #000;
 }
 
+.attention-squatter {
+    position: relative;
+    margin: 34px 0;
+    padding: 18px;
+    border: 4px double #ffef5a;
+    color: #f7ffd8;
+    background:
+        repeating-linear-gradient(90deg, rgba(255,239,90,0.12) 0 9px, transparent 9px 18px),
+        linear-gradient(145deg, #250014 0%, #070707 55%, #182600 100%);
+    box-shadow: -13px 12px 0 #000, inset 0 0 0 2px #ff3131, inset 0 0 38px rgba(57,255,20,0.22);
+    transform: rotate(-0.45deg);
+}
+.attention-squatter::before,
+.attention-squatter::after {
+    position: absolute;
+    padding: 3px 8px;
+    color: #000;
+    background: #ffef5a;
+    font-weight: 900;
+    font-size: 0.68rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.attention-squatter::before {
+    content: "EVICTION NOTICE NAILED TO ALGORITHM";
+    top: -13px;
+    left: 18px;
+    transform: rotate(2deg);
+}
+.attention-squatter::after {
+    content: "LANDLORDS OUT";
+    right: 18px;
+    bottom: -12px;
+    transform: rotate(-3deg);
+}
+.attention-squatter h2 {
+    color: #ffef5a;
+    border-bottom: 2px dashed #39ff14;
+}
+.squatter-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    color: #ffb3b3;
+    background: #000;
+    border: 1px solid #ff3131;
+    font-weight: bold;
+}
+.squatter-notices {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 8px;
+    margin: 16px 0;
+}
+.squatter-notices span {
+    min-height: 72px;
+    padding: 10px;
+    border: 2px solid #000;
+    color: #000;
+    background: #ffef5a;
+    box-shadow: 5px 5px 0 #ff3131;
+    font-weight: 900;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+.squatter-notices span:nth-child(even) {
+    color: #b7ffce;
+    background: #000;
+    border-color: #39ff14;
+    box-shadow: 5px 5px 0 #2a0010;
+    transform: rotate(1.8deg);
+}
+.squatter-crawl {
+    display: inline-block;
+    color: #39ff14;
+    font-weight: bold;
+    text-decoration-style: wavy;
+}
+
 .exit-wound-directory {
     position: relative;
     margin: 34px 0;
