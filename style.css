@@ -222,6 +222,77 @@ body.redaction-active .container :is(h1, h2, h3, p, a, button, span, strong, em)
     text-decoration-style: wavy;
 }
 
+.share-sabotage {
+    position: relative;
+    margin: 36px 0;
+    padding: 18px;
+    border: 4px solid #000;
+    color: #fff3c4;
+    background:
+        linear-gradient(135deg, rgba(255,49,49,0.34) 0 14%, transparent 14% 31%, rgba(57,255,20,0.22) 31% 43%, transparent 43%),
+        repeating-linear-gradient(0deg, rgba(0,0,0,0.0) 0 12px, rgba(0,0,0,0.38) 12px 15px),
+        #1f0015;
+    box-shadow: 15px -10px 0 #000, inset 0 0 0 2px #ffef5a, inset 0 0 42px rgba(255,49,49,0.26);
+    transform: rotate(0.65deg);
+}
+.share-sabotage::before {
+    content: "SOCIAL BUTTONS FOUND GUILTY";
+    position: absolute;
+    top: -14px;
+    right: 16px;
+    padding: 2px 8px;
+    color: #000;
+    background: #39ff14;
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    transform: rotate(-2deg);
+}
+.share-sabotage h2 { color: #ffef5a; border-bottom: 2px dashed #ff3131; }
+.sabotage-stamp {
+    display: inline-block;
+    margin: 0 0 10px;
+    padding: 3px 8px;
+    color: #ffef5a;
+    background: #000;
+    border: 1px solid #39ff14;
+    font-weight: bold;
+}
+.curse-sheet {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 9px;
+    margin: 16px 0;
+}
+.curse-sheet span {
+    padding: 12px;
+    min-height: 64px;
+    color: #000;
+    background: #ffef5a;
+    border: 2px dashed #000;
+    box-shadow: 6px 6px 0 #ff3131;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+.curse-sheet span:nth-child(even) {
+    color: #b7ffce;
+    background: #000;
+    border-color: #39ff14;
+    box-shadow: 6px 6px 0 #5b001f;
+    transform: rotate(-1.8deg);
+}
+.curse-packet summary {
+    color: #39ff14;
+    cursor: pointer;
+    font-weight: bold;
+}
+.curse-packet blockquote {
+    margin: 12px 0 0;
+    padding: 12px;
+    border-left: 5px solid #ff3131;
+    background: rgba(0,0,0,0.62);
+}
+
 .exit-wound-directory {
     position: relative;
     margin: 34px 0;
