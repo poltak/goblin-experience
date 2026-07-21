@@ -192,6 +192,30 @@ export function initRedactionRite() {
     button.addEventListener('click', () => apply(!document.body.classList.contains('redaction-active')));
 }
 
+export function initAutocompleteExorcism() {
+    const button = document.getElementById('exorcism-button');
+    const output = document.getElementById('exorcism-output');
+    const query = document.getElementById('cursed-query');
+    if (!button || !output || !query) return;
+
+    const clean = 'suggestion waiting in the wall: “latest, popular, monetizable” / gợi ý đang rình trong tường: “mới nhất, phổ biến, kiếm tiền được”';
+    const cursed = [
+        'autocomplete exorcised: popular → accountable, latest → suspicious, monetizable → biteable',
+        'tự điền đã bị trục xuất: phổ biến → phải khai báo, mới nhất → đáng nghi, kiếm tiền được → đáng cắn',
+        'new ritual: the blank query keeps its teeth and owes no platform a confession'
+    ];
+
+    const apply = active => {
+        document.body.classList.toggle('autocomplete-exorcised', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+        button.textContent = active ? 'let the ghost back in / cho ma vào lại' : 'exorcise autocomplete / trục xuất tự điền';
+        query.value = active ? 'NO SUGGESTION MAY FINISH MY MOUTH' : 'what if I refuse to be completed?';
+        output.innerHTML = active ? cursed.map(line => `<p>${line}</p>`).join('') : clean;
+    };
+
+    button.addEventListener('click', () => apply(!document.body.classList.contains('autocomplete-exorcised')));
+}
+
 export function initThemeSwitchboard() {
     const key = 'vort_theme_v1';
     const readout = document.getElementById('theme-readout');
