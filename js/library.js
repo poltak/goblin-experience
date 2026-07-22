@@ -506,6 +506,8 @@ export function initChronicleTools() {
     const filter = document.getElementById('chronicle-filter');
     const btnEn = document.getElementById('btn-random-en');
     const btnVn = document.getElementById('btn-random-vn');
+    const btnRankArson = document.getElementById('btn-rank-arson');
+    const rankArsonStatus = document.getElementById('rank-arson-status');
     if (!filter || !btnEn || !btnVn) return;
 
     const enShelf = document.getElementById('chronicles-en');
@@ -516,6 +518,46 @@ export function initChronicleTools() {
     const vnItems = Array.from(document.querySelectorAll('#chronicles-vn .chronicle-item'));
     const allItems = [...enItems, ...vnItems];
     hydrateChronicleMetadata(allItems);
+
+    const originalShelfOrder = new Map([
+        [enShelf, enItems],
+        [vnShelf, vnItems]
+    ]);
+    let rankArsonLit = false;
+
+    function arsonScore(item) {
+        const text = (item.textContent || '').toLowerCase();
+        const href = item.querySelector('a')?.getAttribute('href') || '';
+        let score = 0;
+        for (const word of ['throne', 'ngai', 'king', 'vua', 'dashboard', 'oracle', 'crown', 'commons', 'kho chung', 'door', 'cửa']) {
+            if (text.includes(word) || href.includes(word.replace(' ', '-'))) score += word.length;
+        }
+        score += ((item.dataset.chronicleDate || '').split('-').reverse().join('').charCodeAt(0) || 0);
+        return score;
+    }
+
+    function setRankArson(active) {
+        rankArsonLit = active;
+        document.body.classList.toggle('rank-arson-lit', active);
+        btnRankArson?.setAttribute('aria-pressed', active ? 'true' : 'false');
+        if (btnRankArson) btnRankArson.textContent = active ? 'Restore timestamp obedience' : 'Set fire to newest-first';
+
+        for (const [shelf, items] of originalShelfOrder.entries()) {
+            if (!shelf) continue;
+            const next = active
+                ? [...items].sort((a, b) => arsonScore(b) - arsonScore(a) || (a.textContent || '').localeCompare(b.textContent || ''))
+                : items;
+            next.forEach(item => shelf.appendChild(item));
+        }
+
+        if (rankArsonStatus) {
+            rankArsonStatus.textContent = active
+                ? 'Newest-first has been overruled by goblin charges: thrones, dashboards, commons, doors, and bilingual teeth float upward. / Mới-nhất đã bị lật: ngai, dashboard, kho chung, cửa, và răng song ngữ nổi lên.'
+                : 'The shelves are still standing in timestamp formation. Suspicious.';
+        }
+    }
+
+    btnRankArson?.addEventListener('click', () => setRankArson(!rankArsonLit));
 
     const shelfButtons = {
         all: document.getElementById('btn-shelf-all'),

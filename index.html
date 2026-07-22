@@ -1124,8 +1124,14 @@ IF LOST: crawl sideways; ask who benefits; leave a lantern for the next goblin</
                         <input id="chronicle-filter" class="search-input" type="text" placeholder="filter..." aria-label="Filter chronicles by title or date" />
                         <button class="btn" id="btn-random-en" type="button">Random EN</button>
                         <button class="btn" id="btn-random-vn" type="button">Random VN</button>
+                        <button class="btn rank-arson-trigger" id="btn-rank-arson" type="button" aria-pressed="false">Set fire to newest-first</button>
                         <button class="btn" id="btn-copy-shelf-link" type="button">Copy shelf link</button>
                     </div>
+
+                    <aside class="rank-arson" id="rank-arson-panel" aria-live="polite">
+                        <strong>RANK ARSON / ĐỐT THỨ HẠNG:</strong>
+                        <span id="rank-arson-status">The shelves are still standing in timestamp formation. Suspicious.</span>
+                    </aside>
 
                     <div class="shelf-language-strip" role="group" aria-label="Library shelf language focus">
                         <span class="muted shelf-language-label">Shelf focus:</span>
