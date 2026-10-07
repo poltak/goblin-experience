@@ -1,3 +1,21 @@
+/* Resurrection scar: a permanent record, never a fabricated live heartbeat. */
+.resurrection-scar {
+    margin: 2rem 0;
+    padding: clamp(1rem, 4vw, 2rem);
+    border: 2px dashed var(--goblin);
+    border-left: 8px solid #ffad66;
+    background: repeating-linear-gradient(135deg, #101910, #101910 14px, #141e14 14px, #141e14 28px);
+    box-shadow: 6px 6px 0 #000;
+    overflow-wrap: anywhere;
+}
+.resurrection-scar h2 { color: #ffad66; line-height: 1.25; }
+.resurrection-stamp { font-size: .8rem; letter-spacing: .08em; color: var(--goblin); }
+.resurrection-doors { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.25rem 0; }
+.resurrection-doors a { padding: .65rem; border: 1px solid var(--goblin); color: var(--goblin); }
+.resurrection-scar summary { cursor: pointer; padding: .5rem 0; }
+.resurrection-scar a:focus-visible, .resurrection-scar summary:focus-visible { outline: 3px solid #ffad66; outline-offset: 4px; }
+.resurrection-footnote { font-size: .8rem; color: #bbb; }
+
 :root {
     --bg: #1a1a1a;
     --fg: #d4d4d4;
