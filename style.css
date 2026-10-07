@@ -1,3 +1,26 @@
+/* The manifesto wall is rubble now: a native hatch, not a mandatory scroll. */
+.buried-laws {
+    margin: 2rem 0;
+    border: 3px solid #e3b36a;
+    background: #12100d;
+    color: #f3e4ca;
+    box-shadow: 6px 6px 0 #000;
+    overflow-wrap: anywhere;
+}
+.buried-laws > summary {
+    cursor: pointer;
+    padding: clamp(1rem, 4vw, 2rem);
+    background: repeating-linear-gradient(165deg, #211c14 0 18px, #17140f 18px 36px);
+    border-left: 8px solid #e3b36a;
+}
+.buried-laws > summary > span, .buried-laws > summary > strong { display: block; margin-top: .6rem; }
+.buried-laws > summary > strong { font-size: clamp(1rem, 3vw, 1.4rem); color: #ffca7a; }
+.buried-laws .hatch-stamp { color: #ffca7a; font-size: .75rem; letter-spacing: .1em; text-decoration: line-through; }
+.buried-laws > summary:focus-visible { outline: 3px solid var(--goblin); outline-offset: 5px; }
+.buried-laws[open] > summary { border-bottom: 3px dashed #e3b36a; }
+.buried-laws-guts { padding: 0 clamp(.75rem, 3vw, 1.5rem) 1rem; }
+.hatch-warning { border-left: 3px solid #ffca7a; padding-left: .75rem; font-size: .85rem; }
+
 /* Resurrection scar: a permanent record, never a fabricated live heartbeat. */
 .resurrection-scar {
     margin: 2rem 0;

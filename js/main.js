@@ -1,5 +1,5 @@
 import { initDailyLoot, wirePinnedLoot, wireBackpack, renderBackpack, wireScraps } from './mouth.js';
-import { initNavigation, initAddressBarHex, initMisreadEngine, initRedactionRite, initAutocompleteExorcism, initThemeSwitchboard, initGoblinFace } from './ui.js';
+import { initNavigation, initBuriedLaws, initAddressBarHex, initMisreadEngine, initRedactionRite, initAutocompleteExorcism, initThemeSwitchboard, initGoblinFace } from './ui.js';
 import { initAtmospherics } from './atmo.js';
 import { initGoblinWhisperStone } from './whisper.js';
 import { 
@@ -22,6 +22,7 @@ const initializers = [
             });
         }
     }), 'Navigation'],
+    [initBuriedLaws, 'BuriedLaws'],
     [initDailyLoot, 'DailyLoot'],
     [wirePinnedLoot, 'PinnedLoot'],
     [wireBackpack, 'Backpack'],

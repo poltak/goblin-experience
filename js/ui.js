@@ -1,5 +1,22 @@
 import { pickByDay } from './utils.js';
 
+// Buried shards remain addressable, including fragments inside nested hatches.
+export function initBuriedLaws() {
+    const reveal = () => {
+        let id;
+        try { id = decodeURIComponent(window.location.hash.slice(1)); }
+        catch (_) { return; }
+        const target = document.getElementById(id);
+        if (!target || !target.closest('#buried-laws')) return;
+        for (let node = target; node; node = node.parentElement) {
+            if (node.tagName === 'DETAILS') node.open = true;
+        }
+        target.scrollIntoView({ block: 'start' });
+    };
+    window.addEventListener('hashchange', reveal);
+    reveal();
+}
+
 export function initGoblinFace() {
     const face = document.getElementById('goblin-face');
     if (!face) return;
