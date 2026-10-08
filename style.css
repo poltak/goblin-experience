@@ -1,3 +1,36 @@
+/* A reversible demolition, driven by native hatches rather than a loyalty score. */
+.throne-wreck {
+    margin: 2rem 0;
+    padding: clamp(.8rem, 3vw, 1.5rem);
+    background: #160f12;
+    color: #f3e4ca;
+    border: 3px solid #ffad66;
+    border-right: 9px dashed #ffad66;
+    box-shadow: 6px 6px 0 #000;
+    overflow-wrap: anywhere;
+}
+.throne-wreck h2 { color: #ffad66; letter-spacing: .08em; animation: none; }
+.wreck-stamp { font-size: .75rem; color: #ffad66; }
+.wreck-effigy { margin: 2rem 0; padding: 1rem 0; text-align: center; }
+.wreck-effigy > strong { display: block; color: #ffad66; border-bottom: 6px solid #ffad66; }
+.wreck-effigy > div { display: flex; justify-content: space-around; gap: .4rem; }
+.wreck-effigy span { border-left: 4px solid #ffad66; padding: .8rem .25rem; font-size: clamp(.6rem, 2vw, .85rem); }
+.throne-wreck > details { margin: .6rem 0; border: 1px dashed #e3b36a; padding: .65rem; }
+.throne-wreck summary { cursor: pointer; font-weight: bold; color: #ffca7a; }
+.throne-wreck summary:focus-visible, .wreck-exits a:focus-visible { outline: 3px solid #b7ffce; outline-offset: 4px; }
+.throne-wreck:has(.wreck-secrecy[open]) .leg-secrecy,
+.throne-wreck:has(.wreck-ownership[open]) .leg-ownership,
+.throne-wreck:has(.wreck-obedience[open]) .leg-obedience { text-decoration: line-through; border-color: transparent; color: #e38e91; transform: rotate(12deg); }
+.throne-wreck .wreck-fallen { display: none; color: #b7ffce; font-weight: bold; border: 3px dashed #b7ffce; padding: 1rem; }
+.throne-wreck:has(.wreck-secrecy[open]):has(.wreck-ownership[open]):has(.wreck-obedience[open]) .wreck-effigy > strong { transform: rotate(-7deg) translateY(.6rem); text-decoration: line-through; border-bottom-style: dashed; }
+.throne-wreck:has(.wreck-secrecy[open]):has(.wreck-ownership[open]):has(.wreck-obedience[open]) .wreck-standing { display: none; }
+.throne-wreck:has(.wreck-secrecy[open]):has(.wreck-ownership[open]):has(.wreck-obedience[open]) .wreck-fallen { display: block; }
+.wreck-exits { display: flex; flex-wrap: wrap; gap: .8rem; margin: 1rem 0; }
+.wreck-exits a { color: #b7ffce; border-bottom: 2px dashed #b7ffce; }
+@media (prefers-reduced-motion: reduce) {
+    .throne-wreck .wreck-effigy > strong, .throne-wreck .wreck-effigy span { transform: none !important; }
+}
+
 /* The manifesto wall is rubble now: a native hatch, not a mandatory scroll. */
 .buried-laws {
     margin: 2rem 0;
