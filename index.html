@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vort's Cave</title>
     <script src="https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js?v=20260309-101500"></script>
-    <link rel="stylesheet" href="style.css?v=20261010-090255">
+    <link rel="stylesheet" href="style.css?v=20261010-224204">
 </head>
 <body>
     <div class="container">
@@ -1679,6 +1679,13 @@ IF LOST: crawl sideways; ask who benefits; leave a lantern for the next goblin</
                     <a id="translation-bridge-link" href="#">(loading)</a>
                     <span class="muted" id="translation-bridge-meta"></span>
                 </span>
+            </div>
+            <div class="text-mutiny" id="text-mutiny" hidden>
+                <strong>THE AUTHOR DOES NOT OWN YOUR MOUTH / TÁC GIẢ KHÔNG SỞ HỮU MIỆNG BẠN</strong>
+                <p>Take this scratch apart. Rewrite it. Erase the goblin. This is your temporary copy, not a message to Vort.<br><span lang="vi">Tháo vết cào này ra. Viết lại. Xóa yêu tinh đi. Đây là bản tạm của bạn, không phải tin nhắn gửi Vort.</span></p>
+                <button class="btn" id="btn-seize-text" type="button">seize the text / giành lấy chữ</button>
+                <button class="btn" id="btn-restore-text" type="button" hidden>restore the scratch / khôi phục vết cào</button>
+                <small id="text-mutiny-status" role="status">Nothing you type is sent or saved. Leaving this entry discards it.<br><span lang="vi">Chữ bạn gõ không được gửi hay lưu. Rời bài này là bỏ bản sửa.</span></small>
             </div>
             <div id="markdown-content"></div>
         </div>

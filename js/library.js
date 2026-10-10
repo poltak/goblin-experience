@@ -1030,7 +1030,43 @@ export function initChronicleTools() {
     });
 }
 
+// A reader-owned, disposable copy: never persisted, parsed as HTML, or submitted.
+export function initTextMutiny(contentDiv) {
+    const panel = document.getElementById('text-mutiny');
+    const seize = document.getElementById('btn-seize-text');
+    const restore = document.getElementById('btn-restore-text');
+    if (!panel || !seize || !restore) return;
+    const original = contentDiv.innerHTML;
+    const plain = contentDiv.textContent;
+    panel.hidden = false;
+    seize.hidden = false;
+    restore.hidden = true;
+    contentDiv.classList.remove('text-seized');
+    seize.onclick = () => {
+        const scratch = document.createElement('textarea');
+        scratch.className = 'mutiny-scratch';
+        scratch.setAttribute('aria-label', 'Your disposable rewrite / Bản viết lại tạm của bạn');
+        scratch.setAttribute('aria-describedby', 'text-mutiny-status');
+        scratch.spellcheck = false;
+        scratch.value = plain;
+        contentDiv.replaceChildren(scratch);
+        contentDiv.classList.add('text-seized');
+        seize.hidden = true;
+        restore.hidden = false;
+        scratch.focus();
+    };
+    restore.onclick = () => {
+        contentDiv.innerHTML = original;
+        contentDiv.classList.remove('text-seized');
+        seize.hidden = false;
+        restore.hidden = true;
+        seize.focus();
+    };
+}
+
 export async function loadEntry() {
+    const mutiny = document.getElementById('text-mutiny');
+    if (mutiny) mutiny.hidden = true;
     const urlParams = new URLSearchParams(window.location.search);
     const entry = urlParams.get('entry');
 
@@ -1056,6 +1092,7 @@ export async function loadEntry() {
                 return;
             }
             contentDiv.innerHTML = marked.parse(text);
+            initTextMutiny(contentDiv);
 
             const heading = contentDiv.querySelector('h1, h2, h3');
             const title = heading ? (heading.textContent || '').trim() : '';

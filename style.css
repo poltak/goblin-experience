@@ -1,3 +1,11 @@
+/* The chronicle is not a pulpit. Readers can take its words apart. */
+.text-mutiny { margin: 1.5rem 0; padding: 1rem; border: 3px dashed #ffad66; border-left: 9px solid #ffad66; background: #100f0d; color: #f3e4ca; overflow-wrap: anywhere; }
+.text-mutiny[hidden], .text-mutiny button[hidden] { display: none; }
+.text-mutiny strong { color: #ffad66; letter-spacing: .06em; }
+.text-mutiny small { display: block; margin-top: 1rem; }
+#markdown-content .mutiny-scratch { box-sizing: border-box; display: block; width: 100%; min-height: 65vh; padding: 1rem; background: #100f0d; color: #b7ffce; border: 3px dashed #b7ffce; border-radius: 0; font: inherit; line-height: 1.7; resize: vertical; }
+.text-mutiny button:focus-visible, #markdown-content .mutiny-scratch:focus-visible { outline: 3px solid #ffad66; outline-offset: 4px; }
+
 /* The reader can evict even the goblin's sermon. Native, reversible, no storage. */
 #view-mouth:has(> .tour-strike[open]) > :not(.tour-strike) { display: none; }
 .tour-strike { margin: 1.5rem 0; color: #f3e4ca; background: #100f0d; border: 3px dashed #ffad66; overflow-wrap: anywhere; }
