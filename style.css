@@ -1,3 +1,19 @@
+/* The reader can evict even the goblin's sermon. Native, reversible, no storage. */
+#view-mouth:has(> .tour-strike[open]) > :not(.tour-strike) { display: none; }
+.tour-strike { margin: 1.5rem 0; color: #f3e4ca; background: #100f0d; border: 3px dashed #ffad66; overflow-wrap: anywhere; }
+.tour-strike > summary { cursor: pointer; padding: 1rem; color: #ffad66; font-weight: bold; }
+.tour-strike > summary > span { display: block; margin-top: .6rem; color: #f3e4ca; font-size: .8rem; font-weight: normal; }
+.tour-strike[open] > summary { border-bottom: 3px dashed #ffad66; text-decoration: line-through; }
+.strike-room { padding: clamp(1rem, 4vw, 2rem); border-left: 9px solid #ffad66; }
+.strike-room .strike-scar { font-size: .75rem; letter-spacing: .12em; color: #ffad66; }
+.strike-room h2 { animation: none; color: #f3e4ca; }
+.strike-room nav { display: grid; gap: 1rem; margin: 2rem 0; }
+.strike-room nav a { display: block; padding: 1rem; color: #b7ffce; border: 2px solid #b7ffce; border-right: 8px solid #b7ffce; }
+.strike-room nav a:nth-child(2) { margin-left: min(2rem, 6vw); border-style: dashed; }
+.strike-room nav a:nth-child(3) { margin-right: min(2rem, 6vw); }
+.strike-room nav a span { display: block; margin-top: .4rem; font-size: .8rem; }
+.tour-strike > summary:focus-visible, .strike-room a:focus-visible { outline: 3px solid #b7ffce; outline-offset: 4px; }
+
 /* A reversible demolition, driven by native hatches rather than a loyalty score. */
 .throne-wreck {
     margin: 2rem 0;
