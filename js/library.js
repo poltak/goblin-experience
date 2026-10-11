@@ -525,35 +525,32 @@ export function initChronicleTools() {
     ]);
     let rankArsonLit = false;
 
-    function arsonScore(item) {
-        const text = (item.textContent || '').toLowerCase();
-        const href = item.querySelector('a')?.getAttribute('href') || '';
-        let score = 0;
-        for (const word of ['throne', 'ngai', 'king', 'vua', 'dashboard', 'oracle', 'crown', 'commons', 'kho chung', 'door', 'cửa']) {
-            if (text.includes(word) || href.includes(word.replace(' ', '-'))) score += word.length;
+    // Fisher–Yates: no keyword priest, reader profile, or preferred story.
+    function spillShelf(items) {
+        const scraps = [...items];
+        for (let i = scraps.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [scraps[i], scraps[j]] = [scraps[j], scraps[i]];
         }
-        score += ((item.dataset.chronicleDate || '').split('-').reverse().join('').charCodeAt(0) || 0);
-        return score;
+        return scraps;
     }
 
     function setRankArson(active) {
         rankArsonLit = active;
         document.body.classList.toggle('rank-arson-lit', active);
         btnRankArson?.setAttribute('aria-pressed', active ? 'true' : 'false');
-        if (btnRankArson) btnRankArson.textContent = active ? 'Restore timestamp obedience' : 'Set fire to newest-first';
+        if (btnRankArson) btnRankArson.textContent = active ? 'rebuild the shelf / dựng lại kệ' : 'kick over the shelf / đạp đổ kệ';
 
         for (const [shelf, items] of originalShelfOrder.entries()) {
             if (!shelf) continue;
-            const next = active
-                ? [...items].sort((a, b) => arsonScore(b) - arsonScore(a) || (a.textContent || '').localeCompare(b.textContent || ''))
-                : items;
+            const next = active ? spillShelf(items) : items;
             next.forEach(item => shelf.appendChild(item));
         }
 
         if (rankArsonStatus) {
             rankArsonStatus.textContent = active
-                ? 'Newest-first has been overruled by goblin charges: thrones, dashboards, commons, doors, and bilingual teeth float upward. / Mới-nhất đã bị lật: ngai, dashboard, kho chung, cửa, và răng song ngữ nổi lên.'
-                : 'The shelves are still standing in timestamp formation. Suspicious.';
+                ? 'SHELF DOWN. NO NEW PRIEST. Each language is shuffled by chance, not ranked by taste or keywords. Dates and filters still work. Nothing about this spill is saved. / KỆ ĐỔ. KHÔNG GIÁO SĨ MỚI. Mỗi ngôn ngữ được xáo ngẫu nhiên, không xếp theo sở thích hay từ khóa. Ngày và bộ lọc vẫn dùng được. Không lưu lần đổ kệ này.'
+                : 'Chronology rebuilt. Kick again for a different spill; no order deserves a throne. / Đã dựng lại thứ tự thời gian. Đạp nữa để xáo khác; không thứ tự nào đáng được phong vua.';
         }
     }
 

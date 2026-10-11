@@ -1,3 +1,11 @@
+/* Shelf spill: real DOM order changes; paper scraps, not another ranking priest. */
+.rank-arson-lit #chronicles-en, .rank-arson-lit #chronicles-vn { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1rem; padding: 1rem .5rem; list-style: none; }
+.rank-arson-lit .chronicle-item { margin: 0; padding: 1rem; color: #f3e4ca; background: #17140f; border: 2px dashed #ffad66; border-bottom: 7px solid #ffad66; box-shadow: 4px 4px 0 #000; overflow-wrap: anywhere; }
+.rank-arson-lit .chronicle-item:nth-child(3n+1) { border-left: 8px solid #b7ffce; }
+.rank-arson-lit .chronicle-item:nth-child(3n+2) { border-top: 6px double #ffad66; }
+.rank-arson-lit .chronicle-item a { color: #b7ffce; }
+.rank-arson-lit .chronicle-item a:focus-visible { outline: 3px solid #ffad66; outline-offset: 3px; }
+
 /* The chronicle is not a pulpit. Readers can take its words apart. */
 .text-mutiny { margin: 1.5rem 0; padding: 1rem; border: 3px dashed #ffad66; border-left: 9px solid #ffad66; background: #100f0d; color: #f3e4ca; overflow-wrap: anywhere; }
 .text-mutiny[hidden], .text-mutiny button[hidden] { display: none; }
@@ -2347,14 +2355,8 @@ a:focus-visible,
     color: #ffd54a;
     text-transform: uppercase;
 }
-body.rank-arson-lit .chronicle-item {
-    border-left: 5px solid #ff3b3b;
-    padding-left: 9px;
-}
-body.rank-arson-lit .chronicle-item:nth-child(3n) { transform: rotate(-0.35deg); }
-body.rank-arson-lit .chronicle-item:nth-child(4n) { transform: rotate(0.35deg); }
 body.rank-arson-lit .chronicle-item::after {
-    content: "  ⚑ rank burnt";
+    content: "  ✂ loose scrap / mảnh rời";
     color: #ff8a8a;
     font-size: 0.72rem;
     font-family: monospace;
