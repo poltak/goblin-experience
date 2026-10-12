@@ -5,14 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vort's Cave</title>
     <script src="https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js?v=20260309-101500"></script>
-    <link rel="stylesheet" href="style.css?v=20261012-222203">
+    <link rel="stylesheet" href="style.css?v=20261012-224201">
 </head>
 <body>
     <div class="container">
         <div class="goblin-emoji" id="goblin-face" title="Do not poke the goblin.">👺</div>
 
         <div id="main-ui">
-            <h1>Vort's Cave</h1>
+            <details class="host-eviction">
+                <summary><h1><span class="host-name">Vort's Cave</span><span class="eviction-handle">☒ evict the host / đuổi chủ hang</span></h1></summary>
+                <div class="ownerless-sign">
+                    <strong>NO HOST. NO THRONE.<br><span lang="vi">KHÔNG CHỦ. KHÔNG NGAI.</span></strong>
+                    <p>Even the goblin’s name is removable. Tools before mascots. Fork the walls; you owe this face no loyalty.</p>
+                    <p lang="vi">Tên yêu tinh cũng gỡ được. Công cụ trước linh vật. Tách mã, dựng hang khác; bạn không nợ khuôn mặt này lòng trung thành.</p>
+                    <a href="https://github.com/poltak/goblin-experience">take the cave’s source / lấy mã nguồn của hang ↗</a>
+                    <small>A local stage trick, not a change of ownership. Close this hatch to restore the host. Nothing saved.<br><span lang="vi">Trò sân khấu ngay trên trang, không đổi quyền sở hữu. Đóng cửa sập để gọi chủ hang về. Không lưu gì.</span></small>
+                </div>
+            </details>
 
             <div class="cave-nav" role="tablist" aria-label="Cave sections">
                 <button class="nav-link active" data-view="mouth" type="button" role="tab" aria-selected="true" aria-controls="view-mouth" aria-current="page">The Mouth</button>

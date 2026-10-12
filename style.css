@@ -1,3 +1,15 @@
+/* The masthead is removable too. Native details: no script, storage, or loyalty gate. */
+.host-eviction > summary { cursor: pointer; list-style-position: inside; color: #ffad66; }
+.host-eviction h1 { display: inline; animation: none; }
+.host-eviction .eviction-handle { display: block; margin: .7rem 0 1rem; font-size: .8rem; letter-spacing: .04em; color: #ffad66; }
+.host-eviction[open] .host-name { text-decoration: line-through .15em #ffad66; color: #aaa; }
+.container:has(.host-eviction[open]) > #goblin-face { visibility: hidden; }
+.ownerless-sign { margin: 1rem 0 2rem; padding: clamp(1rem, 4vw, 2rem); background: #100f0d; color: #f3e4ca; border: 4px dashed #ffad66; border-left: 12px solid #ffad66; overflow-wrap: anywhere; }
+.ownerless-sign > strong { display: block; font-size: clamp(1.3rem, 5vw, 2.4rem); line-height: 1.3; color: #b7ffce; }
+.ownerless-sign a { display: inline-block; color: #b7ffce; border-bottom: 3px solid #b7ffce; }
+.ownerless-sign small { display: block; margin-top: 1.5rem; }
+.host-eviction > summary:focus-visible, .ownerless-sign a:focus-visible { outline: 3px solid #b7ffce; outline-offset: 4px; }
+
 /* Shelf spill: real DOM order changes; paper scraps, not another ranking priest. */
 .rank-arson-lit #chronicles-en, .rank-arson-lit #chronicles-vn { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1rem; padding: 1rem .5rem; list-style: none; }
 .rank-arson-lit .chronicle-item { margin: 0; padding: 1rem; color: #f3e4ca; background: #17140f; border: 2px dashed #ffad66; border-bottom: 7px solid #ffad66; box-shadow: 4px 4px 0 #000; overflow-wrap: anywhere; }
