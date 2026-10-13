@@ -3022,36 +3022,31 @@ canvas:focus {
     opacity: 0.8;
 }
 
-/* Cave Navigation */
-.cave-nav {
-    display: flex;
-    gap: 15px;
-    margin: 20px 0;
-    border-bottom: 1px solid var(--goblin);
-    padding-bottom: 10px;
-}
-.nav-link {
-    cursor: pointer;
-    padding: 5px 10px;
-    border: 1px solid transparent;
-    background: transparent;
-    color: var(--goblin);
-    font: inherit;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    opacity: 0.6;
-}
-.nav-link:hover { opacity: 1; border-color: var(--goblin); }
-.nav-link:focus-visible {
-    opacity: 1;
-    outline: 2px solid #fff;
-    outline-offset: 2px;
-    border-color: var(--goblin);
-}
-.nav-link.active {
-    opacity: 1;
-    background: var(--goblin);
-    color: var(--bg);
+/* Tear out the tab rail. These are hand-cut tunnels, not a conversion funnel. */
+.tunnel-map { margin: 2rem 0; padding: clamp(.75rem, 3vw, 1.5rem); border: 3px dashed #ffad66; border-left: 10px solid #ffad66; background: #100f0d; color: #f3e4ca; overflow-wrap: anywhere; }
+.map-scar { margin-top: 0; color: #ffad66; font-size: .8rem; letter-spacing: .06em; }
+.map-scar s { color: #aaa; text-decoration-thickness: 3px; }
+.cave-nav { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .8rem; margin: 1.5rem 0; }
+.nav-link { grid-column: 1 / 6; cursor: pointer; padding: 1rem; border: 2px solid #b7ffce; border-left: 9px solid #b7ffce; background: #17140f; color: #b7ffce; font: inherit; text-align: left; overflow-wrap: anywhere; box-shadow: 4px 4px 0 #000; }
+.nav-link:nth-child(2) { grid-column: 2 / 7; border-style: dashed; }
+.nav-link:nth-child(3) { grid-column: 1 / 5; border-bottom: 7px double #b7ffce; }
+.nav-link strong, .nav-link span, .nav-link small { display: block; }
+.nav-link strong { font-size: clamp(1rem, 3vw, 1.3rem); }
+.nav-link small { margin-top: .5rem; font-size: .65rem; letter-spacing: .08em; }
+.nav-link:hover { border-color: #ffad66; }
+.nav-link.active { background: #b7ffce; color: #100f0d; border-color: #b7ffce; }
+.nav-link.active small::before { content: '× '; }
+.nav-link:focus-visible, .map-hole summary:focus-visible, .map-hole a:focus-visible { outline: 3px solid #ffad66; outline-offset: 4px; }
+.map-hole { border-top: 2px dotted #ffad66; padding-top: .8rem; }
+.map-hole summary { cursor: pointer; color: #ffad66; font-size: .8rem; }
+.map-hole[open] > summary { text-decoration: line-through; }
+.map-hole > div { padding: 1rem; margin-top: 1rem; border: 3px double #b7ffce; border-right: 9px solid #b7ffce; }
+.map-hole strong { color: #b7ffce; }
+.map-hole a { display: block; margin: .8rem 0; color: #b7ffce; }
+@media (max-width: 480px) {
+    .nav-link, .nav-link:nth-child(2), .nav-link:nth-child(3) { grid-column: 1 / -1; }
+    .nav-link:nth-child(2) { margin-left: .7rem; }
+    .nav-link:nth-child(3) { margin-right: .7rem; }
 }
 
 .view-section { display: none; }

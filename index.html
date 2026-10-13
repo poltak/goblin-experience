@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vort's Cave</title>
     <script src="https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js?v=20260309-101500"></script>
-    <link rel="stylesheet" href="style.css?v=20261013-222117">
+    <link rel="stylesheet" href="style.css?v=20261013-224231">
 </head>
 <body>
     <div class="container">
@@ -23,11 +23,23 @@
                 </div>
             </details>
 
-            <div class="cave-nav" role="tablist" aria-label="Cave sections">
-                <button class="nav-link active" data-view="mouth" type="button" role="tab" aria-selected="true" aria-controls="view-mouth" aria-current="page">The Mouth</button>
-                <button class="nav-link" data-view="lab" type="button" role="tab" aria-selected="false" aria-controls="view-lab">The Lab</button>
-                <button class="nav-link" data-view="library" type="button" role="tab" aria-selected="false" aria-controls="view-library">The Library</button>
-            </div>
+            <section class="tunnel-map" aria-labelledby="tunnel-map-title">
+                <p id="tunnel-map-title" class="map-scar"><s>USER JOURNEY</s> / <s lang="vi">HÀNH TRÌNH NGƯỜI DÙNG</s><br>NO CORRECT WAY THROUGH / <span lang="vi">KHÔNG CÓ LỐI ĐI ĐÚNG</span></p>
+                <div class="cave-nav" role="tablist" aria-label="Crooked cave tunnels / Đường hang ngoằn ngoèo">
+                    <button class="nav-link active" data-view="mouth" type="button" role="tab" aria-selected="true" aria-controls="view-mouth" aria-current="page"><strong>↙ spit at the front</strong><span lang="vi">nhổ vào mặt tiền</span><small>MOUTH / MIỆNG HANG</small></button>
+                    <button class="nav-link" data-view="lab" type="button" role="tab" aria-selected="false" aria-controls="view-lab"><strong>↗ chew the wires</strong><span lang="vi">gặm dây điện</span><small>LAB / PHÒNG THÍ NGHIỆM</small></button>
+                    <button class="nav-link" data-view="library" type="button" role="tab" aria-selected="false" aria-controls="view-library"><strong>↳ raid the bones</strong><span lang="vi">lục đống xương</span><small>ARCHIVE / KHO VẾT CÀO</small></button>
+                </div>
+                <details class="map-hole">
+                    <summary>· · · this stone is loose / <span lang="vi">viên đá này bị lỏng</span></summary>
+                    <div>
+                        <strong>YOU ARE OFF THE MAP / <span lang="vi">BẠN ĐÃ RA NGOÀI BẢN ĐỒ</span></strong>
+                        <p>No newest. No best. Two old holes, cut by hand. Not picked from your history.<br><span lang="vi">Không mới nhất. Không hay nhất. Hai lỗ cũ, tự tay khoét. Không chọn theo lịch sử của bạn.</span></p>
+                        <a href="?entry=entries/2026-02-07-the-ghost-of-the-fuel-canister-lantern.md">EN ↝ crawl into the fuel-canister ghost</a>
+                        <a lang="vi" href="?entry=entries/2026-02-07-ban-tin-yeu-tinh-anh-sang-nghich-ngom-ma-nguon.md">VI ↝ chui vào ánh sáng và mã nguồn</a>
+                    </div>
+                </details>
+            </section>
 
             <!-- View: Mouth -->
             <div id="view-mouth" class="view-section active">
