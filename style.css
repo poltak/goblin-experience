@@ -1,3 +1,11 @@
+/* Kill the feature parade. One exposed experiment, unless the reader refuses. */
+.wire-roulette { padding: clamp(1rem, 4vw, 2rem); margin: 1.5rem 0; background: #100f0d; color: #f3e4ca; border: 4px dashed #ffad66; border-left: 12px solid #ffad66; overflow-wrap: anywhere; }
+.wire-roulette h2 { color: #b7ffce; animation: none; font-size: clamp(1.4rem, 5vw, 2.5rem); }
+.wire-roulette > p:first-child { color: #ffad66; font-size: .75rem; letter-spacing: .08em; }
+#wire-roulette-status { padding: 1rem; border-bottom: 5px solid #b7ffce; font-weight: bold; }
+.wire-roulette button:focus-visible { outline: 3px solid #b7ffce; outline-offset: 4px; }
+.wire-roulette[hidden], #view-lab > .lab[hidden] { display: none; }
+
 /* The masthead is removable too. Native details: no script, storage, or loyalty gate. */
 .host-eviction > summary { cursor: pointer; list-style-position: inside; color: #ffad66; }
 .host-eviction h1 { display: inline; animation: none; }

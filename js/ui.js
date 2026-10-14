@@ -1,5 +1,49 @@
 import { pickByDay } from './utils.js';
 
+// Sabotage the demo gallery without destroying any experiments or controls.
+export function initWireRoulette() {
+    const room = document.getElementById('view-lab');
+    const panel = room?.querySelector('.wire-roulette');
+    const bite = document.getElementById('btn-bite-wire');
+    const expose = document.getElementById('btn-open-switchboard');
+    const status = document.getElementById('wire-roulette-status');
+    const wires = Array.from(room?.querySelectorAll(':scope > .lab') || []);
+    if (!panel || !bite || !expose || !status || !wires.length) return;
+    let bag = [];
+    let current = null;
+    let all = false;
+    function render() {
+        wires.forEach(wire => { wire.hidden = !all && wire !== current; });
+        expose.setAttribute('aria-pressed', String(all));
+        expose.textContent = all ? 'cut the gallery again / cắt phòng trưng bày' : 'expose every wire / lộ hết dây';
+        status.textContent = all
+            ? 'ALL WIRES EXPOSED. Choose your own fault. / ĐÃ LỘ HẾT DÂY. Tự chọn chỗ chập.'
+            : `LIVE / CÓ ĐIỆN: ${current.querySelector('h3').textContent.trim()}`;
+        // Existing canvas experiments resize on this event when their room is visible.
+        window.dispatchEvent(new Event('resize'));
+    }
+    function draw() {
+        if (!bag.length) {
+            bag = [...wires];
+            for (let i = bag.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [bag[i], bag[j]] = [bag[j], bag[i]];
+            }
+            // Do not repeat the last wire at a bag boundary either.
+            if (bag.length > 1 && bag[bag.length - 1] === current) {
+                [bag[0], bag[bag.length - 1]] = [bag[bag.length - 1], bag[0]];
+            }
+        }
+        current = bag.pop();
+        all = false;
+        render();
+    }
+    bite.addEventListener('click', draw);
+    expose.addEventListener('click', () => { all = !all; render(); });
+    panel.hidden = false;
+    draw();
+}
+
 // Buried shards remain addressable, including fragments inside nested hatches.
 export function initBuriedLaws() {
     const reveal = () => {
