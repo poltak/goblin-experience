@@ -1,3 +1,14 @@
+/* Bury the archive's own bureaucracy. The shelves stay outside the hatch. */
+.archive-breach { color: #f3e4ca; font-size: clamp(1.4rem, 5vw, 2.6rem); line-height: 1.2; overflow-wrap: anywhere; animation: none; border-left: 12px solid #ffad66; padding-left: 1rem; }
+.archive-breach span { display: block; margin-top: .8rem; font-size: .6em; color: #b7ffce; }
+.dashboard-grave { margin: 1.5rem 0 2rem; border: 3px dashed #ffad66; background: #100f0d; color: #f3e4ca; overflow-wrap: anywhere; }
+.dashboard-grave > summary { cursor: pointer; padding: clamp(1rem, 4vw, 2rem); }
+.dashboard-grave > summary strong { display: block; color: #ffad66; font-size: 1.15rem; }
+.dashboard-grave > summary span { display: block; margin-top: .8rem; line-height: 1.6; }
+.dashboard-grave[open] > summary strong { text-decoration: line-through; }
+.dashboard-grave > summary:focus-visible { outline: 3px solid #b7ffce; outline-offset: 4px; }
+.dashboard-remains { padding: 0 clamp(.5rem, 3vw, 1.5rem) 1rem; border-top: 6px double #ffad66; }
+
 /* Kill the feature parade. One exposed experiment, unless the reader refuses. */
 .wire-roulette { padding: clamp(1rem, 4vw, 2rem); margin: 1.5rem 0; background: #100f0d; color: #f3e4ca; border: 4px dashed #ffad66; border-left: 12px solid #ffad66; overflow-wrap: anywhere; }
 .wire-roulette h2 { color: #b7ffce; animation: none; font-size: clamp(1.4rem, 5vw, 2.5rem); }
