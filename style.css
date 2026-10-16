@@ -3062,6 +3062,23 @@ canvas:focus {
 .map-hole > div { padding: 1rem; margin-top: 1rem; border: 3px double #b7ffce; border-right: 9px solid #b7ffce; }
 .map-hole strong { color: #b7ffce; }
 .map-hole a { display: block; margin: .8rem 0; color: #b7ffce; }
+
+/* Pulling the loose stone cuts the entire front interface. Native and reversible. */
+.container:has(.map-hole[open]) > #goblin-face,
+.container:has(.map-hole[open]) > .stats,
+#main-ui:has(.map-hole[open]) > :not(.tunnel-map),
+.tunnel-map:has(.map-hole[open]) > :not(.map-hole) { display: none; }
+.tunnel-map:has(.map-hole[open]) { background: #080807; border: 0; padding: 0; }
+.map-hole[open] { border-top: 0; }
+.map-hole > .off-map-pit { min-height: 70vh; padding: clamp(1rem, 5vw, 3rem); border: 0; border-left: 2px dotted #b7ffce; background: #080807; color: #f3e4ca; }
+.off-map-pit .pit-cut { margin: 0 0 clamp(3rem, 12vh, 7rem); color: #ffad66; font-size: .8rem; letter-spacing: .14em; }
+.off-map-pit h2 { animation: none; color: #f3e4ca; font-size: clamp(1.6rem, 6vw, 3rem); line-height: 1.2; }
+.off-map-pit nav { margin: 3rem 0; }
+.off-map-pit nav a { padding: .8rem .25rem; border-bottom: 1px dashed #b7ffce; }
+.off-map-pit nav a:nth-child(2) { margin-left: 8%; }
+.off-map-pit nav a:nth-child(3) { margin-right: 8%; }
+.off-map-pit nav a span { display: block; white-space: pre; font-size: 1.5rem; }
+.off-map-pit small { display: block; line-height: 1.7; }
 @media (max-width: 480px) {
     .nav-link, .nav-link:nth-child(2), .nav-link:nth-child(3) { grid-column: 1 / -1; }
     .nav-link:nth-child(2) { margin-left: .7rem; }
