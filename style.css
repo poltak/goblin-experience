@@ -53,7 +53,11 @@
 .tour-strike[open] > summary { border-bottom: 3px dashed #ffad66; text-decoration: line-through; }
 .strike-room { padding: clamp(1rem, 4vw, 2rem); border-left: 9px solid #ffad66; }
 .strike-room .strike-scar { font-size: .75rem; letter-spacing: .12em; color: #ffad66; }
-.strike-room h2 { animation: none; color: #f3e4ca; }
+.strike-room h2 { animation: none; color: #f3e4ca; font-size: clamp(2rem, 8vw, 4.5rem); line-height: 1.05; max-width: 12ch; border-bottom: 8px double #ffad66; padding-bottom: 1rem; }
+/* The strike is the entrance now, not a bonus plaque behind the tour. */
+.tour-strike[open] .strike-room nav a { border-radius: 0; clip-path: polygon(0 4%, 96% 0, 100% 89%, 3% 100%); padding: 1.5rem; background: #202319; }
+.tour-strike[open] .strike-room nav a:nth-child(2) { clip-path: polygon(4% 0, 100% 8%, 96% 100%, 0 91%); }
+.tour-strike[open] .strike-room nav a:focus-visible { clip-path: none; }
 .strike-room nav { display: grid; gap: 1rem; margin: 2rem 0; }
 .strike-room nav a { display: block; padding: 1rem; color: #b7ffce; border: 2px solid #b7ffce; border-right: 8px solid #b7ffce; }
 .strike-room nav a:nth-child(2) { margin-left: min(2rem, 6vw); border-style: dashed; }
