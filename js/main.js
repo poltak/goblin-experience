@@ -1,5 +1,5 @@
 import { initDailyLoot, wirePinnedLoot, wireBackpack, renderBackpack, wireScraps } from './mouth.js';
-import { initWireRoulette, initNavigation, initBuriedLaws, initAddressBarHex, initMisreadEngine, initRedactionRite, initAutocompleteExorcism, initThemeSwitchboard, initGoblinFace } from './ui.js';
+import { initWallDefacement, initWireRoulette, initNavigation, initBuriedLaws, initAddressBarHex, initMisreadEngine, initRedactionRite, initAutocompleteExorcism, initThemeSwitchboard, initGoblinFace } from './ui.js';
 import { initAtmospherics } from './atmo.js';
 import { initGoblinWhisperStone } from './whisper.js';
 import { 
@@ -10,6 +10,7 @@ import {
 import { initChronicleTools, loadEntry } from './library.js';
 
 const initializers = [
+    [initWallDefacement, 'WallDefacement'],
     [initWireRoulette, 'WireRoulette'],
     [() => initNavigation(viewId => {
         if (viewId === 'lab') {

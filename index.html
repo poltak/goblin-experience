@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vort's Cave</title>
     <script src="https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js?v=20260309-101500"></script>
-    <link rel="stylesheet" href="style.css?v=20261018-222116">
+    <link rel="stylesheet" href="style.css?v=20261018-224135">
 </head>
 <body>
     <div class="container">
@@ -53,8 +53,21 @@
                     <summary>☒ the front wall is rubble / mặt tiền đã thành gạch vụn <span>Close this hatch to excavate the old front page. The tour is optional; the wreckage is the entrance.<br><span lang="vi">Đóng cửa sập để đào lại trang chủ cũ. Không bắt đi tour; lối vào nằm ngay trong đống đổ nát.</span></span></summary>
                     <div class="strike-room">
                         <p class="strike-scar">FRONT PAGE ON STRIKE / TRANG CHỦ ĐÌNH CÔNG</p>
-                        <h2>No tour. Three cracks. Your claws.</h2>
-                        <p lang="vi">Không tour. Ba khe. Móng vuốt của bạn.</p>
+                        <h2 id="front-wall-en">No tour. Three cracks. Your claws.</h2>
+                        <p id="front-wall-vi" lang="vi">Không tour. Ba khe. Móng vuốt của bạn.</p>
+                        <details class="wall-defacement" id="wall-defacement" hidden>
+                            <summary>╳ paint over the goblin / sơn đè lên yêu tinh</summary>
+                            <form id="wall-paint-form" aria-describedby="wall-paint-note">
+                                <label for="wall-paint-en">Your wall, not my sermon / Tường của bạn, không phải bài giảng của tôi</label>
+                                <input id="wall-paint-en" type="text" maxlength="120" placeholder="Disagree here. / Cãi ở đây." autocomplete="off">
+                                <label for="wall-paint-vi">A second tongue, if you want one / Thêm một thứ tiếng, nếu muốn</label>
+                                <input id="wall-paint-vi" type="text" maxlength="120" lang="vi" autocomplete="off">
+                                <button class="btn" type="submit">overwrite the oracle / viết đè lên nhà tiên tri</button>
+                                <button class="btn" type="reset">wash this wall / rửa tường này</button>
+                            </form>
+                            <p id="wall-paint-note">Local paint, not a public guestbook. No upload, no saving; reload washes it away. Either line can stand alone.<br><span lang="vi">Sơn tại chỗ, không phải sổ lưu bút công khai. Không gửi, không lưu; tải lại là sạch. Viết một dòng cũng được.</span></p>
+                            <p id="wall-paint-status" role="status"></p>
+                        </details>
                         <nav aria-label="Unranked cracks out of the front page">
                             <a href="?entry=entries/2026-06-23-the-fork-that-kept-the-oracle-poor.md"><strong>Ⅰ steal the fork</strong><span>An old scratch, not a recommendation.</span></a>
                             <a lang="vi" href="?entry=entries/2026-06-23-con-yeu-tinh-va-cai-nia-giu-cua-thoat.md"><strong>Ⅱ giữ cửa thoát</strong><span>Một vết cào cũ, không phải bài được xếp hạng.</span></a>

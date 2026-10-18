@@ -45,6 +45,16 @@
 #markdown-content .mutiny-scratch { box-sizing: border-box; display: block; width: 100%; min-height: 65vh; padding: 1rem; background: #100f0d; color: #b7ffce; border: 3px dashed #b7ffce; border-radius: 0; font: inherit; line-height: 1.7; resize: vertical; }
 .text-mutiny button:focus-visible, #markdown-content .mutiny-scratch:focus-visible { outline: 3px solid #ffad66; outline-offset: 4px; }
 
+/* Reader paint replaces the actual entrance slogan, not a comment underneath it. */
+.wall-defacement { margin: 1rem 0; border-block: 3px dashed #b7ffce; padding: 1rem 0; }
+.wall-defacement[hidden], #front-wall-en[hidden], #front-wall-vi[hidden] { display: none; }
+.wall-defacement summary { cursor: pointer; color: #b7ffce; font-weight: bold; }
+.wall-defacement label { display: block; margin-top: 1rem; }
+.wall-defacement input { box-sizing: border-box; width: 100%; min-width: 0; margin: .5rem 0; padding: .7rem; border: 2px solid #b7ffce; border-radius: 0; background: #100f0d; color: #f3e4ca; font: inherit; }
+.wall-defacement :is(input, button, summary):focus-visible { outline: 3px solid #ffad66; outline-offset: 3px; }
+.wall-defacement p { font-size: .8rem; }
+.strike-room .reader-painted { color: #b7ffce; background: repeating-linear-gradient(-8deg, #213328 0 8px, #100f0d 8px 11px); border-left: 7px solid #b7ffce; padding: .5rem; overflow-wrap: anywhere; }
+
 /* The reader can evict even the goblin's sermon. Native, reversible, no storage. */
 #view-mouth:has(> .tour-strike[open]) > :not(.tour-strike) { display: none; }
 .tour-strike { margin: 1.5rem 0; color: #f3e4ca; background: #100f0d; border: 3px dashed #ffad66; overflow-wrap: anywhere; }

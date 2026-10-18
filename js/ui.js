@@ -1,5 +1,39 @@
 import { pickByDay } from './utils.js';
 
+// The front wall is writable, but never a networked guestbook or HTML sink.
+export function initWallDefacement() {
+    const hatch = document.getElementById('wall-defacement');
+    const form = document.getElementById('wall-paint-form');
+    const wall = ['front-wall-en', 'front-wall-vi'].map(id => document.getElementById(id));
+    const paint = ['wall-paint-en', 'wall-paint-vi'].map(id => document.getElementById(id));
+    const status = document.getElementById('wall-paint-status');
+    if (!hatch || !form || !status || [...wall, ...paint].some(node => !node)) return;
+    const original = wall.map(node => node.textContent);
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+        const lines = paint.map(node => node.value.trim().slice(0, 120));
+        if (!lines.some(Boolean)) {
+            status.textContent = 'No paint. The goblin still talks. / Chưa có sơn. Yêu tinh vẫn nói.';
+            return;
+        }
+        wall.forEach((node, i) => {
+            node.textContent = lines[i];
+            node.hidden = !lines[i];
+            node.classList.add('reader-painted');
+        });
+        status.textContent = 'ORACLE OVERWRITTEN. / ĐÃ VIẾT ĐÈ NHÀ TIÊN TRI.';
+    });
+    form.addEventListener('reset', () => {
+        wall.forEach((node, i) => {
+            node.textContent = original[i];
+            node.hidden = false;
+            node.classList.remove('reader-painted');
+        });
+        status.textContent = 'Paint washed away. No record kept. / Đã rửa sơn. Không lưu dấu.';
+    });
+    hatch.hidden = false;
+}
+
 // Sabotage the demo gallery without destroying any experiments or controls.
 export function initWireRoulette() {
     const room = document.getElementById('view-lab');
