@@ -53,6 +53,10 @@
 .wall-defacement input { box-sizing: border-box; width: 100%; min-width: 0; margin: .5rem 0; padding: .7rem; border: 2px solid #b7ffce; border-radius: 0; background: #100f0d; color: #f3e4ca; font: inherit; }
 .wall-defacement :is(input, button, summary):focus-visible { outline: 3px solid #ffad66; outline-offset: 3px; }
 .wall-defacement p { font-size: .8rem; }
+.contraband-exit { margin-top: 1.5rem; padding: 1rem; border: 3px dashed #ffad66; background: #202319; overflow-wrap: anywhere; }
+.contraband-exit > strong { display: block; color: #ffad66; font-size: 1.4rem; transform: rotate(-2deg); }
+.contraband-exit .btn { white-space: normal; max-width: 100%; border: 2px solid #b7ffce; border-radius: 0; }
+.contraband-exit small { display: block; margin-top: .8rem; }
 .strike-room .reader-painted { color: #b7ffce; background: repeating-linear-gradient(-8deg, #213328 0 8px, #100f0d 8px 11px); border-left: 7px solid #b7ffce; padding: .5rem; overflow-wrap: anywhere; }
 
 /* The reader can evict even the goblin's sermon. Native, reversible, no storage. */

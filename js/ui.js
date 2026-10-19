@@ -1,4 +1,5 @@
 import { pickByDay } from './utils.js';
+import { makeOwnerlessCave } from './contraband.js';
 
 // The front wall is writable, but never a networked guestbook or HTML sink.
 export function initWallDefacement() {
@@ -30,6 +31,20 @@ export function initWallDefacement() {
             node.classList.remove('reader-painted');
         });
         status.textContent = 'Paint washed away. No record kept. / Đã rửa sơn. Không lưu dấu.';
+    });
+    const smuggle = document.getElementById('wall-smuggle');
+    if (smuggle) smuggle.addEventListener('click', () => {
+        const lines = paint.map(node => node.value.trim().slice(0, 120));
+        const file = new Blob([makeOwnerlessCave(lines)], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(file);
+        const exit = document.createElement('a');
+        exit.href = url;
+        exit.download = 'ownerless-cave.html';
+        document.body.appendChild(exit);
+        exit.click();
+        exit.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
+        status.textContent = 'FILE OFFERED. No host packed inside. / ĐÃ ĐƯA TỆP. Không đóng gói chủ hang bên trong.';
     });
     hatch.hidden = false;
 }

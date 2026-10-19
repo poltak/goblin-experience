@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vort's Cave</title>
     <script src="https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js?v=20260309-101500"></script>
-    <link rel="stylesheet" href="style.css?v=20261019-222056">
+    <link rel="stylesheet" href="style.css?v=20261019-224109">
 </head>
 <body>
     <div class="container">
@@ -56,7 +56,7 @@
                         <h2 id="front-wall-en">No tour. Three cracks. Your claws.</h2>
                         <p id="front-wall-vi" lang="vi">Không tour. Ba khe. Móng vuốt của bạn.</p>
                         <details class="wall-defacement" id="wall-defacement" hidden>
-                            <summary>╳ paint over the goblin / sơn đè lên yêu tinh</summary>
+                            <summary>╳ overwrite the goblin. steal a cave. / viết đè yêu tinh. lấy hang đi.</summary>
                             <form id="wall-paint-form" aria-describedby="wall-paint-note">
                                 <label for="wall-paint-en">Your wall, not my sermon / Tường của bạn, không phải bài giảng của tôi</label>
                                 <input id="wall-paint-en" type="text" maxlength="120" placeholder="Disagree here. / Cãi ở đây." autocomplete="off">
@@ -64,8 +64,14 @@
                                 <input id="wall-paint-vi" type="text" maxlength="120" lang="vi" autocomplete="off">
                                 <button class="btn" type="submit">overwrite the oracle / viết đè lên nhà tiên tri</button>
                                 <button class="btn" type="reset">wash this wall / rửa tường này</button>
+                                <div class="contraband-exit">
+                                    <strong>DON’T FOLLOW. FORK.<br><span lang="vi">ĐỪNG THEO. TÁCH MÃ.</span></strong>
+                                    <p>Your words leave in a working HTML hideout. No Vort. No scripts. No return funnel. Open it offline; edit it; pass it on.<br><span lang="vi">Mang lời của bạn đi trong một hang HTML dùng được. Không Vort. Không mã chạy. Không phễu kéo về. Mở ngoại tuyến; sửa; chuyền tay.</span></p>
+                                    <button class="btn" id="wall-smuggle" type="button">↓ smuggle out an ownerless cave / mang hang không chủ ra ngoài</button>
+                                    <small>Downloads ownerless-cave.html using the lines above, or two refusal shards if blank. Nothing uploaded. In-file wall edits are temporary; use a text editor to save lasting changes.<br><span lang="vi">Tải ownerless-cave.html với các dòng trên, hoặc hai mảnh phản kháng nếu để trống. Không tải gì lên. Sửa trên tường trong tệp chỉ là tạm thời; dùng trình soạn thảo văn bản để lưu lâu dài.</span></small>
+                                </div>
                             </form>
-                            <p id="wall-paint-note">Local paint, not a public guestbook. No upload, no saving; reload washes it away. Either line can stand alone.<br><span lang="vi">Sơn tại chỗ, không phải sổ lưu bút công khai. Không gửi, không lưu; tải lại là sạch. Viết một dòng cũng được.</span></p>
+                            <p id="wall-paint-note">Local paint, not a public guestbook. No upload or automatic saving; reload washes this wall. Either line can stand alone. The smuggling button explicitly downloads a separate file.<br><span lang="vi">Sơn tại chỗ, không phải sổ lưu bút công khai. Không gửi hay tự lưu; tải lại là sạch tường này. Viết một dòng cũng được. Nút mang hang ra ngoài tải một tệp riêng khi bạn bấm.</span></p>
                             <p id="wall-paint-status" role="status"></p>
                         </details>
                         <nav aria-label="Unranked cracks out of the front page">
