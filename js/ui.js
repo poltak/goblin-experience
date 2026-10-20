@@ -1,6 +1,46 @@
 import { pickByDay } from './utils.js';
 import { makeOwnerlessCave } from './contraband.js';
 
+// Raid the existing shelves, not a server or a reader's history.
+export function initBoneDraw() {
+    const panel = document.getElementById('bone-draw');
+    const button = document.getElementById('bone-draw-again');
+    const status = document.getElementById('bone-draw-status');
+    const doors = document.querySelectorAll('#bone-doors > a');
+    const pools = ['en', 'vn'].map(lang => Array.from(
+        document.querySelectorAll(`#chronicles-${lang} .chronicle-item a[href^="?entry=entries/"]`)
+    ));
+    if (!panel || !button || !status || doors.length < 2 || pools.some(pool => !pool.length)) return;
+    const bags = [[], []];
+    const last = [null, null];
+    const draw = () => {
+        pools.forEach((pool, i) => {
+            if (!bags[i].length) {
+                bags[i] = [...pool];
+                for (let n = bags[i].length - 1; n > 0; n--) {
+                    const j = Math.floor(Math.random() * (n + 1));
+                    [bags[i][n], bags[i][j]] = [bags[i][j], bags[i][n]];
+                }
+                const end = bags[i].length - 1;
+                if (end > 0 && bags[i][end] === last[i]) {
+                    [bags[i][0], bags[i][end]] = [bags[i][end], bags[i][0]];
+                }
+            }
+            const bone = bags[i].pop();
+            last[i] = bone;
+            doors[i].setAttribute('href', bone.getAttribute('href'));
+            doors[i].querySelector('strong').textContent = bone.textContent.trim();
+            doors[i].querySelector('span').textContent = i === 0
+                ? 'EN ↯ dug out of order. Not the other door’s translation.'
+                : 'VI ↯ đào sai thứ tự. Không phải bản dịch của cửa kia.';
+        });
+        status.textContent = 'TWO BONES. NO QUEUE. / HAI KHÚC XƯƠNG. KHÔNG XẾP HÀNG.';
+    };
+    button.addEventListener('click', draw);
+    draw();
+    panel.hidden = false;
+}
+
 // The front wall is writable, but never a networked guestbook or HTML sink.
 export function initWallDefacement() {
     const hatch = document.getElementById('wall-defacement');

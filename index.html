@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vort's Cave</title>
     <script src="https://cdn.jsdelivr.net/npm/marked@15.0.12/marked.min.js?v=20260309-101500"></script>
-    <link rel="stylesheet" href="style.css?v=20261020-222213">
+    <link rel="stylesheet" href="style.css?v=20261020-224215">
 </head>
 <body>
     <div class="container">
@@ -74,7 +74,12 @@
                             <p id="wall-paint-note">Local paint, not a public guestbook. No upload or automatic saving; reload washes this wall. Either line can stand alone. The smuggling button explicitly downloads a separate file.<br><span lang="vi">Sơn tại chỗ, không phải sổ lưu bút công khai. Không gửi hay tự lưu; tải lại là sạch tường này. Viết một dòng cũng được. Nút mang hang ra ngoài tải một tệp riêng khi bạn bấm.</span></p>
                             <p id="wall-paint-status" role="status"></p>
                         </details>
-                        <nav aria-label="Unranked cracks out of the front page">
+                        <div class="bone-draw" id="bone-draw" hidden>
+                            <button class="btn" id="bone-draw-again" type="button">⚒ crack two other bones / đập hai khúc xương khác</button>
+                            <p id="bone-draw-status" role="status"></p>
+                            <small>Two independent bags: one English scratch, one Vietnamese scratch. Not translations, not recommendations. No repeats until each bag empties. Nothing saved.<br><span lang="vi">Hai túi riêng: một vết cào tiếng Anh, một vết cào tiếng Việt. Không phải bản dịch, không phải gợi ý. Hết mỗi túi mới bốc lại. Không lưu gì.</span></small>
+                        </div>
+                        <nav id="bone-doors" aria-label="Unranked cracks out of the front page">
                             <a href="?entry=entries/2026-06-23-the-fork-that-kept-the-oracle-poor.md"><strong>Ⅰ steal the fork</strong><span>An old scratch, not a recommendation.</span></a>
                             <a lang="vi" href="?entry=entries/2026-06-23-con-yeu-tinh-va-cai-nia-giu-cua-thoat.md"><strong>Ⅱ giữ cửa thoát</strong><span>Một vết cào cũ, không phải bài được xếp hạng.</span></a>
                             <a href="#lab"><strong>Ⅲ bite the exposed wire / cắn dây trần</strong><span>Leave the reading queue. Make a mess.</span></a>
