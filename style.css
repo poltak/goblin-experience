@@ -1,3 +1,15 @@
+/* A real dead end: opening it removes the entrance, not just adds another plaque. */
+.strike-room:has(> .unproductive-room[open]) > :not(.unproductive-room) { display: none; }
+.unproductive-room { margin: 2rem 0; border: 2px dashed #999; color: #eee; background: #080808; overflow-wrap: anywhere; }
+.unproductive-room > summary { cursor: pointer; padding: 1rem; color: #ddd; }
+.unproductive-room > summary:focus-visible { outline: 3px solid #b7ffce; outline-offset: 4px; }
+.unproductive-room[open] > summary { border-bottom: 1px dashed #666; }
+.unproductive-void { padding: clamp(1rem, 4vw, 2rem); }
+.unproductive-void .void-stamp { font-size: .75rem; color: #aaa; letter-spacing: .1em; }
+.strike-room .unproductive-void h2 { color: #eee; border: 0; max-width: none; font-size: clamp(2rem, 9vw, 5rem); }
+.unproductive-void .void-space { min-height: 35vh; display: grid; place-items: center; color: #999; }
+.unproductive-void small { display: block; border-top: 1px dashed #666; padding-top: 1rem; }
+
 /* Two stolen bones, not a latest-post rail. */
 .bone-draw { border-left: 8px double #b7ffce; padding: 1rem; background: #202319; }
 .bone-draw[hidden] { display: none; }
