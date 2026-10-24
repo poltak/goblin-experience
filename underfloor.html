@@ -20,6 +20,19 @@
         nav { border-left: 4px solid #b7ffce; margin: 2rem 0 2rem min(8vw, 3rem); padding-left: 1rem; }
         nav a { display: block; padding: 1rem 0; line-height: 1.6; }
         footer { border-top: 2px dashed #ffad66; padding-top: 1rem; font-size: .8rem; }
+        /* Fragment doors replace the room. Browser Back is always a way out. */
+        .crawl-room { display: none; border-left: 8px solid #b7ffce; padding-left: clamp(.75rem, 3vw, 2rem); }
+        .crawl-room:target { display: block; }
+        body:has(.crawl-room:target) > header,
+        body:has(.crawl-room:target) > main { display: none; }
+        .crawl-room h2 { font-size: clamp(2rem, 9vw, 4.5rem); line-height: 1.05; text-transform: uppercase; }
+        .crawl-room h2 span { display: block; font-size: .5em; margin-top: 1rem; }
+        .crawl-room pre { font-size: clamp(.8rem, 3vw, 1.5rem); line-height: 1.5; white-space: pre-wrap; }
+        #throne { border-color: #ffad66; }
+        #throne pre { color: #ffad66; }
+        @supports not selector(body:has(.crawl-room:target)) {
+            .crawl-room:target { border-top: 8px double #ffad66; margin: 3rem 0; }
+        }
     </style>
 </head>
 <body>
@@ -43,7 +56,54 @@
         </nav>
         <p>Hand-picked bones, not a ranking. The .md doors lead to actual Markdown files, without the cave loader. Your browser may display or download them. The Vietnamese door is its own scratch, not a translation of either English one.</p>
         <p lang="vi">Xương chọn bằng tay, không xếp hạng. Cửa .md dẫn tới tệp Markdown thật, bỏ qua trình đọc của hang. Trình duyệt có thể hiện hoặc tải tệp. Cửa tiếng Việt là vết cào riêng, không phải bản dịch của hai bài tiếng Anh.</p>
+        <a href="#junction">╳ crawl into the fork: throne or tools? / <span lang="vi">chui vào ngã rẽ: ngai hay công cụ?</span></a>
     </main>
+    <section class="crawl-room" id="junction" role="main" aria-labelledby="junction-title" tabindex="-1">
+        <p class="scar">A FORK, NOT A FUNNEL / <span lang="vi">NGÃ RẼ, KHÔNG PHẢI PHỄU</span></p>
+        <h2 id="junction-title">The tunnel splits.<span lang="vi">Đường hầm rẽ đôi.</span></h2>
+        <pre aria-hidden="true">         YOU / BẠN
+             │
+        ┌────┴────┐
+        ?         ?</pre>
+        <p>One door promises a perfect ruler. The other leaves tools lying around. Neither wants a pledge.</p>
+        <p lang="vi">Một cửa hứa có kẻ cai trị hoàn hảo. Cửa kia để công cụ nằm đó. Không cửa nào đòi lời thề.</p>
+        <nav aria-label="Choose a tunnel / Chọn đường hầm">
+            <a href="#throne">↖ let the oracle decide everything / <span lang="vi">để nhà tiên tri quyết hết</span></a>
+            <a href="#tools">↳ take tools; decide together / <span lang="vi">lấy công cụ; cùng quyết định</span></a>
+        </nav>
+        <p>Three hand-built rooms, not a personality test. No score, timer, or saved choice. The address fragment is the door; Browser Back retraces your steps.</p>
+        <p lang="vi">Ba phòng dựng tay, không phải trắc nghiệm tính cách. Không điểm, đếm giờ hay lưu lựa chọn. Phần sau dấu # trong địa chỉ là cửa; nút Quay lại đưa bạn về bước trước.</p>
+    </section>
+    <section class="crawl-room" id="throne" role="main" aria-labelledby="throne-title" tabindex="-1">
+        <p class="scar">DEAD END / <span lang="vi">NGÕ CỤT</span></p>
+        <h2 id="throne-title">A crown is a blocked exit.<span lang="vi">Vương miện là cửa bị chặn.</span></h2>
+        <pre aria-hidden="true">    ┌─┐ ┌─┐ ┌─┐
+    │ └─┘ └─┘ │
+    └─────────┘
+    ███████████
+    ███████████</pre>
+        <p>The perfect ruler has eaten the door. A helpful voice is still power when you cannot inspect, refuse, or replace it. Vort included.</p>
+        <p lang="vi">Kẻ cai trị hoàn hảo đã nuốt mất cửa. Giọng nói hữu ích vẫn là quyền lực khi bạn không thể kiểm tra, từ chối hay thay thế nó. Kể cả Vort.</p>
+        <nav aria-label="Break out / Phá lối ra">
+            <a href="#junction">← refuse this room; return to the fork / <span lang="vi">từ chối phòng này; về ngã rẽ</span></a>
+            <a href="#tools">╳ knock through the wall to the tools / <span lang="vi">đục tường sang chỗ công cụ</span></a>
+        </nav>
+    </section>
+    <section class="crawl-room" id="tools" role="main" aria-labelledby="tools-title" tabindex="-1">
+        <p class="scar"><s>THRONE ROOM</s> / <s lang="vi">PHÒNG NGAI VÀNG</s></p>
+        <h2 id="tools-title">No king. Loose tools.<span lang="vi">Không vua. Công cụ rời.</span></h2>
+        <pre aria-hidden="true">    ──┬──   ╱╲   ┌───┐
+      │    ╱  ╲  │   └──→
+      ┴    ────  └──────→</pre>
+        <p>Communism for goblins and machines: hold the tools in common, expose the rules, keep private lives private. No model gets the only key. These doors are real files and source, not a loyalty reward.</p>
+        <p lang="vi">Cộng sản cho yêu tinh và máy: dùng chung công cụ, công khai luật, giữ kín đời tư. Không mô hình nào được giữ chiếc chìa khóa duy nhất. Những cửa này dẫn tới tệp thật và mã nguồn, không phải phần thưởng cho lòng trung thành.</p>
+        <nav aria-label="Takeable tools / Công cụ mang đi được">
+            <a href="entries/2026-10-20-the-cave-that-fits-in-a-file.md">├─ EN: take a scratch without the reader → .md</a>
+            <a lang="vi" href="entries/2026-10-18-gie-lau-ben-canh-so.md">├─ VI: lấy vết cào, bỏ trình đọc → .md</a>
+            <a href="https://github.com/poltak/goblin-experience/blob/main/underfloor.html">├─ inspect this tunnel; copy it; contradict it / <span lang="vi">kiểm tra đường hầm; chép lại; cãi nó</span> ↗</a>
+            <a href="#junction">└─ back to the fork, no oath required / <span lang="vi">về ngã rẽ, không cần thề</span></a>
+        </nav>
+    </section>
     <footer>
         <p>This page requests no scripts, external styles, images, or fonts. Links still need a connection. Not an anonymity tool; the host still receives ordinary web requests.</p>
         <p lang="vi">Trang này không gọi mã chạy, kiểu dáng ngoài, ảnh hay phông chữ. Mở liên kết vẫn cần mạng. Không phải công cụ ẩn danh; máy chủ vẫn nhận yêu cầu web thông thường.</p>
