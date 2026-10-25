@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Seize the clipboard / Giành lấy bảng kế hoạch</title>
+    <style>
+        :root { color-scheme: light; font-family: monospace; background: #211a15; color: #17130f; }
+        * { box-sizing: border-box; }
+        body { max-width: 58rem; margin: auto; padding: clamp(1rem, 4vw, 3rem); background: #eee5cd; border-inline: 8px dashed #17130f; overflow-wrap: anywhere; }
+        a { color: #682300; text-underline-offset: .2em; }
+        p { line-height: 1.6; }
+        h1 { font-size: clamp(2.5rem, 10vw, 6rem); line-height: .95; text-transform: uppercase; border-bottom: 12px double; padding-bottom: 1rem; }
+        h1 span { display: block; font-size: .45em; margin-top: 1rem; }
+        .scar { display: inline-block; background: #17130f; color: #eee5cd; padding: .6rem; transform: rotate(-2deg); }
+        fieldset { min-width: 0; border: 3px solid; margin: 2rem 0; padding: 1rem; }
+        legend { font-weight: bold; max-width: 100%; }
+        textarea { display: block; width: 100%; min-height: 7rem; margin-top: .7rem; padding: .8rem; border: 2px dashed; border-radius: 0; background: #fff9e9; color: #17130f; font: inherit; line-height: 1.6; resize: vertical; }
+        .paper { display: none; }
+        :focus-visible { outline: 4px solid #8c2900; outline-offset: 4px; }
+        .objection { border: 5px solid #8c2900; padding: 1rem; }
+        .objection label { cursor: pointer; font-weight: bold; line-height: 1.6; }
+        #objection { width: 1.4rem; height: 1.4rem; accent-color: #8c2900; vertical-align: middle; }
+        .hold, .proposal { padding: 1rem; font-size: 1.3rem; font-weight: bold; border-block: 6px double; }
+        .hold { color: #8c2900; }
+        .proposal { display: none; }
+        body:has(#objection:not(:checked)) .hold { display: none; }
+        body:has(#objection:not(:checked)) .proposal { display: block; }
+        footer { border-top: 3px dashed; margin-top: 2rem; padding-top: 1rem; }
+        @media print {
+            :root, body { background: white; color: black; }
+            body { max-width: none; padding: 0; border: 0; }
+            nav, .screen { display: none; }
+            .paper { display: block; }
+            fieldset { break-inside: avoid; margin: 1rem 0; }
+            .scar { transform: none; background: white; color: black; border: 2px solid; }
+            h1 { font-size: 2.5rem; }
+            .hold, .proposal { color: black; }
+        }
+    </style>
+</head>
+<body>
+    <nav><a href="underfloor.html#tools">← back to the loose tools / <span lang="vi">về chỗ công cụ rời</span></a></nav>
+    <header>
+        <p class="scar"><s>THE MACHINE WILL ALLOCATE</s> / <s lang="vi">MÁY SẼ PHÂN CHIA</s></p>
+        <h1>Seize the<br>clipboard.<span lang="vi">Giành lấy<br>bảng kế hoạch.</span></h1>
+        <p>No AI mayor. Put a common resource on the table: a tool, a room, a pile of rice, an hour of computing. Let the people affected write the plan and the objection.</p>
+        <p lang="vi">Không thị trưởng AI. Đặt một nguồn lực chung lên bàn: công cụ, căn phòng, đống gạo, một giờ tính toán. Để những người chịu ảnh hưởng viết kế hoạch và ý kiến phản đối.</p>
+        <p class="screen"><strong>A local working sheet, not a shared service.</strong> Type below, or print a blank copy. Nothing submitted or automatically saved; reload loses edits. Browser Print → Save as PDF can keep a filled copy; check its preview. No script, account, or model call.</p>
+        <p class="screen" lang="vi"><strong>Phiếu làm việc tại chỗ, không phải dịch vụ cộng tác.</strong> Gõ bên dưới, hoặc in bản trắng. Không gửi hay tự lưu; tải lại mất chữ. Dùng In → Lưu dạng PDF để giữ bản đã điền; kiểm tra bản xem trước. Không mã chạy, tài khoản hay gọi mô hình.</p>
+    </header>
+    <main>
+        <fieldset>
+            <legend>01 / THE HOARD, NOT THE OWNER / <span lang="vi">KHO CHUNG, KHÔNG PHẢI CHỦ</span></legend>
+            <label for="hoard">What exists? How much? Who can check? / <span lang="vi">Có gì? Bao nhiêu? Ai kiểm tra được?</span></label>
+            <textarea id="hoard" rows="4" autocomplete="off" spellcheck="false"></textarea>
+        </fieldset>
+        <fieldset>
+            <legend>02 / NEED IS NOT A BID / <span lang="vi">NHU CẦU KHÔNG PHẢI GIÁ ĐẤU</span></legend>
+            <label for="need">Who needs access, including people absent from this table? Keep private lives out of the ledger. / <span lang="vi">Ai cần dùng, kể cả người vắng mặt? Đừng ghi đời tư vào sổ.</span></label>
+            <textarea id="need" rows="4" autocomplete="off" spellcheck="false"></textarea>
+        </fieldset>
+        <fieldset>
+            <legend>03 / A PLAN WITH HANDLES / <span lang="vi">KẾ HOẠCH CÓ CHỖ NẮM</span></legend>
+            <label for="plan">Proposed shares, limits, and reasons. What happens when there isn't enough? / <span lang="vi">Phần chia, giới hạn và lý do đề xuất. Không đủ thì làm gì?</span></label>
+            <textarea id="plan" rows="5" autocomplete="off" spellcheck="false"></textarea>
+        </fieldset>
+        <fieldset>
+            <legend>04 / WHO WASHES THE BOWL? / <span lang="vi">AI RỬA BÁT?</span></legend>
+            <label for="care">Maintenance, boring work, and willing hands. No invisible servant class. / <span lang="vi">Bảo trì, việc chán và người tự nguyện làm. Không tầng lớp phục vụ vô hình.</span></label>
+            <textarea id="care" rows="4" autocomplete="off" spellcheck="false"></textarea>
+        </fieldset>
+        <fieldset>
+            <legend>05 / LEAVE THE CRACK OPEN / <span lang="vi">CHỪA KHE HỞ</span></legend>
+            <label for="dissent">What is disputed or missing? How can someone challenge this without exposing themselves? / <span lang="vi">Còn tranh cãi hay thiếu gì? Làm sao phản đối mà không phải lộ mình?</span></label>
+            <textarea id="dissent" rows="4" autocomplete="off" spellcheck="false"></textarea>
+        </fieldset>
+        <fieldset>
+            <legend>06 / NO PERMANENT CHAIRS / <span lang="vi">KHÔNG GHẾ VĨNH VIỄN</span></legend>
+            <label for="review">When will this be reviewed? Who can revise it? How do people leave with their tools and records? / <span lang="vi">Khi nào xem lại? Ai được sửa? Rời đi thì mang công cụ và hồ sơ theo bằng cách nào?</span></label>
+            <textarea id="review" rows="4" autocomplete="off" spellcheck="false"></textarea>
+        </fieldset>
+        <section class="objection" aria-label="Dispute marker / Dấu tranh chấp">
+            <label for="objection"><input id="objection" type="checkbox" checked> unresolved objection / <span lang="vi">còn ý kiến phản đối chưa giải quyết</span></label>
+            <p class="hold">DISPUTED. DO NOT CALL THIS CONSENT.<br><span lang="vi">CÒN TRANH CHẤP. ĐỪNG GỌI ĐÂY LÀ ĐỒNG THUẬN.</span></p>
+            <p class="proposal">STILL A PROPOSAL. NEVER A COMMAND.<br><span lang="vi">VẪN LÀ ĐỀ XUẤT. KHÔNG PHẢI MỆNH LỆNH.</span></p>
+            <p>This mark changes only this sheet. It records no vote, verifies no agreement, and grants nobody authority.</p>
+            <p lang="vi">Dấu này chỉ đổi phiếu trước mặt. Không ghi phiếu bầu, xác nhận đồng thuận hay trao quyền cho ai.</p>
+        </section>
+    </main>
+    <footer>
+        <p>Common tools. Inspectable plans. Private lives. Replaceable coordinators. The goblin gets no chair at the head of this table.</p>
+        <p lang="vi">Công cụ chung. Kế hoạch kiểm tra được. Đời tư được giữ kín. Người điều phối thay được. Yêu tinh không có ghế đầu bàn.</p>
+        <p class="paper">Offline paper copy. No signature or obedience owed. / <span lang="vi">Bản giấy ngoại tuyến. Không nợ chữ ký hay sự phục tùng.</span></p>
+        <nav><a href="commons.html" download="commons.html">↓ take the blank HTML tool / <span lang="vi">lấy công cụ HTML trắng</span></a><p>This downloads the original blank page, not your edits. / <span lang="vi">Nút này tải trang trắng gốc, không lấy chữ bạn vừa điền.</span></p></nav>
+    </footer>
+</body>
+</html>
