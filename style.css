@@ -121,6 +121,46 @@ body:has(#bootleg-switch:checked) .container *::after { color: #111 !important; 
 .strike-room nav a span { display: block; margin-top: .4rem; font-size: .8rem; }
 .tour-strike > summary:focus-visible, .strike-room a:focus-visible { outline: 3px solid #b7ffce; outline-offset: 4px; }
 
+/* Break the actual card rail. Native checkbox; no JS, saved preference, or gate. */
+.queue-switch { display: block; margin-top: 2rem; padding: 1rem; border: 2px dashed #ffad66; cursor: pointer; color: #f3e4ca; }
+.queue-switch input { width: 1.3rem; height: 1.3rem; accent-color: #ffad66; vertical-align: middle; }
+.queue-switch:focus-within { outline: 3px solid #b7ffce; outline-offset: 4px; }
+.queue-note { font-size: .8rem; }
+#bone-doors > .map-refusal { display: none; }
+.tour-strike[open] #bone-doors > a { margin: 0; min-width: 0; }
+.strike-room:not(:has(#queue-restore:checked)) #bone-doors {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas: 'en scar' 'en vi' 'commons vi' 'commons .';
+    gap: 1.8rem 1.2rem;
+    padding: 1.5rem .5rem;
+    border-block: 5px double #ffad66;
+    background: repeating-linear-gradient(17deg, transparent 0 49px, #ffad6620 50px 51px, transparent 52px 90px);
+}
+.strike-room:not(:has(#queue-restore:checked)) #bone-doors > .map-refusal {
+    display: block; grid-area: scar; align-self: center; padding: .5rem;
+    color: #ffad66; text-align: center; font-size: .7rem; line-height: 1.8;
+}
+.strike-room:not(:has(#queue-restore:checked)) #bone-doors > a {
+    align-self: center; position: relative; clip-path: none; border: 3px dashed #b7ffce;
+    border-radius: 0; box-shadow: 5px 5px 0 #000; padding: 1rem;
+}
+.strike-room:not(:has(#queue-restore:checked)) #bone-doors > a::before {
+    display: block; margin-bottom: .7rem; color: #ffad66; font-size: 1.4rem;
+}
+.strike-room:not(:has(#queue-restore:checked)) #bone-doors > a:nth-of-type(1) { grid-area: en; border-left: 8px solid #b7ffce; }
+.strike-room:not(:has(#queue-restore:checked)) #bone-doors > a:nth-of-type(1)::before { content: '╭── ↙'; }
+.strike-room:not(:has(#queue-restore:checked)) #bone-doors > a:nth-of-type(2) { grid-area: vi; border-right: 8px solid #b7ffce; }
+.strike-room:not(:has(#queue-restore:checked)) #bone-doors > a:nth-of-type(2)::before { content: '↘ ──╮'; }
+.strike-room:not(:has(#queue-restore:checked)) #bone-doors > a:nth-of-type(3) { grid-area: commons; border-bottom: 8px solid #ffad66; }
+.strike-room:not(:has(#queue-restore:checked)) #bone-doors > a:nth-of-type(3)::before { content: '╰── ⚒'; }
+@media (max-width: 540px) {
+    .strike-room:not(:has(#queue-restore:checked)) #bone-doors {
+        grid-template-columns: minmax(0, 1fr); grid-template-areas: 'scar' 'en' 'vi' 'commons';
+    }
+    .strike-room:not(:has(#queue-restore:checked)) #bone-doors > a:nth-of-type(1) { margin-right: 1rem; }
+    .strike-room:not(:has(#queue-restore:checked)) #bone-doors > a:nth-of-type(2) { margin-left: 1rem; }
+}
+
 /* A reversible demolition, driven by native hatches rather than a loyalty score. */
 .throne-wreck {
     margin: 2rem 0;
