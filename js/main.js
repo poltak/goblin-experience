@@ -8,9 +8,11 @@ import {
     initEchoTopography, initNeedleOfNoise, initSporeGarden, initVoidPebbles, initWarpLoom, initDataCrystals, initEchoLattice, initDigitalFossil, initStaticHum, initMarrowDensity, initSpectralFrequency, initLogicLabyrinth, initGlowWormBurrow, initCircuitSkeleton, initStaticWell, initOilParasite, initDraftlandsAtlas, initBitRotDecay, initMarrowFlute, initShadowWeaver, initFuzzField, initBoneWeaver, initGlitchShifter, initMossMelt
 } from './labs.js';
 import { initChronicleTools, loadEntry } from './library.js';
+import { initBoneCollision } from './collision.js';
 
 const initializers = [
     [initBoneDraw, 'BoneDraw'],
+    [initBoneCollision, 'BoneCollision'],
     [initWallDefacement, 'WallDefacement'],
     [initWireRoulette, 'WireRoulette'],
     [() => initNavigation(viewId => {
