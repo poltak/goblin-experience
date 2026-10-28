@@ -1,3 +1,14 @@
+/* The reader gets scissors, not another sermon. Cut words keep their space. */
+#collision-output .blackout-word { display: inline; padding: .12em .05em; margin: 0; border: 0; border-radius: 0; font: inherit; line-height: inherit; color: inherit; background: transparent; cursor: crosshair; box-shadow: none; text-transform: none; letter-spacing: normal; }
+#collision-output .blackout-word:hover { outline: 1px dashed currentColor; }
+#collision-output .blackout-word[aria-pressed="true"] { color: #080808; background: #080808; text-decoration: none; }
+#collision-output .blackout-word:focus-visible { outline: 3px solid #ffad66; outline-offset: 2px; }
+#collision-output .blackout-scissors { margin-top: 1rem; }
+#collision-output .blackout-copy { display: block; box-sizing: border-box; width: 100%; margin-top: 1rem; padding: .8rem; border: 3px dashed #ffad66; border-radius: 0; background: #080808; color: #b7ffce; font: .85rem/1.6 monospace; }
+#collision-output .blackout-copy[hidden] { display: none; }
+body:has(#bootleg-switch:checked) #collision-output .blackout-word[aria-pressed="true"] { color: #111 !important; background-color: #111 !important; }
+@media (forced-colors: active) { #collision-output .blackout-word[aria-pressed="true"] { text-decoration: line-through; border: 1px dashed; } }
+
 /* Real archive fragments collide; neither language is the other's subtitle. */
 .bone-collision { margin: 2rem 0; padding: clamp(.8rem, 3vw, 1.5rem); border-block: 9px double #ffad66; background: #080808; color: #f3e4ca; overflow-wrap: anywhere; }
 .bone-collision[hidden], .bone-collision [hidden] { display: none; }

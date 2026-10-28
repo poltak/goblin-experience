@@ -8,6 +8,56 @@ export function pickShard(markdown, random = Math.random) {
     return paragraphs[Math.floor(random() * paragraphs.length)];
 }
 
+// Reversible erasure, not an author quote: source text is never rewritten on disk.
+export function mountBlackout(scrap, quote, source) {
+    const original = quote.textContent;
+    const cut = document.createElement('button');
+    cut.type = 'button';
+    cut.className = 'btn blackout-scissors';
+    cut.textContent = '✂ cut this voice / cắt giọng này';
+    cut.setAttribute('aria-pressed', 'false');
+    const copy = document.createElement('textarea');
+    copy.className = 'blackout-copy';
+    copy.readOnly = true;
+    copy.hidden = true;
+    copy.rows = 6;
+    copy.setAttribute('aria-label', 'Reader cut-up and source — select to copy / Bản cắt của người đọc và nguồn — chọn để chép');
+    let pieces = [];
+    const updateCopy = () => {
+        const words = pieces.filter(piece => !piece.cut).map(piece => piece.text).join('')
+            .replace(/\s+/g, ' ').trim();
+        copy.value = `READER CUT-UP / BẢN CẮT CỦA NGƯỜI ĐỌC\nNot an intact author quote / Không phải trích dẫn nguyên văn\n\n${words || '[all words cut / đã cắt hết chữ]'}\n\nSOURCE / NGUỒN: ${source.title}\n${new URL(source.href, window.location.href).href}`;
+    };
+    cut.addEventListener('click', () => {
+        const active = cut.getAttribute('aria-pressed') !== 'true';
+        cut.setAttribute('aria-pressed', String(active));
+        copy.hidden = !active;
+        cut.textContent = active ? '↶ restore the whole voice / trả lại nguyên giọng' : '✂ cut this voice / cắt giọng này';
+        if (!active) {
+            quote.textContent = original;
+            return;
+        }
+        pieces = original.split(/(\s+)/).map(text => ({ text, cut: false }));
+        quote.replaceChildren(...pieces.map(piece => {
+            if (/^\s*$/.test(piece.text)) return document.createTextNode(piece.text);
+            const word = document.createElement('button');
+            word.type = 'button';
+            word.className = 'blackout-word';
+            word.textContent = piece.text;
+            word.setAttribute('aria-pressed', 'false');
+            word.setAttribute('aria-label', `Cut / restore word — Cắt / trả lại chữ: ${piece.text}`);
+            word.addEventListener('click', () => {
+                piece.cut = !piece.cut;
+                word.setAttribute('aria-pressed', String(piece.cut));
+                updateCopy();
+            });
+            return word;
+        }));
+        updateCopy();
+    });
+    scrap.append(cut, copy);
+}
+
 export function initBoneCollision() {
     const panel = document.getElementById('bone-collision');
     const button = document.getElementById('collision-strike');
@@ -46,6 +96,7 @@ export function initBoneCollision() {
                 link.textContent = `${i === 0 ? 'EN' : 'VI'} ↝ ${source.title}`;
                 caption.appendChild(link);
                 scrap.append(quote, caption);
+                mountBlackout(scrap, quote, source);
                 return scrap;
             });
             output.replaceChildren(...scraps);
