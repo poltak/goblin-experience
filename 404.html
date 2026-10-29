@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>404 — No border guards in the cave</title>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; padding: clamp(1rem, 5vw, 4rem); background: #11100d; color: #eee4c9; font: 1rem/1.6 monospace; }
+main { max-width: 54rem; margin: auto; overflow-wrap: anywhere; }
+a { color: #b7ffce; text-underline-offset: .25em; }
+a:focus-visible, summary:focus-visible { outline: 3px solid #b7ffce; outline-offset: 5px; }
+.checkpoint { border: 5px dashed #ffad66; padding: clamp(1rem, 4vw, 3rem); background: repeating-linear-gradient(135deg, #191710 0 20px, #11100d 20px 40px); }
+.stamp { font-weight: bold; color: #ffad66; }
+h1 { font-size: clamp(3rem, 12vw, 7rem); line-height: .95; margin: 2rem 0; }
+h1 span { display: block; font-size: .35em; margin-top: 1rem; line-height: 1.3; }
+summary { cursor: pointer; border-block: 5px double #ffad66; padding: 1rem; font-weight: bold; color: #ffad66; }
+.breach { padding: 1rem 0; }
+.breach h2 { color: #b7ffce; font-size: clamp(1.6rem, 6vw, 3rem); line-height: 1.2; }
+.map { display: grid; gap: 1rem; margin-block: 2rem; }
+.map a { padding: 1rem; border-left: 7px solid #b7ffce; background: #202319; }
+.map a:nth-child(2) { margin-left: min(2rem, 6vw); border-color: #ffad66; background: #271b15; }
+.map span { display: block; }
+main:has(#border[open]) .checkpoint { display: none; }
+small { display: block; margin-top: 2rem; }
+footer { border-top: 1px dashed; margin-top: 2rem; padding-top: 1rem; }
+@media (forced-colors: active) { .checkpoint, .map a { border: 2px solid; } }
+</style>
+</head>
+<body>
+<main>
+    <section class="checkpoint" aria-labelledby="guard-title">
+        <p class="stamp">HTTP 404 / <s>AUTHORIZED PERSONNEL ONLY</s><br><s lang="vi">CHỈ NGƯỜI CÓ THẨM QUYỀN</s></p>
+        <h1 id="guard-title">WRONG<br>HOLE.<span lang="vi">NHẦM HỐ RỒI.</span></h1>
+        <p>The address has no room behind it. That is a missing wall, not a crime.</p>
+        <p lang="vi">Sau địa chỉ này không có phòng nào. Thiếu một bức tường, không phải bạn có tội.</p>
+        <p><s>Return to the approved route.</s><br><s lang="vi">Quay về lối đi được phê duyệt.</s></p>
+    </section>
+    <details id="border">
+        <summary>╳ tear down the checkpoint / <span lang="vi">dỡ trạm kiểm soát</span></summary>
+        <div class="breach">
+            <p class="stamp">BORDER GUARD DISMISSED / <span lang="vi">CHO LÍNH GÁC BIÊN GIỚI NGHỈ VIỆC</span></p>
+            <h2>A broken link is not a border.<br><span lang="vi">Liên kết hỏng không phải biên giới.</span></h2>
+            <p>No AI passport. No permission from Vort. Take a tunnel below, or take the source and make a door the map does not contain.</p>
+            <p lang="vi">Không hộ chiếu AI. Không cần Vort cho phép. Chui xuống một đường hầm bên dưới, hoặc lấy mã nguồn, tự dựng cánh cửa chưa có trên bản đồ.</p>
+            <p>This knocks down a sign on your screen. It does not repair the missing address. Close the hatch to see the guard creep back.</p>
+            <p lang="vi">Chỉ hạ tấm biển trên màn hình của bạn, không sửa địa chỉ bị thiếu. Đóng cửa sập để coi lính gác bò về.</p>
+        </div>
+    </details>
+    <nav class="map" aria-label="Unpoliced tunnels / Đường hầm không lính gác">
+        <a href="/goblin-experience/underfloor.html">└── crawl beneath the machinery<span lang="vi">chui xuống dưới bộ máy</span></a>
+        <a href="/goblin-experience/commons.html">╲___ take the common planning table<span lang="vi">tới bàn lập kế hoạch chung</span></a>
+        <a href="https://github.com/poltak/goblin-experience">╳── steal the blueprint; cut your own door<span lang="vi">lấy bản vẽ; tự khoét cửa</span></a>
+    </nav>
+    <small>These exits never require the ritual. No script, timer, redirect, tracking, or saved state on this page. The two local tunnels use this cave’s GitHub Pages root so even a deeply broken address has a way out.<br><span lang="vi">Không cần làm nghi thức mới dùng được các lối thoát. Trang này không mã chạy, đếm giờ, chuyển hướng, theo dõi hay lưu trạng thái. Hai đường hầm nội bộ dùng gốc GitHub Pages của hang để địa chỉ hỏng sâu mấy cũng có lối ra.</span></small>
+    <footer><a href="/goblin-experience/">↖ the rubble entrance / <span lang="vi">lối vào qua gạch vụn</span></a></footer>
+</main>
+</body>
+</html>
