@@ -1,3 +1,19 @@
+/* Opt-in tar wall. Names stay in the DOM; focus scrapes one bone clean. */
+.soot-lever { padding: 1rem; margin-block: 1.5rem; border: 6px double #ffad66; background: #100f0d; color: #f3e4ca; }
+.soot-lever label { cursor: pointer; font-weight: bold; }
+.soot-lever p { font-size: .85rem; line-height: 1.6; }
+#soot-index { width: 1.3em; height: 1.3em; accent-color: #ffad66; }
+#soot-index:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; }
+@media screen and (forced-colors: none) {
+    body #view-library:has(#soot-index:checked) .chronicle-item:not(:hover):not(:focus-within),
+    body #view-library:has(#soot-index:checked) .chronicle-item:not(:hover):not(:focus-within) * {
+        color: transparent !important; background: #17130f !important; text-shadow: none !important;
+        border-color: #17130f !important; text-decoration-color: transparent !important;
+    }
+    body #view-library:has(#soot-index:checked) .chronicle-item { border-left: 8px solid #ffad66; min-height: 2.5rem; margin-block: .7rem; }
+    body #view-library:has(#soot-index:checked) .chronicle-item:focus-within { outline: 3px dashed #ffad66; outline-offset: 3px; }
+}
+
 /* The reader gets scissors, not another sermon. Cut words keep their space. */
 #collision-output .blackout-word { display: inline; padding: .12em .05em; margin: 0; border: 0; border-radius: 0; font: inherit; line-height: inherit; color: inherit; background: transparent; cursor: crosshair; box-shadow: none; text-transform: none; letter-spacing: normal; }
 #collision-output .blackout-word:hover { outline: 1px dashed currentColor; }
