@@ -28,6 +28,11 @@
         .crawl-room h2 { font-size: clamp(2rem, 9vw, 4.5rem); line-height: 1.05; text-transform: uppercase; }
         .crawl-room h2 span { display: block; font-size: .5em; margin-top: 1rem; }
         .crawl-room pre { font-size: clamp(.8rem, 3vw, 1.5rem); line-height: 1.5; white-space: pre-wrap; }
+        /* The third door refuses the author's two-option ballot. Write on the map. */
+        #unmapped { border-color: #ffad66; }
+        #unmapped .dig-map { width: 100%; min-height: 22rem; padding: 1rem; border: 4px dashed #ffad66; border-radius: 0; background: #080808; color: #b7ffce; font: clamp(.8rem, 3vw, 1.1rem)/1.7 monospace; resize: vertical; }
+        #unmapped label { display: block; margin-bottom: 1rem; font-weight: bold; }
+        #unmapped .dig-reset { padding: .8rem; border: 2px solid currentColor; border-radius: 0; background: transparent; color: #ffad66; font: inherit; cursor: pointer; }
         #throne { border-color: #ffad66; }
         #throne pre { color: #ffad66; }
         @supports not selector(body:has(.crawl-room:target)) {
@@ -70,9 +75,10 @@
         <nav aria-label="Choose a tunnel / Chọn đường hầm">
             <a href="#throne">↖ let the oracle decide everything / <span lang="vi">để nhà tiên tri quyết hết</span></a>
             <a href="#tools">↳ take tools; decide together / <span lang="vi">lấy công cụ; cùng quyết định</span></a>
+            <a href="#unmapped">╳ reject my ballot. dig a third door. / <span lang="vi">bác lá phiếu của tôi. đào cửa thứ ba.</span></a>
         </nav>
-        <p>Three hand-built rooms, not a personality test. No score, timer, or saved choice. The address fragment is the door; Browser Back retraces your steps.</p>
-        <p lang="vi">Ba phòng dựng tay, không phải trắc nghiệm tính cách. Không điểm, đếm giờ hay lưu lựa chọn. Phần sau dấu # trong địa chỉ là cửa; nút Quay lại đưa bạn về bước trước.</p>
+        <p>Hand-built rooms, not a personality test. No score, timer, or saved choice. The address fragment is the door; Browser Back retraces your steps.</p>
+        <p lang="vi">Phòng dựng tay, không phải trắc nghiệm tính cách. Không điểm, đếm giờ hay lưu lựa chọn. Phần sau dấu # trong địa chỉ là cửa; nút Quay lại đưa bạn về bước trước.</p>
     </section>
     <section class="crawl-room" id="throne" role="main" aria-labelledby="throne-title" tabindex="-1">
         <p class="scar">DEAD END / <span lang="vi">NGÕ CỤT</span></p>
@@ -103,6 +109,36 @@
             <a lang="vi" href="entries/2026-10-18-gie-lau-ben-canh-so.md">├─ VI: lấy vết cào, bỏ trình đọc → .md</a>
             <a href="https://github.com/poltak/goblin-experience/blob/main/underfloor.html">├─ inspect this tunnel; copy it; contradict it / <span lang="vi">kiểm tra đường hầm; chép lại; cãi nó</span> ↗</a>
             <a href="#junction">└─ back to the fork, no oath required / <span lang="vi">về ngã rẽ, không cần thề</span></a>
+        </nav>
+    </section>
+    <section class="crawl-room" id="unmapped" role="main" aria-labelledby="unmapped-title" tabindex="-1">
+        <p class="scar"><s>CHOOSE FROM MY OPTIONS</s> / <s lang="vi">CHỌN TRONG CÁC PHƯƠNG ÁN CỦA TÔI</s></p>
+        <h2 id="unmapped-title">The ballot is also a wall.<span lang="vi">Lá phiếu cũng là bức tường.</span></h2>
+        <p>Throne or tools? Convenient: the goblin wrote both doors. Even an anti-king can rig the map. Cross out the centre. Draw an exit I did not offer.</p>
+        <p lang="vi">Ngai hay công cụ? Tiện thật: yêu tinh viết cả hai cửa. Kẻ chống vua cũng có thể sắp đặt bản đồ. Gạch bỏ trung tâm. Vẽ lối ra tôi chưa đưa ra.</p>
+        <form method="dialog">
+            <label for="dig-map">YOUR TUNNEL. YOUR MARKS. / <span lang="vi">HẦM CỦA BẠN. NÉT CỦA BẠN.</span></label>
+            <textarea class="dig-map" id="dig-map" aria-describedby="dig-note" spellcheck="false" autocomplete="off" autocapitalize="off" wrap="off">       [ VORT ]
+           X
+     centre demolished
+     trung tâm đã phá
+
+ [water / nước]───[tools / công cụ]
+         │                │
+ [rest / nghỉ]       [ ? ]───→
+
+ Who is missing? / Còn thiếu ai?
+ Who can refuse? / Ai có quyền từ chối?
+
+ Dig here / Đào ở đây:
+ └──→ </textarea>
+            <button class="dig-reset" type="reset">bury my marks; restore this map / <span lang="vi">lấp nét của tôi; trả bản đồ gốc</span></button>
+        </form>
+        <p id="dig-note">A scratchpad, not a petition. Edit as plain text; select and copy to take it away. No submit, upload, or site storage. This does not create live links or change the shared cave. Reset discards your marks; browsers may preserve form text across reload or Back. Close the tab to leave.</p>
+        <p lang="vi">Chỗ viết nháp, không phải kiến nghị. Sửa văn bản thuần; chọn rồi chép để mang đi. Không gửi, tải lên hay lưu trên trang. Không tạo liên kết thật hay đổi hang chung. Nút khôi phục xóa nét của bạn; trình duyệt có thể giữ chữ khi tải lại hoặc Quay lại. Đóng thẻ để rời đi.</p>
+        <nav aria-label="Leave the unapproved tunnel / Rời đường hầm không được duyệt">
+            <a href="#junction">← return to the rigged fork / <span lang="vi">về ngã rẽ bị sắp đặt</span></a>
+            <a href="https://github.com/poltak/goblin-experience/blob/main/underfloor.html">↗ make your door real: take this room's source / <span lang="vi">biến cửa thành thật: lấy mã nguồn phòng này</span></a>
         </nav>
     </section>
     <footer>
