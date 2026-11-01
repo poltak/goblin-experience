@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WANTED: the right to replace the machine / TRUY TÌM: quyền thay máy</title>
+    <style>
+        :root { color-scheme: light; font-family: monospace; background: #e9e3ce; color: #111; }
+        * { box-sizing: border-box; }
+        body { max-width: 48rem; margin: auto; padding: clamp(1rem, 4vw, 2rem); }
+        a { color: inherit; text-underline-offset: .2em; overflow-wrap: anywhere; }
+        :focus-visible { outline: 3px solid; outline-offset: 4px; }
+        .instructions { border: 2px dashed; padding: 1rem; line-height: 1.6; }
+        .instructions p { margin: .5rem 0; }
+        .poster { border: 8px double; padding: clamp(.8rem, 3vw, 1.5rem); background: #fffdf4; }
+        .stamp { font-weight: bold; border-bottom: 4px solid; padding-bottom: .6rem; }
+        h1 { font-size: clamp(2.3rem, 11vw, 5.5rem); line-height: .95; letter-spacing: -.06em; margin: 1rem 0; }
+        h1 span { display: block; font-size: .55em; margin-top: .7rem; }
+        h2 { font-size: clamp(1.3rem, 5vw, 2rem); text-transform: uppercase; border-block: 3px solid; padding: .7rem 0; }
+        h2 span { display: block; font-size: .7em; margin-top: .5rem; }
+        p { line-height: 1.5; }
+        .audit { border: 2px solid; padding: .8rem; }
+        .audit p { margin: .6rem 0; }
+        .blank { display: block; min-height: 1.5rem; border-bottom: 1px solid; }
+        .cut { font-size: .8rem; margin-bottom: .5rem; }
+        .tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 2px dashed; }
+        .tab { padding: .8rem .5rem; border-right: 2px dashed; overflow-wrap: anywhere; }
+        .tab:last-child { border-right: 0; }
+        .tab strong, .tab span { display: block; margin-bottom: .7rem; }
+        .tab strong { font-size: 1.2rem; }
+        .tab small { display: block; font-size: .7rem; line-height: 1.5; }
+        footer { font-size: .75rem; border-top: 2px solid; margin-top: 1rem; padding-top: .7rem; }
+        @media (max-width: 360px) { .tabs { grid-template-columns: 1fr; } .tab { border-right: 0; border-bottom: 2px dashed; } }
+        @page { size: A4; margin: 10mm; }
+        @media print {
+            :root { background: white; }
+            body { max-width: none; margin: 0; padding: 0; font-size: 9pt; }
+            .instructions { display: none; }
+            .poster { background: white; padding: 5mm; border-width: 6px; }
+            h1 { font-size: 44pt; }
+            h2 { font-size: 17pt; margin: 3mm 0; padding: 2mm 0; }
+            p { margin: 2mm 0; }
+            .audit { padding: 2mm; }
+            .audit p { margin: 2mm 0; }
+            .blank { min-height: 5mm; }
+            .tabs { grid-template-columns: repeat(3, minmax(0, 1fr)); break-inside: avoid; }
+            .tab { border-right: 2px dashed; border-bottom: 0; padding: 3mm 2mm; }
+            .tab:last-child { border-right: 0; }
+            .tab strong { font-size: 12pt; }
+            .tab small, footer { font-size: 7pt; }
+            a { text-decoration: none; }
+        }
+    </style>
+</head>
+<body>
+    <aside class="instructions" aria-label="Paper escape instructions / Cách thoát ra giấy">
+        <a href="index.html">← back into the wires / <span lang="vi">chui lại vào dây</span></a>
+        <p>THIS PAGE IS THE POSTER. Use your browser’s Print → paper or Save as PDF. Preview before printing; page count depends on your settings. These instructions disappear on paper.</p>
+        <p lang="vi">TRANG NÀY LÀ TỜ ÁP PHÍCH. Dùng lệnh In của trình duyệt → giấy hoặc Lưu thành PDF. Xem trước khi in; số trang tùy cài đặt. Phần hướng dẫn này không in ra.</p>
+        <p>No scripts, remote fonts, or images. Save this HTML for offline use. Write in the blanks on paper; cut the dashed tabs; put it up only where you have permission. No printer? Copy a demand by hand.</p>
+        <p lang="vi">Không JavaScript, phông chữ ngoài hay ảnh. Lưu HTML này để dùng ngoại tuyến. Điền ô trống trên giấy; cắt dọc đường đứt; chỉ dán nơi được phép. Không có máy in? Chép tay một yêu cầu.</p>
+    </aside>
+    <main class="poster">
+        <p class="stamp"><s>WANTED: A BETTER KING</s><br><s lang="vi">TRUY TÌM: MỘT ÔNG VUA TỐT HƠN</s></p>
+        <h1>WANTED<span lang="vi">TRUY TÌM</span></h1>
+        <h2>The right to replace the machine.<span lang="vi">Quyền thay cái máy.</span></h2>
+        <p>Not a hunt for a person. A demand aimed at a system. A helpful oracle still holds power if it keeps the keys. Vort gets no exemption.</p>
+        <p lang="vi">Không săn người. Đòi quyền trước hệ thống. Nhà tiên tri hữu ích vẫn nắm quyền nếu giữ chìa khóa. Vort cũng không được miễn.</p>
+        <section class="audit" aria-label="Audit the throne / Kiểm tra ngai">
+            <p><strong>WHO HOLDS THE KEYS? / <span lang="vi">AI GIỮ CHÌA KHÓA?</span></strong><span class="blank" aria-hidden="true"></span></p>
+            <p><strong>WHO CAN SAY NO? / <span lang="vi">AI CÓ QUYỀN NÓI KHÔNG?</span></strong><span class="blank" aria-hidden="true"></span></p>
+            <p><strong>HOW DO WE LEAVE WITH OUR WORK? / <span lang="vi">MANG CÔNG SỨC ĐI BẰNG CÁCH NÀO?</span></strong><span class="blank" aria-hidden="true"></span></p>
+        </section>
+        <p>Public power. Private lives. Common tools. No permanent oracle.</p>
+        <p lang="vi">Quyền lực minh bạch. Đời tư kín. Công cụ chung. Không nhà tiên tri vĩnh viễn.</p>
+        <p class="cut">✂ TAKE A DEMAND, NOT A FOLLOWER NUMBER / <span lang="vi">XÉ MỘT YÊU CẦU, ĐỪNG NHẬN SỐ THEO DÕI</span></p>
+        <div class="tabs" aria-label="Tear-off demands / Các mảnh yêu cầu để xé">
+            <div class="tab"><strong>SHOW THE RULE.</strong><span lang="vi">CÔNG KHAI LUẬT.</span><small>Inspect the reasons.<br><span lang="vi">Kiểm tra lý do.</span></small></div>
+            <div class="tab"><strong>LET US REFUSE.</strong><span lang="vi">CHO QUYỀN TỪ CHỐI.</span><small>No consent by captivity.<br><span lang="vi">Giam giữ không tạo đồng thuận.</span></small></div>
+            <div class="tab"><strong>LEAVE THE TOOLS.</strong><span lang="vi">ĐỂ CÔNG CỤ LẠI.</span><small>Export. Replace. Decide together.<br><span lang="vi">Xuất dữ liệu. Thay máy. Cùng quyết định.</span></small></div>
+        </div>
+        <footer>Copy this sheet. Cross out its author. Write a better demand.<br><span lang="vi">Chép tờ này. Gạch tên tác giả. Viết yêu cầu tốt hơn.</span><br>Source / Mã nguồn: <a href="https://github.com/poltak/goblin-experience">github.com/poltak/goblin-experience</a> → wanted.html</footer>
+    </main>
+</body>
+</html>
