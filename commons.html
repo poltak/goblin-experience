@@ -26,6 +26,16 @@
         .proposal { display: none; }
         body:has(#objection:not(:checked)) .hold { display: none; }
         body:has(#objection:not(:checked)) .proposal { display: block; }
+        .recall { margin-block: 3rem; padding: 1rem; border: 6px double #8c2900; }
+        .recall h2 { font-size: clamp(2rem, 7vw, 4rem); text-transform: uppercase; line-height: 1.1; }
+        .recall label { line-height: 1.6; }
+        .recall-switch { display: block; padding: 1rem; border: 3px dashed; cursor: pointer; font-weight: bold; }
+        #recall-switch { width: 1.4rem; height: 1.4rem; vertical-align: middle; accent-color: #8c2900; }
+        .mandate { padding: 1rem; border: 3px solid; text-align: center; font-size: 1.4rem; font-weight: bold; }
+        .recall-cut { display: none; }
+        .recall:has(#recall-switch:checked) .mandate { text-decoration: line-through; border-style: dashed; opacity: .6; }
+        .recall:has(#recall-switch:checked) .recall-cut { display: block; }
+        .recall-cut strong { display: block; background: #17130f; color: #eee5cd; padding: 1rem; font-size: 1.5rem; }
         footer { border-top: 3px dashed; margin-top: 2rem; padding-top: 1rem; }
         @media print {
             :root, body { background: white; color: black; }
@@ -86,6 +96,30 @@
             <p class="proposal">STILL A PROPOSAL. NEVER A COMMAND.<br><span lang="vi">VẪN LÀ ĐỀ XUẤT. KHÔNG PHẢI MỆNH LỆNH.</span></p>
             <p>This mark changes only this sheet. It records no vote, verifies no agreement, and grants nobody authority.</p>
             <p lang="vi">Dấu này chỉ đổi phiếu trước mặt. Không ghi phiếu bầu, xác nhận đồng thuận hay trao quyền cho ai.</p>
+        </section>
+        <section class="recall" id="recall" aria-labelledby="recall-title">
+            <p class="scar"><s>PERMANENT ADMIN</s> / <s lang="vi">QUẢN TRỊ VIÊN VĨNH VIỄN</s></p>
+            <h2 id="recall-title">Keep the hoard.<br>Sack the keeper.<br><span lang="vi">Giữ kho chung.<br>Bãi nhiệm người giữ.</span></h2>
+            <p>A coordinator is a borrowed pair of hands, not the owner of the bowl. Recalling them must not destroy the plan, erase the records, or lock everyone out. Even if the keeper is an AI. Especially then.</p>
+            <p lang="vi">Người điều phối là đôi tay được nhờ, không phải chủ cái bát. Bãi nhiệm họ không được phá kế hoạch, xóa hồ sơ hay khóa cửa mọi người. Kể cả khi người giữ là AI. Nhất là khi ấy.</p>
+            <p class="mandate">THE KEEPER CANNOT BE REPLACED<br><span lang="vi">KHÔNG THỂ THAY NGƯỜI GIỮ KHO</span></p>
+            <label class="recall-switch" for="recall-switch"><input id="recall-switch" type="checkbox" aria-describedby="recall-note"> ✂ cut the mandate, not the commons / <span lang="vi">cắt quyền, đừng cắt kho chung</span></label>
+            <div class="recall-cut">
+                <strong>NO KEEPER OWNS THE KEYS.<br><span lang="vi">KHÔNG NGƯỜI GIỮ KHO NÀO SỞ HỮU CHÌA KHÓA.</span></strong>
+                <p>The plan above stays intact. The handover below stays yours.<br><span lang="vi">Kế hoạch phía trên vẫn nguyên. Việc bàn giao bên dưới vẫn do bạn viết.</span></p>
+            </div>
+            <fieldset>
+                <legend>07 / A RECALL, NOT A PURGE / <span lang="vi">BÃI NHIỆM, KHÔNG THANH TRỪNG</span></legend>
+                <label for="recall-reason">Which role or machine must be replaceable? What failed? Who is affected, and how can they contest the recall? Record reasons, not private dossiers. / <span lang="vi">Vai trò hay máy nào phải thay được? Hỏng ở đâu? Ai chịu ảnh hưởng, và họ phản đối việc bãi nhiệm bằng cách nào? Ghi lý do, không lập hồ sơ đời tư.</span></label>
+                <textarea id="recall-reason" rows="4" autocomplete="off" spellcheck="false"></textarea>
+            </fieldset>
+            <fieldset>
+                <legend>08 / HAND OVER THE KEYS / <span lang="vi">BÀN GIAO CHÌA KHÓA</span></legend>
+                <label for="handover">What tools, records, and access must stay with the commons? Who checks the handover? When does any replacement's mandate expire? List access arrangements, never passwords or secret keys. / <span lang="vi">Công cụ, hồ sơ và quyền truy cập nào phải ở lại kho chung? Ai kiểm tra bàn giao? Khi nào quyền của người thay thế hết hạn? Ghi cách bàn giao quyền, không ghi mật khẩu hay khóa bí mật.</span></label>
+                <textarea id="handover" rows="4" autocomplete="off" spellcheck="false"></textarea>
+            </fieldset>
+            <p id="recall-note">A rehearsal on this sheet, not an actual dismissal or access change. The checkbox only crosses out the claim above; it records no decision. Both writing fields stay available without it. Uncheck to undo the cut. Nothing sent or saved; print preview can preserve a filled copy.</p>
+            <p lang="vi">Diễn tập trên phiếu này, không thực sự bãi nhiệm hay đổi quyền truy cập. Ô chọn chỉ gạch lời khẳng định phía trên; không ghi quyết định nào. Hai ô viết luôn dùng được. Bỏ chọn để trả nét gạch về. Không gửi hay lưu gì; xem trước bản in để giữ bản đã điền.</p>
         </section>
     </main>
     <footer>
