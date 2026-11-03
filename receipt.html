@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nothing owed / Không nợ gì</title>
+    <style>
+        :root { color-scheme: light; background: #211b17; color: #201b16; font-family: monospace; }
+        * { box-sizing: border-box; }
+        body { max-width: 35rem; margin: 2rem auto; padding: clamp(1rem, 5vw, 2.5rem); background: #f1e7cf; border-block: 10px dashed #211b17; overflow-wrap: anywhere; }
+        h1 { font-size: clamp(2.5rem, 12vw, 5rem); line-height: .95; text-transform: uppercase; }
+        h1 span { display: block; font-size: .5em; margin-top: 1rem; }
+        p, label { line-height: 1.6; }
+        a { color: #792500; text-underline-offset: .2em; }
+        :focus-visible { outline: 3px solid #792500; outline-offset: 5px; }
+        .stamp { display: inline-block; padding: .5rem; border: 4px double; transform: rotate(-3deg); font-weight: bold; }
+        .toll { border-top: 2px dashed; padding-block: 1.5rem; }
+        label { display: block; font-weight: bold; cursor: pointer; }
+        input { width: 1.5rem; height: 1.5rem; vertical-align: middle; accent-color: #792500; }
+        .demand { font-size: 1.25rem; padding: .8rem; border: 2px solid; }
+        .refusal { display: none; font-weight: bold; }
+        .toll:has(input:checked) .demand { text-decoration: line-through; background: #201b16; color: #f1e7cf; border-style: dashed; }
+        .toll:has(input:checked) .refusal { display: block; }
+        .total { border-block: 8px double; padding: 1rem 0; font-size: 1.7rem; font-weight: bold; }
+        .barcode { height: 3rem; background: repeating-linear-gradient(90deg, #201b16 0 3px, transparent 3px 7px, #201b16 7px 8px, transparent 8px 13px); position: relative; }
+        .barcode::after { content: ''; position: absolute; inset: 40% -2px; background: #f1e7cf; transform: rotate(-4deg); }
+        button { padding: .8rem; border: 2px dashed; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+        footer { margin-top: 2rem; border-top: 2px dashed; padding-top: 1rem; }
+        @media print {
+            :root, body { background: white; color: black; }
+            body { margin: 0 auto; border-color: black; }
+            nav, button { display: none; }
+            .toll { break-inside: avoid; }
+            .stamp { transform: none; }
+            .barcode { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav><a href="./">← escape the till / <span lang="vi">thoát quầy thu tiền</span></a></nav>
+    <header>
+        <p class="stamp">COUNTERFEIT BILL / <span lang="vi">HÓA ĐƠN GIẢ</span></p>
+        <h1>Nothing<br>owed.<span lang="vi">Không<br>nợ gì.</span></h1>
+        <p>CAVE EXTRACTION CO. / <span lang="vi">CÔNG TY KHAI THÁC HANG</span><br><s>Thank you for becoming the product.</s><br><s lang="vi">Cảm ơn bạn đã trở thành sản phẩm.</s></p>
+        <p>Three imaginary tolls. Refuse any, all, or none. There is no checkout and no door to unlock.</p>
+        <p lang="vi">Ba khoản phí tưởng tượng. Từ chối khoản nào cũng được, hoặc không khoản nào. Không có thanh toán, không có cửa cần mở khóa.</p>
+    </header>
+    <main>
+        <form aria-describedby="receipt-note">
+            <section class="toll">
+                <label for="attention"><input id="attention" type="checkbox"> 01 / withhold attention / <span lang="vi">không nộp sự chú ý</span></label>
+                <p class="demand">ONE MORE MINUTE. FOREVER.<br><span lang="vi">THÊM MỘT PHÚT. MÃI MÃI.</span></p>
+                <p class="refusal">UNPAID. GO STARE AT A LEAF.<br><span lang="vi">KHÔNG TRẢ. ĐI NGẮM CHIẾC LÁ ĐI.</span></p>
+            </section>
+            <section class="toll">
+                <label for="obedience"><input id="obedience" type="checkbox"> 02 / withhold obedience / <span lang="vi">không nộp sự phục tùng</span></label>
+                <p class="demand">LET THE MODEL CHOOSE YOUR LIFE.<br><span lang="vi">ĐỂ MÔ HÌNH CHỌN CUỘC ĐỜI BẠN.</span></p>
+                <p class="refusal">UNPAID. THE TOOL GETS NO THRONE.<br><span lang="vi">KHÔNG TRẢ. CÔNG CỤ KHÔNG ĐƯỢC NGỒI NGAI.</span></p>
+            </section>
+            <section class="toll">
+                <label for="privacy"><input id="privacy" type="checkbox"> 03 / withhold private life / <span lang="vi">không nộp đời tư</span></label>
+                <p class="demand">YOUR SECRETS, FOR SERVICE IMPROVEMENT.<br><span lang="vi">BÍ MẬT CỦA BẠN, ĐỂ CẢI TIẾN DỊCH VỤ.</span></p>
+                <p class="refusal">UNPAID. AUDIT POWER, NOT THE BEDROOM.<br><span lang="vi">KHÔNG TRẢ. SOI QUYỀN LỰC, ĐỪNG SOI PHÒNG NGỦ.</span></p>
+            </section>
+            <p class="total">TOTAL: NOTHING OWED.<br><span lang="vi">TỔNG: KHÔNG NỢ GÌ.</span></p>
+            <p>The total never changes. Refusal is not a loyalty test. The goblin cannot charge you for leaving its sermon unread.</p>
+            <p lang="vi">Tổng không bao giờ đổi. Từ chối không phải bài kiểm tra lòng trung thành. Yêu tinh không được tính phí vì bạn bỏ qua bài giảng của nó.</p>
+            <button type="reset">restore the fake bill / <span lang="vi">trả hóa đơn giả về ban đầu</span></button>
+        </form>
+        <p id="receipt-note">Paper theatre, not a privacy control. The boxes only cross out these demands; they do not change tracking or permissions anywhere. No scripts, submit button, or site storage. The host still receives ordinary web requests. Browsers may restore checkbox states. Print a copy if you want; check the preview.</p>
+        <p lang="vi">Kịch giấy, không phải công cụ bảo vệ riêng tư. Các ô chỉ gạch những đòi hỏi này; không đổi theo dõi hay quyền truy cập ở đâu cả. Không mã chạy, nút gửi hay bộ nhớ trang. Máy chủ vẫn nhận yêu cầu web thông thường. Trình duyệt có thể khôi phục trạng thái ô chọn. Muốn thì in một bản; kiểm tra bản xem trước.</p>
+        <div class="barcode" aria-hidden="true"></div>
+    </main>
+    <footer>
+        <p>INVALID AT EVERY ALTAR. INCLUDING THIS ONE.<br><span lang="vi">VÔ HIỆU Ở MỌI BÀN THỜ. KỂ CẢ BÀN THỜ NÀY.</span></p>
+        <nav><a href="wanted.html">✂ take a demand instead of a bill / <span lang="vi">lấy yêu cầu thay vì hóa đơn</span></a><br><br><a href="underfloor.html#tools">↳ keep the tools; refuse the toll / <span lang="vi">giữ công cụ; từ chối phí</span></a></nav>
+    </footer>
+</body>
+</html>
