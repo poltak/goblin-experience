@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>One lantern. No oracle. / Một đèn. Không tiên tri.</title>
+    <style>
+        :root { color-scheme: dark; background: #171813; color: #e8e2cd; font-family: monospace; }
+        * { box-sizing: border-box; }
+        body { max-width: 58rem; margin: auto; padding: clamp(1rem, 4vw, 3rem); overflow-wrap: anywhere; }
+        a { color: #e5bd62; text-underline-offset: .25em; }
+        :focus-visible { outline: 3px solid #e5bd62; outline-offset: 5px; }
+        h1 { font-size: clamp(2.8rem, 10vw, 6rem); line-height: .95; text-transform: uppercase; }
+        h1 span { display: block; font-size: .5em; margin-top: 1rem; }
+        p, label, summary { line-height: 1.6; }
+        .scar { border: 3px dashed; padding: 1rem; transform: rotate(-1deg); }
+        fieldset { border: 0; padding: 0; margin: 2rem 0; }
+        legend { font-size: 1.3rem; font-weight: bold; margin-bottom: 1rem; }
+        .choice { display: block; border: 2px dashed #777c68; margin-block: .75rem; padding: 1rem; cursor: pointer; }
+        input { width: 1.4rem; height: 1.4rem; vertical-align: middle; accent-color: #e5bd62; }
+        .rooms { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; }
+        article { padding: 1rem; border: 2px solid #777c68; background: #22251d; }
+        article h2 { font-size: 1.1rem; }
+        .lit { display: none; }
+        form:has(#repair:checked) .repair,
+        form:has(#kitchen:checked) .kitchen,
+        form:has(#archive:checked) .archive { background: #e5bd62; color: #171813; border-color: #e5bd62; }
+        form:has(#repair:checked) .repair .lit,
+        form:has(#kitchen:checked) .kitchen .lit,
+        form:has(#archive:checked) .archive .lit { display: block; }
+        form:has(#repair:checked) .repair .waiting,
+        form:has(#kitchen:checked) .kitchen .waiting,
+        form:has(#archive:checked) .archive .waiting { display: none; }
+        .scar, details, footer { margin-block: 2rem; }
+        details { border-block: 3px double; padding-block: 1rem; }
+        summary { cursor: pointer; font-weight: bold; }
+        textarea { display: block; width: 100%; min-height: 9rem; margin-block: 1rem; padding: 1rem; font: inherit; color: inherit; background: #22251d; border: 2px dashed; }
+        button { padding: .8rem; color: inherit; background: transparent; border: 2px solid; font: inherit; cursor: pointer; }
+        small { display: block; line-height: 1.6; }
+        @media (max-width: 42rem) { .rooms { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <nav><a href="./">← back through the rubble / <span lang="vi">về qua đống gạch vụn</span></a></nav>
+    <header>
+        <p class="scar"><s>AI WILL OPTIMIZE EVERYTHING.</s><br><s lang="vi">AI SẼ TỐI ƯU MỌI THỨ.</s></p>
+        <h1>One lantern.<br>No oracle.<span lang="vi">Một đèn.<br>Không tiên tri.</span></h1>
+        <p>A fictional commons. Three rooms need light. There is one lantern. The machine does not get a deciding vote.</p>
+        <p lang="vi">Một kho chung giả tưởng. Ba phòng cần ánh sáng. Chỉ có một đèn. Máy không được quyền quyết định thay mọi người.</p>
+    </header>
+    <main>
+        <form aria-describedby="stage-note">
+            <fieldset>
+                <legend>Move the light. Name what waits.<br><span lang="vi">Chuyển đèn. Nói rõ việc nào phải chờ.</span></legend>
+                <label class="choice" for="repair"><input id="repair" type="radio" name="lantern"> ↯ repair bench / <span lang="vi">bàn sửa đồ</span></label>
+                <label class="choice" for="kitchen"><input id="kitchen" type="radio" name="lantern"> ♨ common kitchen / <span lang="vi">bếp chung</span></label>
+                <label class="choice" for="archive"><input id="archive" type="radio" name="lantern"> ▤ leaking archive / <span lang="vi">kho sách bị dột</span></label>
+            </fieldset>
+            <div class="rooms" aria-label="Consequences / Hệ quả" aria-live="polite" aria-atomic="true">
+                <article class="repair">
+                    <h2>↯ REPAIR / <span lang="vi">SỬA ĐỒ</span></h2>
+                    <p class="waiting">WAITING: the broken pump stays on the bench.<br><span lang="vi">ĐANG CHỜ: máy bơm hỏng vẫn nằm trên bàn.</span></p>
+                    <p class="lit">LIT: inspect the pump. Dinner and wet pages still wait.<br><span lang="vi">CÓ ĐÈN: kiểm tra máy bơm. Bữa ăn và những trang ướt vẫn phải chờ.</span></p>
+                </article>
+                <article class="kitchen">
+                    <h2>♨ KITCHEN / <span lang="vi">BẾP</span></h2>
+                    <p class="waiting">WAITING: the shared meal is not ready.<br><span lang="vi">ĐANG CHỜ: bữa ăn chung chưa sẵn sàng.</span></p>
+                    <p class="lit">LIT: prepare the meal. The pump and wet pages still wait.<br><span lang="vi">CÓ ĐÈN: chuẩn bị bữa ăn. Máy bơm và những trang ướt vẫn phải chờ.</span></p>
+                </article>
+                <article class="archive">
+                    <h2>▤ ARCHIVE / <span lang="vi">KHO SÁCH</span></h2>
+                    <p class="waiting">WAITING: water threatens the paper records.<br><span lang="vi">ĐANG CHỜ: nước đe dọa hồ sơ giấy.</span></p>
+                    <p class="lit">LIT: move the records out of the leak. The pump and dinner still wait.<br><span lang="vi">CÓ ĐÈN: chuyển hồ sơ khỏi chỗ dột. Máy bơm và bữa ăn vẫn phải chờ.</span></p>
+                </article>
+            </div>
+            <details>
+                <summary>╳ reject the goblin’s three choices / <span lang="vi">bác cả ba lựa chọn của yêu tinh</span></summary>
+                <p>Who set this scarcity? Can the work move into daylight? Who is missing from this decision? The model’s menu is not the boundary of the possible.</p>
+                <p lang="vi">Ai đặt ra sự thiếu thốn này? Có thể mang việc ra ánh sáng ban ngày không? Ai chưa được tham gia quyết định? Thực đơn của mô hình không phải giới hạn của điều có thể làm.</p>
+                <label for="counterplan">Write a counter-plan. No oracle grades it.<br><span lang="vi">Viết phương án khác. Không tiên tri nào chấm điểm.</span></label>
+                <textarea id="counterplan" maxlength="2000" autocomplete="off" placeholder="Change the premise. / Đổi tiền đề."></textarea>
+                <small>This note changes no room automatically. Select and copy it if you want to keep it.<br><span lang="vi">Ghi chú không tự đổi phòng nào. Chọn rồi chép nếu muốn giữ.</span></small>
+            </details>
+            <button type="reset">take back the mandate / <span lang="vi">thu hồi quyền quyết định</span></button>
+        </form>
+        <p id="stage-note">A paper planning argument, not a simulation or a vote. Light means priority, not completed work. No score, right answer, scripts, submission, or site storage. Browsers may restore form fields; the host receives ordinary web requests.</p>
+        <p lang="vi">Một cuộc tranh luận lập kế hoạch bằng giấy, không phải mô phỏng hay bỏ phiếu. Có đèn là được ưu tiên, không phải đã xong việc. Không điểm số, đáp án đúng, mã chạy, gửi dữ liệu hay bộ nhớ trang. Trình duyệt có thể khôi phục ô nhập; máy chủ nhận yêu cầu web thông thường.</p>
+    </main>
+    <footer>
+        <p class="scar">PLAN TOGETHER. KEEP THE RIGHT TO DISAGREE.<br><span lang="vi">CÙNG LẬP KẾ HOẠCH. GIỮ QUYỀN BẤT ĐỒNG.</span></p>
+        <a href="commons.html#recall">sack the keeper; keep the tools / <span lang="vi">bãi nhiệm người giữ kho; giữ công cụ</span> →</a>
+        <p><a href="receipt.html">refuse the extraction bill / <span lang="vi">từ chối hóa đơn khai thác</span> →</a></p>
+    </footer>
+</body>
+</html>
