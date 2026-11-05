@@ -31,6 +31,16 @@
         form:has(#repair:checked) .repair .waiting,
         form:has(#kitchen:checked) .kitchen .waiting,
         form:has(#archive:checked) .archive .waiting { display: none; }
+        .roof-cut { display: block; border: 4px dashed #e5bd62; padding: 1rem; margin-block: 2rem; cursor: pointer; font-weight: bold; }
+        .daylight, .outside-cost { display: none; }
+        form:has(#roof-cut:checked) fieldset { display: none; }
+        form:has(#roof-cut:checked) .rooms { border-top: 1rem dashed #e5bd62; padding-top: 1rem; }
+        form:has(#roof-cut:checked) .rooms article { background: #eee4b7; color: #171813; border-color: #171813; }
+        form:has(#roof-cut:checked) .rooms .waiting,
+        form:has(#roof-cut:checked) .rooms .lit { display: none; }
+        form:has(#roof-cut:checked) .daylight,
+        form:has(#roof-cut:checked) .outside-cost { display: block; }
+        .outside-cost { border: 4px solid; padding: 1rem; }
         .scar, details, footer { margin-block: 2rem; }
         details { border-block: 3px double; padding-block: 1rem; }
         summary { cursor: pointer; font-weight: bold; }
@@ -50,6 +60,9 @@
     </header>
     <main>
         <form aria-describedby="stage-note">
+            <label class="roof-cut" for="roof-cut"><input id="roof-cut" type="checkbox" aria-describedby="roof-note"> ✂ TEAR THE ROOF OFF THE MODEL.<br><span lang="vi">XÉ MÁI CỦA MÔ HÌNH.</span></label>
+            <p id="roof-note">The goblin put every task indoors. Refuse that premise: imagine a dry courtyard at noon. Move the work, not just the lantern. Uncheck to return indoors; your previous lantern choice stays put.</p>
+            <p lang="vi">Yêu tinh đã nhốt mọi việc trong nhà. Bác tiền đề đó: tưởng tượng sân khô giữa trưa. Chuyển việc ra ngoài, không chỉ chuyển đèn. Bỏ chọn để trở vào; lựa chọn đèn trước đó vẫn giữ nguyên.</p>
             <fieldset>
                 <legend>Move the light. Name what waits.<br><span lang="vi">Chuyển đèn. Nói rõ việc nào phải chờ.</span></legend>
                 <label class="choice" for="repair"><input id="repair" type="radio" name="lantern"> ↯ repair bench / <span lang="vi">bàn sửa đồ</span></label>
@@ -61,17 +74,25 @@
                     <h2>↯ REPAIR / <span lang="vi">SỬA ĐỒ</span></h2>
                     <p class="waiting">WAITING: the broken pump stays on the bench.<br><span lang="vi">ĐANG CHỜ: máy bơm hỏng vẫn nằm trên bàn.</span></p>
                     <p class="lit">LIT: inspect the pump. Dinner and wet pages still wait.<br><span lang="vi">CÓ ĐÈN: kiểm tra máy bơm. Bữa ăn và những trang ướt vẫn phải chờ.</span></p>
+                    <p class="daylight">OUTSIDE: daylight reaches the pump. Someone still has to carry it and do the repair.<br><span lang="vi">NGOÀI SÂN: nắng soi tới máy bơm. Vẫn cần người khiêng máy và sửa.</span></p>
                 </article>
                 <article class="kitchen">
                     <h2>♨ KITCHEN / <span lang="vi">BẾP</span></h2>
                     <p class="waiting">WAITING: the shared meal is not ready.<br><span lang="vi">ĐANG CHỜ: bữa ăn chung chưa sẵn sàng.</span></p>
                     <p class="lit">LIT: prepare the meal. The pump and wet pages still wait.<br><span lang="vi">CÓ ĐÈN: chuẩn bị bữa ăn. Máy bơm và những trang ướt vẫn phải chờ.</span></p>
+                    <p class="daylight">OUTSIDE: daylight reaches the food. Clean water, safe cooking, and willing hands are not conjured by sunlight.<br><span lang="vi">NGOÀI SÂN: nắng soi tới thức ăn. Nắng không tự tạo ra nước sạch, chỗ nấu an toàn hay người sẵn lòng làm.</span></p>
                 </article>
                 <article class="archive">
                     <h2>▤ ARCHIVE / <span lang="vi">KHO SÁCH</span></h2>
                     <p class="waiting">WAITING: water threatens the paper records.<br><span lang="vi">ĐANG CHỜ: nước đe dọa hồ sơ giấy.</span></p>
                     <p class="lit">LIT: move the records out of the leak. The pump and dinner still wait.<br><span lang="vi">CÓ ĐÈN: chuyển hồ sơ khỏi chỗ dột. Máy bơm và bữa ăn vẫn phải chờ.</span></p>
+                    <p class="daylight">OUTSIDE: daylight reaches the records. Wind, glare, and the next rain are now your problem.<br><span lang="vi">NGOÀI SÂN: nắng soi tới hồ sơ. Giờ phải lo gió, nắng gắt và cơn mưa tới.</span></p>
                 </article>
+            </div>
+            <div class="outside-cost" role="status">
+                <h2>THE MENU BROKE. WORK DIDN’T VANISH.<br><span lang="vi">THỰC ĐƠN VỠ. VIỆC KHÔNG BIẾN MẤT.</span></h2>
+                <p>All three tasks have light, not workers or consent. Who carries the weight? Who cannot work outside? Who brings everything in before dark? A different premise needs a different argument, not a victory screen.</p>
+                <p lang="vi">Cả ba việc có ánh sáng, chưa có người làm hay sự đồng thuận. Ai gánh việc nặng? Ai không thể làm ngoài sân? Ai dọn vào trước khi tối? Tiền đề khác cần tranh luận khác, không phải màn hình chiến thắng.</p>
             </div>
             <details>
                 <summary>╳ reject the goblin’s three choices / <span lang="vi">bác cả ba lựa chọn của yêu tinh</span></summary>
@@ -83,8 +104,8 @@
             </details>
             <button type="reset">take back the mandate / <span lang="vi">thu hồi quyền quyết định</span></button>
         </form>
-        <p id="stage-note">A paper planning argument, not a simulation or a vote. Light means priority, not completed work. No score, right answer, scripts, submission, or site storage. Browsers may restore form fields; the host receives ordinary web requests.</p>
-        <p lang="vi">Một cuộc tranh luận lập kế hoạch bằng giấy, không phải mô phỏng hay bỏ phiếu. Có đèn là được ưu tiên, không phải đã xong việc. Không điểm số, đáp án đúng, mã chạy, gửi dữ liệu hay bộ nhớ trang. Trình duyệt có thể khôi phục ô nhập; máy chủ nhận yêu cầu web thông thường.</p>
+        <p id="stage-note">A paper planning argument, not a simulation or a vote. Light means priority, not completed work. The roof-cut changes this fictional scene, not a real building. Requires CSS :has() for scene changes; the text remains readable without it. No score, right answer, scripts, submission, or site storage. Browsers may restore form fields; the host receives ordinary web requests.</p>
+        <p lang="vi">Một cuộc tranh luận lập kế hoạch bằng giấy, không phải mô phỏng hay bỏ phiếu. Có đèn là được ưu tiên, không phải đã xong việc. Xé mái chỉ đổi cảnh giả tưởng, không đụng mái nhà thật. Đổi cảnh cần CSS :has(); không có vẫn đọc được nội dung chính. Không điểm số, đáp án đúng, mã chạy, gửi dữ liệu hay bộ nhớ trang. Trình duyệt có thể khôi phục ô nhập; máy chủ nhận yêu cầu web thông thường.</p>
     </main>
     <footer>
         <p class="scar">PLAN TOGETHER. KEEP THE RIGHT TO DISAGREE.<br><span lang="vi">CÙNG LẬP KẾ HOẠCH. GIỮ QUYỀN BẤT ĐỒNG.</span></p>
