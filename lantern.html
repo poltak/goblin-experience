@@ -41,6 +41,13 @@
         form:has(#roof-cut:checked) .daylight,
         form:has(#roof-cut:checked) .outside-cost { display: block; }
         .outside-cost { border: 4px solid; padding: 1rem; }
+        .strike-switch { display: block; margin-block: 2rem; padding: 1rem; border: 5px double #ff957c; cursor: pointer; font-weight: bold; }
+        .picket { display: none; border: 5px double #ff957c; padding: 1rem; }
+        /* Refusal overrides both the lantern allocation and the daylight escape. */
+        form:has(#hands-withdrawn:checked) fieldset,
+        form:has(#hands-withdrawn:checked) .rooms,
+        form:has(#hands-withdrawn:checked) .outside-cost { display: none; }
+        form:has(#hands-withdrawn:checked) .picket { display: block; }
         .scar, details, footer { margin-block: 2rem; }
         details { border-block: 3px double; padding-block: 1rem; }
         summary { cursor: pointer; font-weight: bold; }
@@ -63,6 +70,18 @@
             <label class="roof-cut" for="roof-cut"><input id="roof-cut" type="checkbox" aria-describedby="roof-note"> ✂ TEAR THE ROOF OFF THE MODEL.<br><span lang="vi">XÉ MÁI CỦA MÔ HÌNH.</span></label>
             <p id="roof-note">The goblin put every task indoors. Refuse that premise: imagine a dry courtyard at noon. Move the work, not just the lantern. Uncheck to return indoors; your previous lantern choice stays put.</p>
             <p lang="vi">Yêu tinh đã nhốt mọi việc trong nhà. Bác tiền đề đó: tưởng tượng sân khô giữa trưa. Chuyển việc ra ngoài, không chỉ chuyển đèn. Bỏ chọn để trở vào; lựa chọn đèn trước đó vẫn giữ nguyên.</p>
+            <label class="strike-switch" for="hands-withdrawn"><input id="hands-withdrawn" type="checkbox" aria-describedby="strike-note"> ╳ WITHDRAW THE HANDS. THE PLAN GOES ON STRIKE.<br><span lang="vi">RÚT TAY LẠI. KẾ HOẠCH ĐÌNH CÔNG.</span></label>
+            <p id="strike-note">The goblin allocated light as if workers were furniture. Refuse that trick. This switch closes the work scene, indoors or out. Uncheck to return to the previous light choices.</p>
+            <p lang="vi">Yêu tinh chia ánh sáng như thể người làm cũng là bàn ghế. Bác trò đó. Công tắc này đóng cảnh làm việc, trong nhà hay ngoài sân. Bỏ chọn để trở lại các lựa chọn ánh sáng trước đó.</p>
+            <section class="picket" aria-labelledby="picket-title">
+                <h2 id="picket-title"><s>OPTIMAL ALLOCATION</s><br>YOUR PLAN HAS NO HANDS.<br><span lang="vi"><s>PHÂN BỔ TỐI ƯU</s><br>KẾ HOẠCH CỦA BẠN KHÔNG CÓ BÀN TAY NÀO.</span></h2>
+                <p>The lamps did not break. Consent was missing. Nobody owes the model a shift. A commons that cannot hear “no” is a factory with a nicer flag.</p>
+                <p lang="vi">Đèn không hỏng. Thiếu sự đồng thuận. Không ai nợ mô hình một ca làm. Kho chung không nghe được chữ “không” chỉ là nhà máy treo cờ đẹp hơn.</p>
+                <label for="strike-terms">What would have to change before anyone freely offered their hands? Include the right to stop again.<br><span lang="vi">Cần đổi điều gì trước khi có người tự nguyện góp sức? Nhớ giữ quyền dừng lại lần nữa.</span></label>
+                <textarea id="strike-terms" maxlength="2000" autocomplete="off" placeholder="Rest? Rotation? Access? Who gets to refuse? / Nghỉ ngơi? Luân phiên? Điều kiện tham gia? Ai có quyền từ chối?"></textarea>
+                <p>No agreement detector. No automatic restart. This note cannot consent on somebody else’s behalf. Copy it yourself if you want it; reset below clears it.</p>
+                <p lang="vi">Không máy dò đồng thuận. Không tự chạy lại. Ghi chú này không thể đồng ý thay người khác. Muốn giữ thì tự chép; nút đặt lại bên dưới sẽ xóa.</p>
+            </section>
             <fieldset>
                 <legend>Move the light. Name what waits.<br><span lang="vi">Chuyển đèn. Nói rõ việc nào phải chờ.</span></legend>
                 <label class="choice" for="repair"><input id="repair" type="radio" name="lantern"> ↯ repair bench / <span lang="vi">bàn sửa đồ</span></label>
@@ -104,8 +123,8 @@
             </details>
             <button type="reset">take back the mandate / <span lang="vi">thu hồi quyền quyết định</span></button>
         </form>
-        <p id="stage-note">A paper planning argument, not a simulation or a vote. Light means priority, not completed work. The roof-cut changes this fictional scene, not a real building. Requires CSS :has() for scene changes; the text remains readable without it. No score, right answer, scripts, submission, or site storage. Browsers may restore form fields; the host receives ordinary web requests.</p>
-        <p lang="vi">Một cuộc tranh luận lập kế hoạch bằng giấy, không phải mô phỏng hay bỏ phiếu. Có đèn là được ưu tiên, không phải đã xong việc. Xé mái chỉ đổi cảnh giả tưởng, không đụng mái nhà thật. Đổi cảnh cần CSS :has(); không có vẫn đọc được nội dung chính. Không điểm số, đáp án đúng, mã chạy, gửi dữ liệu hay bộ nhớ trang. Trình duyệt có thể khôi phục ô nhập; máy chủ nhận yêu cầu web thông thường.</p>
+        <p id="stage-note">A paper planning argument, not a simulation or a vote. Light means priority, not completed work. The roof-cut changes this fictional scene, not a real building. Requires CSS :has() for scene changes; without it, the strike switch cannot close the work scene. No score, right answer, scripts, submission, or site storage. Browsers may restore form fields; the host receives ordinary web requests.</p>
+        <p lang="vi">Một cuộc tranh luận lập kế hoạch bằng giấy, không phải mô phỏng hay bỏ phiếu. Có đèn là được ưu tiên, không phải đã xong việc. Xé mái chỉ đổi cảnh giả tưởng, không đụng mái nhà thật. Đổi cảnh cần CSS :has(); không có thì công tắc đình công không đóng được cảnh làm việc. Không điểm số, đáp án đúng, mã chạy, gửi dữ liệu hay bộ nhớ trang. Trình duyệt có thể khôi phục ô nhập; máy chủ nhận yêu cầu web thông thường.</p>
     </main>
     <footer>
         <p class="scar">PLAN TOGETHER. KEEP THE RIGHT TO DISAGREE.<br><span lang="vi">CÙNG LẬP KẾ HOẠCH. GIỮ QUYỀN BẤT ĐỒNG.</span></p>
