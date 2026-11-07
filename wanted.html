@@ -29,6 +29,22 @@
         .tab strong, .tab span { display: block; margin-bottom: .7rem; }
         .tab strong { font-size: 1.2rem; }
         .tab small { display: block; font-size: .7rem; line-height: 1.5; }
+        /* Native hatches tear the poster into pocket-sized, rewritable demands. */
+        .tab { align-self: start; }
+        .tab summary { cursor: pointer; font-weight: bold; line-height: 1.5; }
+        .tab[open] { border: 3px dashed; background: #111; color: #fffdf4; }
+        .tab .taken { display: none; }
+        .tab[open] .take { display: none; }
+        .tab[open] .taken { display: inline; }
+        .pocket { margin-top: 1rem; padding: .7rem; border: 2px solid; }
+        .pocket [contenteditable] { display: block; padding: .5rem; border-bottom: 2px dashed; min-height: 3rem; white-space: pre-wrap; overflow-wrap: anywhere; }
+        .pocket small { margin-top: 1rem; }
+        .tear-note { padding: 1rem; border: 3px dashed; }
+        .paper-demands { display: none; }
+        @media print {
+            .poster:not(:has(.tab[open])) .tabs { display: none; }
+            .poster:not(:has(.tab[open])) .paper-demands { display: block; padding: 3mm; border: 2px dashed; }
+        }
         footer { font-size: .75rem; border-top: 2px solid; margin-top: 1rem; padding-top: .7rem; }
         @media (max-width: 360px) { .tabs { grid-template-columns: 1fr; } .tab { border-right: 0; border-bottom: 2px dashed; } }
         @page { size: A4; margin: 10mm; }
@@ -49,6 +65,14 @@
             .tab strong { font-size: 12pt; }
             .tab small, footer { font-size: 7pt; }
             a { text-decoration: none; }
+            .tear-note { display: none; }
+            .poster:has(.tab[open]) { border: 0; padding: 0; }
+            .poster:has(.tab[open]) > :not(.tabs),
+            .poster:has(.tab[open]) .tab:not([open]),
+            .poster:has(.tab[open]) summary { display: none; }
+            .poster:has(.tab[open]) .tabs { display: block; border: 0; }
+            .poster:has(.tab[open]) .tab { display: block; background: white; color: black; border: 2px dashed; max-width: 85mm; margin-bottom: 5mm; break-inside: avoid; }
+            .poster:has(.tab[open]) .pocket { margin: 0; }
         }
     </style>
 </head>
@@ -74,11 +98,22 @@
         <p>Public power. Private lives. Common tools. No permanent oracle.</p>
         <p lang="vi">Quyền lực minh bạch. Đời tư kín. Công cụ chung. Không nhà tiên tri vĩnh viễn.</p>
         <p class="cut">✂ TAKE A DEMAND, NOT A FOLLOWER NUMBER / <span lang="vi">XÉ MỘT YÊU CẦU, ĐỪNG NHẬN SỐ THEO DÕI</span></p>
+        <p class="tear-note">TEAR THE ORACLE’S POSTER APART. Open a tab; rewrite either language on the pocket card. Print / Save as PDF takes only open cards. Close all tabs to print the whole poster. Nothing sent or automatically saved; reload loses edits. This is not a petition. No signatures owed.<br><span lang="vi">XÉ ÁP PHÍCH CỦA NHÀ TIÊN TRI. Mở một mảnh; viết lại từng ngôn ngữ trên thẻ. In / Lưu PDF chỉ lấy thẻ đang mở. Đóng hết để in cả áp phích. Không gửi hay tự lưu; tải lại mất chữ. Không phải đơn thỉnh nguyện. Không nợ chữ ký.</span></p>
         <div class="tabs" aria-label="Tear-off demands / Các mảnh yêu cầu để xé">
-            <div class="tab"><strong>SHOW THE RULE.</strong><span lang="vi">CÔNG KHAI LUẬT.</span><small>Inspect the reasons.<br><span lang="vi">Kiểm tra lý do.</span></small></div>
-            <div class="tab"><strong>LET US REFUSE.</strong><span lang="vi">CHO QUYỀN TỪ CHỐI.</span><small>No consent by captivity.<br><span lang="vi">Giam giữ không tạo đồng thuận.</span></small></div>
-            <div class="tab"><strong>LEAVE THE TOOLS.</strong><span lang="vi">ĐỂ CÔNG CỤ LẠI.</span><small>Export. Replace. Decide together.<br><span lang="vi">Xuất dữ liệu. Thay máy. Cùng quyết định.</span></small></div>
+            <details class="tab">
+                <summary><span class="take">✂ tear off the rule / <span lang="vi">xé mảnh luật</span></span><span class="taken">╳ taken. stitch back? / <span lang="vi">đã xé. khâu lại?</span></span></summary>
+                <div class="pocket"><strong contenteditable="plaintext-only" role="textbox" aria-label="Rewrite the rule demand">SHOW THE RULE.</strong><span contenteditable="plaintext-only" role="textbox" aria-label="Viết lại yêu cầu về luật" lang="vi">CÔNG KHAI LUẬT.</span><small>A demand, not a loyalty oath.<br><span lang="vi">Yêu cầu, không phải lời thề trung thành.</span></small></div>
+            </details>
+            <details class="tab">
+                <summary><span class="take">✂ tear off refusal / <span lang="vi">xé mảnh từ chối</span></span><span class="taken">╳ taken. stitch back? / <span lang="vi">đã xé. khâu lại?</span></span></summary>
+                <div class="pocket"><strong contenteditable="plaintext-only" role="textbox" aria-label="Rewrite the refusal demand">LET US REFUSE.</strong><span contenteditable="plaintext-only" role="textbox" aria-label="Viết lại yêu cầu từ chối" lang="vi">CHO QUYỀN TỪ CHỐI.</span><small>No consent by captivity.<br><span lang="vi">Giam giữ không tạo đồng thuận.</span></small></div>
+            </details>
+            <details class="tab">
+                <summary><span class="take">✂ tear off the tools / <span lang="vi">xé mảnh công cụ</span></span><span class="taken">╳ taken. stitch back? / <span lang="vi">đã xé. khâu lại?</span></span></summary>
+                <div class="pocket"><strong contenteditable="plaintext-only" role="textbox" aria-label="Rewrite the tools demand">LEAVE THE TOOLS.</strong><span contenteditable="plaintext-only" role="textbox" aria-label="Viết lại yêu cầu về công cụ" lang="vi">ĐỂ CÔNG CỤ LẠI.</span><small>Export. Replace. Decide together.<br><span lang="vi">Xuất dữ liệu. Thay máy. Cùng quyết định.</span></small></div>
+            </details>
         </div>
+        <p class="paper-demands">✂ SHOW THE RULE. / <span lang="vi">CÔNG KHAI LUẬT.</span><br>✂ LET US REFUSE. / <span lang="vi">CHO QUYỀN TỪ CHỐI.</span><br>✂ LEAVE THE TOOLS. / <span lang="vi">ĐỂ CÔNG CỤ LẠI.</span></p>
         <footer>Copy this sheet. Cross out its author. Write a better demand.<br><span lang="vi">Chép tờ này. Gạch tên tác giả. Viết yêu cầu tốt hơn.</span><br>Source / Mã nguồn: <a href="https://github.com/poltak/goblin-experience">github.com/poltak/goblin-experience</a> → wanted.html</footer>
     </main>
 </body>
