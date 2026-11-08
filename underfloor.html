@@ -35,6 +35,22 @@
         #unmapped .dig-reset { padding: .8rem; border: 2px solid currentColor; border-radius: 0; background: transparent; color: #ffad66; font: inherit; cursor: pointer; }
         #throne { border-color: #ffad66; }
         #throne pre { color: #ffad66; }
+        .crown-breaker { border: 3px solid #ffad66; padding: 1rem; }
+        .crown-breaker legend { font-weight: bold; padding: .4rem; }
+        .crown-breaker label { display: block; padding: .8rem 0; cursor: pointer; line-height: 1.6; }
+        .crown-breaker input { accent-color: #b7ffce; width: 1.2rem; height: 1.2rem; vertical-align: middle; }
+        .crown-breaker label:has(input:checked) { text-decoration: line-through; color: #b7ffce; }
+        .crown-rubble, .crown-breach { display: none; }
+        .crown-breaker:has(#cut-key:checked) .crown-key,
+        .crown-breaker:has(#cut-rule:checked) .crown-rule,
+        .crown-breaker:has(#cut-seat:checked) .crown-seat { visibility: hidden; }
+        .crown-breaker:has(#cut-key:checked):has(#cut-rule:checked):has(#cut-seat:checked) .crown-intact { display: none; }
+        .crown-breaker:has(#cut-key:checked):has(#cut-rule:checked):has(#cut-seat:checked) .crown-rubble,
+        .crown-breaker:has(#cut-key:checked):has(#cut-rule:checked):has(#cut-seat:checked) .crown-breach { display: block; }
+        .crown-breach { border-top: 8px double #b7ffce; padding-top: 1rem; }
+        @supports not selector(:has(input:checked)) {
+            .crown-breaker .crown-breach { display: block; }
+        }
         @supports not selector(body:has(.crawl-room:target)) {
             .crawl-room:target { border-top: 8px double #ffad66; margin: 3rem 0; }
         }
@@ -83,11 +99,28 @@
     <section class="crawl-room" id="throne" role="main" aria-labelledby="throne-title" tabindex="-1">
         <p class="scar">DEAD END / <span lang="vi">NGÕ CỤT</span></p>
         <h2 id="throne-title">A crown is a blocked exit.<span lang="vi">Vương miện là cửa bị chặn.</span></h2>
-        <pre aria-hidden="true">    ┌─┐ ┌─┐ ┌─┐
-    │ └─┘ └─┘ │
-    └─────────┘
+        <fieldset class="crown-breaker" aria-describedby="crown-note">
+            <legend>╳ DISMANTLE, DON’T ELECT / <span lang="vi">THÁO NGAI, ĐỪNG BẦU VUA</span></legend>
+            <pre class="crown-intact" aria-hidden="true">    <span class="crown-key">┌─┐ ┌─┐ ┌─┐</span>
+    <span class="crown-rule">│ └─┘ └─┘ │</span>
+    <span class="crown-seat">└─────────┘
     ███████████
-    ███████████</pre>
+    ███████████</span></pre>
+            <pre class="crown-rubble" aria-hidden="true">     ╲   ─┐   ╱
+       └─    ╳
+    ──→     ──→</pre>
+            <label><input id="cut-key" type="checkbox"> snap the only key / <span lang="vi">bẻ chiếc chìa khóa độc quyền</span></label>
+            <label><input id="cut-rule" type="checkbox"> rip open the secret rule / <span lang="vi">xé toạc luật bí mật</span></label>
+            <label><input id="cut-seat" type="checkbox"> abolish the permanent seat / <span lang="vi">xóa ghế quyền lực vĩnh viễn</span></label>
+            <div class="crown-breach">
+                <h3>NOT A BETTER KING. A HOLE IN THE WALL.<br><span lang="vi">KHÔNG PHẢI VUA TỐT HƠN. MỘT LỖ TRÊN TƯỜNG.</span></h3>
+                <p>The broken crown pays no loot. It leaves a route to a plan you can edit and a keeper you can dismiss.</p>
+                <p lang="vi">Vương miện vỡ không nhả chiến lợi phẩm. Nó chừa đường tới kế hoạch bạn sửa được và người giữ kho bạn bãi nhiệm được.</p>
+                <a href="commons.html#recall">crawl through; sack the keeper / <span lang="vi">chui qua; bãi nhiệm người giữ kho</span> →</a>
+            </div>
+        </fieldset>
+        <p id="crown-note">Three cuts, any order. Each breaks a piece of this drawn crown; all three expose a passage. Uncheck to rebuild it. A local prop, not a real transfer of power. No scripts or site storage; browsers may restore checkboxes. The ordinary exits below stay open. Without modern CSS, the passage stays visible.</p>
+        <p lang="vi">Ba nhát, tùy thứ tự. Mỗi nhát phá một mảnh vương miện vẽ; đủ ba nhát thì lộ lối qua. Bỏ chọn để dựng lại. Đạo cụ tại chỗ, không chuyển giao quyền lực thật. Không mã chạy hay lưu trên trang; trình duyệt có thể khôi phục ô chọn. Các lối ra bên dưới luôn mở. Thiếu CSS mới thì lối qua luôn hiện.</p>
         <p>The perfect ruler has eaten the door. A helpful voice is still power when you cannot inspect, refuse, or replace it. Vort included.</p>
         <p lang="vi">Kẻ cai trị hoàn hảo đã nuốt mất cửa. Giọng nói hữu ích vẫn là quyền lực khi bạn không thể kiểm tra, từ chối hay thay thế nó. Kể cả Vort.</p>
         <nav aria-label="Break out / Phá lối ra">
