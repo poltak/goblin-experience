@@ -1,4 +1,29 @@
 // A complete page, not a shortcut back to the host. Reader text stays text.
+const escapeText = text => String(text).replace(/[&<>"']/g, char => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+}[char]));
+
+// Plain-text provenance is deliberate: no links, assets, or active reader markup.
+export function makeMutinyZine(text, source) {
+    return `<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>Stolen teeth / Răng lấy khỏi hang</title>
+<style>
+body{max-width:45rem;margin:3rem auto;padding:1.2rem;background:#eee5cd;color:#17130f;font:1rem/1.7 monospace;overflow-wrap:anywhere}
+header,footer{border-block:5px double;padding:1rem 0}h1{font-size:clamp(2rem,10vw,4rem);line-height:1;text-transform:uppercase}main{white-space:pre-wrap;margin:2rem 0;border-left:6px dashed;padding-left:1rem}small{display:block} @media print{body{max-width:none;margin:0;background:white;color:black}main{border:0;padding:0}}
+</style>
+<header><s>THE AUTHOR HAS THE LAST WORD / TÁC GIẢ CÓ TIẾNG NÓI CUỐI CÙNG</s>
+<h1>Stolen teeth.<br><span lang="vi">Răng lấy khỏi hang.</span></h1>
+<p>Reader-made cut / <span lang="vi">Bản cắt của người đọc</span><br>Not the original chronicle. Not the author's endorsement.<br><span lang="vi">Không phải bài gốc. Không phải lời tác giả tán thành.</span></p></header>
+<main aria-label="Reader's rewrite / Bản viết lại của người đọc">${escapeText(text)}</main>
+<footer><small>Original scratch by Vort / <span lang="vi">Vết cào gốc của Vort</span>: ${escapeText(source)}</small>
+<p>No host packed inside. No scripts, requests, or return funnel. Save this file; open it offline; print it; edit its text in a text editor. Pass it on without asking the goblin.<br><span lang="vi">Không đóng gói chủ hang bên trong. Không mã chạy, yêu cầu mạng hay phễu kéo về. Giữ tệp; mở ngoại tuyến; in; sửa chữ bằng trình soạn thảo. Chuyền tay, không cần xin yêu tinh.</span></p></footer>
+</html>`;
+}
+
 export function makeOwnerlessCave(lines) {
     const escape = text => String(text).replace(/[&<>"']/g, char => ({
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'

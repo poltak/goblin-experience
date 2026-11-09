@@ -1,4 +1,5 @@
 import { BUILD, safeParse, formatAgo } from './utils.js';
+import { makeMutinyZine } from './contraband.js';
 
 const LAST_READ_KEY = 'vort_last_read_v1';
 const FORTUNE_KEY = 'vort_fortune_v1';
@@ -1027,20 +1028,37 @@ export function initChronicleTools() {
     });
 }
 
-// A reader-owned, disposable copy: never persisted, parsed as HTML, or submitted.
-export function initTextMutiny(contentDiv) {
+// Never submitted or auto-saved. Only an explicit download lets the rewrite leave.
+export function initTextMutiny(contentDiv, source = '') {
     const panel = document.getElementById('text-mutiny');
     const seize = document.getElementById('btn-seize-text');
     const restore = document.getElementById('btn-restore-text');
+    const smuggle = document.getElementById('btn-smuggle-text');
     if (!panel || !seize || !restore) return;
     const original = contentDiv.innerHTML;
-    const plain = contentDiv.textContent;
+    const plain = contentDiv.innerText || contentDiv.textContent;
+    let scratch = null;
+    if (smuggle) {
+        smuggle.hidden = true;
+        smuggle.onclick = () => {
+            if (!scratch) return;
+            const file = new Blob([makeMutinyZine(scratch.value, source)], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(file);
+            const exit = document.createElement('a');
+            exit.href = url;
+            exit.download = 'stolen-teeth.html';
+            document.body.appendChild(exit);
+            exit.click();
+            exit.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 60000);
+        };
+    }
     panel.hidden = false;
     seize.hidden = false;
     restore.hidden = true;
     contentDiv.classList.remove('text-seized');
     seize.onclick = () => {
-        const scratch = document.createElement('textarea');
+        scratch = document.createElement('textarea');
         scratch.className = 'mutiny-scratch';
         scratch.setAttribute('aria-label', 'Your disposable rewrite / Bản viết lại tạm của bạn');
         scratch.setAttribute('aria-describedby', 'text-mutiny-status');
@@ -1050,9 +1068,12 @@ export function initTextMutiny(contentDiv) {
         contentDiv.classList.add('text-seized');
         seize.hidden = true;
         restore.hidden = false;
+        if (smuggle) smuggle.hidden = false;
         scratch.focus();
     };
     restore.onclick = () => {
+        scratch = null;
+        if (smuggle) smuggle.hidden = true;
         contentDiv.innerHTML = original;
         contentDiv.classList.remove('text-seized');
         seize.hidden = false;
@@ -1089,7 +1110,7 @@ export async function loadEntry() {
                 return;
             }
             contentDiv.innerHTML = marked.parse(text);
-            initTextMutiny(contentDiv);
+            initTextMutiny(contentDiv, path);
 
             const heading = contentDiv.querySelector('h1, h2, h3');
             const title = heading ? (heading.textContent || '').trim() : '';
