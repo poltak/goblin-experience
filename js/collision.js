@@ -66,8 +66,26 @@ export function initBoneCollision() {
     const status = document.getElementById('collision-status');
     const doors = Array.from(document.querySelectorAll('#bone-doors > a')).slice(0, 2);
     if (!panel || !button || !wash || !output || !status || doors.length !== 2) return;
+    const refuse = document.getElementById('collision-refuse');
+    const counterwall = document.getElementById('collision-counterwall');
+    const dissent = document.getElementById('collision-dissent');
+    if (!refuse || !counterwall || !dissent) return;
     let generation = 0;
+    let buried = false;
+    refuse.addEventListener('click', () => {
+        buried = !buried;
+        generation++; // A late fetch must not overwrite the reader's refusal.
+        button.disabled = buried;
+        counterwall.hidden = !buried;
+        output.hidden = buried || !output.childElementCount;
+        refuse.setAttribute('aria-pressed', String(buried));
+        refuse.textContent = buried ? '↶ unbury the voices / đào các giọng lên' : '☒ bury both voices / chôn cả hai giọng';
+        wash.hidden = false;
+        status.textContent = buried ? 'NO FORCED CHOICE. THE WALL IS YOURS. / KHÔNG ÉP CHỌN PHE. TƯỜNG LÀ CỦA BẠN.' : 'Voices may return. Your dissent stays. / Các giọng có thể trở về. Lời phản đối vẫn còn.';
+        if (buried) dissent.focus();
+    });
     button.addEventListener('click', async () => {
+        if (buried) return;
         const turn = ++generation;
         button.disabled = true;
         status.textContent = 'Cracking the files… / Đang đập tệp…';
@@ -110,6 +128,8 @@ export function initBoneCollision() {
         }
     });
     wash.addEventListener('click', () => {
+        if (buried) refuse.click();
+        dissent.value = '';
         generation++;
         output.replaceChildren();
         output.hidden = true;
