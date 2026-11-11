@@ -79,7 +79,7 @@ export function initBoneCollision() {
         counterwall.hidden = !buried;
         output.hidden = buried || !output.childElementCount;
         refuse.setAttribute('aria-pressed', String(buried));
-        refuse.textContent = buried ? '↶ unbury the voices / đào các giọng lên' : '☒ bury both voices / chôn cả hai giọng';
+        refuse.textContent = buried ? '↶ return the cave; keep my draft / trả hang lại; giữ bản nháp' : '☒ bury both voices. seize the front page. / chôn cả hai giọng. chiếm trang chủ.';
         wash.hidden = false;
         status.textContent = buried ? 'NO FORCED CHOICE. THE WALL IS YOURS. / KHÔNG ÉP CHỌN PHE. TƯỜNG LÀ CỦA BẠN.' : 'Voices may return. Your dissent stays. / Các giọng có thể trở về. Lời phản đối vẫn còn.';
         if (buried) dissent.focus();

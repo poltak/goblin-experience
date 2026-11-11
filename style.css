@@ -46,6 +46,20 @@ body:has(#bootleg-switch:checked) #collision-output .blackout-word[aria-pressed=
 .counterwall textarea { display: block; box-sizing: border-box; width: 100%; min-height: 12rem; margin: 1rem 0; padding: .7rem; border: 3px solid #111; border-radius: 0; background: #fff9e9; color: #111; font: 1rem/1.7 monospace; resize: vertical; }
 .counterwall textarea:focus-visible { outline: 4px solid #ad3017; outline-offset: 3px; }
 
+/* Refusing the oracle requisitions the actual entrance, not just two quotes.
+   Unsupported :has leaves the existing, fully usable counterwall in place. */
+body:has(#collision-refuse[aria-pressed="true"]) > :not(.container, script),
+body:has(#collision-refuse[aria-pressed="true"]) .container > :not(#main-ui),
+body:has(#collision-refuse[aria-pressed="true"]) #main-ui > :not(#view-mouth),
+body:has(#collision-refuse[aria-pressed="true"]) .tour-strike > summary,
+.strike-room:has(#collision-refuse[aria-pressed="true"]) > :not(#bone-collision),
+#bone-collision:has(#collision-refuse[aria-pressed="true"]) > :not(#collision-counterwall, #collision-refuse, #collision-wash, #collision-status) { display: none; }
+body:has(#collision-refuse[aria-pressed="true"]) .tour-strike { border: 0; margin: 0; }
+.strike-room:has(#collision-refuse[aria-pressed="true"]) { padding: 0; border: 0; }
+#bone-collision:has(#collision-refuse[aria-pressed="true"]) { margin: 0; border: 0; background: transparent; }
+#bone-collision:has(#collision-refuse[aria-pressed="true"]) .counterwall { transform: none; border: 8px double #111; }
+#bone-collision:has(#collision-refuse[aria-pressed="true"]) textarea { min-height: 45vh; }
+
 /* A reader-operated photocopier: strip the brand, keep the doors and tools. */
 .bootleg-press { margin-bottom: 1.5rem; padding: 1rem; border: 3px dashed #ffad66; color: #f3e4ca; background: #100f0d; overflow-wrap: anywhere; }
 .bootleg-press label { cursor: pointer; font-weight: bold; }

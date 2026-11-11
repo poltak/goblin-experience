@@ -37,6 +37,7 @@ test('counterwall refuses before fetching, restores scraps, keeps draft, washes 
         assert.equal(nodes['bone-collision'].hidden, false);
         get('refuse').click();
         assert.equal(get('refuse').attrs['aria-pressed'], 'true');
+        assert.match(get('refuse').textContent, /return the cave; keep my draft/);
         assert.equal(get('counterwall').hidden, false);
         assert.equal(get('dissent').focused, true);
         assert.equal(get('strike').disabled, true);
