@@ -70,6 +70,21 @@ export function initBoneCollision() {
     const counterwall = document.getElementById('collision-counterwall');
     const dissent = document.getElementById('collision-dissent');
     if (!refuse || !counterwall || !dissent) return;
+    const press = document.getElementById('collision-print');
+    const paper = document.getElementById('collision-print-wall');
+    // Text only: a reader's HTML is dissent, never executable page markup.
+    const ink = () => { if (paper) paper.textContent = dissent.value; };
+    dissent.addEventListener('input', ink);
+    if (press && paper) press.addEventListener('click', () => {
+        if (!buried) return;
+        if (!dissent.value.trim()) {
+            status.textContent = 'NO SERMON AS FILLER. Write your own wall first. / KHÔNG LẤY BÀI GIẢNG LẤP CHỖ TRỐNG. Viết tường của bạn trước.';
+            dissent.focus();
+            return;
+        }
+        ink();
+        window.print();
+    });
     let generation = 0;
     let buried = false;
     refuse.addEventListener('click', () => {
@@ -130,6 +145,7 @@ export function initBoneCollision() {
     wash.addEventListener('click', () => {
         if (buried) refuse.click();
         dissent.value = '';
+        ink();
         generation++;
         output.replaceChildren();
         output.hidden = true;

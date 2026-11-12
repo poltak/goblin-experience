@@ -45,6 +45,34 @@ body:has(#bootleg-switch:checked) #collision-output .blackout-word[aria-pressed=
 .counterwall label { display: block; font-weight: bold; }
 .counterwall textarea { display: block; box-sizing: border-box; width: 100%; min-height: 12rem; margin: 1rem 0; padding: .7rem; border: 3px solid #111; border-radius: 0; background: #fff9e9; color: #111; font: 1rem/1.7 monospace; resize: vertical; }
 .counterwall textarea:focus-visible { outline: 4px solid #ad3017; outline-offset: 3px; }
+#collision-print-wall { display: none; }
+.counterwall-print-note { font: .85rem/1.6 monospace; }
+
+/* Occupation reaches the paper. Keep the reader's ink, not the landlord's chrome. */
+@media print {
+    body:has(#collision-refuse[aria-pressed="true"]) { background: white !important; color: black !important; }
+    body:has(#collision-refuse[aria-pressed="true"]) .container,
+    body:has(#collision-refuse[aria-pressed="true"]) #main-ui,
+    body:has(#collision-refuse[aria-pressed="true"]) #view-mouth,
+    body:has(#collision-refuse[aria-pressed="true"]) .tour-strike,
+    body:has(#collision-refuse[aria-pressed="true"]) .strike-room,
+    body:has(#collision-refuse[aria-pressed="true"]) #bone-collision,
+    body:has(#collision-refuse[aria-pressed="true"]) #collision-counterwall {
+        display: block !important; margin: 0 !important; padding: 0 !important;
+        border: 0 !important; background: white !important; color: black !important;
+        max-width: none !important; width: auto !important; transform: none !important;
+        box-shadow: none !important; text-shadow: none !important;
+    }
+    #bone-collision:has(#collision-refuse[aria-pressed="true"]) > :not(#collision-counterwall),
+    #bone-collision:has(#collision-refuse[aria-pressed="true"]) #collision-counterwall > :not(#collision-print-wall) { display: none !important; }
+    #bone-collision:has(#collision-refuse[aria-pressed="true"]) #collision-print-wall {
+        display: block; white-space: pre-wrap; overflow-wrap: anywhere;
+        font: 16pt/1.6 monospace; margin: 0; padding: 0; color: black;
+        background: white; border: 0; overflow: visible;
+    }
+    body:has(#collision-refuse[aria-pressed="true"]) *::before,
+    body:has(#collision-refuse[aria-pressed="true"]) *::after { display: none !important; }
+}
 
 /* Refusing the oracle requisitions the actual entrance, not just two quotes.
    Unsupported :has leaves the existing, fully usable counterwall in place. */
