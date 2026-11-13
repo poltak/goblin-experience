@@ -1083,6 +1083,9 @@ export function initTextMutiny(contentDiv, source = '') {
 }
 
 export async function loadEntry() {
+    // Each scratch starts with a severed conveyor, including back/forward visits.
+    const conveyor = document.getElementById('conveyor-hatch');
+    if (conveyor) conveyor.open = false;
     const mutiny = document.getElementById('text-mutiny');
     if (mutiny) mutiny.hidden = true;
     const urlParams = new URLSearchParams(window.location.search);

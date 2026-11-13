@@ -1,3 +1,14 @@
+/* A hard stop, not an autoplay lane. Native details keeps every exit opt-in. */
+.conveyor-cut { margin-block: 3rem 1rem; padding: clamp(.8rem, 3vw, 1.5rem); border-top: 12px dashed #ffad66; background: #100f0d; color: #f3e4ca; overflow-wrap: anywhere; }
+.conveyor-cut h2 { font: 900 clamp(1.5rem, 6vw, 3rem)/1.15 monospace; color: #ffad66; }
+.conveyor-cut h2 s { font-size: .5em; }
+.conveyor-cut p { line-height: 1.7; }
+.conveyor-cut summary { padding: 1rem; border: 3px solid currentColor; cursor: pointer; font-weight: bold; }
+.conveyor-cut summary:focus-visible { outline: 3px dashed currentColor; outline-offset: 4px; }
+.conveyor-cut details[open] > summary { border-style: dashed; }
+.conveyor-note { font-size: .85rem; }
+@media print { .conveyor-cut { display: none !important; } }
+
 /* Opt-in tar wall. Names stay in the DOM; focus scrapes one bone clean. */
 .soot-lever { padding: 1rem; margin-block: 1.5rem; border: 6px double #ffad66; background: #100f0d; color: #f3e4ca; }
 .soot-lever label { cursor: pointer; font-weight: bold; }
