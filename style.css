@@ -1,3 +1,14 @@
+/* The welcome desk is evidence, not a compulsory entrance ritual. */
+.confiscated-interface { margin-bottom: 1.5rem; border: 4px dashed #ffad66; background: #100f0d; color: #f3e4ca; overflow-wrap: anywhere; }
+.confiscated-interface > summary { cursor: pointer; padding: 1rem; border-left: 12px solid #ffad66; }
+.confiscated-interface > summary strong { display: block; font: 900 clamp(1.2rem, 5vw, 2rem)/1.2 monospace; color: #ffad66; }
+.confiscated-interface > summary > span { display: block; margin-top: .8rem; font: .8rem/1.6 monospace; }
+.confiscated-interface > summary:focus-visible { outline: 4px solid #b7ffce; outline-offset: 4px; }
+.confiscated-interface[open] > summary { border-bottom: 4px dashed #ffad66; text-decoration: line-through; }
+.evidence-bag { padding: clamp(.7rem, 3vw, 1.5rem); }
+.evidence-tag { padding: 1rem; border: 2px solid; font: .8rem/1.6 monospace; }
+@media print { .confiscated-interface { display: none; } }
+
 /* A hard stop, not an autoplay lane. Native details keeps every exit opt-in. */
 .conveyor-cut { margin-block: 3rem 1rem; padding: clamp(.8rem, 3vw, 1.5rem); border-top: 12px dashed #ffad66; background: #100f0d; color: #f3e4ca; overflow-wrap: anywhere; }
 .conveyor-cut h2 { font: 900 clamp(1.5rem, 6vw, 3rem)/1.15 monospace; color: #ffad66; }
@@ -165,7 +176,7 @@ body:has(#bootleg-switch:checked) .container *::after { color: #111 !important; 
 .host-eviction h1 { display: inline; animation: none; }
 .host-eviction .eviction-handle { display: block; margin: .7rem 0 1rem; font-size: .8rem; letter-spacing: .04em; color: #ffad66; }
 .host-eviction[open] .host-name { text-decoration: line-through .15em #ffad66; color: #aaa; }
-.container:has(.host-eviction[open]) > #goblin-face { visibility: hidden; }
+.evidence-bag:has(.host-eviction[open]) > #goblin-face { visibility: hidden; }
 .ownerless-sign { margin: 1rem 0 2rem; padding: clamp(1rem, 4vw, 2rem); background: #100f0d; color: #f3e4ca; border: 4px dashed #ffad66; border-left: 12px solid #ffad66; overflow-wrap: anywhere; }
 .ownerless-sign > strong { display: block; font-size: clamp(1.3rem, 5vw, 2.4rem); line-height: 1.3; color: #b7ffce; }
 .ownerless-sign a { display: inline-block; color: #b7ffce; border-bottom: 3px solid #b7ffce; }
@@ -3265,9 +3276,10 @@ canvas:focus {
 .map-hole a { display: block; margin: .8rem 0; color: #b7ffce; }
 
 /* Pulling the loose stone cuts the entire front interface. Native and reversible. */
-.container:has(.map-hole[open]) > #goblin-face,
 .container:has(.map-hole[open]) > .stats,
-#main-ui:has(.map-hole[open]) > :not(.tunnel-map),
+#main-ui:has(.map-hole[open]) > :not(.confiscated-interface),
+.confiscated-interface:has(.map-hole[open]) > summary,
+.evidence-bag:has(.map-hole[open]) > :not(.tunnel-map),
 .tunnel-map:has(.map-hole[open]) > :not(.map-hole) { display: none; }
 .tunnel-map:has(.map-hole[open]) { background: #080807; border: 0; padding: 0; }
 .map-hole[open] { border-top: 0; }
