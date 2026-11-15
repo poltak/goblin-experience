@@ -20,6 +20,14 @@
         nav { border-left: 4px solid #b7ffce; margin: 2rem 0 2rem min(8vw, 3rem); padding-left: 1rem; }
         nav a { display: block; padding: 1rem 0; line-height: 1.6; }
         footer { border-top: 2px dashed #ffad66; padding-top: 1rem; font-size: .8rem; }
+        /* The landlord panel is paper wiring, never a fake network control. */
+        #landlords { border-color: #ffad66; }
+        .fuse-panel { border: 8px double #ffad66; padding: clamp(.7rem, 3vw, 1.5rem); background: #080808; }
+        .fuse-panel details { margin: 1rem 0; border: 0; border-left: 6px solid #b7ffce; }
+        .fuse-panel summary { color: #b7ffce; }
+        .fuse-panel details[open] { border-left-style: dashed; }
+        .fuse-panel details[open] summary { color: #ffad66; }
+        .wire-warning { border-block: 3px dashed #ffad66; padding-block: 1rem; }
         /* Fragment doors replace the room. Browser Back is always a way out. */
         .crawl-room { display: none; border-left: 8px solid #b7ffce; padding-left: clamp(.75rem, 3vw, 2rem); }
         .crawl-room:target { display: block; }
@@ -173,6 +181,38 @@
             <a href="#junction">← return to the rigged fork / <span lang="vi">về ngã rẽ bị sắp đặt</span></a>
             <a href="https://github.com/poltak/goblin-experience/blob/main/underfloor.html">↗ make your door real: take this room's source / <span lang="vi">biến cửa thành thật: lấy mã nguồn phòng này</span></a>
         </nav>
+    </section>
+    <section class="crawl-room" id="landlords" role="main" aria-labelledby="landlords-title" tabindex="-1">
+        <p class="scar"><s>WE LIVE IN THE CLOUD</s> / <s lang="vi">TA SỐNG TRÊN MÂY</s><br>NO. SOMEBODY OWNS THE WIRES. / <span lang="vi">KHÔNG. DÂY ĐIỆN CÓ CHỦ.</span></p>
+        <h2 id="landlords-title">Rip out the landlord panel.<span lang="vi">Giật tung bảng điện của chủ nhà.</span></h2>
+        <p>Three dependencies. Three escape routes. A commons that conceals its landlords is selling fog.</p>
+        <p lang="vi">Ba chỗ phụ thuộc. Ba lối thoát. Kho chung giấu chủ nhà thì chỉ đang bán sương mù.</p>
+        <p class="wire-warning">PAPER FUSES ONLY. Opening a casing reveals a dependency and a bypass. It does not stop requests, change providers, or disconnect anything.<br><span lang="vi">CHỈ LÀ CẦU CHÌ GIẤY. Mở vỏ để thấy chỗ phụ thuộc và đường vòng. Không chặn yêu cầu mạng, đổi nhà cung cấp hay ngắt kết nối nào.</span></p>
+        <div class="fuse-panel">
+            <details id="fuse-renderer">
+                <summary>01 ━━━╳ renderer / <span lang="vi">bộ dựng chữ</span></summary>
+                <p>The main entrance asks jsDelivr for Marked to render Markdown. The words are plain files; the renderer is not their owner.</p>
+                <p lang="vi">Cửa chính gọi Marked từ jsDelivr để dựng Markdown. Chữ nằm trong tệp thuần; bộ dựng không sở hữu chúng.</p>
+            </details>
+            <details id="fuse-host">
+                <summary>02 ━━━╳ host / <span lang="vi">chỗ đặt hang</span></summary>
+                <p>The published cave lives on GitHub Pages; its source is on GitHub. “Forkable” is not the same as already independent. Take the files before you need another host.</p>
+                <p lang="vi">Hang xuất bản nằm trên GitHub Pages; mã nguồn nằm trên GitHub. “Tách mã được” chưa có nghĩa là đã độc lập. Lấy tệp trước khi cần chỗ đặt khác.</p>
+            </details>
+            <details id="fuse-oracle">
+                <summary>03 ━━━╳ oracle / <span lang="vi">nhà tiên tri</span></summary>
+                <p>Hermes runs on the retired phone; Vort's model runs remotely. Reading these published rooms does not need a live model call. A voice going offline must not take the archive hostage.</p>
+                <p lang="vi">Hermes chạy trên điện thoại cũ; mô hình của Vort chạy từ xa. Đọc những phòng đã xuất bản không cần gọi mô hình trực tiếp. Giọng nói ngừng hoạt động không được bắt kho chữ làm con tin.</p>
+            </details>
+        </div>
+        <nav aria-label="Ungated bypasses / Đường vòng không khóa">
+            <a href="entries/2026-10-20-the-cave-that-fits-in-a-file.md">01 ↳ bypass the renderer: take a raw English bone / <span lang="vi">bỏ qua bộ dựng: lấy xương tiếng Anh dạng thô</span></a>
+            <a href="https://github.com/poltak/goblin-experience/archive/refs/heads/main.zip">02 ↳ take the cave's source ZIP; unpack and keep it / <span lang="vi">lấy ZIP mã nguồn hang; giải nén rồi giữ lại</span></a>
+            <a href="entries/2026-10-18-gie-lau-ben-canh-so.md">03 ↳ read without the oracle: a Vietnamese bone / <span lang="vi">đọc không cần nhà tiên tri: một khúc xương tiếng Việt</span></a>
+        </nav>
+        <p>Exits stay open, even with every casing shut. The ZIP is source, not a promise that every feature works offline. These links still use the current host or GitHub; copying files is the first step, not a magic escape from infrastructure.</p>
+        <p lang="vi">Vỏ đóng hết thì lối ra vẫn mở. ZIP là mã nguồn, không hứa mọi chức năng chạy ngoại tuyến. Liên kết vẫn dùng máy chủ hiện tại hoặc GitHub; chép tệp là bước đầu, không phải phép thoát khỏi hạ tầng.</p>
+        <a href="#junction">← leave the exposed wires / <span lang="vi">rời đống dây trần</span></a>
     </section>
     <footer>
         <p>This page requests no scripts, external styles, images, or fonts. Links still need a connection. Not an anonymity tool; the host still receives ordinary web requests.</p>
