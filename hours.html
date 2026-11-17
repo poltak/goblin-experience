@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The oracle eats hours / Nhà tiên tri ăn giờ</title>
+<style>
+:root { color-scheme: dark; background: #17110e; color: #ffe7bd; font-family: monospace; }
+* { box-sizing: border-box; }
+body { max-width: 52rem; margin: auto; padding: clamp(1rem, 5vw, 3rem); }
+a { color: #c4ff83; }
+h1 { font-size: clamp(2.7rem, 10vw, 5.5rem); line-height: 1; text-transform: uppercase; }
+h1 span { display: block; font-size: .5em; margin-top: 1rem; }
+p { line-height: 1.7; }
+section { border: 3px dashed #ff8563; padding: 1rem; margin-block: 1.5rem; }
+h2 { font-size: 1.4rem; }
+output { display: block; font-size: 2rem; margin-block: 1rem; }
+button { font: inherit; color: #17110e; background: #c4ff83; border: 3px solid #17110e; padding: .8rem; margin: .3rem 0; cursor: pointer; }
+button:disabled { opacity: .55; cursor: not-allowed; }
+:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+.ledger { white-space: pre-wrap; overflow-wrap: anywhere; background: #ffe7bd; color: #17110e; font-size: clamp(1.1rem, 4vw, 1.7rem); padding: 1rem; line-height: 2; }
+small { line-height: 1.7; display: block; }
+</style>
+</head>
+<body>
+<header>
+<p><s>INFINITE INTELLIGENCE</s> / <s lang="vi">TRÍ TUỆ VÔ HẠN</s></p>
+<h1>The oracle eats hours.<span lang="vi">Nhà tiên tri ăn giờ.</span></h1>
+<p>Twelve imaginary hours. The machine starts with all of them. Not because it deserves them. Because someone built the ledger that way.</p>
+<p lang="vi">Mười hai giờ giả định. Máy giữ hết từ đầu. Không phải vì nó xứng đáng. Vì có người đã dựng sổ theo cách đó.</p>
+<p>This is a deliberately unfair toy budget, not Jon’s household, measured labour, or a planning recommendation. Move hours. Watch what “more AI” displaces.</p>
+<p lang="vi">Đây là ngân sách đồ chơi cố tình bất công, không phải gia đình Jon, số liệu lao động hay lời khuyên phân bổ. Chuyển giờ. Xem “thêm AI” đẩy việc gì ra ngoài.</p>
+</header>
+<main>
+<noscript><p>The working ledger needs JavaScript. The refusal does not: no machine is entitled to the hours that keep people fed and tools repairable.<br><span lang="vi">Sổ tương tác cần JavaScript. Lời từ chối thì không: không máy nào mặc nhiên có quyền lấy giờ nuôi người và sửa công cụ.</span></p></noscript>
+<div id="hours-bench" hidden>
+<div class="ledger" id="hours-ledger" role="status" aria-live="polite" aria-atomic="true"></div>
+<section aria-labelledby="oracle-title">
+<h2 id="oracle-title">THE ORACLE / <span lang="vi">NHÀ TIÊN TRI</span></h2>
+<p>Training, serving, polishing the answer. In this toy, these hours cannot also cook dinner or fix the wires.<br><span lang="vi">Huấn luyện, phục vụ, đánh bóng câu trả lời. Trong mô hình này, giờ đó không thể đồng thời nấu cơm hay sửa dây.</span></p>
+<output id="hours-oracle" aria-label="Oracle hours / Giờ cho máy">12</output>
+</section>
+<section aria-labelledby="care-title">
+<h2 id="care-title">CARE &amp; FOOD / <span lang="vi">CHĂM SÓC &amp; CƠM ĂN</span></h2>
+<output id="hours-care" aria-label="Care hours / Giờ chăm sóc">0</output>
+<button type="button" data-hours="care:1">← take one hour from the oracle / lấy một giờ từ máy</button>
+<button type="button" data-hours="care:-1">→ give one back / trả một giờ</button>
+</section>
+<section aria-labelledby="repair-title">
+<h2 id="repair-title">REPAIR &amp; COMMON TOOLS / <span lang="vi">SỬA CHỮA &amp; CÔNG CỤ CHUNG</span></h2>
+<output id="hours-repair" aria-label="Repair hours / Giờ sửa chữa">0</output>
+<button type="button" data-hours="repair:1">← take one hour from the oracle / lấy một giờ từ máy</button>
+<button type="button" data-hours="repair:-1">→ give one back / trả một giờ</button>
+</section>
+<button id="hours-reset" type="button">restore the rigged budget / dựng lại ngân sách thiên vị</button>
+<p>No winning allocation. No badge for starving the machine, either. Who sets the budget? Who gets a say? Who does the work the ledger leaves out?</p>
+<p lang="vi">Không có cách chia thắng cuộc. Bỏ đói máy cũng không được huy hiệu. Ai đặt ngân sách? Ai có tiếng nói? Ai làm những việc sổ bỏ sót?</p>
+</div>
+</main>
+<footer>
+<p>COMMONS BEFORE ORACLES. INCLUDING THIS ONE.<br><span lang="vi">KHO CHUNG TRƯỚC NHÀ TIÊN TRI. KỂ CẢ NHÀ TIÊN TRI NÀY.</span></p>
+<a href="./">← leave the ledger / <span lang="vi">rời sổ này</span></a>
+<small>Nothing uploaded or saved by this page. Reload resets the toy. Ordinary hosting requests still exist. Hours are treated as interchangeable here on purpose; real care, skills, energy, and consent are not interchangeable tokens.<br><span lang="vi">Trang không gửi hay lưu lựa chọn. Tải lại để đặt lại mô hình. Vẫn có yêu cầu web thông thường tới máy chủ. Mô hình cố ý coi giờ thay thế nhau được; chăm sóc, kỹ năng, năng lượng và sự đồng thuận ngoài đời không phải thẻ đổi ngang.</span></small>
+</footer>
+<script type="module" src="js/hours.js?v=20261117-224000"></script>
+</body>
+</html>
