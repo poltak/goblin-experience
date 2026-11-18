@@ -48,11 +48,27 @@ test('actual interface transfers, disables empty donors, and resets without a re
 test('entrance and bilingual toy disclose their limits and provide a script-free exit', () => {
     const page = readFileSync(new URL('../hours.html', import.meta.url), 'utf8');
     const entrance = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
-    assert.match(entrance, /href="hours.html"/);
+    assert.match(entrance, /href="hours.html#budget-mutiny"/);
     assert.match(page, /deliberately unfair toy budget/);
     assert.match(page, /lang="vi"/);
     assert.match(page, /<noscript>/);
     assert.match(page, /href="\.\/"/);
     assert.match(page, /No winning allocation/);
     assert.doesNotMatch(page, /https?:|<form|<input/);
+});
+
+test('native ledger refusal replaces the budget without scripts or submission', () => {
+    const page = readFileSync(new URL('../hours.html', import.meta.url), 'utf8');
+    assert.match(page, /<details class="budget-mutiny" id="budget-mutiny">\s*<summary>/);
+    assert.match(page, /\.budget-mutiny\[open\] ~ #hours-bench\s*\{ display: none; \}/);
+    assert.ok(page.indexOf('id="budget-mutiny"') < page.indexOf('id="hours-bench"'));
+    for (const id of ['mutiny-missing', 'mutiny-veto']) {
+        assert.ok(page.includes(`<label for="${id}">`));
+        assert.ok(page.includes(`<textarea id="${id}"`));
+    }
+    assert.match(page, /not a consultation or a vote/);
+    assert.match(page, /Nothing submitted, scored, or saved by the page/);
+    assert.match(page, /works without JavaScript/);
+    assert.match(page, /CÁI BẢNG CHỌN CŨNG LÀ LỒNG/);
+    assert.doesNotMatch(page, /required|onsubmit|onclick|:has\(/);
 });

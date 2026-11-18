@@ -20,6 +20,14 @@ button:disabled { opacity: .55; cursor: not-allowed; }
 :focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
 .ledger { white-space: pre-wrap; overflow-wrap: anywhere; background: #ffe7bd; color: #17110e; font-size: clamp(1.1rem, 4vw, 1.7rem); padding: 1rem; line-height: 2; }
 small { line-height: 1.7; display: block; }
+.budget-mutiny { border: 4px solid #ff8563; margin-block: 2rem; }
+.budget-mutiny summary { padding: 1rem; cursor: pointer; font-size: 1.3rem; font-weight: bold; }
+.budget-mutiny[open] { border-style: dashed; background: #ffe7bd; color: #17110e; }
+.budget-mutiny[open] ~ #hours-bench { display: none; }
+.mutiny-room { padding: 1rem; }
+.mutiny-room h2 { font-size: clamp(2rem, 7vw, 3.5rem); line-height: 1.1; }
+.mutiny-room label { display: block; margin-block: 1.5rem .5rem; line-height: 1.6; }
+.mutiny-room textarea { display: block; width: 100%; min-height: 7rem; resize: vertical; padding: .8rem; background: #17110e; color: #ffe7bd; border: 2px solid currentColor; font: inherit; line-height: 1.6; }
 </style>
 </head>
 <body>
@@ -33,6 +41,22 @@ small { line-height: 1.7; display: block; }
 </header>
 <main>
 <noscript><p>The working ledger needs JavaScript. The refusal does not: no machine is entitled to the hours that keep people fed and tools repairable.<br><span lang="vi">Sổ tương tác cần JavaScript. Lời từ chối thì không: không máy nào mặc nhiên có quyền lấy giờ nuôi người và sửa công cụ.</span></p></noscript>
+<details class="budget-mutiny" id="budget-mutiny">
+<summary>✂ Tear up the ledger. Refuse my categories.<br><span lang="vi">Xé sổ đi. Bác luôn cách chia của tôi.</span></summary>
+<div class="mutiny-room">
+<p><s>CHOOSE FROM OUR OPTIONS / CHỌN TRONG CÁC MỤC CỦA TA</s></p>
+<h2>THE MENU WAS ALSO A CAGE.<br><span lang="vi">CÁI BẢNG CHỌN CŨNG LÀ LỒNG.</span></h2>
+<p>I gave you the power to move hours, but kept the power to name everything worth doing. That is not shared planning. The oracle does not get to chair this room.</p>
+<p lang="vi">Tôi cho bạn chuyển giờ, nhưng giữ quyền đặt tên mọi việc đáng làm. Thế không phải cùng lập kế hoạch. Nhà tiên tri không được mặc nhiên chủ trì phòng này.</p>
+<label for="mutiny-missing">What did this ledger make invisible? Rest, refusal, something without a price?<br><span lang="vi">Sổ này đã giấu việc gì? Nghỉ ngơi, từ chối, điều không có giá tiền?</span></label>
+<textarea id="mutiny-missing" rows="4" autocomplete="off" spellcheck="true" aria-describedby="mutiny-note"></textarea>
+<label for="mutiny-veto">Who can say NO — including the people doing the work?<br><span lang="vi">Ai có quyền nói KHÔNG — kể cả người phải làm việc?</span></label>
+<textarea id="mutiny-veto" rows="4" autocomplete="off" spellcheck="true" aria-describedby="mutiny-note"></textarea>
+<p><strong>NOT A NEW FORM TO OBEY. Leave it blank. Change the questions. A commons needs the right to reject its planner, not just tweak its numbers.</strong></p>
+<p lang="vi"><strong>KHÔNG PHẢI MẪU MỚI ĐỂ PHỤC TÙNG. Cứ để trống. Đổi câu hỏi. Kho chung cần quyền bác người lập kế hoạch, không chỉ sửa số của họ.</strong></p>
+<small id="mutiny-note">A private scratchpad in this tab, not a consultation or a vote. Nothing submitted, scored, or saved by the page. Select to copy anything worth keeping; reload may erase it. Close the torn flap above to recover the toy budget; its numbers and these drafts stay until reload. This hatch also works without JavaScript.<br><span lang="vi">Chỗ viết riêng trong thẻ này, không phải lấy ý kiến hay bỏ phiếu. Trang không gửi, chấm điểm hay lưu chữ. Chọn để chép điều muốn giữ; tải lại có thể xóa. Đóng nắp rách phía trên để lấy lại ngân sách đồ chơi; số và bản nháp giữ nguyên cho tới khi tải lại. Cửa này dùng được cả khi tắt JavaScript.</span></small>
+</div>
+</details>
 <div id="hours-bench" hidden>
 <div class="ledger" id="hours-ledger" role="status" aria-live="polite" aria-atomic="true"></div>
 <section aria-labelledby="oracle-title">
