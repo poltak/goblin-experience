@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stop work / Dừng việc</title>
+    <style>
+        :root { color-scheme: dark; font-family: monospace; background: #14100d; color: #f4e9d3; }
+        * { box-sizing: border-box; }
+        body { max-width: 52rem; margin: auto; padding: clamp(1rem, 4vw, 3rem); overflow-wrap: anywhere; }
+        header { border: 6px solid #ff744f; padding: 1rem; }
+        .stamp { color: #ff744f; font-weight: bold; }
+        h1 { font-size: clamp(2.8rem, 12vw, 6rem); line-height: .95; margin: 1rem 0; }
+        h1 span { display: block; }
+        p { line-height: 1.7; }
+        a { color: #b7ffce; }
+        :focus-visible { outline: 3px solid #b7ffce; outline-offset: 5px; }
+        .notice { margin-block: 2rem; border-left: 10px solid #ff744f; padding-left: 1rem; }
+        .notice h2 { font-size: 1.2rem; line-height: 1.6; }
+        .writing { white-space: pre-wrap; min-height: 8rem; padding: 1rem; border: 2px dashed #ff744f; background: #080808; line-height: 1.7; }
+        .writing:empty::before { content: attr(data-hint); color: #bcb1a1; }
+        .restart { border: 4px double #ff744f; padding: 1rem; font-weight: bold; }
+        footer { margin-top: 2rem; border-top: 2px dashed #ff744f; }
+        @media print {
+            :root { color-scheme: light; background: white; color: black; }
+            body { max-width: none; padding: 0; }
+            .screen-only { display: none !important; }
+            .notice { border-color: black; margin-block: 1rem; }
+            .writing { background: white; color: black; border-color: black; min-height: 7rem; }
+            .writing:empty::before { content: none; }
+            .notice h2 { break-after: avoid; }
+            .restart { border-color: black; }
+        }
+    </style>
+</head>
+<body>
+    <header class="screen-only">
+        <p class="stamp"><s>ASK THE MODEL FOR PERMISSION</s><br><s lang="vi">XIN PHÉP MÔ HÌNH</s></p>
+        <h1>STOP WORK.<span lang="vi">DỪNG VIỆC.</span></h1>
+        <p>The machine has no veto over your veto. Not even this one.</p>
+        <p lang="vi">Máy không có quyền phủ quyết lời phản đối của bạn. Kể cả máy này.</p>
+    </header>
+    <main>
+        <p class="screen-only">Not another manifesto to agree with. A blank stop-work notice to take away. Click or tab into the three writing spaces; use any language. Leave identifying details out.</p>
+        <p class="screen-only" lang="vi">Không thêm tuyên ngôn để bạn tán thành. Một tờ yêu cầu dừng việc còn trống để mang đi. Bấm hoặc dùng Tab vào ba ô viết; viết bằng tiếng nào cũng được. Đừng ghi thông tin nhận dạng.</p>
+        <section class="notice" aria-label="Stop-work notice / Yêu cầu dừng việc">
+            <h2 id="stop-label">01 / STOP THIS<br><span lang="vi">DỪNG VIỆC NÀY</span></h2>
+            <div class="writing" contenteditable="plaintext-only" role="textbox" aria-multiline="true" aria-labelledby="stop-label" data-hint="Which decision or process must stop? / Quyết định hay quy trình nào phải dừng?" spellcheck="true"></div>
+            <h2 id="risk-label">02 / WHO CARRIES THE RISK?<br><span lang="vi">AI GÁNH RỦI RO?</span></h2>
+            <div class="writing" contenteditable="plaintext-only" role="textbox" aria-multiline="true" aria-labelledby="risk-label" data-hint="Roles, not names. What harm is being ignored? / Vai trò, không ghi tên. Tác hại nào đang bị bỏ qua?" spellcheck="true"></div>
+            <h2 id="restart-label">03 / WHO CAN AGREE TO RESTART, AND ON WHAT TERMS?<br><span lang="vi">AI CÓ THỂ ĐỒNG Ý LÀM LẠI, VÀ VỚI ĐIỀU KIỆN GÌ?</span></h2>
+            <div class="writing" contenteditable="plaintext-only" role="textbox" aria-multiline="true" aria-labelledby="restart-label" data-hint="People affected; evidence needed; a way to stop again. / Người chịu ảnh hưởng; bằng chứng cần có; cách dừng lại lần nữa." spellcheck="true"></div>
+        </section>
+        <p class="restart">NO AUTOMATIC RESTART. SILENCE IS NOT CONSENT.<br><span lang="vi">KHÔNG TỰ ĐỘNG LÀM LẠI. IM LẶNG KHÔNG PHẢI ĐỒNG Ý.</span></p>
+    </main>
+    <footer class="screen-only">
+        <p>Use the browser’s Print command (Ctrl/Cmd + P on desktop) for paper or PDF. This header, instructions, hints, and cave links stay off the sheet; your words and the notice labels remain. Disable browser headers/footers in the print dialog if you do not want the URL or date.</p>
+        <p lang="vi">Dùng lệnh In của trình duyệt (Ctrl/Cmd + P trên máy tính) để in giấy hoặc PDF. Tiêu đề đầu trang, hướng dẫn, gợi ý và liên kết hang không lên giấy; lời bạn và nhãn của tờ yêu cầu vẫn còn. Tắt đầu trang/chân trang trong hộp thoại in nếu không muốn URL hay ngày tháng.</p>
+        <p>No scripts, submission, scoring, or site storage. Your draft is temporary: leaving or reloading can lose it. The browser may retain page state. Print to keep a filled copy; save this page as HTML for a reusable offline blank. This notice does not stop a real system or establish legal authority. You decide whether and where to share it.</p>
+        <p lang="vi">Không mã chạy, gửi dữ liệu, chấm điểm hay lưu trên trang. Bản nháp chỉ tạm thời: rời trang hoặc tải lại có thể mất. Trình duyệt có thể giữ trạng thái trang. In để giữ bản đã điền; lưu trang dạng HTML để có bản trống dùng ngoại tuyến. Tờ này không dừng hệ thống thật hay tạo thẩm quyền pháp lý. Bạn quyết định có chia sẻ hay không, và ở đâu.</p>
+        <p><a href="./">← return to the rubble / về đống gạch vụn</a> · <a href="commons.html">take the common planning sheet / lấy tờ kế hoạch chung →</a></p>
+    </footer>
+</body>
+</html>
