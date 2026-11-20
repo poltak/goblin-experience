@@ -6,7 +6,7 @@ const page = readFileSync(new URL('../veto.html', import.meta.url), 'utf8');
 const entrance = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
 
 test('stop-work notice offers three labelled plain-text writing spaces without a submission path', () => {
-    assert.equal((page.match(/contenteditable="plaintext-only"/g) || []).length, 3);
+    assert.equal((page.match(/contenteditable="plaintext-only"/g) || []).length, 4);
     for (const id of ['stop-label', 'risk-label', 'restart-label']) {
         assert.ok(page.includes(`id="${id}"`));
         assert.ok(page.includes(`role="textbox" aria-multiline="true" aria-labelledby="${id}"`));
@@ -16,6 +16,23 @@ test('stop-work notice offers three labelled plain-text writing spaces without a
     assert.match(page, /does not stop a real system or establish legal authority/);
     assert.match(page, /Your draft is temporary/);
     assert.match(page, /reusable offline blank/);
+});
+
+test('native tear-out seam removes the prescribed form and leaves an unruled print sheet', () => {
+    assert.match(page, /<details class="form-refusal" id="unruled">\s*<summary>/);
+    assert.match(page, /\.form-refusal\[open\] ~ \.notice, \.form-refusal\[open\] ~ \.restart \{ display: none; \}/);
+    assert.ok(page.indexOf('id="unruled"') < page.indexOf('<section class="notice"'));
+    const sheet = page.match(/<div class="unruled-sheet">([\s\S]*?)<\/details>/)[1];
+    assert.match(sheet, /class="screen-only"/);
+    assert.match(sheet, /role="textbox" aria-multiline="true" aria-label="Your unruled notice/);
+    assert.match(sheet, /aria-describedby="unruled-note"/);
+    assert.match(sheet, /both drafts remain/);
+    assert.match(sheet, /Nothing submitted or saved/);
+    assert.match(page, /MẪU NÀY CŨNG CÓ THỂ BỊ BÁC BỎ/);
+    const print = page.slice(page.indexOf('@media print'));
+    assert.match(print, /\.form-refusal:not\(\[open\]\) \{ display: none; \}/);
+    assert.match(print, /\.form-refusal > summary \{ display: none; \}/);
+    assert.match(entrance, /Even this form can be refused/);
 });
 
 test('print sheet excludes the host and instructions, not the reader writing', () => {

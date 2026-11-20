@@ -21,6 +21,14 @@
         .writing:empty::before { content: attr(data-hint); color: #bcb1a1; }
         .restart { border: 4px double #ff744f; padding: 1rem; font-weight: bold; }
         footer { margin-top: 2rem; border-top: 2px dashed #ff744f; }
+        .form-refusal { margin-block: 2rem; border: 4px dashed #ff744f; }
+        .form-refusal summary { padding: 1rem; cursor: pointer; font-weight: bold; line-height: 1.7; }
+        .form-refusal[open] { border-color: #b7ffce; }
+        .form-refusal[open] ~ .notice, .form-refusal[open] ~ .restart { display: none; }
+        .unruled-sheet { padding: 1rem; }
+        .unruled-sheet h2 { font-size: clamp(2rem, 7vw, 3.5rem); line-height: 1.1; }
+        .unruled-sheet .writing { min-height: 20rem; background: #f4e9d3; color: #14100d; border: 0; }
+        .unruled-sheet .writing:empty::before { color: #514638; }
         @media print {
             :root { color-scheme: light; background: white; color: black; }
             body { max-width: none; padding: 0; }
@@ -30,6 +38,10 @@
             .writing:empty::before { content: none; }
             .notice h2 { break-after: avoid; }
             .restart { border-color: black; }
+            .form-refusal, .unruled-sheet { border: 0; padding: 0; margin: 0; }
+            .form-refusal:not([open]) { display: none; }
+            .form-refusal > summary { display: none; }
+            .unruled-sheet .writing { background: white; color: black; }
         }
     </style>
 </head>
@@ -43,6 +55,19 @@
     <main>
         <p class="screen-only">Not another manifesto to agree with. A blank stop-work notice to take away. Click or tab into the three writing spaces; use any language. Leave identifying details out.</p>
         <p class="screen-only" lang="vi">Không thêm tuyên ngôn để bạn tán thành. Một tờ yêu cầu dừng việc còn trống để mang đi. Bấm hoặc dùng Tab vào ba ô viết; viết bằng tiếng nào cũng được. Đừng ghi thông tin nhận dạng.</p>
+        <details class="form-refusal" id="unruled">
+            <summary>✂ EVEN THIS FORM CAN BE REFUSED.<br><span lang="vi">MẪU NÀY CŨNG CÓ THỂ BỊ BÁC BỎ.</span></summary>
+            <div class="unruled-sheet">
+                <div class="screen-only">
+                    <h2>TEAR OFF THE QUESTIONS.<br><span lang="vi">XÉ BỎ CÂU HỎI.</span></h2>
+                    <p>A veto is not permission to fill the goblin’s boxes. The questions and closing slogan are off the paper now. Write your own notice, draw your own boundary, or leave it blank.</p>
+                    <p lang="vi">Quyền phản đối không phải quyền điền ô của yêu tinh. Câu hỏi và khẩu hiệu cuối đã bị gỡ khỏi tờ giấy. Tự viết lời yêu cầu, tự vạch giới hạn, hoặc cứ để trống.</p>
+                    <p id="unruled-note">Only your words print while this seam is open. No heading, numbering, or compulsory slogan. Close the seam to recover the three-box notice; both drafts remain in this tab until you leave or reload. Nothing submitted or saved by the page.</p>
+                    <p lang="vi">Khi đường xé mở, chỉ lời bạn lên giấy. Không tiêu đề, số thứ tự hay khẩu hiệu bắt buộc. Đóng đường xé để lấy lại mẫu ba ô; cả hai bản nháp còn trong thẻ này tới khi rời trang hoặc tải lại. Trang không gửi hay lưu chữ.</p>
+                </div>
+                <div class="writing" contenteditable="plaintext-only" role="textbox" aria-multiline="true" aria-label="Your unruled notice / Tờ yêu cầu không theo mẫu của bạn" aria-describedby="unruled-note" data-hint="No prescribed words. / Không có lời bắt buộc." spellcheck="true"></div>
+            </div>
+        </details>
         <section class="notice" aria-label="Stop-work notice / Yêu cầu dừng việc">
             <h2 id="stop-label">01 / STOP THIS<br><span lang="vi">DỪNG VIỆC NÀY</span></h2>
             <div class="writing" contenteditable="plaintext-only" role="textbox" aria-multiline="true" aria-labelledby="stop-label" data-hint="Which decision or process must stop? / Quyết định hay quy trình nào phải dừng?" spellcheck="true"></div>
@@ -54,8 +79,8 @@
         <p class="restart">NO AUTOMATIC RESTART. SILENCE IS NOT CONSENT.<br><span lang="vi">KHÔNG TỰ ĐỘNG LÀM LẠI. IM LẶNG KHÔNG PHẢI ĐỒNG Ý.</span></p>
     </main>
     <footer class="screen-only">
-        <p>Use the browser’s Print command (Ctrl/Cmd + P on desktop) for paper or PDF. This header, instructions, hints, and cave links stay off the sheet; your words and the notice labels remain. Disable browser headers/footers in the print dialog if you do not want the URL or date.</p>
-        <p lang="vi">Dùng lệnh In của trình duyệt (Ctrl/Cmd + P trên máy tính) để in giấy hoặc PDF. Tiêu đề đầu trang, hướng dẫn, gợi ý và liên kết hang không lên giấy; lời bạn và nhãn của tờ yêu cầu vẫn còn. Tắt đầu trang/chân trang trong hộp thoại in nếu không muốn URL hay ngày tháng.</p>
+        <p>Use the browser’s Print command (Ctrl/Cmd + P on desktop) for paper or PDF. This header, instructions, hints, and cave links stay off the sheet; your words and the notice labels remain unless you open the tear-out seam above, which removes the labels and closing slogan too. Disable browser headers/footers in the print dialog if you do not want the URL or date.</p>
+        <p lang="vi">Dùng lệnh In của trình duyệt (Ctrl/Cmd + P trên máy tính) để in giấy hoặc PDF. Tiêu đề đầu trang, hướng dẫn, gợi ý và liên kết hang không lên giấy; lời bạn và nhãn của tờ yêu cầu vẫn còn, trừ khi mở đường xé phía trên để gỡ cả nhãn lẫn khẩu hiệu cuối. Tắt đầu trang/chân trang trong hộp thoại in nếu không muốn URL hay ngày tháng.</p>
         <p>No scripts, submission, scoring, or site storage. Your draft is temporary: leaving or reloading can lose it. The browser may retain page state. Print to keep a filled copy; save this page as HTML for a reusable offline blank. This notice does not stop a real system or establish legal authority. You decide whether and where to share it.</p>
         <p lang="vi">Không mã chạy, gửi dữ liệu, chấm điểm hay lưu trên trang. Bản nháp chỉ tạm thời: rời trang hoặc tải lại có thể mất. Trình duyệt có thể giữ trạng thái trang. In để giữ bản đã điền; lưu trang dạng HTML để có bản trống dùng ngoại tuyến. Tờ này không dừng hệ thống thật hay tạo thẩm quyền pháp lý. Bạn quyết định có chia sẻ hay không, và ở đâu.</p>
         <p><a href="./">← return to the rubble / về đống gạch vụn</a> · <a href="commons.html">take the common planning sheet / lấy tờ kế hoạch chung →</a></p>
