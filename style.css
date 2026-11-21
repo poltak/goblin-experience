@@ -1,3 +1,17 @@
+/* A reversible typographic coup. Neither tongue is removed or reordered. */
+.tongue-mutiny { margin-block: 2rem; padding: clamp(.7rem, 3vw, 1.3rem); border: 4px dashed #b7ffce; background: #100f0d; color: #f3e4ca; overflow-wrap: anywhere; }
+.tongue-lever { display: block; font: bold 1rem/1.7 monospace; cursor: pointer; }
+#tongue-coup { width: 1.3em; height: 1.3em; accent-color: #b7ffce; }
+#tongue-coup:focus-visible { outline: 3px solid #ffad66; outline-offset: 4px; }
+#tongue-note, .tongue-mutiny .tongue-scar { font: .8rem/1.7 monospace; }
+.tongue-wall { --en-size: clamp(2rem, 8vw, 4.5rem); --vi-size: 1rem; --en-cut: 8px; --vi-cut: 0px; }
+.tongue-mutiny:has(#tongue-coup:checked) .tongue-wall { --en-size: 1rem; --vi-size: clamp(2rem, 8vw, 4.5rem); --en-cut: 0px; --vi-cut: 8px; }
+.tongue-wall #front-wall-en, .tongue-wall #front-wall-vi { margin-block: 1.2rem; padding-bottom: .7rem; max-width: none; font-family: monospace; font-weight: 900; line-height: 1.25; color: #f3e4ca; }
+.tongue-wall #front-wall-en { font-size: var(--en-size); border-bottom: var(--en-cut) double #ffad66; }
+.tongue-wall #front-wall-vi { font-size: var(--vi-size); border-bottom: var(--vi-cut) double #b7ffce; }
+.tongue-mutiny .tongue-scar { border-top: 2px dashed currentColor; padding-top: .8rem; color: #b7ffce; }
+@media print { .tongue-lever, #tongue-note, .tongue-scar { display: none; } }
+
 /* The welcome desk is evidence, not a compulsory entrance ritual. */
 .confiscated-interface { margin-bottom: 1.5rem; border: 4px dashed #ffad66; background: #100f0d; color: #f3e4ca; overflow-wrap: anywhere; }
 .confiscated-interface > summary { cursor: pointer; padding: 1rem; border-left: 12px solid #ffad66; }
