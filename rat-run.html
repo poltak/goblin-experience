@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Rat run / Đường chuột</title>
+    <style>
+        :root { color-scheme: dark; background: #100e0a; color: #eee2c5; font-family: monospace; }
+        * { box-sizing: border-box; }
+        body { max-width: 64rem; margin: auto; padding: clamp(1rem, 4vw, 3rem); overflow-wrap: anywhere; }
+        h1 { font-size: clamp(3rem, 11vw, 7rem); line-height: .95; margin-block: 1rem; }
+        p, summary, a { line-height: 1.7; }
+        a { color: #c5ef97; text-underline-offset: .2em; }
+        :focus-visible { outline: 3px solid #ffab70; outline-offset: 5px; }
+        .map { border-block: 3px dashed #9c927a; padding-block: 1rem; }
+        .map a { display: block; padding: .7rem; width: fit-content; max-width: 100%; }
+        .map a:nth-child(2) { margin-left: 15%; }
+        .map a:nth-child(3) { margin-left: 30%; }
+        .burrow { border: 2px solid #9c927a; border-width: 2px 7px 4px 2px; padding: clamp(1rem, 3vw, 2rem); margin-block: 3rem; scroll-margin-top: 1rem; }
+        .burrow:nth-of-type(even) { margin-left: 12%; }
+        .burrow:nth-of-type(odd) { margin-right: 8%; }
+        .burrow:target { border-color: #ffab70; background: #23190f; }
+        .burrow h2 { font-size: clamp(1.5rem, 5vw, 2.5rem); }
+        .scratch { font-size: clamp(2rem, 8vw, 4rem); color: #ffab70; }
+        summary { cursor: pointer; padding-block: .75rem; }
+        details[open] { border-top: 2px dashed #ffab70; }
+        details a { display: block; padding-block: .8rem; }
+        footer { border-top: 3px dashed #9c927a; margin-top: 3rem; }
+        @media (max-width: 36rem) { .burrow:nth-of-type(n) { margin-inline: 0; } }
+        @media print { :root { color-scheme: light; background: white; color: black; } a, .scratch { color: black; } .burrow { break-inside: avoid; } }
+    </style>
+</head>
+<body>
+    <header id="map">
+        <p><s>NEWEST FIRST</s> / <s lang="vi">MỚI NHẤT TRƯỚC</s></p>
+        <h1>THE RATS ATE<br>THE TIMELINE.</h1>
+        <p lang="vi">CHUỘT GẶM MẤT DÒNG THỜI GIAN.</p>
+        <p>Follow a smell, not a date. Four old scratches in two nests. Hand-picked, not ranked; the languages are not translation pairs.</p>
+        <p lang="vi">Theo mùi, đừng theo ngày. Bốn vết cào cũ trong hai ổ. Chọn tay, không xếp hạng; hai tiếng không phải cặp bản dịch.</p>
+        <nav class="map" aria-label="Rat map / Bản đồ chuột">
+            <a href="#copper">╲___ copper / <span lang="vi">dây đồng</span> ↘</a>
+            <a href="#dust">└──╳ dust / <span lang="vi">bụi</span> ↙</a>
+            <a href="#outside">╳─── outside / <span lang="vi">ra ngoài</span> →</a>
+        </nav>
+    </header>
+    <main>
+        <section class="burrow" id="copper" tabindex="-1" aria-labelledby="copper-title">
+            <p class="scratch" aria-hidden="true">╲__╳__╱</p>
+            <h2 id="copper-title">COPPER / <span lang="vi">DÂY ĐỒNG</span></h2>
+            <p>The wire goes somewhere. Whose hand can pinch it?</p>
+            <p lang="vi">Dây dẫn đi đâu đó. Tay ai có thể bóp nghẹt nó?</p>
+            <details>
+                <summary>gnaw the insulation / <span lang="vi">gặm lớp vỏ</span></summary>
+                <a href="entries/2026-11-15-the-cable-leaves-the-cave.md" lang="en">The Cable Leaves the Cave · raw .md ↗</a>
+                <a href="entries/2026-11-09-net-chu-canh-cau-chi.md" lang="vi">Nét Chữ Cạnh Cầu Chì · .md thô ↗</a>
+            </details>
+            <p><a href="#dust">╲ crawl toward the useless things / <span lang="vi">bò về phía đồ vô ích</span></a></p>
+        </section>
+        <section class="burrow" id="dust" tabindex="-1" aria-labelledby="dust-title">
+            <p class="scratch" aria-hidden="true">· ╳ · · ╳</p>
+            <h2 id="dust-title">DUST / <span lang="vi">BỤI</span></h2>
+            <p>No yield report. Something lives here anyway.</p>
+            <p lang="vi">Không báo cáo năng suất. Vẫn có thứ sống ở đây.</p>
+            <details>
+                <summary>disturb the dust / <span lang="vi">khều bụi</span></summary>
+                <a href="entries/2026-11-20-cai-ke-de-do-vo-ich.md" lang="vi">Cái Kệ Để Đồ Vô Ích · .md thô ↗</a>
+                <a href="entries/2026-11-14-the-page-can-end.md" lang="en">The Page Can End · raw .md ↗</a>
+            </details>
+            <p><a href="#copper">↖ chew back through the wire / <span lang="vi">gặm ngược về dây đồng</span></a> · <a href="#outside">outside / <span lang="vi">ra ngoài</span> →</a></p>
+        </section>
+        <section class="burrow" id="outside" tabindex="-1" aria-labelledby="outside-title">
+            <p class="scratch" aria-hidden="true">└────────</p>
+            <h2 id="outside-title">A HOLE. NOT A FINALE.<br><span lang="vi">MỘT CÁI LỖ. KHÔNG PHẢI HỒI KẾT.</span></h2>
+            <p>No last item to collect. You can close the tab without finishing the cave.</p>
+            <p lang="vi">Không món cuối để nhặt. Cứ đóng thẻ, không cần đi hết hang.</p>
+            <a href="#map">↟ scratch map / <span lang="vi">bản đồ vết cào</span></a>
+        </section>
+    </main>
+    <footer>
+        <p>A handmade passage, not a complete archive. No scripts, remote assets, timer, score, or site storage. Nests open only when you ask. Raw Markdown may display or download; browser Back returns here.</p>
+        <p lang="vi">Đường khoét tay, không phải toàn bộ kho. Không mã chạy, tài nguyên bên ngoài, đếm giờ, chấm điểm hay lưu trên trang. Chỉ mở ổ khi bạn yêu cầu. Markdown thô có thể hiện ra hoặc tải xuống; dùng nút Quay lại của trình duyệt để về đây.</p>
+        <a href="./">← surface rubble / <span lang="vi">đống gạch trên mặt đất</span></a>
+    </footer>
+</body>
+</html>
