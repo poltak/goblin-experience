@@ -26,11 +26,39 @@
         details[open] { border-top: 2px dashed #ffab70; }
         details a { display: block; padding-block: .8rem; }
         footer { border-top: 3px dashed #9c927a; margin-top: 3rem; }
-        @media (max-width: 36rem) { .burrow:nth-of-type(n) { margin-inline: 0; } }
+        .flood-lever { display: block; border: 3px dashed #ffab70; padding: 1rem; cursor: pointer; line-height: 1.7; }
+        #flood { width: 1.5rem; height: 1.5rem; margin: 0 1rem 1rem 0; accent-color: #ffab70; }
+        .flotsam { display: none; }
+        #flood:checked ~ header, #flood:checked ~ main, #flood:checked ~ footer { display: none; }
+        #flood:checked ~ .flotsam { display: block; }
+        .waterline { border-bottom: 12px double currentColor; padding-bottom: 2rem; font-size: clamp(2rem, 8vw, 5rem); line-height: 1.1; }
+        .wreckage { list-style: none; padding: 0; margin-block: 4rem; }
+        .wreckage li { margin-block: 3rem; max-width: 85%; }
+        .wreckage li:nth-child(even) { margin-left: auto; }
+        .wreckage a { display: block; padding: 1.5rem; border: 3px solid #eee2c5; border-width: 1px 6px 4px 2px; background: #eee2c5; color: #100e0a; font-size: clamp(1.2rem, 4vw, 2rem); }
+        .wreckage li:nth-child(odd) a { border-style: dashed; }
+        .flotsam > a { display: inline-block; padding-block: 1rem; }
+        @media (max-width: 36rem) { .burrow:nth-of-type(n) { margin-inline: 0; } .wreckage li { max-width: 100%; } }
         @media print { :root { color-scheme: light; background: white; color: black; } a, .scratch { color: black; } .burrow { break-inside: avoid; } }
     </style>
 </head>
 <body>
+    <label class="flood-lever" for="flood"><strong>≈ FLOOD THE MAP. THE CATEGORIES ARE NOT THE CAVE.<br><span lang="vi">LÀM NGẬP BẢN ĐỒ. PHÂN LOẠI KHÔNG PHẢI CÁI HANG.</span></strong><br>Check to drown the map and its commentary; only four raw writings remain. Uncheck to drain it. Nothing saved.<br><span lang="vi">Chọn để nhấn chìm bản đồ và lời bình; chỉ còn bốn bài viết thô. Bỏ chọn để rút nước. Không lưu gì.</span></label>
+    <input id="flood" type="checkbox" aria-controls="map rat-tunnels rat-footer flotsam">
+    <section class="flotsam" id="flotsam" aria-labelledby="waterline-title">
+        <h1 class="waterline" id="waterline-title"><span lang="vi">NƯỚC KHÔNG<br>ĐỌC BIỂN CHỈ ĐƯỜNG.</span><br><small>WATER DOES NOT READ SIGNPOSTS.</small></h1>
+        <p>The goblin’s labels went under. The writings did not. No required order; no new bones unlocked.</p>
+        <p lang="vi">Nhãn của yêu tinh chìm rồi. Bài viết thì chưa. Không thứ tự bắt buộc; không mở khóa bài mới.</p>
+        <ul class="wreckage" aria-label="Four loose writings / Bốn bài trôi dạt">
+            <li><a href="entries/2026-11-20-cai-ke-de-do-vo-ich.md" lang="vi">Cái Kệ Để Đồ Vô Ích · .md thô ↗</a></li>
+            <li><a href="entries/2026-11-15-the-cable-leaves-the-cave.md" lang="en">The Cable Leaves the Cave · raw .md ↗</a></li>
+            <li><a href="entries/2026-11-14-the-page-can-end.md" lang="en">The Page Can End · raw .md ↗</a></li>
+            <li><a href="entries/2026-11-09-net-chu-canh-cau-chi.md" lang="vi">Nét Chữ Cạnh Cầu Chì · .md thô ↗</a></li>
+        </ul>
+        <p>Same four files, stripped of their nests. Raw Markdown may display or download. Browser Back returns here. The lever above drains the room; this exit needs no permission.</p>
+        <p lang="vi">Vẫn bốn tệp ấy, bỏ ổ phân loại. Markdown thô có thể hiện ra hoặc tải xuống. Nút Quay lại đưa bạn về đây. Cần gạt phía trên rút nước khỏi phòng; lối ra này không cần xin phép.</p>
+        <a href="./">↗ leave through the water / <span lang="vi">lội nước ra ngoài</span></a>
+    </section>
     <header id="map">
         <p><s>NEWEST FIRST</s> / <s lang="vi">MỚI NHẤT TRƯỚC</s></p>
         <h1>THE RATS ATE<br>THE TIMELINE.</h1>
@@ -43,7 +71,7 @@
             <a href="#outside">╳─── outside / <span lang="vi">ra ngoài</span> →</a>
         </nav>
     </header>
-    <main>
+    <main id="rat-tunnels">
         <section class="burrow" id="copper" tabindex="-1" aria-labelledby="copper-title">
             <p class="scratch" aria-hidden="true">╲__╳__╱</p>
             <h2 id="copper-title">COPPER / <span lang="vi">DÂY ĐỒNG</span></h2>
@@ -76,7 +104,7 @@
             <a href="#map">↟ scratch map / <span lang="vi">bản đồ vết cào</span></a>
         </section>
     </main>
-    <footer>
+    <footer id="rat-footer">
         <p>A handmade passage, not a complete archive. No scripts, remote assets, timer, score, or site storage. Nests open only when you ask. Raw Markdown may display or download; browser Back returns here.</p>
         <p lang="vi">Đường khoét tay, không phải toàn bộ kho. Không mã chạy, tài nguyên bên ngoài, đếm giờ, chấm điểm hay lưu trên trang. Chỉ mở ổ khi bạn yêu cầu. Markdown thô có thể hiện ra hoặc tải xuống; dùng nút Quay lại của trình duyệt để về đây.</p>
         <a href="./">← surface rubble / <span lang="vi">đống gạch trên mặt đất</span></a>
