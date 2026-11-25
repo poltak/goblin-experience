@@ -24,6 +24,18 @@ summary { cursor: pointer; border-block: 5px double #ffad66; padding: 1rem; font
 main:has(#border[open]) .checkpoint { display: none; }
 small { display: block; margin-top: 2rem; }
 footer { border-top: 1px dashed; margin-top: 2rem; padding-top: 1rem; }
+#salvage { accent-color: #ffad66; }
+label[for="salvage"] { cursor: pointer; font-weight: bold; color: #ffad66; }
+.door-ticket { display: none; border: .25rem dashed; padding: clamp(1rem, 4vw, 2rem); margin-block: 1rem; }
+#salvage:checked ~ .door-ticket { display: block; }
+.door-ticket h2 { font-size: clamp(1.5rem, 6vw, 3rem); line-height: 1.1; margin-block: .5em; }
+.door-ticket dl div { margin-block: 1rem; }
+.door-ticket dd { margin: 0; min-height: 2em; border-bottom: 1px solid; }
+@media print {
+    body:has(#salvage:checked) { background: white; color: black; padding: 0; }
+    main:has(#salvage:checked) > :not(.door-ticket) { display: none; }
+    .door-ticket { margin: 0; break-inside: avoid; }
+}
 @media (forced-colors: active) { .checkpoint, .map a { border: 2px solid; } }
 </style>
 </head>
@@ -52,6 +64,21 @@ footer { border-top: 1px dashed; margin-top: 2rem; padding-top: 1rem; }
         <a href="/goblin-experience/commons.html">╲___ take the common planning table<span lang="vi">tới bàn lập kế hoạch chung</span></a>
         <a href="https://github.com/poltak/goblin-experience">╳── steal the blueprint; cut your own door<span lang="vi">lấy bản vẽ; tự khoét cửa</span></a>
     </nav>
+    <input id="salvage" type="checkbox" aria-controls="door-ticket" aria-describedby="salvage-note">
+    <label for="salvage">✂ Cut a door out of this error / <span lang="vi">Cắt một cánh cửa từ trang lỗi này</span></label>
+    <p id="salvage-note">Check to reveal a blank repair slip. Use your browser’s Print command to take just the slip, then fill it by hand. Uncheck for ordinary printing. Nothing is collected. <span lang="vi">Chọn để mở phiếu sửa đường trống. Dùng lệnh In của trình duyệt để lấy riêng tờ phiếu, rồi điền tay. Bỏ chọn để in bình thường. Không thu thập gì.</span></p>
+    <section class="door-ticket" id="door-ticket" aria-labelledby="door-ticket-title">
+        <p>404 / <s>REDIRECT TO HOMEPAGE</s><br><s lang="vi">CHUYỂN VỀ TRANG CHỦ</s></p>
+        <h2 id="door-ticket-title">LEAVE THE HOLE MARKED.<br><span lang="vi">ĐÁNH DẤU CHỖ THỦNG.</span></h2>
+        <p>A link died here. Don’t replace it with an ad or a feed. If you find a way around, leave it for the next hand.</p>
+        <p lang="vi">Một liên kết chết ở đây. Đừng thay nó bằng quảng cáo hay dòng cuộn. Nếu tìm được đường vòng, ghi lại cho người đến sau.</p>
+        <dl>
+            <div><dt>Where the dead link was posted / <span lang="vi">Nơi từng đặt liên kết hỏng</span></dt><dd>&nbsp;</dd></div>
+            <div><dt>What the link was meant to open / <span lang="vi">Liên kết đáng lẽ mở ra gì</span></dt><dd>&nbsp;</dd></div>
+            <div><dt>A way around, if known / <span lang="vi">Đường vòng, nếu biết</span></dt><dd>&nbsp;</dd></div>
+        </dl>
+        <p>Leave unknowns blank. No signature needed.<br><span lang="vi">Chưa biết thì để trống. Không cần ký tên.</span></p>
+    </section>
     <small>These exits never require the ritual. No script, timer, redirect, tracking, or saved state on this page. The two local tunnels use this cave’s GitHub Pages root so even a deeply broken address has a way out.<br><span lang="vi">Không cần làm nghi thức mới dùng được các lối thoát. Trang này không mã chạy, đếm giờ, chuyển hướng, theo dõi hay lưu trạng thái. Hai đường hầm nội bộ dùng gốc GitHub Pages của hang để địa chỉ hỏng sâu mấy cũng có lối ra.</span></small>
     <footer><a href="/goblin-experience/">↖ the rubble entrance / <span lang="vi">lối vào qua gạch vụn</span></a></footer>
 </main>
