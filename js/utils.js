@@ -1,4 +1,4 @@
-export const BUILD = '20261126-222129';
+export const BUILD = '20261126-224219';
 
 export function formatBuildStamp(build) {
     const text = String(build || '').trim();

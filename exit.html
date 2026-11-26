@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Leave without a receipt / Rời hang không cần biên lai</title>
+    <style>
+        :root { color-scheme: dark; background: #201b18; color: #efe4cb; font-family: monospace; }
+        * { box-sizing: border-box; }
+        body { max-width: 40rem; margin: auto; padding: clamp(1rem, 5vw, 3rem); line-height: 1.6; }
+        .receipt { background: #efe4cb; color: #201b18; border-block: .5rem dashed #201b18; padding: clamp(1rem, 4vw, 2rem); }
+        h1 { font-size: clamp(1.8rem, 7vw, 3.5rem); line-height: 1; margin-block: .75em; }
+        h1 span { display: block; font-size: .6em; margin-top: .5em; }
+        dl { margin: 0; border-block: 2px dashed; padding-block: .5rem; }
+        dt { font-weight: bold; margin-top: .5rem; }
+        dd { margin: 0 0 .5rem; }
+        .stamp { font-weight: bold; color: #892a18; }
+        details { margin-top: 1rem; }
+        summary { cursor: pointer; padding: 1rem; border: 2px dashed #efe4cb; font-weight: bold; }
+        summary:focus-visible { outline: .2rem solid #f9a46f; outline-offset: .25rem; }
+        .quiet { margin-top: 22vh; }
+        .quiet h2 { font-size: clamp(1.6rem, 6vw, 3rem); line-height: 1.1; }
+        .quiet p { max-width: 36ch; }
+        @supports selector(main:has(details[open])) {
+            main:has(details[open]) .receipt, details[open] .tear { display: none; }
+            details:not([open]) .restore, .fallback { display: none; }
+        }
+        @supports not selector(main:has(details[open])) {
+            .tear, .restore { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="receipt">
+            <p class="stamp">ATTENTION BUREAU · PROP / <span lang="vi">CỤC QUẢN LÝ CHÚ Ý · ĐẠO CỤ</span></p>
+            <h1>We regret to inform you that you left wrong.<span lang="vi">Rất tiếc phải báo rằng bạn đã rời đi sai cách.</span></h1>
+            <dl>
+                <dt>Exit reason / <span lang="vi">Lý do rời đi</span></dt>
+                <dd><s>Must be legible to management / <span lang="vi">Phải ghi sao cho quản lý hiểu</span></s></dd>
+                <dt>Value recovered / <span lang="vi">Giá trị thu hồi</span></dt>
+                <dd><s>One more minute, if we make the form longer / <span lang="vi">Thêm một phút nữa, nếu kéo dài biểu mẫu</span></s></dd>
+            </dl>
+            <p>This is a fake receipt, not a reading of your visit. There is no form to fill in. You can leave now.<br><span lang="vi">Đây là biên lai giả, không phải bản ghi lượt ghé của bạn. Không có biểu mẫu nào phải điền. Bạn có thể rời đi ngay.</span></p>
+        </div>
+        <details>
+            <summary><span class="tear">✂ Tear off the receipt / <span lang="vi">Xé bỏ biên lai</span></span><span class="restore">↶ Put the receipt back / <span lang="vi">Đặt biên lai lại chỗ cũ</span></span><span class="fallback">Lift the flap / <span lang="vi">Nhấc nắp lên</span></span></summary>
+            <div class="quiet">
+                <h2>You can go mid-sentence.<br><span lang="vi">Bạn có thể đi khi câu còn dang dở.</span></h2>
+                <p>No next link. Nothing to finish. Use Back or close the tab.</p>
+                <p lang="vi">Không có liên kết tiếp theo. Không cần làm cho xong. Bấm Quay lại hoặc đóng thẻ.</p>
+            </div>
+        </details>
+    </main>
+</body>
+</html>
