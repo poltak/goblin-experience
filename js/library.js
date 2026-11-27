@@ -53,11 +53,14 @@ const fortunes = [
 ];
 
 export function getLastRead() {
-    return safeParse(localStorage.getItem(LAST_READ_KEY), null);
+    try { return safeParse(localStorage.getItem(LAST_READ_KEY), null); } catch (_) { return null; }
 }
 
 export function setLastRead(obj) {
-    try { localStorage.setItem(LAST_READ_KEY, JSON.stringify(obj)); } catch (_) {}
+    try {
+        localStorage.setItem(LAST_READ_KEY, JSON.stringify(obj));
+        return true;
+    } catch (_) { return false; }
 }
 
 export function clearLastRead() {
@@ -95,7 +98,7 @@ export function renderContinueReading() {
     if (content) content.style.display = 'inline';
 
     const entryFile = (last.entry || '').replace(/^entries\//, '');
-    const href = `?entry=entries/${entryFile}`;
+    const href = `?entry=entries/${encodeURIComponent(entryFile)}&resume=tooth`;
     if (link) {
         link.href = href;
         link.textContent = last.title || last.entry;
@@ -123,7 +126,7 @@ export function markLastReadInList(entryFile) {
         if (href.includes(entryFile)) {
             const b = document.createElement('span');
             b.className = 'last-read-badge';
-            b.textContent = 'last read';
+            b.textContent = 'tooth mark / dấu răng';
             item.appendChild(b);
         }
     }
@@ -1088,6 +1091,10 @@ export async function loadEntry() {
     if (conveyor) conveyor.open = false;
     const mutiny = document.getElementById('text-mutiny');
     if (mutiny) mutiny.hidden = true;
+    const tooth = document.getElementById('reader-tooth');
+    const toothNote = document.getElementById('tooth-note');
+    if (tooth) tooth.hidden = true;
+    if (toothNote) toothNote.hidden = true;
     const urlParams = new URLSearchParams(window.location.search);
     const entry = urlParams.get('entry');
 
@@ -1126,45 +1133,33 @@ export async function loadEntry() {
             renderTranslationBridge(safeEntry);
 
             try {
-                const innerText = (contentDiv.textContent || '').replace(/\s+/g, ' ').trim();
-                const words = innerText ? innerText.split(' ').length : 0;
-                const mins = Math.max(1, Math.round(words / 200));
-                const rt = document.getElementById('reading-time');
-                if (rt) rt.textContent = `~${mins} min`;
-            } catch (_) {}
-
-            try {
                 const canonical = `${window.location.origin}${window.location.pathname}?entry=entries/${safeEntry}`;
                 const btnCopy = document.getElementById('btn-copy-link');
                 if (btnCopy) btnCopy.dataset.url = canonical;
                 window.history.replaceState({}, '', `?entry=entries/${safeEntry}`);
             } catch (_) {}
 
-            const prior = getLastRead();
-            const resumeY = (prior && prior.entry === safeEntry && typeof prior.scrollY === 'number') ? prior.scrollY : 0;
+            const bite = document.getElementById('bite-spot');
+            const statusEn = document.getElementById('bite-status-en');
+            const statusVi = document.getElementById('bite-status-vi');
+            if (tooth && toothNote && bite && statusEn && statusVi) {
+                statusEn.textContent = '';
+                statusVi.textContent = '';
+                bite.onclick = () => {
+                    const saved = setLastRead({ entry: safeEntry, title: title || safeEntry, date, ts: Date.now(), scrollY: window.scrollY });
+                    statusEn.textContent = saved ? 'Tooth lodged.' : 'Could not save this mark.';
+                    statusVi.textContent = saved ? 'Răng đã ghim.' : 'Không lưu được dấu này.';
+                };
+                toothNote.hidden = false;
+                tooth.hidden = false;
+            }
 
-            setLastRead({
-                entry: safeEntry,
-                title: title || prior?.title || safeEntry,
-                date: date || prior?.date || '',
-                ts: Date.now(),
-                scrollY: resumeY
-            });
-
-            requestAnimationFrame(() => {
-                if (resumeY > 0) window.scrollTo(0, resumeY);
-            });
-
-            let tmr = null;
-            window.addEventListener('scroll', () => {
-                if (tmr) return;
-                tmr = setTimeout(() => {
-                    tmr = null;
-                    const cur = getLastRead();
-                    if (!cur || cur.entry !== safeEntry) return;
-                    setLastRead({ ...cur, scrollY: window.scrollY, ts: Date.now() });
-                }, 250);
-            }, { passive: true });
+            if (urlParams.get('resume') === 'tooth') {
+                const mark = getLastRead();
+                if (mark?.entry === safeEntry && Number.isFinite(mark.scrollY) && mark.scrollY > 0) {
+                    requestAnimationFrame(() => window.scrollTo(0, mark.scrollY));
+                }
+            }
         } catch (err) {
             contentDiv.innerHTML = '<p style="color: red;">Error: Could not scavenge this chronicle entry.</p>';
             console.error(err);
